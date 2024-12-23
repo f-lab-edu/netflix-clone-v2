@@ -2,6 +2,11 @@
   "name": "netflix-clone",
   "version": "0.1.0",
   "private": true,
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
+  },
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build",
@@ -12,10 +17,11 @@
     "styled-components": "^6"
   },
   "dependencies": {
+    "graphql": "^16.10.0",
     "jotai": "^2.11.0",
     "next": "15.1.2",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
     "react-hook-form": "^7.54.2",
     "react-query": "^3.39.3",
     "styled-components": "^6.1.13"
@@ -23,10 +29,11 @@
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
     "eslint": "^9",
     "eslint-config-next": "15.1.2",
+    "msw": "^2.7.0",
     "typescript": "^5"
   }
 }

@@ -1,7 +1,7 @@
 import { createContext } from 'react'
 
 type RootDomContextType = {
-  getRootDom: () => Element
+  getRootDom: () => HTMLElement | null
 }
 const RootDomProviderContext = createContext<RootDomContextType>({
   getRootDom: () => document.body

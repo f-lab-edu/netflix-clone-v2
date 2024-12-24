@@ -8,10 +8,11 @@ export interface RootDomProviderProps {
 }
 
 export const RootDomProvider = ({ children, selector }: RootDomProviderProps) => {
-  const [root, setRootDom] = useState<Element>(document.body)
+  const defaultRoot = typeof window === 'undefined' ? null : document.body
+  const [root, setRootDom] = useState<HTMLElement | null>(defaultRoot)
   useEffect(() => {
-    setRootDom(document.querySelector(selector || '#__next') || document.body)
-  }, [selector])
+    setRootDom(document.querySelector<HTMLElement>(selector || '#__next') || defaultRoot)
+  }, [selector, defaultRoot])
   const context = {
     getRootDom: () => root
   }

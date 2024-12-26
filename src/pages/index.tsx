@@ -1,6 +1,5 @@
 import type { GetStaticProps } from 'next';
-import I18nConfig from '@I18nConfig';
-import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { getServerTranslations } from '@/lib/i18n/getServerTranslations';
 export { default } from '@components/pages/Home'
 
 export const getStaticProps: GetStaticProps = async ({
@@ -8,9 +7,7 @@ export const getStaticProps: GetStaticProps = async ({
 }) => {
   return {
     props: {
-      ...await serverSideTranslations(locale ?? 'en', [
-        'common', 'page-home'
-      ], I18nConfig),
+      ...await getServerTranslations(locale || 'en', ['common', 'page-home'])
     },
   }
 }

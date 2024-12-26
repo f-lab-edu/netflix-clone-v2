@@ -13,7 +13,6 @@ const config: UserConfig = {
   },
   localePath: isBrowser ? '/locales' : './public/locales',
   defaultNS: 'common',
-  ns: ['common', 'page-home'],
 };
 
 export default config;

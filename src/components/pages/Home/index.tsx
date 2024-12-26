@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'next-i18next'
 import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBottom';
 import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentShell } from './styles/HeroContent';
 import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninLink } from './styles/HeroHead';

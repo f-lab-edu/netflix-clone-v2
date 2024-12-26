@@ -2,13 +2,10 @@
   --background: #ffffff;
   --foreground: #171717;
   --global-border-radius: 8px;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --netflix-font-color: #ffffff;
+  --netflix-red-color: #e50914;
+  --netflix-red-color-hover: #c11119;
+  --netflix-red-color-active: #99161d
 }
 
 html,

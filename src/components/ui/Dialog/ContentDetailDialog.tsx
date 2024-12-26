@@ -4,7 +4,7 @@ import { useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import useAnimationControl from '@/provider/AnimationProvider/hooks/useAnimationControl'
 import AnimationProviderContext from '@/provider/AnimationProvider/provider/AnimationProviderContext'
-import useRootDom from '../../provider/RootDom/hooks/useRootDom'
+import useRootDom from '@/provider/RootDom/hooks/useRootDom'
 import Backdrop from './component/Backdrop'
 import ContentDialog from './component/ContentDialog';
 import useHoldBackWindow from './hooks/useHoldBackWindow';

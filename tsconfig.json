@@ -18,6 +18,9 @@
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@mocks/*": ["./src/mocks/*"],
+      "@public/*": ["./public/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@I18nConfig": ["./next-i18next.config.ts"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

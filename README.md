@@ -47,7 +47,7 @@ Netflix 클론 코딩을 위한 개인 프로젝트 입니다.
 
 ## 기술 스택
 ### FE
-nextjs, react-hook-form, react-query, jotai, styled-component, msw, JWT
+nextjs, react-hook-form, react-query, jotai, styled-component, msw, JWT, i18n
 
 ### BE
 #### Featured

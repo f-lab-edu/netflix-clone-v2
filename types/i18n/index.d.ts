@@ -8,12 +8,14 @@
 import 'i18next'
 // resources.ts file is generated with `npm run toc`
 import type common from '../../public/locales/en/common.json'
+import type PageHome from '../../public/locales/en/page-home.json'
 
 declare module 'i18next' {
   interface CustomTypeOptions {
     defaultNS: 'common'
     resources: {
-      common: typeof common
+      common: typeof common,
+      'page-home': typeof PageHome
     }
   }
 }

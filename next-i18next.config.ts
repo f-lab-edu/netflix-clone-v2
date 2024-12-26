@@ -1,7 +1,7 @@
 import type { UserConfig } from 'next-i18next';
 
 const isBrowser = typeof window !== 'undefined';
-const isDev = process.env.NODE_ENV === 'development';
+// const isDev = process.env.NODE_ENV === 'development';
 
 const config: UserConfig = {
   i18n: {
@@ -11,10 +11,9 @@ const config: UserConfig = {
   fallbackLng: {
     default: ['en'],
   },
-  debug: isDev,
   localePath: isBrowser ? '/locales' : './public/locales',
   defaultNS: 'common',
-  ns: ['common'],
+  ns: ['common', 'page-home'],
 };
 
 export default config;

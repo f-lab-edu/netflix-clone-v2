@@ -1,6 +1,9 @@
 import { css } from 'styled-components';
+import NetflixSans from '../Font/NetflixSans';
+import roboto from '../Font/Roboto';
 
 export const ButtonStyle = css`
+font-family: ${NetflixSans.style.fontFamily + ', ' + roboto.style.fontFamily};
 line-height: 1;
 background-color: var(--netflix-red-color);
 transition-duration: .25s;

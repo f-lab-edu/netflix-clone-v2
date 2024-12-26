@@ -1,7 +1,7 @@
 import '@/styles/globals.css';
 import type { AppProps } from 'next/app';
-import RootDomProvider from '@/components/provider/RootDom/provider';
 import initMSW from '@/mocks';
+import RootDomProvider from '@/provider/RootDom/provider';
 
 initMSW();
 

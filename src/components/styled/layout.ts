@@ -1,4 +1,5 @@
-import type { CSSObject, CSSProp, RuleSet } from 'styled-components';
+import type { CSSProp } from 'styled-components';
+import type { Styles } from 'styled-components/dist/types';
 import { css } from 'styled-components';
 
 type DisplaySize = 'xs' | 'sm' | 'md' | 'lg' | 'full'
@@ -15,11 +16,12 @@ const MediaQuery = Object.entries(sizes).reduce((acc, [key, value]) => {
   return {
     ...acc,
     [key]: (
-      first: CSSObject | TemplateStringsArray,
+      first: Styles<object> | TemplateStringsArray,
       ...interpolations: CSSProp[]
-    ) => css`@media all and (min-width: ${value}px) {
+    ) => css`
+    @media all and (min-width: ${value}px) {
       ${css(first, ...interpolations)}
     }`
   }
-}, {}) as Record<DisplaySize, (_style: CSSObject | TemplateStringsArray) => RuleSet<object>>
+}, {}) as Record<DisplaySize, typeof css>
 export default MediaQuery

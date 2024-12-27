@@ -30,6 +30,38 @@ z-index: 3;
   padding-top: 46.666666666666664%;
   box-sizing: border-box;
 }`
+export const HeroContentDetail = styled.div`
+display: flex;
+flex-direction: column;
+flex: 1;
+z-index: 3;
+`
+export const HeroContentDetailShell = styled.div`
+display: flex;
+flex-direction: column;
+width: 100%;
+max-width: 120rem;
+justify-content: center;
+padding: 0 2rem 2rem;
+margin: -2rem auto 0 auto;
+min-height: 80vh;
+${MediaQuery.xs`min-height: 31rem;`}
+${MediaQuery.md`min-height: 37rem;`}
+${MediaQuery.lg`min-height: min(80vh, 45rem);`}
+`
+export const HeroContentDetailContentLayout = styled.div`
+display: flex;
+flex-direction: column;
+width: 100%;
+margin: 0 auto;
+text-align: center;
+align-self: center;
+${MediaQuery.xs`max-width: 100%;`}
+${MediaQuery.sm`max-width: 27rem;`}
+${MediaQuery.md`max-width: 31.75rem;`}
+${MediaQuery.lg`max-width: 36.75rem;`}
+${MediaQuery.full`max-width: 41.5rem;`}
+`
 export const HeroContentBg = styled.div`
 position: absolute;
 width: 100%;

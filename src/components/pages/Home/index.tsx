@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next'
 import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBottom';
-import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentShell } from './styles/HeroContent';
+import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentDetail, HeroContentDetailShell, HeroContentDetailContentLayout, HeroContentShell } from './styles/HeroContent';
 import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninLink } from './styles/HeroHead';
-import { HeroSection } from './styles/HeroSection';
+import { HeroDescrpition1, HeroDescrpition2, HeroSection, HeroTitle } from './styles/HeroSection';
 
 export default function Home() {
   const { t } = useTranslation(['common', 'page-home'])
@@ -39,12 +39,29 @@ export default function Home() {
               <HeroContentBg>
                 <HeroContentBgShadow></HeroContentBgShadow>
               </HeroContentBg>
-              <HeroBottom>
-                <div>
-                  <HeroBottomLine></HeroBottomLine>
-                </div>
-                <HeroBottomMargin></HeroBottomMargin>
-              </HeroBottom>
+              <HeroContentDetail>
+                <HeroContentDetailShell>
+                  <HeroContentDetailContentLayout>
+                    <HeroTitle>
+                      {t('page-home:section1.title')}
+                    </HeroTitle>
+                    <HeroDescrpition1>
+                      {t('page-home:section1.desc1')}
+                    </HeroDescrpition1>
+                    <form>
+                      <HeroDescrpition2>
+                        {t('page-home:section1.desc2')}
+                      </HeroDescrpition2>
+                    </form>
+                  </HeroContentDetailContentLayout>
+                </HeroContentDetailShell>
+                <HeroBottom>
+                  <div>
+                    <HeroBottomLine></HeroBottomLine>
+                  </div>
+                  <HeroBottomMargin></HeroBottomMargin>
+                </HeroBottom>
+              </HeroContentDetail>
             </HeroContent>
           </HeroContentShell>
         </HeroSection>

@@ -13,7 +13,7 @@ const eslintConfig = [
   {
     ignores: ["**/dist", "**/eslint.config.mjs"],
   },
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
+  ...compat.extends("next/core-web-vitals", "next/typescript", "@emotion"),
   {
     rules: {
       "import/consistent-type-specifier-style": ["error", "prefer-top-level"],

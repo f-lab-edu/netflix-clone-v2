@@ -1,4 +1,4 @@
-import { css } from 'styled-components';
+import { css } from '@emotion/css';
 import NetflixSans from '../Font/NetflixSans';
 import roboto from '../Font/Roboto';
 

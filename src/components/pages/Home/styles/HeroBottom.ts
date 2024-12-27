@@ -1,5 +1,5 @@
-import styled from 'styled-components'
-import MediaQuery from '@/components/styled/layout'
+import styled from '@emotion/styled'
+import { MediaPoint } from '@/components/styled/layout'
 
 export const HeroBottom = styled.div`
 position: relative;
@@ -11,9 +11,9 @@ box-sizing: border-box;
 
 export const HeroBottomMargin = styled.div`
 margin-bottom: 1.375rem;
-${MediaQuery.sm`margin-bottom: 1.875rem;`}
-${MediaQuery.md`margin-bottom: 1.25rem;`}
-`
+${MediaPoint({
+  marginBottom: [, '1.875rem', '1.25rem']
+})}`
 
 export const HeroBottomLine = styled.div`
 box-sizing: border-box;
@@ -21,9 +21,6 @@ position: absolute;
 height: 100%;
 top: 0;
 margin: auto;
-display: -webkit-box;
-display: -webkit-flex;
-display: -ms-flexbox;
 display: flex;
 align-items: center;
 border: solid .25rem transparent;
@@ -32,11 +29,10 @@ border-top-right-radius: 50% 100%;
 border-bottom: none;
 background: radial-gradient( 50% 500% at 50% -420%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100% ),black;
 background-clip: padding-box;
-${MediaQuery.xs`width: 200%;left: -50%;`}
-${MediaQuery.sm`width: 180%;left: -40%;`}
-${MediaQuery.md`width: 150%;left: -25%;`}
-${MediaQuery.lg`width: 130%;left: -15%;`}
-${MediaQuery.full`width: 120%;left: -10%;`}
+${MediaPoint({
+  width: ['200%', '180%', '150%', '130%', '120%'],
+  left: ['-50%', '-40%', '-25%', '-15%', '-10%']
+})}
 &:before {
   content: '';
   position: absolute;

@@ -1,7 +1,7 @@
 import TopLogo from '@assets/netflix/top-logo.svg'
 import Link from 'next/link';
-import styled from 'styled-components';
-import MediaQuery from '@/components/styled/layout';
+import styled from '@emotion/styled';
+import { MediaPoint } from '@/components/styled/layout';
 import { ButtonStyle } from '@/components/ui/Button/ButtonStyle';
 
 export const HeroHead = styled.div`
@@ -16,26 +16,37 @@ width: 100%;
 max-width: 120rem;
 height: 7.5rem;
 margin: 0 auto -7.5rem auto;
-${MediaQuery.xs`padding: 0 1.5rem;`}
-${MediaQuery.sm`padding: 0 2rem;`}
-${MediaQuery.md`padding: 0 5rem;`}
-${MediaQuery.lg`padding: 0 9.25rem;`}
-${MediaQuery.full`padding: 0 22.125rem;`}`
+${MediaPoint({
+  padding: [
+    '0 1.5rem',
+    '0 2rem',
+    '0 5rem',
+    '0 9.25rem',
+    '0 22.125rem'
+  ]
+})}`
 
 export const HeroHeadContent = styled.header`
 display: flex;
 justify-content: space-between;
 align-items: center;
-${MediaQuery.xs`height: 5rem;`}
-${MediaQuery.lg`height: 5.5rem`}
+${MediaPoint({
+  height: [
+    '5rem',
+    ,
+    ,
+    '5.5rem'
+  ]
+})}
 `
 export const HeroHeadLogo = styled(TopLogo)`
-width: 5.5625rem;
-height: 1.5rem;
 color: var(--netflix-red-color);
 fill: currentColor;
 display: block;
-${MediaQuery.md`width: 9.25rem;height: 2.5rem;`}
+${MediaPoint({
+  width: ['5.5625rem', , '9.25rem'],
+  height: ['1.5rem', , '2.5rem']
+})}
 `
 
 export const HeroHeadRightSide = styled.div`

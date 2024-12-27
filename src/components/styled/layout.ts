@@ -1,5 +1,6 @@
 import type { CSSProp } from 'styled-components';
 import type { Styles } from 'styled-components/dist/types';
+import facepaint from 'facepaint'
 import { css } from 'styled-components';
 
 type DisplaySize = 'xs' | 'sm' | 'md' | 'lg' | 'full'
@@ -11,6 +12,13 @@ const sizes: Record<DisplaySize, number> = {
   lg: 1280,
   full: 1920
 }
+/**
+ * https://emotion.sh/docs/media-queries#facepaint
+ * usage : MediaPoint({ color: [xs, sm, md, lg, full] })
+ */
+export const MediaPoint = facepaint(
+  Object.values(sizes).slice(1).map(v => `@media (min-width: ${v}px)`)
+)
 
 const MediaQuery = Object.entries(sizes).reduce((acc, [key, value]) => {
   return {

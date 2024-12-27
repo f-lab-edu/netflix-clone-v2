@@ -4,9 +4,13 @@ import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBotto
 import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentDetail, HeroContentDetailShell, HeroContentDetailContentLayout, HeroContentShell } from './styles/HeroContent';
 import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninLink } from './styles/HeroHead';
 import { HeroDescrpition1, HeroDescrpition2, HeroSection, HeroTitle } from './styles/HeroSection';
+import { TextDisplay } from '@/components/ui/Font/TextDisplayStyle';
+import { cx } from '@emotion/css';
+import { useTheme } from '@emotion/react';
 
 export default function Home() {
   const { t } = useTranslation(['common', 'page-home'])
+  const theme = useTheme()
   return (
     <>
       <Head>
@@ -17,7 +21,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div>
-        <HeroSection>
+        <section className={cx(HeroSection)}>
           <HeroHead>
             <HeroHeadLayer>
               <HeroHeadContent>
@@ -42,16 +46,16 @@ export default function Home() {
               <HeroContentDetail>
                 <HeroContentDetailShell>
                   <HeroContentDetailContentLayout>
-                    <HeroTitle>
+                    <h1 className={cx(TextDisplay(theme), HeroTitle)}>
                       {t('page-home:section1.title')}
-                    </HeroTitle>
-                    <HeroDescrpition1>
+                    </h1>
+                    <p className={cx(TextDisplay(theme), HeroDescrpition1)}>
                       {t('page-home:section1.desc1')}
-                    </HeroDescrpition1>
+                    </p>
                     <form>
-                      <HeroDescrpition2>
+                      <h3 className={cx(TextDisplay(theme), HeroDescrpition2)}>
                         {t('page-home:section1.desc2')}
-                      </HeroDescrpition2>
+                      </h3>
                     </form>
                   </HeroContentDetailContentLayout>
                 </HeroContentDetailShell>
@@ -64,7 +68,7 @@ export default function Home() {
               </HeroContentDetail>
             </HeroContent>
           </HeroContentShell>
-        </HeroSection>
+        </section>
       </div>
     </>
   );

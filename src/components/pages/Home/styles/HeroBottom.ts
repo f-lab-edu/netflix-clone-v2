@@ -35,7 +35,7 @@ export const HeroBottomLine = styled.div([
     background: 'radial-gradient( 50% 500% at 50% -420%, rgba(64, 97, 231, 0.4) 80%, rgba(0, 0, 0, 0.1) 100% ),black',
     backgroundClip: 'padding-box',
     '&:before': {
-      content: '',
+      content: '""',
       position: 'absolute',
       top: 0,
       right: 0,

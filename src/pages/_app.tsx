@@ -1,12 +1,13 @@
 import '@/styles/globals.css';
+import type { Theme } from '@emotion/react';
 import type { AppProps } from 'next/app';
-import I18nConfig from '@I18nConfig';
+import { ThemeProvider } from '@emotion/react';
 import { appWithTranslation } from 'next-i18next'
-import initMSW from '@/mocks';
-import RootDomProvider from '@/provider/RootDom/provider';
-import { Theme, ThemeProvider } from '@emotion/react';
 import NetflixSans from '@/components/ui/Font/NetflixSans';
 import roboto from '@/components/ui/Font/Roboto';
+import initMSW from '@/mocks';
+import RootDomProvider from '@/provider/RootDom/provider';
+import I18nConfig from '@I18nConfig';
 initMSW();
 function App({ Component, pageProps }: AppProps) {
   const theme: Theme = {

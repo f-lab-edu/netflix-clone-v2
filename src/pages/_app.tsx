@@ -5,12 +5,25 @@ import { appWithTranslation } from 'next-i18next'
 import initMSW from '@/mocks';
 import RootDomProvider from '@/provider/RootDom/provider';
 import { Theme, ThemeProvider } from '@emotion/react';
+import NetflixSans from '@/components/ui/Font/NetflixSans';
+import roboto from '@/components/ui/Font/Roboto';
 initMSW();
 function App({ Component, pageProps }: AppProps) {
   const theme: Theme = {
-    borderRadius: { global: '6px' },
+    fonts: {
+      NetflixSans: NetflixSans.style.fontFamily,
+      Roboto: roboto.style.fontFamily
+    },
+    borderRadius: {
+      global: '6px',
+      xs: '0.25rem'
+    },
     color: {
-      netflixFontColor: '#ffffff',
+      white: {
+        default: '#ffffff',
+        active: '',
+        hover: 'rgba(255,255,255,0.7)',
+      },
       red: {
         default: '#e50914',
         active: '#99161d',

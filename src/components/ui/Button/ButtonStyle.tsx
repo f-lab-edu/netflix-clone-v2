@@ -1,35 +1,33 @@
-import { css } from '@emotion/css';
-import NetflixSans from '../Font/NetflixSans';
-import roboto from '../Font/Roboto';
+import type { Theme } from '@emotion/react';
+import { css } from '@emotion/react';
 
-export const ButtonStyle = css`
-font-family: ${NetflixSans.style.fontFamily + ', ' + roboto.style.fontFamily};
-line-height: 1;
-background-color: var(--netflix-red-color);
-transition-duration: .25s;
-transition-property: background-color, border-color;
-transition-timing-function: cubic-bezier(0.4,0,0.68,0.06);
-border: 0px;
-border-radius: 0.25rem;
-align-items: center;
-position: relative;
-box-sizing: border-box;
-display: inline-flex;
-color: var(--netflix-font-color);
-fill: currentColor;
-vertical-align: text-top;
-
-&:hover {
-  transition-timing-function: cubic-bezier(0.32,0.94,0.6,1);
-  background-color: var(--netflix-red-color-hover);
-  border-color: black
-}
-&:active {
-  transition: none;
-  color: rgba(255,255,255,0.7);
-  background-color: var(--netflix-red-color-active);
-}
-&:focus:not(:focus-visible) {
-  outline: none;
-}
-`
+export const ButtonStyle = (theme: Theme) => css({
+  fontFamily: `${theme.fonts.NetflixSans + ', ' + theme.fonts.Roboto};`,
+  lineHeight: 1,
+  backgroundColor: theme.color.red.default,
+  transitionDuration: '.25s',
+  transitionProperty: ['background-color', 'border-color'],
+  transitionTimingFunction: 'cubic-bezier(0.4,0,0.68,0.06)',
+  border: 0,
+  borderRadius: theme.borderRadius.xs,
+  alignItems: 'center',
+  position: 'relative',
+  boxSizing: 'border-box',
+  display: 'inline-flex',
+  color: theme.color.white.default,
+  fill: 'currentcolor',
+  verticalAlign: 'text-top',
+  '&:hover': {
+    transitionTimingFunction: 'cubic-bezier(0.32,0.94,0.6,1)',
+    backgroundColor: theme.color.red.hover,
+    borderColor: 'black'
+  },
+  '&:active': {
+    transition: 'none',
+    color: theme.color.white.active,
+    backgroundColor: theme.color.red.active,
+  },
+  '&:focus:not(:focus-visible)': {
+    outline: 'none'
+  }
+})

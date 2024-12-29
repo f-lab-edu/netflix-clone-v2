@@ -1,8 +1,8 @@
-import styled from 'styled-components'
+import styled from '@emotion/styled';
 
-export const DialogContainer = styled.div`
-will-change: scroll-position;
-position: fixed;
-border-radius: var(--global-border-radius);
-overflow: hidden;
-`
+export const DialogContainer = styled.div([(props) => ({
+  willChange: 'scroll-position',
+  position: 'fixed',
+  borderRadius: props.theme.borderRadius.global,
+  overflow: 'hidden',
+})])

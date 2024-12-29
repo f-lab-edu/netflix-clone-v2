@@ -1,4 +1,5 @@
-import styled, { css, keyframes } from 'styled-components'
+import { css, keyframes } from '@emotion/react'
+import styled from '@emotion/styled'
 
 const opacity = css`
 opacity: var(--backdrop-opacity, 0.7);

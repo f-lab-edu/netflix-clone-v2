@@ -8,13 +8,12 @@ export const theme: Theme = {
     Roboto: roboto.style.fontFamily
   },
   borderRadius: {
-    global: '6px',
-    xs: '0.25rem'
+    sm: '.325rem',
+    xs: '.25rem'
   },
   color: {
     white: {
       default: '#ffffff',
-      active: '',
       hover: 'rgba(255,255,255,0.7)',
     },
     red: {

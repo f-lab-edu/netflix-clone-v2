@@ -61,7 +61,7 @@ export const HeroHeadSigninLink = styled(Link)([
   ButtonStyle,
   {
     minHeight: '2rem',
-    borderRadius: '0.25rem',
+    borderRadius: theme.borderRadius.xs,
     lineHeight: 1,
     fontSize: '14px',
     fontWeight: 500,

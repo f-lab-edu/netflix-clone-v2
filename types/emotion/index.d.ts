@@ -7,14 +7,13 @@ declare module '@emotion/react' {
       Roboto: string
     }
     borderRadius: {
-      global: string
-      xs: string
+      sm: '.325rem'
+      xs: '.25rem'
     }
     color: {
       white: {
         default: string
         hover: string
-        active: string
       }
       red: {
         default: string

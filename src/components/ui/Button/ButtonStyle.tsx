@@ -1,7 +1,7 @@
-import type { Theme } from '@emotion/react';
 import { css } from '@emotion/react';
+import { theme } from '../theme';
 
-export const ButtonStyle = (theme: Theme) => css({
+export const ButtonStyle = css({
   fontFamily: `${theme.fonts.NetflixSans + ', ' + theme.fonts.Roboto};`,
   lineHeight: 1,
   backgroundColor: theme.color.red.default,

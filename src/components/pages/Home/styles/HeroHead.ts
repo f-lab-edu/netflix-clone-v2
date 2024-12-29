@@ -1,9 +1,9 @@
-import type { Theme } from '@emotion/react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { MediaPoint } from '@/components/styled/layout';
 import { ButtonStyle } from '@/components/ui/Button/ButtonStyle';
 import { TextDisplay } from '@/components/ui/Font/TextDisplayStyle';
+import { theme } from '@/components/ui/theme';
 import TopLogo from '@assets/netflix/top-logo.svg'
 
 export const HeroHead = styled.div([`
@@ -41,11 +41,11 @@ export const HeroHeadContent = styled.header([{
   ]
 })])
 
-export const HeroHeadLogo = styled(TopLogo)([(props: { theme: Theme }) => ({
-  color: props.theme.color.red.default,
+export const HeroHeadLogo = styled(TopLogo)([{
+  color: theme.color.red.default,
   fill: 'currentcolor',
   display: 'block'
-}), MediaPoint({
+}, MediaPoint({
   width: ['5.5625rem', , '9.25rem'],
   height: ['1.5rem', , '2.5rem']
 })])
@@ -57,8 +57,8 @@ export const HeroHeadRightSide = styled.div([{
 }])
 
 export const HeroHeadSigninLink = styled(Link)([
-  (props) => TextDisplay(props.theme),
-  (props) => ButtonStyle(props.theme),
+  TextDisplay,
+  ButtonStyle,
   {
     minHeight: '2rem',
     borderRadius: '0.25rem',

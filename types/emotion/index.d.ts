@@ -18,6 +18,7 @@ declare module '@emotion/react' {
       }
       red: {
         default: string
+        error: string
         hover: string
         active: string
       }

@@ -14,6 +14,7 @@ export const theme: Theme = {
   color: {
     white: {
       default: '#ffffff',
+      active: 'rgba(255,255,255,0.7)',
       hover: 'rgba(255,255,255,0.7)',
     },
     red: {

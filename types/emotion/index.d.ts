@@ -13,6 +13,7 @@ declare module '@emotion/react' {
     color: {
       white: {
         default: string
+        active: string
         hover: string
       }
       red: {

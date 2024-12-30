@@ -20,7 +20,7 @@ interface ChildrenProps<V> {
 export interface InputProps<V> {
   css?: Interpolation
   inputCss?: Interpolation
-  value: V
+  value?: V
   defaultValue: V
   prefixChild?: ReactElement
   postfixChild?: ReactElement

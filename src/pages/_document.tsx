@@ -1,5 +1,5 @@
-import I18nConfig from '@I18nConfig';
 import { Html, Head, Main, NextScript } from 'next/document';
+import I18nConfig from '@I18nConfig';
 
 interface DocumentProps {
   locale: string

@@ -13,11 +13,7 @@
     "start": "next start",
     "lint": "next lint"
   },
-  "resolutions": {
-    "styled-components": "^6"
-  },
   "dependencies": {
-    "@emotion/css": "^11.13.5",
     "@emotion/react": "^11.14.0",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.14.0",
@@ -31,8 +27,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hook-form": "^7.54.2",
-    "react-i18next": "^15.2.0",
-    "styled-components": "^6.1.13"
+    "react-i18next": "^15.2.0"
   },
   "devDependencies": {
     "@emotion/eslint-plugin": "^11.12.0",

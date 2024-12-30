@@ -1,7 +1,7 @@
 import type { Namespace } from 'i18next';
 import type { SSRConfig, UserConfig } from 'next-i18next'
-import I18nConfig from '@I18nConfig';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
+import I18nConfig from '@I18nConfig';
 
 type ArrayElementOrSelf<T> = T extends ReadonlyArray<infer U> ? U[] : T[];
 

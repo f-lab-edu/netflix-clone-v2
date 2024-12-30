@@ -1,10 +1,9 @@
-import { css } from '@emotion/css';
-import NetflixSans from './NetflixSans';
-import roboto from './Roboto';
+import { css } from '@emotion/react';
+import { theme } from '../theme';
 
 export const TextDisplay = css({
-  fontFamily: `${NetflixSans.style.fontFamily}, ${roboto.style.fontFamily}`,
-  color: 'var(--netflix-font-color)',
+  fontFamily: `${theme.fonts.NetflixSans}, ${theme.fonts.Roboto}`,
+  color: theme.color.white.default,
   padding: 0,
   margin: 0,
   marginBlockEnd: 0,

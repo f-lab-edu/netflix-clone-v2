@@ -17,7 +17,8 @@ export default function LanguageSelect({
   const { t, i18n } = useTranslation(['common'])
 
   const router = useRouter()
-  const onLanguageChange = (value: string) => {
+  const onLanguageChange = (value: string | undefined) => {
+    if (!value) return
     const { pathname, asPath, query } = router
     router.push({ pathname, query }, asPath, { locale: value })
   }
@@ -26,7 +27,7 @@ export default function LanguageSelect({
     inputCss={{ paddingLeft: 'calc(0.625rem + 1rem + 0.5rem)' }}
     value={i18n.language}
     defaultValue={i18n.language}
-    onChange={onLanguageChange}
+    onChangeValue={onLanguageChange}
     isSelect
     prefixChild={<div css={{
       color: theme.color.white.default,

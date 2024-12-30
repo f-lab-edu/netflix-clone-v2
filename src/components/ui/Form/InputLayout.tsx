@@ -11,6 +11,7 @@ interface ChildrenProps<V> {
   css: Interpolation[]
   id: string
   value: V | undefined
+  // defaultValue: V
   onFocus: FocusEventHandler
   onBlur: FocusEventHandler
   onChange: ChangeEventHandler
@@ -29,7 +30,8 @@ export interface InputProps<V> {
   label?: string
   onFocus?: FocusEventHandler
   onBlur?: FocusEventHandler
-  onChange?: (_value: V) => void
+  onChange?: ChangeEventHandler
+  onChangeValue?: (_value: V | undefined) => void
 }
 
 export default function InputLayout<V>({
@@ -38,6 +40,7 @@ export default function InputLayout<V>({
   onFocus,
   onBlur,
   onChange,
+  onChangeValue,
   label,
   value: incomeValue,
   errorMessage,
@@ -49,7 +52,7 @@ export default function InputLayout<V>({
 }: InputProps<V>) {
   const inputId = useId()
   const [focus, setFocus] = useState(false)
-  const [value, setValue] = useLazyValue<V>(defaultValue, incomeValue, onChange)
+  const [value, setValue] = useLazyValue<V>(defaultValue, incomeValue, onChangeValue)
   const hasValue = useMemo(() => Boolean(value), [value])
   const hasError = useMemo(() => Boolean(errorMessage), [errorMessage])
   const styleComputed = useMemo(() => {
@@ -111,15 +114,18 @@ export default function InputLayout<V>({
             return fileList
           }
         }
+        return prev
       })
     } else {
       setValue(e.target.value as V)
     }
-  }, [setValue])
+    if (onChange) onChange(e)
+  }, [setValue, onChange])
   const childrenProps = {
     id: inputId,
     css: styleComputed.input,
     value: value,
+    // defaultValue: defaultValue,
     onFocus: onFocusEvent,
     onBlur: onBlurEvent,
     onChange: onChangeEvent

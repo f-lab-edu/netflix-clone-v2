@@ -1,15 +1,15 @@
 import type { InputProps } from './InputLayout';
 import InputLayout from './InputLayout'
 
-export default function TextInput(props: Omit<InputProps<string>, 'children'> & Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'children'>) {
+export default function TextInput(props: Omit<InputProps<string> & React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'children' | 'defaultValue'>) {
   // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const { onFocus, onBlur, onChange, value, errorMessage, label, ref, ...inputProps } = props
-  return <InputLayout<string> {...props}>
-    {(childProps) => <>
-      <input
+  const { onFocus, onBlur, value, errorMessage, label, ref, ...inputProps } = props
+  return <InputLayout<string> {...props} defaultValue=''>
+    {(childProps) => {
+      return <input
         {...inputProps}
         {...childProps}
       />
-    </>}
+    }}
   </InputLayout>
 }

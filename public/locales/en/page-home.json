@@ -3,5 +3,10 @@
     "title": "Unlimited movies, TV shows, and more",
     "desc1": "Starts at KRW 5,500. Cancel anytime.",
     "desc2": "Ready to watch? Enter your email to create or restart your membership."
+  },
+  "emailForm": {
+    "label": "Email address",
+    "error": "Email is required",
+    "button": "Get Started"
   }
 }

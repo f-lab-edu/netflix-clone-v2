@@ -1,5 +1,6 @@
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next'
+import LanguageSelect from '@/components/i18n/LanguageSelect';
 import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBottom';
 import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentDetail, HeroContentDetailShell, HeroContentDetailContentLayout, HeroContentShell } from './styles/HeroContent';
 import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninLink } from './styles/HeroHead';
@@ -26,8 +27,8 @@ export default function Home() {
                 </div>
                 <HeroHeadRightSide>
                   <div></div>
-                  <select></select>
-                  <HeroHeadSigninLink href="/">
+                  <LanguageSelect />
+                  <HeroHeadSigninLink href="/login">
                     {t('head.signin')}
                   </HeroHeadSigninLink>
                 </HeroHeadRightSide>

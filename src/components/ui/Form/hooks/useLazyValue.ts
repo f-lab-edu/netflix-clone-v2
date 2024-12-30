@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from 'react'
 
 type onChangeHandler<T> = (_v: T) => void
 
-export default function useLazyValue<T>(incomeValue?: T, onChange?: onChangeHandler<T>): [
+export default function useLazyValue<T>(defaultValue: T, incomeValue?: T, onChange?: onChangeHandler<T>): [
   T | undefined,
   Dispatch<SetStateAction<T | undefined>>
 ] {
-  const lazyValue = useRef<T | null>(null)
+  const lazyValue = useRef<T>(defaultValue)
   const [value, setValue] = useState<T>()
 
   useEffect(() => {

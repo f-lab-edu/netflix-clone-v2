@@ -12,16 +12,16 @@ export const InputDivCss = css([{
   textAlign: 'start'
 }])
 
-export const InputErrorState = css({
+export const InputErrorStateCss = css({
   color: theme.color.red.error
 })
 
-export const InputAreaShell = css({
+export const InputAreaShellCss = css({
   flex: '1 1 100%',
   position: 'relative'
 })
 
-export const InputTagDefault = css([{
+export const InputTagDefaultCss = css([{
   fontSize: '1rem',
   lineHeight: 1.5,
   width: '100%',
@@ -31,7 +31,7 @@ export const InputTagDefault = css([{
   padding: ['1.25rem 1rem 0.25rem', '1.5rem 1rem 0.5rem']
 })])
 
-export const InputOutline = css({
+export const InputOutlineCss = css({
   background: 'rgba(22, 22, 22, 0.7)',
   borderRadius: theme.borderRadius.xs,
   borderStyle: 'solid',
@@ -45,7 +45,7 @@ export const InputOutline = css({
   zIndex: -1
 })
 
-export const InputLabelDefault = css([{
+export const InputLabelDefaultCss = css([{
   position: 'absolute',
   zIndex: 1,
   textAlign: 'start',
@@ -66,12 +66,12 @@ export const InputLabelDefault = css([{
   top: '1rem'
 }])
 
-export const InputLabelHasValueOrFocused = css([{
+export const InputLabelHasValueOrFocusedCss = css([{
   fontSize: '0.75rem',
   top: '.5rem'
 }])
 
-export const InputErrorDiv = css([{
+export const InputErrorDivCss = css([{
   fontSize: '.8125rem',
   fontWeight: 400,
   marginTop: '.375rem',

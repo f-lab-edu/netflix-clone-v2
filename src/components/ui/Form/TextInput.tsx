@@ -2,7 +2,7 @@ import type { FocusEventHandler, Ref } from 'react'
 import { useId, useMemo, useState } from 'react'
 import ErrorCross from '@/assets/netflix/error-cross.svg'
 import useLazyValue from './hooks/useLazyValue'
-import { InputAreaShell, InputDivCss, InputErrorDiv, InputErrorState, InputLabelDefault, InputLabelHasValueOrFocused, InputOutline, InputTagDefault } from './style/InputStyle'
+import { InputAreaShellCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelHasValueOrFocusedCss, InputOutlineCss, InputTagDefaultCss } from './style/InputStyle'
 
 interface InputProps {
   onFocus?: FocusEventHandler
@@ -32,14 +32,14 @@ export default function TextInput({ onFocus, onBlur, onChange, label, value: inc
   }, [hasError, errorMessage])
   const styleComputed = useMemo(() => {
     const layout = [InputDivCss]
-    const input = [InputTagDefault]
-    const label = [InputLabelDefault]
-    const error = [InputErrorDiv]
+    const input = [InputTagDefaultCss]
+    const label = [InputLabelDefaultCss]
+    const error = [InputErrorDivCss]
     if (focus || hasValue) {
-      label.push(InputLabelHasValueOrFocused)
+      label.push(InputLabelHasValueOrFocusedCss)
     }
     if (hasError) {
-      layout.push(InputErrorState)
+      layout.push(InputErrorStateCss)
     }
     return {
       layout,
@@ -55,7 +55,7 @@ export default function TextInput({ onFocus, onBlur, onChange, label, value: inc
     >
       {label}
     </label>
-    <div css={InputAreaShell}>
+    <div css={InputAreaShellCss}>
       <input
         css={styleComputed.input}
         ref={ref}
@@ -73,7 +73,7 @@ export default function TextInput({ onFocus, onBlur, onChange, label, value: inc
           setValue(e.target.value)
         }}
       />
-      <div css={InputOutline}></div>
+      <div css={InputOutlineCss}></div>
     </div>
     <div css={styleComputed.error}>{errorDisplay}</div>
   </div>

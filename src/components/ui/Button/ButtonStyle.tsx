@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { theme } from '../theme';
 
-export const ButtonStyle = css({
+export const DefaultButtonCss = css({
   fontFamily: `${theme.fonts.NetflixSans + ', ' + theme.fonts.Roboto};`,
   lineHeight: 1,
   backgroundColor: theme.color.red.default,

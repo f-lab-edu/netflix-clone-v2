@@ -71,3 +71,7 @@ apollo/server, typeorm, type-graph, mysql
 - [ ] 각각의 요소별 애니메이션 구현
 - [ ] react의 createPortal를 활용한 dialog 구현
 - [ ] react의 useDeferredValue를 활용한 각종 폼 기능 구현
+
+## Naming Rule
+- 재사용을 위한 CSS객체가 아닌 Element CSS 객체의 경우 `Css` postfix를 명시
+- 

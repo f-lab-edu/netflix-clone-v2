@@ -57,13 +57,12 @@ export default function useInputHelper<V>({
     if (onChange) onChange(e)
   }, [setValue, onChange])
   return {
-    value,
+    defaultValue,
     layoutProps: {
       labelId: inputId,
       isFocus,
       hasValue
     },
-    setValue,
     onFocus: onFocusEvent,
     onBlur: onBlurEvent,
     onChange: onChangeEvent

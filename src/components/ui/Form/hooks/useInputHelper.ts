@@ -4,7 +4,13 @@ import useLazyValue from './useLazyValue'
 
 type PosibleInputType = HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
 
-export interface InputHelperProps<V> {
+export type ElementWithFilteredValue<E, T> = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<E>, E>, 'defaultValue' | 'value'> & {
+  defaultValue?: T
+  value?: T
+  onChangeValue?: (_value: T) => void
+}
+
+interface InputHelperProps<V> {
   value?: V
   defaultValue?: V
   onFocus?: FocusEventHandler

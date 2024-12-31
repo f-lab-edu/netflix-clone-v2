@@ -1,4 +1,5 @@
 import type { InputLayoutProps } from './InputLayout';
+import type { ElementWithFilteredValue } from './hooks/useInputHelper';
 import type { Interpolation } from '@emotion/react';
 import InputLayout from './InputLayout'
 import useInputHelper from './hooks/useInputHelper';
@@ -6,13 +7,9 @@ interface CssProps {
   css?: Interpolation
 }
 type InputType = string | undefined
-type OmitedSelectValue = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'defaultValue' | 'value'> & {
-  defaultValue?: InputType
-  value?: InputType
-}
+
 interface TextInputProps extends CssProps {
   inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css'>
-  onChangeValue?: (_value: InputType) => void
 }
 export default function TextInput({
   css,
@@ -24,7 +21,7 @@ export default function TextInput({
   onChange,
   onChangeValue,
   ...props
-}: TextInputProps & OmitedSelectValue & CssProps) {
+}: TextInputProps & ElementWithFilteredValue<HTMLInputElement, InputType> & CssProps) {
 
   const { layoutProps, ...inputProps } = useInputHelper<InputType>({
     defaultValue,

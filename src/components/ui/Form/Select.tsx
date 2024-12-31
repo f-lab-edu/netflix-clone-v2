@@ -1,4 +1,5 @@
 import type { InputLayoutProps } from './InputLayout';
+import type { ElementWithFilteredValue } from './hooks/useInputHelper';
 import type { Interpolation } from '@emotion/react';
 import SelectArrow from '@assets/netflix/select-arrow.svg'
 import InputLayout from './InputLayout';
@@ -11,12 +12,6 @@ interface CssProps {
 type InputType = string | undefined
 interface SelectProps extends CssProps {
   inputLayoutProps?: Omit<InputLayoutProps, 'children'>
-  onChangeValue?: (_value: InputType) => void
-}
-
-type OmitedSelectValue = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>, 'defaultValue' | 'value'> & {
-  defaultValue?: InputType
-  value?: InputType
 }
 
 export default function Select({
@@ -30,7 +25,7 @@ export default function Select({
   onChangeValue,
   css,
   ...props
-}: SelectProps & OmitedSelectValue & CssProps) {
+}: SelectProps & ElementWithFilteredValue<HTMLSelectElement, InputType> & CssProps) {
   const { postfixChild } = inputLayoutProps || {}
   const { layoutProps, ...inputProps } = useInputHelper<InputType>({
     defaultValue,

@@ -12,9 +12,13 @@ interface FormData {
 export default function EmailSubmitForm() {
   const { t } = useTranslation(['common', 'page-home'])
   const validator = useValidator()
-  const { handleSubmit, register, formState } = useForm<FormData>({
-    reValidateMode: 'onBlur'
+  const { handleSubmit, register, formState, getFieldState } = useForm<FormData>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    shouldUseNativeValidation: false,
   })
+
+  const { invalid, error, isTouched } = getFieldState('email', formState)
 
   function submitAction(obj: FormData) {
     console.log(obj)
@@ -25,15 +29,16 @@ export default function EmailSubmitForm() {
     </HeroDescrpition2>
     <div css={EmailFormRowLayoutCss}>
       <TextInput
-        inputProps={{
+        {...register('email', {
+          required: t('form.email.error.required'),
+          validate: {
+            emailType: validator.emailTypeCheck
+          }
+        })}
+        inputLayoutProps={{
           label: t('page-home:emailForm.label'),
-          errorMessage: formState.errors.email?.message,
-          ...register('email', {
-            required: t('form.email.error.required'),
-            validate: {
-              emailType: validator.emailTypeCheck
-            }
-          })
+          isValid: isTouched && !invalid,
+          errorMessage: error?.message,
         }}
       ></TextInput>
       <button type="submit" css={EmailFormSubmitBtnCss}>

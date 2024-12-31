@@ -11,6 +11,9 @@ declare module '@emotion/react' {
       xs: '.25rem'
     }
     color: {
+      grey: {
+        outline: 'rgba(128,128,128,0.7)'
+      },
       white: {
         default: string
         active: string
@@ -21,6 +24,9 @@ declare module '@emotion/react' {
         error: string
         hover: string
         active: string
+      }
+      green: {
+        validated: string
       }
     }
   }

@@ -23,12 +23,11 @@ export default function LanguageSelect({
     router.push({ pathname, query }, asPath, { locale: value })
   }
   return <Select
-    css={css}
-    elementProps={{ css: { paddingLeft: 'calc(0.625rem + 1rem + 0.5rem)' } }}
-    inputProps={{
-      value: i18n.language,
-      defaultValue: i18n.language,
-      onChangeValue: onLanguageChange,
+    css={[css, { paddingLeft: 'calc(0.625rem + 1rem + 0.5rem)' }]}
+    value={i18n.language}
+    defaultValue={i18n.language}
+    onChangeValue={onLanguageChange}
+    inputLayoutProps={{
       inputType: 'select',
       prefixChild: <div css={{
         color: theme.color.white.default,

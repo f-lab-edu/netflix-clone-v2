@@ -7,7 +7,8 @@ export const InputTagFromSelectCss = css([{
   paddingTop: '0.375rem',
   paddingBottom: '0.375rem',
   paddingRight: 'calc(2.25rem + 0rem)',
-  paddingLeft: '0.75rem'
+  paddingLeft: '0.75rem',
+  outlineColor: 'white'
 }])
 
 export const InputLabelFromSelectCss = css([{
@@ -17,7 +18,7 @@ export const InputLabelFromSelectCss = css([{
 }])
 
 export const SelectOutlineCss = css({
-  borderColor: 'rgba(128,128,128,0.7)',
+  borderColor: 'var(--outline-color)',
   background: 'rgba(22,22,22,0.7)',
 })
 

@@ -1,33 +1,55 @@
 import type { InputLayoutProps } from './InputLayout';
 import type { Interpolation } from '@emotion/react';
-import type { ReactNode } from 'react';
 import SelectArrow from '@assets/netflix/select-arrow.svg'
 import InputLayout from './InputLayout';
+import useInputHelper from './hooks/useInputHelper';
 
 interface CssProps {
   css?: Interpolation
 }
+
+type InputType = string | undefined
 interface SelectProps extends CssProps {
-  inputProps?: Omit<InputLayoutProps<string, HTMLSelectElement>, 'children' | 'css'>
-  elementProps?: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement> & CssProps
-  children?: ReactNode
+  inputLayoutProps?: Omit<InputLayoutProps, 'children'>
+  onChangeValue?: (_value: InputType) => void
 }
 
-export default function Select({ inputProps, css, elementProps, children }: SelectProps) {
-  const { defaultValue, postfixChild } = inputProps || {}
-  return <InputLayout<string, HTMLSelectElement>
-    {...inputProps}
-    defaultValue={defaultValue || ''}
-    css={css}
+type OmitedSelectValue = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>, 'defaultValue' | 'value'> & {
+  defaultValue?: InputType
+  value?: InputType
+}
+
+export default function Select({
+  inputLayoutProps,
+  children,
+  defaultValue,
+  value,
+  onBlur,
+  onFocus,
+  onChange,
+  onChangeValue,
+  css,
+  ...props
+}: SelectProps & OmitedSelectValue & CssProps) {
+  const { postfixChild } = inputLayoutProps || {}
+  const { layoutProps, ...inputProps } = useInputHelper<InputType>({
+    defaultValue,
+    value,
+    onBlur,
+    onFocus,
+    onChange,
+    onChangeValue,
+  })
+
+  return <InputLayout
+    {...inputLayoutProps}
     inputType='select'
     postfixChild={postfixChild ?? <SelectArrow />}
+    {...layoutProps}
   >
-    {(childProps) => {
-      const { css: childCss, ...throwProps } = childProps
-      const { css: elementCss, ...filteredElementProps } = elementProps || {}
-      return <select {...filteredElementProps}{...throwProps} css={[childCss, elementCss]}>
-        {children}
-      </select>
-    }}
+    {(throwedCss) => <select {...props} {...inputProps} css={[throwedCss, css]}>
+      {children}
+    </select>
+    }
   </InputLayout>
 }

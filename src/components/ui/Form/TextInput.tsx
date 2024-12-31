@@ -1,22 +1,41 @@
 import type { InputLayoutProps } from './InputLayout';
 import type { Interpolation } from '@emotion/react';
 import InputLayout from './InputLayout'
+import useInputHelper from './hooks/useInputHelper';
 interface CssProps {
   css?: Interpolation
 }
-interface TextInputProps extends CssProps {
-  inputProps?: Omit<InputLayoutProps<string, HTMLInputElement>, 'children' | 'css'>
-  elementProps?: React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLInputElement>, HTMLInputElement> & CssProps
-  css?: Interpolation
+type InputType = string | undefined
+type OmitedSelectValue = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'defaultValue' | 'value'> & {
+  defaultValue?: InputType
+  value?: InputType
 }
+interface TextInputProps extends CssProps {
+  inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css'>
+  onChangeValue?: (_value: InputType) => void
+}
+export default function TextInput({
+  css,
+  inputLayoutProps,
+  defaultValue,
+  value,
+  onBlur,
+  onFocus,
+  onChange,
+  onChangeValue,
+  ...props
+}: TextInputProps & OmitedSelectValue & CssProps) {
 
-export default function TextInput({ inputProps, elementProps, css }: TextInputProps) {
+  const { layoutProps, ...inputProps } = useInputHelper<InputType>({
+    defaultValue,
+    value,
+    onBlur,
+    onFocus,
+    onChange,
+    onChangeValue,
+  })
 
-  return <InputLayout<string, HTMLInputElement> defaultValue='' {...inputProps} css={css}>
-    {(childProps) => {
-      const { css: childCss, ...throwProps } = childProps
-      const { css: elementCss, ...filteredElementProps } = elementProps || {}
-      return <input {...filteredElementProps}{...throwProps} css={[childCss, elementCss]} />
-    }}
+  return <InputLayout {...inputLayoutProps} {...layoutProps}>
+    {(throwedCss) => <input {...props} {...inputProps} css={[css, throwedCss]} />}
   </InputLayout>
 }

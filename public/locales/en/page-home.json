@@ -6,7 +6,6 @@
   },
   "emailForm": {
     "label": "Email address",
-    "error": "Email is required",
     "button": "Get Started"
   }
 }

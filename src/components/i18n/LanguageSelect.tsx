@@ -20,7 +20,7 @@ export default function LanguageSelect({
   const onLanguageChange = (value: string | undefined) => {
     if (!value) return
     const { pathname, asPath, query } = router
-    router.push({ pathname, query }, asPath, { locale: value })
+    router.replace({ pathname, query }, asPath, { locale: value })
   }
   return <Select
     css={[css, { paddingLeft: 'calc(0.625rem + 1rem + 0.5rem)' }]}

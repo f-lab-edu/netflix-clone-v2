@@ -1,8 +1,8 @@
 import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import { HeroDescrpition2 } from '../styles/HeroSection';
+import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from './styles/EmailSubmitFormCss';
 
 interface FormData {
   email: string
@@ -14,27 +14,26 @@ export default function EmailSubmitForm() {
     reValidateMode: 'onBlur'
   })
 
-  const emailErrorMessage = useMemo(() => {
-    return formState.errors.email?.message
-  }, [formState])
-
   function submitAction(obj: FormData) {
     console.log(obj)
   }
-
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>
       {t('page-home:section1.desc2')}
     </HeroDescrpition2>
-    <div>
+    <div css={EmailFormRowLayoutCss}>
       <TextInput
-        label={t('page-home:emailForm.label')}
-        {...register('email', {
-          required: t('page-home:emailForm.error'),
-        })}
-        errorMessage={emailErrorMessage}
+        inputProps={{
+          label: t('page-home:emailForm.label'),
+          errorMessage: formState.errors.email?.message,
+          ...register('email', {
+            required: t('page-home:emailForm.error'),
+          })
+        }}
       ></TextInput>
-      <button type="submit">Submit</button>
+      <button type="submit" css={EmailFormSubmitBtnCss}>
+        {t('page-home:emailForm.button')}
+      </button>
     </div>
   </form>
 }

@@ -24,22 +24,24 @@ export default function LanguageSelect({
   }
   return <Select
     css={css}
-    inputCss={{ paddingLeft: 'calc(0.625rem + 1rem + 0.5rem)' }}
-    value={i18n.language}
-    defaultValue={i18n.language}
-    onChangeValue={onLanguageChange}
-    isSelect
-    prefixChild={<div css={{
-      color: theme.color.white.default,
-      position: 'absolute',
-      width: '1rem',
-      height: '1rem',
-      left: '0.75rem',
-      right: 'auto',
-      zIndex: 1
-    }}>
-      <LangSvg></LangSvg>
-    </div>}
+    elementProps={{ css: { paddingLeft: 'calc(0.625rem + 1rem + 0.5rem)' } }}
+    inputProps={{
+      value: i18n.language,
+      defaultValue: i18n.language,
+      onChangeValue: onLanguageChange,
+      inputType: 'select',
+      prefixChild: <div css={{
+        color: theme.color.white.default,
+        position: 'absolute',
+        width: '1rem',
+        height: '1rem',
+        left: '0.75rem',
+        right: 'auto',
+        zIndex: 1
+      }}>
+        <LangSvg></LangSvg>
+      </div>
+    }}
   >
     {languageList.map((langCode) => {
       // @ts-expect-error @ts-ignore

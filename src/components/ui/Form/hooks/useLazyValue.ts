@@ -1,14 +1,14 @@
 import type { Dispatch, SetStateAction } from 'react';
 import { useEffect, useRef, useState } from 'react'
 
-type onChangeHandler<T> = (_v: T) => void
+type onChangeHandler<T> = (_v: T | undefined) => void
 
-export default function useLazyValue<T>(defaultValue: T, incomeValue?: T, onChange?: onChangeHandler<T>): [
-  T,
-  Dispatch<SetStateAction<T>>
+export default function useLazyValue<T>(defaultValue?: T, incomeValue?: T, onChange?: onChangeHandler<T>): [
+  T | undefined,
+  Dispatch<SetStateAction<T | undefined>>
 ] {
   const lazyValue = useRef<T>(defaultValue)
-  const [value, setValue] = useState<T>(defaultValue)
+  const [value, setValue] = useState<T | undefined>(defaultValue)
 
   useEffect(() => {
     if (value === lazyValue.current) return

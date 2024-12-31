@@ -1,9 +1,10 @@
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import useValidator from '@/components/ui/Form/hooks/useValidator';
+import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
-import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from './styles/EmailSubmitFormCss';
 
 interface FormData {
   email: string
@@ -11,6 +12,7 @@ interface FormData {
 
 export default function EmailSubmitForm() {
   const { t } = useTranslation(['common', 'page-home'])
+  const router = useRouter()
   const validator = useValidator()
   const { handleSubmit, register, formState, getFieldState } = useForm<FormData>({
     mode: 'onBlur',
@@ -21,7 +23,7 @@ export default function EmailSubmitForm() {
   const { invalid, error, isTouched } = getFieldState('email', formState)
 
   function submitAction(obj: FormData) {
-    console.log(obj)
+    router.push(`/login?email=${obj.email}`, '/login')
   }
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>

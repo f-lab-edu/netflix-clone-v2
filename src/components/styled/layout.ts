@@ -30,9 +30,6 @@ export const BreakPoints = {
 export const w = {
   full: css({
     width: '100%'
-  }),
-  '1px': css({
-    width: '1px'
   })
 }
 
@@ -47,18 +44,6 @@ export const wh = {
     w.full,
     h.full
   ])
-}
-
-export const position = {
-  fixed: css({
-    position: 'fixed'
-  }),
-  absolute: css({
-    position: 'absolute'
-  }),
-  relative: css({
-    position: 'relative'
-  })
 }
 
 const directionObj: {
@@ -112,18 +97,3 @@ export const direction = new Proxy<typeof directionObj>(directionObj, {
     return target[key]
   }
 })
-
-export const zIndex = {
-  bg: css({
-    zIndex: -1
-  }),
-  0: css({
-    zIndex: 0
-  }),
-  1: css({
-    zIndex: 1
-  }),
-  2: css({
-    zIndex: 2
-  })
-}

@@ -2,7 +2,7 @@ import type { ChangeEvent, ChangeEventHandler, FocusEventHandler } from 'react';
 import { useCallback, useId, useMemo, useState } from 'react';
 import useLazyValue from './useLazyValue'
 
-type PosibleInputType = HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
+type PossibleInputType = HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
 
 export type ElementWithFilteredValue<E, T> = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<E>, E>, 'defaultValue' | 'value'> & {
   defaultValue?: T
@@ -39,7 +39,7 @@ export default function useInputHelper<V>({
     setFocus(false)
     if (onBlur) onBlur(e)
   }, [onBlur])
-  const onChangeEvent = useCallback<ChangeEventHandler>((e: ChangeEvent<PosibleInputType>) => {
+  const onChangeEvent = useCallback<ChangeEventHandler>((e: ChangeEvent<PossibleInputType>) => {
     if (e.target.tagName === 'input' && e.target.type === 'file') {
       setValue((prev) => {
         if (Array.isArray(prev)) {

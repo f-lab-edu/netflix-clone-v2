@@ -22,7 +22,8 @@ export default function EmailSubmitForm() {
   const { invalid, error, isTouched } = getFieldState('email', formState)
 
   function submitAction(obj: FormData) {
-    router.push(`/login?email=${obj.email}`, '/login')
+    sessionStorage.setItem('sign-tryed-email', obj.email)
+    router.push('/login')
   }
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>

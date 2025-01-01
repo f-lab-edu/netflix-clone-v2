@@ -1,7 +1,6 @@
 import { AsYouType } from 'libphonenumber-js/mobile'
 
 const validators = {
-  emailTypeCheck: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i.test,
   phoneNumberType: (v: string) => {
     const phoneTypeChecker = new AsYouType()
     phoneTypeChecker.reset()
@@ -12,3 +11,7 @@ const validators = {
 }
 
 export default validators
+
+export const pattern = {
+  email: /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/i
+}

@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
-import validators from '@/lib/validators';
+import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
 
@@ -33,8 +33,9 @@ export default function EmailSubmitForm() {
       <TextInput
         {...register('email', {
           required: t('form.email.error.required'),
-          validate: {
-            emailType: (v) => validators.emailTypeCheck(v) || t('common:form.email.error.pattern')
+          pattern: {
+            value: pattern.email,
+            message: t('common:form.email.error.pattern')
           }
         })}
         inputLayoutProps={{

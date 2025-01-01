@@ -60,7 +60,6 @@ export const HeroHeadSigninLink = styled(Link)([
   TextDisplayCss,
   DefaultButtonCss,
   {
-    minWidth: 'max-content',
     minHeight: '2rem',
     borderRadius: theme.borderRadius.xs,
     lineHeight: 1,

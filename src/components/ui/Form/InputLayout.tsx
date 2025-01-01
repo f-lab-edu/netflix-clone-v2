@@ -1,59 +1,37 @@
 import type { Interpolation } from '@emotion/react';
-import type { ChangeEvent, ChangeEventHandler, FocusEvent, FocusEventHandler, ReactElement } from 'react'
-import { useCallback, useId, useMemo, useState } from 'react'
+import type { ReactElement } from 'react'
+import { useMemo } from 'react'
 import ErrorCross from '@/assets/netflix/error-cross.svg'
-import useLazyValue from './hooks/useLazyValue'
-import { InputAreaShellCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputLabelHasValueOrFocusedCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss } from './style/InputStyle'
+import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputLabelHasValueOrFocusedCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputValidatedStateCss } from './style/InputStyle'
 import { InputLabelFromSelectCss, InputTagFromSelectCss, SelectArrowPositionCss, SelectOutlineCss } from './style/SelectStyle'
-type PosibleInputType = HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
 
-interface ChildrenProps<V> {
-  css: Interpolation[]
-  id: string
-  value: V | undefined
-  // defaultValue: V
-  onFocus: FocusEventHandler
-  onBlur: FocusEventHandler
-  onChange: ChangeEventHandler
-}
-
-export interface InputProps<V> {
-  css?: Interpolation
-  inputCss?: Interpolation
-  value?: V
-  defaultValue: V
+export interface InputLayoutProps {
+  css?: Interpolation | Interpolation[]
+  hasValue?: boolean
+  isFocus?: boolean
+  labelId?: string
   prefixChild?: ReactElement
   postfixChild?: ReactElement
-  children: (_props: ChildrenProps<V>) => ReactElement
-  isSelect?: boolean
+  children: (_css: Interpolation | Interpolation[]) => ReactElement
+  inputType?: 'select' | 'text' | 'file' | 'textarea' | 'checkbox' | 'radio'
+  isValid?: boolean
   errorMessage?: string
   label?: string
-  onFocus?: FocusEventHandler
-  onBlur?: FocusEventHandler
-  onChange?: ChangeEventHandler
-  onChangeValue?: (_value: V | undefined) => void
 }
 
-export default function InputLayout<V>({
+export default function InputLayout({
   css,
-  inputCss,
-  onFocus,
-  onBlur,
-  onChange,
-  onChangeValue,
-  label,
-  value: incomeValue,
+  isValid,
+  hasValue,
+  isFocus,
   errorMessage,
+  inputType,
+  labelId,
+  label,
   prefixChild,
-  children,
   postfixChild,
-  defaultValue,
-  isSelect
-}: InputProps<V>) {
-  const inputId = useId()
-  const [focus, setFocus] = useState(false)
-  const [value, setValue] = useLazyValue<V>(defaultValue, incomeValue, onChangeValue)
-  const hasValue = useMemo(() => Boolean(value), [value])
+  children,
+}: InputLayoutProps) {
   const hasError = useMemo(() => Boolean(errorMessage), [errorMessage])
   const styleComputed = useMemo(() => {
     const layout: Interpolation[] = [InputDivCss]
@@ -62,23 +40,27 @@ export default function InputLayout<V>({
     const label: Interpolation[] = [InputLabelDefaultCss]
     const error: Interpolation[] = []
     const outline: Interpolation[] = [InputOutlineCss]
-    if (isSelect) {
-      input.push(InputTagFromSelectCss)
-      label.push(InputLabelFromSelectCss)
-      outline.push(SelectArrowPositionCss, SelectOutlineCss)
-    } else {
-      input.push(InputTagFromTextCss)
-      label.push(InputLabelFromTextCss)
+    switch (inputType) {
+      case 'select':
+        input.push(InputTagFromSelectCss)
+        label.push(InputLabelFromSelectCss)
+        outline.push(SelectArrowPositionCss, SelectOutlineCss)
+        break
+      default:
+        input.push(InputTagFromTextCss)
+        label.push(InputLabelFromTextCss)
+        break
     }
-    if (focus || hasValue) {
+    if (isFocus || hasValue) {
       label.push(InputLabelHasValueOrFocusedCss)
     }
     if (hasError) {
       layout.push(InputErrorStateCss)
       error.push(InputErrorDivCss)
-    }
-    if (inputCss) {
-      input.push(inputCss)
+    } else if (isValid) {
+      layout.push(InputValidatedStateCss)
+    } else {
+      layout.push(InputDefaultStateCss)
     }
     return {
       layout,
@@ -88,58 +70,18 @@ export default function InputLayout<V>({
       error,
       outline
     }
-  }, [hasValue, focus, hasError, isSelect, inputCss])
+  }, [hasValue, isFocus, hasError, inputType, isValid])
 
-  const onFocusEvent = useCallback((e: FocusEvent) => {
-    setFocus(true)
-    if (onFocus) onFocus(e)
-  }, [onFocus])
-  const onBlurEvent = useCallback((e: FocusEvent) => {
-    setFocus(false)
-    if (onBlur) onBlur(e)
-  }, [onBlur])
-  const onChangeEvent = useCallback((e: ChangeEvent<PosibleInputType>) => {
-    if (e.target.tagName === 'input' && e.target.type === 'file') {
-      setValue((prev) => {
-        if (Array.isArray(prev)) {
-          const input = e.target as HTMLInputElement
-          if (input.files) {
-            const fileList = [...prev] as V & File[]
-            for (let i = 0; i < input.files.length; i++) {
-              const file = input.files.item(i)
-              if (file) {
-                fileList.push(file)
-              }
-            }
-            return fileList
-          }
-        }
-        return prev
-      })
-    } else {
-      setValue(e.target.value as V)
-    }
-    if (onChange) onChange(e)
-  }, [setValue, onChange])
-  const childrenProps = {
-    id: inputId,
-    css: styleComputed.input,
-    value: value,
-    // defaultValue: defaultValue,
-    onFocus: onFocusEvent,
-    onBlur: onBlurEvent,
-    onChange: onChangeEvent
-  }
   return <div css={[styleComputed.layout, css]}>
     <label
       css={styleComputed.label}
-      htmlFor={inputId}
+      htmlFor={labelId}
     >
       {label}
     </label>
     <div css={styleComputed.inputShell}>
       {prefixChild}
-      {children(childrenProps)}
+      {children(styleComputed.input)}
       <div css={styleComputed.outline}>
         {postfixChild}
       </div>

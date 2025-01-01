@@ -1,7 +1,9 @@
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
+import { pattern } from '@/lib/validators';
+import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
 
 interface FormData {
@@ -10,31 +12,41 @@ interface FormData {
 
 export default function EmailSubmitForm() {
   const { t } = useTranslation(['common', 'page-home'])
-  const { handleSubmit, register, formState } = useForm<FormData>({
-    reValidateMode: 'onBlur'
+  const router = useRouter()
+  const { handleSubmit, register, formState, getFieldState } = useForm<FormData>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    shouldUseNativeValidation: false,
   })
 
-  const emailErrorMessage = useMemo(() => {
-    return formState.errors.email?.message
-  }, [formState])
+  const { invalid, error, isTouched } = getFieldState('email', formState)
 
   function submitAction(obj: FormData) {
-    console.log(obj)
+    sessionStorage.setItem('sign-tryed-email', obj.email)
+    router.push('/login')
   }
-
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>
       {t('page-home:section1.desc2')}
     </HeroDescrpition2>
-    <div>
+    <div css={EmailFormRowLayoutCss}>
       <TextInput
-        label={t('page-home:emailForm.label')}
         {...register('email', {
-          required: t('page-home:emailForm.error'),
+          required: t('form.email.error.required'),
+          pattern: {
+            value: pattern.email,
+            message: t('common:form.email.error.pattern')
+          }
         })}
-        errorMessage={emailErrorMessage}
+        inputLayoutProps={{
+          label: t('page-home:emailForm.label'),
+          isValid: isTouched && !invalid,
+          errorMessage: error?.message,
+        }}
       ></TextInput>
-      <button type="submit">Submit</button>
+      <button type="submit" css={EmailFormSubmitBtnCss}>
+        {t('page-home:emailForm.button')}
+      </button>
     </div>
   </form>
 }

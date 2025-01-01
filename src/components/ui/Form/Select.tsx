@@ -1,20 +1,50 @@
-import type { InputProps } from './InputLayout';
+import type { InputLayoutProps } from './InputLayout';
+import type { ElementWithFilteredValue } from './hooks/useInputHelper';
+import type { Interpolation } from '@emotion/react';
 import SelectArrow from '@assets/netflix/select-arrow.svg'
 import InputLayout from './InputLayout';
+import useInputHelper from './hooks/useInputHelper';
 
-export default function Select(
-  props: Omit<InputProps<string>, 'children'> & React.DetailedHTMLProps<React.SelectHTMLAttributes<HTMLSelectElement>, HTMLSelectElement>
-) {
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const { onFocus, onBlur, errorMessage, children, inputCss, prefixChild, isSelect, defaultValue, onChangeValue, ...inputProps } = props
-  return <InputLayout<string>
-    {...props}
-    isSelect
-    defaultValue={defaultValue}
-    postfixChild={props.postfixChild ?? <SelectArrow />}
+interface CssProps {
+  css?: Interpolation
+}
+
+type InputType = string | undefined
+interface SelectProps extends CssProps {
+  inputLayoutProps?: Omit<InputLayoutProps, 'children'>
+}
+
+export default function Select({
+  inputLayoutProps,
+  children,
+  defaultValue,
+  value,
+  onBlur,
+  onFocus,
+  onChange,
+  onChangeValue,
+  css,
+  ...props
+}: SelectProps & ElementWithFilteredValue<HTMLSelectElement, InputType> & CssProps) {
+  const { postfixChild } = inputLayoutProps || {}
+  const { layoutProps, ...inputProps } = useInputHelper<InputType>({
+    defaultValue,
+    value,
+    onBlur,
+    onFocus,
+    onChange,
+    onChangeValue,
+  })
+
+  return <InputLayout
+    {...inputLayoutProps}
+    inputType='select'
+    postfixChild={postfixChild ?? <SelectArrow />}
+    {...layoutProps}
   >
-    {(childProps) => <select {...inputProps}{...childProps}>
+    {(throwedCss) => <select {...props} {...inputProps} css={[throwedCss, css]}>
       {children}
-    </select>}
+    </select>
+    }
   </InputLayout>
 }

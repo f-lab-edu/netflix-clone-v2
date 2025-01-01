@@ -22,6 +22,7 @@
     "graphql": "^16.10.0",
     "i18next": "^24.2.0",
     "jotai": "^2.11.0",
+    "libphonenumber-js": "^1.11.17",
     "next": "15.1.2",
     "next-i18next": "^15.4.1",
     "react": "^19.0.0",

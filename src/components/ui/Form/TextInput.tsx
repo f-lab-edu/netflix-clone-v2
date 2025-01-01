@@ -1,15 +1,38 @@
-import type { InputProps } from './InputLayout';
+import type { InputLayoutProps } from './InputLayout';
+import type { ElementWithFilteredValue } from './hooks/useInputHelper';
+import type { Interpolation } from '@emotion/react';
 import InputLayout from './InputLayout'
+import useInputHelper from './hooks/useInputHelper';
+interface CssProps {
+  css?: Interpolation
+}
+type InputType = string | undefined
 
-export default function TextInput(props: Omit<InputProps<string> & Omit<React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>, 'value'>, 'children' | 'defaultValue'>) {
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  const { onFocus, onBlur, value, errorMessage, label, ref, ...inputProps } = props
-  return <InputLayout<string> {...props} defaultValue=''>
-    {(childProps) => {
-      return <input
-        {...inputProps}
-        {...childProps}
-      />
-    }}
+interface TextInputProps extends CssProps {
+  inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css'>
+}
+export default function TextInput({
+  css,
+  inputLayoutProps,
+  defaultValue,
+  value,
+  onBlur,
+  onFocus,
+  onChange,
+  onChangeValue,
+  ...props
+}: TextInputProps & ElementWithFilteredValue<HTMLInputElement, InputType> & CssProps) {
+
+  const { layoutProps, ...inputProps } = useInputHelper<InputType>({
+    defaultValue,
+    value,
+    onBlur,
+    onFocus,
+    onChange,
+    onChangeValue,
+  })
+
+  return <InputLayout {...inputLayoutProps} {...layoutProps}>
+    {(throwedCss) => <input {...props} {...inputProps} css={[css, throwedCss]} />}
   </InputLayout>
 }

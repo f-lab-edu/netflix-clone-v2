@@ -18,7 +18,7 @@ export default function SecondaryLayout({ isDark, children }: SecondaryLayoutPro
       <Link css={HeaderLinkStyleCss} href="/">
         <NetflixLogo />
       </Link>
-      <Link css={HeaderLoginLinkStyleCss} href="/login">
+      <Link css={HeaderLoginLinkStyleCss} href="/signin">
         {t('head.signin')}
       </Link>
     </div>

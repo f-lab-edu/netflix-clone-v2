@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
-import useValidator from '@/components/ui/Form/hooks/useValidator';
+import validators from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
 
@@ -13,7 +13,6 @@ interface FormData {
 export default function EmailSubmitForm() {
   const { t } = useTranslation(['common', 'page-home'])
   const router = useRouter()
-  const validator = useValidator()
   const { handleSubmit, register, formState, getFieldState } = useForm<FormData>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
@@ -34,7 +33,7 @@ export default function EmailSubmitForm() {
         {...register('email', {
           required: t('form.email.error.required'),
           validate: {
-            emailType: validator.emailTypeCheck
+            emailType: (v) => validators.emailTypeCheck(v) || t('common:form.email.error.pattern')
           }
         })}
         inputLayoutProps={{

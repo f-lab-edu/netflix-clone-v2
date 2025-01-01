@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import { theme } from '../ui/theme';
 import BaseLayout from './BaseLayout'
-import { BodyContentShellCss, BodyLayoutCss, FooterContentShellCss, FooterLayoutCss, HeaderBorderCss, HeaderDefaultStyleCss, HeaderLinkStyleCss, HeaderLoginLinkStyleCss, } from './styles/SecondaryLayoutStyle';
+import { BodyLayoutCss, FooterContentShellCss, FooterLayoutCss, HeaderBorderCss, HeaderDefaultStyleCss, HeaderLinkStyleCss, HeaderLoginLinkStyleCss, } from './styles/SecondaryLayoutStyle';
 interface SecondaryLayoutProps {
   isDark?: boolean
   children?: ReactNode
@@ -25,14 +25,13 @@ export default function SecondaryLayout({ isDark, children }: SecondaryLayoutPro
     {/* BODY */}
     {/* TODO: need to add animation https://dev.to/joseph42a/nextjs-page-transition-with-framer-motion-33dg */}
     <div css={BodyLayoutCss}>
-      <div css={BodyContentShellCss}>
-        {children}
-      </div>
+      {children}
     </div>
     {/* FOOTER */}
     <div css={FooterLayoutCss}>
       <div css={FooterContentShellCss}>
         {/* TODO: add footer contents */}
+        {/* TODO: add language change select */}
       </div>
     </div>
   </BaseLayout>

@@ -1,0 +1,10 @@
+{
+  "nextButton": "Next",
+  "steps": "STEP <b>{{step}}</b> OF <b>3</b>",
+  "main": {
+    "title": "Choose your plan.",
+    "desc1": "No commitments, cancel anytime.",
+    "desc2": "Endless entertainment for one low price.",
+    "desc3": "Enjoy Netflix on all your devices."
+  }
+}

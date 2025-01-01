@@ -47,14 +47,6 @@ export const BodyLayoutCss = css({
   width: '100%'
 })
 
-export const BodyContentShellCss = css({
-  '--layout-container-side-padding': '32px',
-  padding: '20px var(--layout-container-side-padding) 60px',
-  margin: '0 auto 15px',
-  maxWidth: '978px',
-  overflow: 'hidden',
-})
-
 export const FooterLayoutCss = css({
   backgroundColor: theme.color.grey.footerLightBg,
   marginTop: 0,

@@ -25,32 +25,24 @@ export const generateSizeObject = (
   width: keyof CSSObject,
   height: keyof CSSObject
 ) => {
+  const proxyGet = (target: SizeObjectType, k: symbol | string) => {
+    if (!sizePattern.test(String(k))) return undefined
+    const key = k.toString() as keyof typeof obj
+    if (target[key]) return target[key]
+    const strK = String(key)
+    const size = strK.split(sizePattern)
+    const num = Number(size[2])
+    const tempList = []
+
+    const w = css({ [width]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    const h = css({ [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    if (size[1] === 'a' || size[1] === 'w') tempList.push(w)
+    if (size[1] === 'a' || size[1] === 'h') tempList.push(h)
+
+    return target[key] = tempList
+  }
   const proxyObj = new Proxy<SizeObjectType>(obj, {
-    get(target, k) {
-      if (!sizePattern.test(String(k))) return undefined
-      const key = k.toString() as keyof typeof obj
-      if (target[key]) return target[key]
-      const strK = String(key)
-      const size = strK.split(sizePattern)
-      const num = Number(size[2])
-      const tempList = []
-      switch (size[1]) {
-        case 'a':
-          tempList.push(proxyObj[`w-${size[2]}`])
-          tempList.push(proxyObj[`h-${size[2]}`])
-          break
-        case 'w':
-          target[key] = css({ [width]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-          break
-        case 'h':
-          target[key] = css({ [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-          break
-      }
-      if (tempList.length) {
-        target[key] = tempList.flat()
-      }
-      return target[key]
-    }
+    get: proxyGet
   })
   return proxyObj
 }
@@ -62,47 +54,30 @@ export const generateDirectionObject = (
   top: keyof CSSObject,
   bottom: keyof CSSObject
 ) => {
-  const proxyObj = new Proxy<DirectionObjectType>(obj, {
-    get(target, k) {
-      if (!directionPattern.test(String(k))) return undefined
-      const key = k.toString() as keyof typeof obj
-      if (target[key]) return target[key]
+  const proxyGet = (target: DirectionObjectType, k: symbol | string) => {
+    if (!directionPattern.test(String(k))) return undefined
+    const key = k.toString() as keyof typeof obj
+    if (target[key]) return target[key]
 
-      const strK = String(key)
-      const size = strK.split(directionPattern)
-      const num = Number(size[2])
-      const tempList = []
-      switch (size[1]) {
-        case 'a':
-          tempList.push(proxyObj[`x-${size[2]}`])
-          tempList.push(proxyObj[`y-${size[2]}`])
-          break
-        case 'x':
-          tempList.push(proxyObj[`l-${size[2]}`])
-          tempList.push(proxyObj[`r-${size[2]}`])
-          break
-        case 'y':
-          tempList.push(proxyObj[`t-${size[2]}`])
-          tempList.push(proxyObj[`b-${size[2]}`])
-          break
-        case 'l':
-          target[key] = css({ [left]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-          break
-        case 'r':
-          target[key] = css({ [right]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-          break
-        case 't':
-          target[key] = css({ [top]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-          break
-        case 'b':
-          target[key] = css({ [bottom]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-          break
-      }
-      if (tempList.length) {
-        target[key] = tempList.flat()
-      }
-      return target[key]
-    }
+    const strK = String(key)
+    const size = strK.split(directionPattern)
+    const num = Number(size[2])
+    const tempList = []
+
+    const l = css({ [left]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    const r = css({ [right]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    const t = css({ [top]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    const b = css({ [bottom]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+
+    if (size[1] === 'a' || size[1] === 'x' || size[1] === 'r') tempList.push(r)
+    if (size[1] === 'a' || size[1] === 'x' || size[1] === 'l') tempList.push(l)
+    if (size[1] === 'a' || size[1] === 'y' || size[1] === 't') tempList.push(t)
+    if (size[1] === 'a' || size[1] === 'y' || size[1] === 'b') tempList.push(b)
+
+    return target[key] = tempList
+  }
+  const proxyObj = new Proxy<DirectionObjectType>(obj, {
+    get: proxyGet
   })
   return proxyObj
 }

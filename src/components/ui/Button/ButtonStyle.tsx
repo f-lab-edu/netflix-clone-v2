@@ -17,6 +17,7 @@ export const DefaultButtonCss = css({
   color: theme.color.white.default,
   fill: 'currentcolor',
   verticalAlign: 'text-top',
+  minWidth: 'max-content',
 })
 
 export const DarkButtonInteractionCss = css({

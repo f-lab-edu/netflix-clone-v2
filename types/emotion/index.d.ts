@@ -11,16 +11,22 @@ declare module '@emotion/react' {
       xs: '.25rem'
     }
     color: {
+      grey: {
+        defaultFont: '#333'
+        footerLightDivider: '#e6e6e6'
+        footerLightFont: '#737373'
+        footerLightBg: '#f3f3f3'
+      }
       white: {
-        default: string
-        active: string
-        hover: string
+        default: '#ffffff'
+        active: 'rgba(255,255,255,0.7)'
+        hover: 'rgba(255,255,255,0.7)'
       }
       red: {
-        default: string
-        error: string
-        hover: string
-        active: string
+        error: '#eb3942'
+        default: '#e50914'
+        active: '#99161d'
+        hover: '#c11119'
       }
     }
   }

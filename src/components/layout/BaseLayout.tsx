@@ -5,14 +5,15 @@ import RootDomProvider from '@/provider/RootDom/provider';
 import { theme } from '../ui/theme';
 
 interface BaseLayoutProps {
-  children?: ReactNode
+  children?: ReactNode,
+  defaultColor?: string
 }
 
-export default function BaseLayout({ children }: BaseLayoutProps) {
+export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) {
   const { t } = useTranslation(['common'])
   return <div css={{
     display: 'block',
-    color: theme.color.white.default,
+    color: defaultColor ?? theme.color.white.default,
     width: '100%',
     fontFamily: `${theme.fonts.NetflixSans}, ${theme.fonts.Roboto}`,
   }}>

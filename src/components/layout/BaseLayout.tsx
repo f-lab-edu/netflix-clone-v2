@@ -12,10 +12,12 @@ interface BaseLayoutProps {
 export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) {
   const { t } = useTranslation(['common'])
   return <div css={{
-    display: 'block',
+    display: 'flex',
+    flexDirection: 'column',
     color: defaultColor ?? theme.color.white.default,
     width: '100%',
     fontFamily: `${theme.fonts.NetflixSans}, ${theme.fonts.Roboto}`,
+    minHeight: '100vh',
   }}>
     <Head>
       <title>{t('header.title')}</title>

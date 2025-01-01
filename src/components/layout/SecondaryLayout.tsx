@@ -14,7 +14,7 @@ export default function SecondaryLayout({ isDark, children }: SecondaryLayoutPro
   const { t } = useTranslation(['common'])
   return <BaseLayout defaultColor={theme.color.grey.defaultFont}>
     {/* HEADER */}
-    <div css={[isDark ? HeaderBorderCss : {}, HeaderDefaultStyleCss]}>
+    <div css={[isDark ? {} : HeaderBorderCss, HeaderDefaultStyleCss]}>
       <Link css={HeaderLinkStyleCss} href="/">
         <NetflixLogo />
       </Link>

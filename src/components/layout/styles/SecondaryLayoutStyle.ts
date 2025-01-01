@@ -3,14 +3,20 @@ import { MediaPoint } from '@/components/styled/layout';
 import { theme } from '@/components/ui/theme';
 
 export const HeaderBorderCss = css({
-  borderBottom: '1px solid #6e6e6e'
+  borderBottom: '1px solid',
+  borderBottomColor: theme.color.grey.lightDivider
 })
 
 export const HeaderDefaultStyleCss = css({
+  display: 'flex',
   position: 'relative',
   justifyContent: 'space-between',
   alignItems: 'center',
   '> *': [
+    {
+      display: 'flex',
+      alignItems: 'center'
+    },
     MediaPoint({
       margin: ['0 10px', '0 3%'],
       fontSize: ['14px', '16px', '19px'],
@@ -19,9 +25,11 @@ export const HeaderDefaultStyleCss = css({
   ]
 })
 
-export const HeaderLinkStyleCss = css({
-  color: theme.color.red.default,
-})
+export const HeaderLinkStyleCss = css([{
+  fill: theme.color.red.default,
+}, MediaPoint({
+  width: ['75px', '167px']
+})])
 
 export const HeaderLoginLinkStyleCss = css({
   float: 'right',
@@ -57,7 +65,8 @@ export const FooterLayoutCss = css({
   minWidth: '190px',
   position: 'relative',
   paddingBotom: '20px',
-  borderTop: `1px solid ${theme.color.grey.footerLightDivider}`
+  borderTop: '1px solid',
+  borderTopColor: theme.color.grey.lightDivider
 })
 
 export const FooterContentShellCss = css({

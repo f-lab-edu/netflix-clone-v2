@@ -22,7 +22,7 @@ const PlatformPage: NextPageWithLayout = () => {
       </ul>
     </div>
     <div css={[SignupMainContentCss, { marginTop: '24px' }]}>
-      <Link css={SignupMainNextButtonCss} href="/signup/planform">
+      <Link css={SignupMainNextButtonCss} href="/signup/platform">
         Next
       </Link>
     </div>

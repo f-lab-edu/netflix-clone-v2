@@ -1,5 +1,5 @@
 import styled from '@emotion/styled'
-import { MediaPoint } from '@/components/styled/layout'
+import { direction, margin, MediaPoint, size } from '@/components/styled/layout'
 
 export const HeroContentShell = styled.div`
 position: relative;
@@ -7,8 +7,7 @@ z-index: 1;
 width: 100%;
 max-width: 120rem;
 margin-bottom: 0;
-margin-left: auto;
-margin-right: auto;
+${margin['x-auto']}
 `
 
 export const HeroContent = styled.div`
@@ -39,7 +38,7 @@ z-index: 3;
 export const HeroContentDetailShell = styled.div`
 display: flex;
 flex-direction: column;
-width: 100%;
+${size['w-100%']}
 max-width: 120rem;
 justify-content: center;
 padding: 0 2rem 2rem;
@@ -49,7 +48,7 @@ ${MediaPoint({ minHeight: ['31rem', , '37rem', 'min(80vh, 45rem)'] })}
 export const HeroContentDetailContentLayout = styled.div`
 display: flex;
 flex-direction: column;
-width: 100%;
+${size['w-100%']}
 margin: 0 auto;
 text-align: center;
 align-self: center;
@@ -57,16 +56,11 @@ ${MediaPoint({ maxWidth: ['100%', '27rem', '31.75rem', '36.75rem', '41.5rem'] })
 `
 export const HeroContentBg = styled.div`
 position: absolute;
-width: 100%;
-height: 100%;
+${size['a-100%']}
 overflow: hidden;
 margin: 0;`
-export const HeroContentBgShadow = styled.div([{
+export const HeroContentBgShadow = styled.div([direction['a-0'], {
   position: 'absolute',
-  top: 0,
-  left: 0,
-  right: 0,
-  bottom: 0,
   zIndex: 2,
 }, MediaPoint({
   backgroundImage: [

@@ -12,13 +12,25 @@ export const InputDivCss = css([{
   textAlign: 'start'
 }])
 
+export const InputDefaultStateCss = css({
+  '--outline-color': theme.color.grey.outline
+})
+
 export const InputErrorStateCss = css({
-  color: theme.color.red.error
+  color: theme.color.red.error,
+  '--outline-color': theme.color.red.error
+})
+
+export const InputValidatedStateCss = css({
+  color: theme.color.green.validated,
+  '--outline-color': theme.color.green.validated
 })
 
 export const InputAreaShellCss = css({
   flex: '1 1 100%',
-  position: 'relative'
+  position: 'relative',
+  display: 'flex',
+  alignItems: 'center'
 })
 
 export const InputTagDefaultCss = css([{
@@ -27,16 +39,20 @@ export const InputTagDefaultCss = css([{
   width: '100%',
   border: '0 solid transparent',
   background: 'transparent'
-}, MediaPoint({
+}])
+
+export const InputTagFromTextCss = css([MediaPoint({
   padding: ['1.25rem 1rem 0.25rem', '1.5rem 1rem 0.5rem']
-})])
+}), {
+  outlineColor: theme.color.white.default
+}])
 
 export const InputOutlineCss = css({
   background: 'rgba(22, 22, 22, 0.7)',
   borderRadius: theme.borderRadius.xs,
   borderStyle: 'solid',
   borderWidth: '0.0625rem',
-  borderColor: 'currentcolor',
+  borderColor: 'var(--outline-color)',
   position: 'absolute',
   top: 0,
   left: 0,
@@ -56,14 +72,16 @@ export const InputLabelDefaultCss = css([{
   transitionDuration: '250ms',
   pointerEvents: 'none',
   transitionTimingFunction: 'cubic-bezier(0.32, 0.94, 0.6, 1);',
+}])
 
+export const InputLabelFromTextCss = css([{
   fontWeight: '400',
   lineHeight: 1.5,
   color: theme.color.white.hover,
   left: '1rem',
   right: '1rem',
   fontSize: '1rem',
-  top: '1rem'
+  top: '1rem',
 }])
 
 export const InputLabelHasValueOrFocusedCss = css([{

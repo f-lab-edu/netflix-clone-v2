@@ -17,6 +17,7 @@ export const DefaultButtonCss = css({
   color: theme.color.white.default,
   fill: 'currentcolor',
   verticalAlign: 'text-top',
+  minWidth: 'max-content',
   '&:hover': {
     transitionTimingFunction: 'cubic-bezier(0.32,0.94,0.6,1)',
     backgroundColor: theme.color.red.hover,

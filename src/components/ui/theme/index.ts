@@ -12,6 +12,9 @@ export const theme: Theme = {
     xs: '.25rem'
   },
   color: {
+    grey: {
+      outline: 'rgba(128,128,128,0.7)'
+    },
     white: {
       default: '#ffffff',
       active: 'rgba(255,255,255,0.7)',
@@ -22,6 +25,9 @@ export const theme: Theme = {
       default: '#e50914',
       active: '#99161d',
       hover: '#c11119'
+    },
+    green: {
+      validated: '#2bb871'
     }
   }
 }

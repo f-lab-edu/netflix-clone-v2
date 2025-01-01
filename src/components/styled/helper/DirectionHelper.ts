@@ -66,40 +66,40 @@ export const generateDirectionObject = (
     get(target, k) {
       if (!directionPattern.test(String(k))) return undefined
       const key = k.toString() as keyof typeof obj
-      if (!target[key]) {
-        const strK = String(key)
-        const size = strK.split(directionPattern)
-        const num = Number(size[2])
-        const tempList = []
-        switch (size[1]) {
-          case 'a':
-            tempList.push(proxyObj[`x-${size[2]}`])
-            tempList.push(proxyObj[`y-${size[2]}`])
-            break
-          case 'x':
-            tempList.push(proxyObj[`l-${size[2]}`])
-            tempList.push(proxyObj[`r-${size[2]}`])
-            break
-          case 'y':
-            tempList.push(proxyObj[`t-${size[2]}`])
-            tempList.push(proxyObj[`b-${size[2]}`])
-            break
-          case 'l':
-            target[key] = css({ [left]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-            break
-          case 'r':
-            target[key] = css({ [right]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-            break
-          case 't':
-            target[key] = css({ [top]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-            break
-          case 'b':
-            target[key] = css({ [bottom]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-            break
-        }
-        if (tempList.length) {
-          target[key] = tempList.flat()
-        }
+      if (target[key]) return target[key]
+
+      const strK = String(key)
+      const size = strK.split(directionPattern)
+      const num = Number(size[2])
+      const tempList = []
+      switch (size[1]) {
+        case 'a':
+          tempList.push(proxyObj[`x-${size[2]}`])
+          tempList.push(proxyObj[`y-${size[2]}`])
+          break
+        case 'x':
+          tempList.push(proxyObj[`l-${size[2]}`])
+          tempList.push(proxyObj[`r-${size[2]}`])
+          break
+        case 'y':
+          tempList.push(proxyObj[`t-${size[2]}`])
+          tempList.push(proxyObj[`b-${size[2]}`])
+          break
+        case 'l':
+          target[key] = css({ [left]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+          break
+        case 'r':
+          target[key] = css({ [right]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+          break
+        case 't':
+          target[key] = css({ [top]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+          break
+        case 'b':
+          target[key] = css({ [bottom]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+          break
+      }
+      if (tempList.length) {
+        target[key] = tempList.flat()
       }
       return target[key]
     }

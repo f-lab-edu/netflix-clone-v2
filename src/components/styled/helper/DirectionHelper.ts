@@ -38,8 +38,8 @@ export const generateSizeObject = (
     const h = css({ [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
     if (size[1] === 'a' || size[1] === 'w') tempList.push(w)
     if (size[1] === 'a' || size[1] === 'h') tempList.push(h)
-
-    return target[key] = tempList
+    target[key] = tempList
+    return target[key]
   }
   const proxyObj = new Proxy<SizeObjectType>(obj, {
     get: proxyGet
@@ -73,8 +73,8 @@ export const generateDirectionObject = (
     if (size[1] === 'a' || size[1] === 'x' || size[1] === 'l') tempList.push(l)
     if (size[1] === 'a' || size[1] === 'y' || size[1] === 't') tempList.push(t)
     if (size[1] === 'a' || size[1] === 'y' || size[1] === 'b') tempList.push(b)
-
-    return target[key] = tempList
+    target[key] = tempList
+    return target[key]
   }
   const proxyObj = new Proxy<DirectionObjectType>(obj, {
     get: proxyGet

@@ -1,17 +1,15 @@
-import type { Interpolation } from '@emotion/react';
 import { Trans, useTranslation } from 'next-i18next'
+import { StepHeaderStepCss, StepHeaderTitleCss } from '../styles/StepHeaderStyle';
 
 interface StepHeaderProps {
-  step: number,
+  step: number
   title: string
-  css?: Interpolation
+  className?: string
 }
-export default function StepHeader({ title, step, css }: StepHeaderProps) {
+export default function StepHeader({ title, step, className }: StepHeaderProps) {
   const { t } = useTranslation(['page-signup'])
-  // TODO: add Style
-  return <div css={css}>
-    {/* TODO: add style */}
-    <span>
+  return <div className={className}>
+    <span css={StepHeaderStepCss}>
       <Trans
         t={t}
         i18nKey={'page-signup:steps'}
@@ -21,7 +19,6 @@ export default function StepHeader({ title, step, css }: StepHeaderProps) {
         }}
       />
     </span>
-    {/* TODO: add style */}
-    <h1>{title}</h1>
+    <h1 css={StepHeaderTitleCss}>{title}</h1>
   </div>
 }

@@ -17,8 +17,8 @@ export type DirectionObjectType = {
   [k: `r-${number | string}`]: SerializedStyles | SerializedStyles[]
 }
 
-const directionPattern = /(a|x|y|t|b|l|r)-([a-z0-9.%]+|[0-9.]+)/
-const sizePattern = /(a|w|h)-([a-z0-9.%]+|[0-9.]+)/
+const directionPattern = /[axytblr]-([a-z0-9.%]+|[0-9.]+)/
+const sizePattern = /[awh]-([a-z0-9.%]+|[0-9.]+)/
 
 export const generateSizeObject = (
   obj: SizeObjectType,
@@ -29,26 +29,25 @@ export const generateSizeObject = (
     get(target, k) {
       if (!sizePattern.test(String(k))) return undefined
       const key = k.toString() as keyof typeof obj
-      if (!target[key]) {
-        const strK = String(key)
-        const size = strK.split(sizePattern)
-        const num = Number(size[2])
-        const tempList = []
-        switch (size[1]) {
-          case 'a':
-            tempList.push(proxyObj[`w-${size[2]}`])
-            tempList.push(proxyObj[`h-${size[2]}`])
-            break
-          case 'w':
-            target[key] = css({ [width]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-            break
-          case 'h':
-            target[key] = css({ [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-            break
-        }
-        if (tempList.length) {
-          target[key] = tempList.flat()
-        }
+      if (target[key]) return target[key]
+      const strK = String(key)
+      const size = strK.split(sizePattern)
+      const num = Number(size[2])
+      const tempList = []
+      switch (size[1]) {
+        case 'a':
+          tempList.push(proxyObj[`w-${size[2]}`])
+          tempList.push(proxyObj[`h-${size[2]}`])
+          break
+        case 'w':
+          target[key] = css({ [width]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+          break
+        case 'h':
+          target[key] = css({ [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+          break
+      }
+      if (tempList.length) {
+        target[key] = tempList.flat()
       }
       return target[key]
     }

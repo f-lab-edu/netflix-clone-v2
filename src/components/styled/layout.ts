@@ -21,12 +21,14 @@ export const MediaPoint = facepaint(
   Object.values(sizes).slice(1).map(v => `@media (min-width: ${v}px)`)
 )
 
+type CSSType = CSSObject | SerializedStyles
+
 export const BreakPoints = {
-  xs: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.xs}px)`]: args }),
-  sm: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.sm}px)`]: args }),
-  md: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.md}px)`]: args }),
-  lg: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.lg}px)`]: args }),
-  full: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.full}px)`]: args })
+  xs: (args: CSSType | (CSSType)[]) => css({ [`@media (min-width: ${sizes.xs}px)`]: args }),
+  sm: (args: CSSType | (CSSType)[]) => css({ [`@media (min-width: ${sizes.sm}px)`]: args }),
+  md: (args: CSSType | (CSSType)[]) => css({ [`@media (min-width: ${sizes.md}px)`]: args }),
+  lg: (args: CSSType | (CSSType)[]) => css({ [`@media (min-width: ${sizes.lg}px)`]: args }),
+  full: (args: CSSType | (CSSType)[]) => css({ [`@media (min-width: ${sizes.full}px)`]: args })
 }
 
 const sizeObj: SizeObjectType = {}

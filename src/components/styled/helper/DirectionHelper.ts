@@ -17,8 +17,8 @@ export type DirectionObjectType = {
   [k: `r-${number | string}`]: SerializedStyles | SerializedStyles[]
 }
 
-const directionPattern = /[axytblr]-([a-z0-9.%]+|[0-9.]+)/
-const sizePattern = /[awh]-([a-z0-9.%]+|[0-9.]+)/
+const directionPattern = /([axytblr])-([a-z0-9.%]+|[0-9.]+)/
+const sizePattern = /([awh])-([a-z0-9.%]+|[0-9.]+)/
 
 export const generateSizeObject = (
   obj: SizeObjectType,
@@ -34,11 +34,11 @@ export const generateSizeObject = (
     const num = Number(size[2])
     const tempList = []
 
-    const w = css({ [width]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-    const h = css({ [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    const w = { [width]: Number.isNaN(num) ? size[2] : num && `${num}rem` }
+    const h = { [height]: Number.isNaN(num) ? size[2] : num && `${num}rem` }
     if (size[1] === 'a' || size[1] === 'w') tempList.push(w)
     if (size[1] === 'a' || size[1] === 'h') tempList.push(h)
-    target[key] = tempList
+    target[key] = css(tempList)
     return target[key]
   }
   const proxyObj = new Proxy<SizeObjectType>(obj, {
@@ -64,16 +64,16 @@ export const generateDirectionObject = (
     const num = Number(size[2])
     const tempList = []
 
-    const l = css({ [left]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-    const r = css({ [right]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-    const t = css({ [top]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
-    const b = css({ [bottom]: Number.isNaN(num) ? size[2] : num && `${num}rem` })
+    const l = { [left]: Number.isNaN(num) ? size[2] : num && `${num}rem` }
+    const r = { [right]: Number.isNaN(num) ? size[2] : num && `${num}rem` }
+    const t = { [top]: Number.isNaN(num) ? size[2] : num && `${num}rem` }
+    const b = { [bottom]: Number.isNaN(num) ? size[2] : num && `${num}rem` }
 
     if (size[1] === 'a' || size[1] === 'x' || size[1] === 'r') tempList.push(r)
     if (size[1] === 'a' || size[1] === 'x' || size[1] === 'l') tempList.push(l)
     if (size[1] === 'a' || size[1] === 'y' || size[1] === 't') tempList.push(t)
     if (size[1] === 'a' || size[1] === 'y' || size[1] === 'b') tempList.push(b)
-    target[key] = tempList
+    target[key] = css(tempList)
     return target[key]
   }
   const proxyObj = new Proxy<DirectionObjectType>(obj, {

@@ -16,7 +16,8 @@ export const theme: Theme = {
       defaultFont: '#333',
       lightDivider: '#e6e6e6',
       footerLightFont: '#737373',
-      footerLightBg: '#f3f3f3'
+      footerLightBg: '#f3f3f3',
+      outline: 'rgba(128,128,128,0.7)'
     },
     white: {
       default: '#ffffff',
@@ -28,6 +29,9 @@ export const theme: Theme = {
       default: '#e50914',
       active: '#99161d',
       hover: '#c11119'
+    },
+    green: {
+      validated: '#2bb871'
     }
   }
 }

@@ -1,10 +1,12 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useTranslation } from 'next-i18next'
 import BaseLayout from '@/components/layout/BaseLayout';
+import LanguageSelect from '@/components/i18n/LanguageSelect';
+import EmailSubmitForm from './component/EmailSubmitForm';
 import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBottom';
 import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentDetail, HeroContentDetailShell, HeroContentDetailContentLayout, HeroContentShell } from './styles/HeroContent';
 import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninLink } from './styles/HeroHead';
-import { HeroDescrpition1, HeroDescrpition2, HeroSection, HeroTitle } from './styles/HeroSection';
+import { HeroDescrpition1, HeroSection, HeroTitle } from './styles/HeroSection';
 
 const Home: NextPageWithLayout = () => {
   const { t } = useTranslation(['common', 'page-home'])
@@ -18,8 +20,8 @@ const Home: NextPageWithLayout = () => {
             </div>
             <HeroHeadRightSide>
               <div></div>
-              <select></select>
-              <HeroHeadSigninLink href="/">
+              <LanguageSelect />
+              <HeroHeadSigninLink href="/login">
                 {t('head.signin')}
               </HeroHeadSigninLink>
             </HeroHeadRightSide>
@@ -40,11 +42,7 @@ const Home: NextPageWithLayout = () => {
                 <HeroDescrpition1>
                   {t('page-home:section1.desc1')}
                 </HeroDescrpition1>
-                <form>
-                  <HeroDescrpition2>
-                    {t('page-home:section1.desc2')}
-                  </HeroDescrpition2>
-                </form>
+                <EmailSubmitForm />
               </HeroContentDetailContentLayout>
             </HeroContentDetailShell>
             <HeroBottom>

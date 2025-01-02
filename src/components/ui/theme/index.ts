@@ -13,6 +13,10 @@ export const theme: Theme = {
   },
   color: {
     grey: {
+      defaultFont: '#333',
+      lightDivider: '#e6e6e6',
+      footerLightFont: '#737373',
+      footerLightBg: '#f3f3f3',
       outline: 'rgba(128,128,128,0.7)'
     },
     white: {

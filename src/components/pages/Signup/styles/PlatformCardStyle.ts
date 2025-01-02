@@ -1,4 +1,18 @@
+import type { SerializedStyles } from '@emotion/react';
 import { css, keyframes } from '@emotion/react';
+
+export const PlatformDetailLargeCardCss = css({
+  border: '1px solid rgba(128, 128, 128, 0.7)',
+  borderRadius: '18px',
+  position: 'relative',
+  margin: '0px',
+  transition: 'margin 250ms ease-in-out, box-shadow 250ms ease-in-out, border-color 250ms ease-in-out',
+  backgroundColor: 'rgb(255, 255, 255)',
+})
+
+export const PlatformDetailLargeCardCssSelected = css({
+  boxShadow: 'rgba(0, 0, 0, 0.25) 0px 4px 10px 0px'
+})
 
 export const PlatformCardCss = css({
   borderRadius: '12px',
@@ -24,11 +38,17 @@ export const PlatformCardActivedCss = css({
   boxShadow: 'rgba(0, 0, 0, 0.3) 0px 4px 13px -3px',
   color: 'white',
   border: '0px',
-  background: 'radial-gradient(140.76% 131.96% at 100% 100%, rgb(229, 9, 20) 0%, rgba(74, 42, 150, 0.5) 73.57%, rgba(74, 42, 150, 0) 100%), rgb(29, 82, 157)',
   'path': {
     fill: 'white'
   }
 })
+
+// eslint-disable-next-line no-unused-vars
+export const PlatformCardBg: { [K in MembershipPlanTier]: SerializedStyles } = {
+  adsStandard: css([PlatformCardActivedCss, { background: 'radial-gradient(140.76% 131.96% at 100% 100%, rgb(109, 59, 227) 0%, rgba(74, 42, 150, 0.5) 73.57%, rgba(74, 42, 150, 0) 100%), rgb(29, 82, 157)' }]),
+  standard: css([PlatformCardActivedCss, { background: 'radial-gradient(140.76% 131.96% at 100% 100%, rgb(176, 56, 220) 0%, rgba(74, 42, 150, 0.5) 73.57%, rgba(74, 42, 150, 0) 100%), rgb(29, 82, 157)' }]),
+  premium: css([PlatformCardActivedCss, { background: 'radial-gradient(140.76% 131.96% at 100% 100%, rgb(229, 9, 20) 0%, rgba(74, 42, 150, 0.5) 73.57%, rgba(74, 42, 150, 0) 100%), rgb(29, 82, 157)' }])
+}
 
 export const PlatformCardTitleCss = css({
   fontSize: '0.875rem',

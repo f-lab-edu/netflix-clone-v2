@@ -3,9 +3,11 @@ import type { ReactElement } from 'react'
 import { useMemo } from 'react'
 import ErrorCross from '@/assets/netflix/error-cross.svg'
 import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputLabelHasValueOrFocusedCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputValidatedStateCss } from './style/InputStyle'
+import { InputAreaShellWithContentLabelCss, RadioLabelStyle, RadioOutLineWithContentLabelStyle, RadioTagContentLabelCss, RadioTagDefaultCss } from './style/RadioStyle';
 import { InputLabelFromSelectCss, InputTagFromSelectCss, SelectArrowPositionCss, SelectOutlineCss } from './style/SelectStyle'
 
 export interface InputLayoutProps {
+  className?: string
   css?: Interpolation | Interpolation[]
   hasValue?: boolean
   isFocus?: boolean
@@ -16,10 +18,11 @@ export interface InputLayoutProps {
   inputType?: 'select' | 'text' | 'file' | 'textarea' | 'checkbox' | 'radio'
   isValid?: boolean
   errorMessage?: string
-  label?: string
+  label?: string | ReactElement
 }
 
 export default function InputLayout({
+  className,
   css,
   isValid,
   hasValue,
@@ -46,6 +49,15 @@ export default function InputLayout({
         label.push(InputLabelFromSelectCss)
         outline.push(SelectArrowPositionCss, SelectOutlineCss)
         break
+      case 'radio':
+        if (typeof label === 'string') {
+          input.push(RadioTagDefaultCss)
+        } else {
+          inputShell.push(InputAreaShellWithContentLabelCss)
+          input.push(RadioTagContentLabelCss)
+          label.push(RadioLabelStyle)
+          outline.push(RadioOutLineWithContentLabelStyle)
+        }
       default:
         input.push(InputTagFromTextCss)
         label.push(InputLabelFromTextCss)
@@ -72,16 +84,16 @@ export default function InputLayout({
     }
   }, [hasValue, isFocus, hasError, inputType, isValid])
 
-  return <div css={[styleComputed.layout, css]}>
-    <label
-      css={styleComputed.label}
-      htmlFor={labelId}
-    >
-      {label}
-    </label>
+  return <div css={[styleComputed.layout, css]} className={className}>
     <div css={styleComputed.inputShell}>
       {prefixChild}
       {children(styleComputed.input)}
+      <label
+        css={styleComputed.label}
+        htmlFor={labelId}
+      >
+        {label}
+      </label>
       <div css={styleComputed.outline}>
         {postfixChild}
       </div>

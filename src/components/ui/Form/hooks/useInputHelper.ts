@@ -7,7 +7,7 @@ type PossibleInputType = HTMLSelectElement | HTMLInputElement | HTMLTextAreaElem
 export type ElementWithFilteredValue<E, T> = Omit<React.DetailedHTMLProps<React.SelectHTMLAttributes<E>, E>, 'defaultValue' | 'value'> & {
   defaultValue?: T
   value?: T
-  onChangeValue?: (_value: T) => void
+  onChangeValue?: (_value: T | undefined) => void
 }
 
 interface InputHelperProps<V> {
@@ -63,6 +63,7 @@ export default function useInputHelper<V>({
     if (onChange) onChange(e)
   }, [setValue, onChange])
   return {
+    id: inputId,
     defaultValue,
     layoutProps: {
       labelId: inputId,

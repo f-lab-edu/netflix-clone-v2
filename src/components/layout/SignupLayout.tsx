@@ -4,13 +4,13 @@ import { useTranslation } from 'next-i18next';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import { theme } from '../ui/theme';
 import BaseLayout from './BaseLayout'
-import { BodyContentShellCss, BodyLayoutCss, FooterContentShellCss, FooterLayoutCss, HeaderBorderCss, HeaderDefaultStyleCss, HeaderLinkStyleCss, HeaderLoginLinkStyleCss, } from './styles/SecondaryLayoutStyle';
-interface SecondaryLayoutProps {
+import { BodyContentShellCss, BodyLayoutCss, FooterContentShellCss, FooterLayoutCss, HeaderBorderCss, HeaderDefaultStyleCss, HeaderLinkStyleCss, HeaderLoginLinkStyleCss, } from './styles/SignupLayoutStyle';
+interface SignupLayoutProps {
   isDark?: boolean
   children?: ReactNode
 }
 
-export default function SecondaryLayout({ isDark, children }: SecondaryLayoutProps) {
+export default function SignupLayout({ isDark, children }: SignupLayoutProps) {
   const { t } = useTranslation(['common'])
   return <BaseLayout defaultColor={theme.color.grey.defaultFont}>
     {/* HEADER */}

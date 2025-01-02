@@ -1,5 +1,5 @@
 import type { NextPageWithLayout } from '@/pages/_app';
-import SecondaryLayout from '@/components/layout/SecondaryLayout';
+import SecondaryLayout from '@/components/layout/SignupLayout';
 
 const Signup: NextPageWithLayout = () => {
   return <div>

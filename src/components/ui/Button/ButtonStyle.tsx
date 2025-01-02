@@ -18,15 +18,30 @@ export const DefaultButtonCss = css({
   fill: 'currentcolor',
   verticalAlign: 'text-top',
   minWidth: 'max-content',
+})
+
+export const DarkButtonInteractionCss = css({
   '&:hover': {
     transitionTimingFunction: 'cubic-bezier(0.32,0.94,0.6,1)',
-    backgroundColor: theme.color.red.hover,
+    backgroundColor: theme.color.red.hover.dark,
     borderColor: 'black'
   },
   '&:active': {
     transition: 'none',
     color: theme.color.white.active,
-    backgroundColor: theme.color.red.active,
+    backgroundColor: theme.color.red.active.dark,
+  },
+  '&:focus:not(:focus-visible)': {
+    outline: 'none'
+  }
+})
+console.log(theme.color.red.hover.light)
+export const LightButtonInteractionCss = css({
+  '&:hover': {
+    backgroundColor: theme.color.red.hover.light,
+  },
+  '&:active': {
+    backgroundColor: theme.color.red.active.light,
   },
   '&:focus:not(:focus-visible)': {
     outline: 'none'

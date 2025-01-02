@@ -23,7 +23,7 @@ export default function EmailSubmitForm() {
 
   function submitAction(obj: FormData) {
     sessionStorage.setItem('sign-tryed-email', obj.email)
-    router.push('/login')
+    router.push('/signin')
   }
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>

@@ -1,0 +1,59 @@
+{
+  "nextButton": "Next",
+  "steps": "STEP <b>{{step}}</b> OF <b>3</b>",
+  "main": {
+    "title": "Choose your plan.",
+    "desc1": "No commitments, cancel anytime.",
+    "desc2": "Endless entertainment for one low price.",
+    "desc3": "Enjoy Netflix on all your devices."
+  },
+  "platform": {
+    "title": "Choose the plan that’s right for you",
+    "platformAttrs": {
+      "price": "Monthly Price",
+      "quality": "Video and sound quality",
+      "resolution": "Resolution",
+      "audio": "Spatial audio (immersive sound)",
+      "devices": "Supported devices",
+      "watch": "Devices your household can watch at the same time",
+      "download": "Download devices",
+      "ads": "Ads"
+    },
+    "tier": {
+      "adsStandard": {
+        "title": "Standard with ads",
+        "resolutionSimple": "1080p",
+        "price": "5500.0",
+        "quality": "Good",
+        "resolution": "1080p (Full HD)",
+        "devices": "TV, computer, mobile phone, tablet",
+        "watch": "2",
+        "download": "2",
+        "ads": "Less than you might think"
+      },
+      "standard": {
+        "title": "Standard",
+        "resolutionSimple": "1080p",
+        "price": "13500.0",
+        "quality": "Good",
+        "resolution": "1080p (Full HD)",
+        "devices": "TV, computer, mobile phone, tablet",
+        "watch": "2",
+        "download": "2",
+        "ads": "No ads"
+      },
+      "premium": {
+        "title": "Premium",
+        "resolutionSimple": "4K + HDR",
+        "price": "17000.0",
+        "quality": "Best",
+        "resolution": "4K (Ultra HD) + HDR",
+        "audio": "Included",
+        "devices": "TV, computer, mobile phone, tablet",
+        "watch": "4",
+        "download": "6",
+        "ads": "No ads"
+      }
+    }
+  }
+}

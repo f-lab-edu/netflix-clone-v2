@@ -13,6 +13,10 @@ export const theme: Theme = {
   },
   color: {
     grey: {
+      defaultFont: '#333',
+      lightDivider: '#e6e6e6',
+      footerLightFont: '#737373',
+      footerLightBg: '#f3f3f3',
       outline: 'rgba(128,128,128,0.7)'
     },
     white: {
@@ -23,8 +27,14 @@ export const theme: Theme = {
     red: {
       error: '#eb3942',
       default: '#e50914',
-      active: '#99161d',
-      hover: '#c11119'
+      active: {
+        light: '#e50914',
+        dark: '#99161d',
+      },
+      hover: {
+        light: '#f6121d',
+        dark: '#c11119'
+      }
     },
     green: {
       validated: '#2bb871'

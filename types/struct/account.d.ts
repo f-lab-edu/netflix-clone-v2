@@ -1,4 +1,12 @@
-declare interface Account {
+declare interface AccountBaseInfo {
+  id: number
+  password: string
+  email: string
+  emailVerified: boolean
+  phone: string
+  phoneVerified: boolean
+}
+declare interface AccountTotalInfo {
   billing: {
     /**
      * 구독 멤버십 정보
@@ -32,15 +40,9 @@ declare interface Account {
    */
   security: {
     /**
-     * 현재 계정 정보w
+     * 현재 계정 정보
      */
-    currentInfo: {
-      password: string
-      email: string
-      emailVerified: boolean
-      phone: string
-      phoneVerified: boolean
-    }
+    currentInfo: AccountBaseInfo
     /**
      * 액세스 정보
      */

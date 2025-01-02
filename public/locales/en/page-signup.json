@@ -55,5 +55,9 @@
         "ads": "No ads"
       }
     }
+  },
+  "registration": {
+    "title": "Finish setting up your account",
+    "desc": "Netflix is personalized for you. Create a password to start watching Netflix."
   }
 }

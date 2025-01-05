@@ -25,6 +25,6 @@ export default function useFileSelectHandler(incomeValue: File[], onChangeFile: 
   }, [setValue, onChange])
   return {
     value,
-    onChangeEvent
+    onChange: onChangeEvent
   }
 }

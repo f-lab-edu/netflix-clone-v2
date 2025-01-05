@@ -17,7 +17,7 @@ export default function useIsFocus(
   }, [onBlur])
   return {
     isFocus,
-    onFocusEvent,
-    onBlurEvent
+    onFocus: onFocusEvent,
+    onBlur: onBlurEvent
   }
 }

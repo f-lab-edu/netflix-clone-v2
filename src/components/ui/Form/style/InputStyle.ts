@@ -17,6 +17,9 @@ export const InputDivCss = css([{
   textAlign: 'start',
   ':has(input:not(:placeholder-shown))': {
     'label': InputLabelHasValueOrFocusedCss
+  },
+  ':has(input:focus)': {
+    'label': InputLabelHasValueOrFocusedCss
   }
 }])
 

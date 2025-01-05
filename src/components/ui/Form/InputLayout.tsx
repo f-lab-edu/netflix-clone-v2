@@ -2,13 +2,11 @@ import type { Interpolation } from '@emotion/react';
 import type { ReactElement } from 'react'
 import { useMemo } from 'react'
 import ErrorCross from '@/assets/netflix/error-cross.svg'
-import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputLabelHasValueOrFocusedCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputValidatedStateCss } from './style/InputStyle'
+import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputValidatedStateCss } from './style/InputStyle'
 import { InputLabelFromSelectCss, InputTagFromSelectCss, SelectArrowPositionCss, SelectOutlineCss } from './style/SelectStyle'
 
 export interface InputLayoutProps {
   css?: Interpolation | Interpolation[]
-  hasValue?: boolean
-  isFocus?: boolean
   labelId?: string
   prefixChild?: ReactElement
   postfixChild?: ReactElement
@@ -22,8 +20,6 @@ export interface InputLayoutProps {
 export default function InputLayout({
   css,
   isValid,
-  hasValue,
-  isFocus,
   errorMessage,
   inputType,
   labelId,
@@ -51,9 +47,6 @@ export default function InputLayout({
         label.push(InputLabelFromTextCss)
         break
     }
-    if (isFocus || hasValue) {
-      label.push(InputLabelHasValueOrFocusedCss)
-    }
     if (hasError) {
       layout.push(InputErrorStateCss)
       error.push(InputErrorDivCss)
@@ -70,7 +63,7 @@ export default function InputLayout({
       error,
       outline
     }
-  }, [hasValue, isFocus, hasError, inputType, isValid])
+  }, [hasError, inputType, isValid])
 
   return <div css={[styleComputed.layout, css]}>
     <label

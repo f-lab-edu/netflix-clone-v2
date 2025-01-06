@@ -1,8 +1,9 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
+import { useMemo, useState } from 'react';
 import SecondaryLayout from '@/components/layout/SecondaryLayout';
+import useWindowResize from '@/hooks/useWindowResize';
 import StepHeader from './component/StepHeader';
 import PlatformDetailLarge from './component/platform/PlatfomDetailLarge';
 import PlatformDetailSlim from './component/platform/PlatfomDetailSlim';
@@ -12,20 +13,10 @@ import { SignupPlatformContentCss, SignupPlatformContentLargeCss } from './style
 const PlatformPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
   // TODO: on resize display width > over 1050px change contents as full width mode
-  const [displayWidth, setDisplayWidth] = useState(0)
-  const displayWidthDeferred = useDeferredValue(displayWidth)
-  const isLarge = useMemo(() => displayWidthDeferred > 1050, [displayWidthDeferred])
 
-  const event = useCallback(() => {
-    setDisplayWidth(window.innerWidth)
-  }, [])
-  useEffect(() => {
-    event()
-    window.addEventListener('resize', event)
-    return () => {
-      window.removeEventListener('resize', event)
-    }
-  }, [])
+  const [windowSize] = useWindowResize()
+  const isLarge = useMemo(() => windowSize > 1050, [windowSize])
+
   const [selectedType, setSelectedType] = useState<MembershipPlanTier>('premium')
 
   return <>

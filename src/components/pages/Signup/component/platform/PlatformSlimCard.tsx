@@ -8,7 +8,7 @@ interface PlatformCardProps {
   isChecked: boolean
   alwaysBg?: boolean
   css?: Interpolation
-  className: string
+  className?: string
 }
 
 export default function PlatformSlimCard({ value, title, sub, isChecked, alwaysBg, className }: PlatformCardProps) {

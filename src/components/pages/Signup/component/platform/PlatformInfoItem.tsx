@@ -10,10 +10,10 @@ export default function PlatformInfoItem({
   large, title, value
 }: PlatformInfoItemProps) {
 
-  return <li css={PlatformInfoItemCss}>
+  return <li css={PlatformInfoItemCss} role="listitem">
     <div css={[PlatformInfoItemShellCss, large ? PlatformInfoItemShellLargeCss : PlatformInfoItemShellSmallCss]}>
-      <div css={PlatformInfoItemTitleCss}>{title}</div>
-      <div css={PlatformInfoItemValueCss}>{value}</div>
+      <h1 css={PlatformInfoItemTitleCss}>{title}</h1>
+      <span css={PlatformInfoItemValueCss} role="contentinfo">{value}</span>
     </div>
   </li>
 }

@@ -9,7 +9,7 @@ interface PlatformInfoListProps {
 }
 
 export default function PlatformInfoList({ large, infoList }: Readonly<PlatformInfoListProps>) {
-  return <ul css={PlatformInfoListStyle} role="list">
+  return <ul css={PlatformInfoListStyle}>
     {infoList.map((item, idx) => {
       return <PlatformInfoItem key={`item-${idx}`} {...item} large={large}></PlatformInfoItem>
     })}

@@ -1,38 +1,23 @@
 import type { InputLayoutProps } from './InputLayout';
-import type { ElementWithFilteredValue } from './hooks/useInputHelper';
 import type { Interpolation } from '@emotion/react';
+import type { InputHTMLAttributes } from 'react';
+import { useId } from 'react';
 import InputLayout from './InputLayout'
-import useInputHelper from './hooks/useInputHelper';
 interface CssProps {
   css?: Interpolation
 }
-type InputType = string | undefined
 
 interface TextInputProps extends CssProps {
-  inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css'>
+  inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css' | 'label'> & { label: string }
 }
 export default function TextInput({
   css,
   inputLayoutProps,
-  defaultValue,
-  value,
-  onBlur,
-  onFocus,
-  onChange,
-  onChangeValue,
   ...props
-}: TextInputProps & ElementWithFilteredValue<HTMLInputElement, InputType> & CssProps) {
+}: TextInputProps & InputHTMLAttributes<HTMLInputElement> & CssProps) {
+  const inputId = useId()
 
-  const { layoutProps, ...inputProps } = useInputHelper<InputType>({
-    defaultValue,
-    value,
-    onBlur,
-    onFocus,
-    onChange,
-    onChangeValue,
-  })
-
-  return <InputLayout {...inputLayoutProps} {...layoutProps}>
-    {(throwedCss) => <input {...props} {...inputProps} css={[css, throwedCss]} />}
+  return <InputLayout labelId={inputId} {...inputLayoutProps}>
+    {(throwedCss) => <input {...props} id={inputId} placeholder={inputLayoutProps?.label || 'label'} css={[css, throwedCss]} />}
   </InputLayout>
 }

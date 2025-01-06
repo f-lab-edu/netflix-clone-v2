@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { useMemo, useState } from 'react';
 import SecondaryLayout from '@/components/layout/SecondaryLayout';
+import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useWindowResize from '@/hooks/useWindowResize';
 import StepHeader from './component/StepHeader';
 import PlatformDetailLarge from './component/platform/PlatfomDetailLarge';
@@ -22,12 +23,16 @@ const PlatformPage: NextPageWithLayout = () => {
   return <>
     <div css={[SignupPlatformContentCss, isLarge ? SignupPlatformContentLargeCss : {}]}>
       <StepHeader css={{ marginBottom: '.5rem' }} step={1} title={t('page-signup:platform.title')} />
-      {
-        isLarge ? <PlatformDetailLarge onSelectedChange={setSelectedType} selectedType={selectedType} /> : <PlatformDetailSlim onSelectedChange={setSelectedType} selectedType={selectedType} />
-      }
+      <ConditionalRender.Boolean
+        condition={isLarge}
+        render={{
+          true: <PlatformDetailLarge onSelectedChange={setSelectedType} selectedType={selectedType} />,
+          false: <PlatformDetailSlim onSelectedChange={setSelectedType} selectedType={selectedType} />
+        }}
+      />
     </div>
     <div css={[SignupMainContentCss, { marginTop: '24px' }]}>
-      <Link css={SignupMainNextButtonCss} href="/signup/platform">
+      <Link css={SignupMainNextButtonCss} href="/signup/registration">
         Next
       </Link>
     </div>

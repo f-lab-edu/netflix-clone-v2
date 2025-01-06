@@ -16,7 +16,7 @@ interface PlatformDetailLargeProps {
 export default function PlatformDetailLarge({
   selectedType,
   onSelectedChange
-}: PlatformDetailLargeProps) {
+}: Readonly<PlatformDetailLargeProps>) {
   const { t, i18n } = useTranslation(['page-signup'])
   const infoList = useMemo(() => {
     return CardDisplayOrder.reduce((acc, tier) => {
@@ -26,34 +26,32 @@ export default function PlatformDetailLarge({
     }, {} as { [k in MembershipPlanTier]: PlatformInfoItem[] })
   }, [i18n])
 
-  return <>
-    <div css={SignupPlatformLargeCardListCss}>
-      {CardDisplayOrder.map((v) => {
-        const selected = selectedType === v
-        return <RadioInput<MembershipPlanTier>
-          key={`radio-${v}`}
-          value={v}
-          selectedValue={selectedType}
-          onChangeValue={(v) => {
-            if (v) {
-              onSelectedChange(v)
-            }
-          }}
-          inputLayoutProps={{
-            label: <div css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}>
-              <PlatformSlimCard
-                css={{ margin: '8px', width: 'auto' }}
-                alwaysBg
-                value={v}
-                title={t(`page-signup:platform.tier.${v}.title`)}
-                sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
-                isChecked={selected}
-              />
-              <PlatformInfoList large={true} infoList={infoList[v]} />
-            </div>
-          }}
-        />
-      })}
-    </div>
-  </>
+  return <div css={SignupPlatformLargeCardListCss}>
+    {CardDisplayOrder.map((v) => {
+      const selected = selectedType === v
+      return <RadioInput<MembershipPlanTier>
+        key={`radio-${v}`}
+        value={v}
+        selectedValue={selectedType}
+        onChangeValue={(v) => {
+          if (v) {
+            onSelectedChange(v)
+          }
+        }}
+        inputLayoutProps={{
+          label: <div css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}>
+            <PlatformSlimCard
+              css={{ margin: '8px', width: 'auto' }}
+              alwaysBg
+              value={v}
+              title={t(`page-signup:platform.tier.${v}.title`)}
+              sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
+              isChecked={selected}
+            />
+            <PlatformInfoList large={true} infoList={infoList[v]} />
+          </div>
+        }}
+      />
+    })}
+  </div>
 }

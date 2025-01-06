@@ -15,16 +15,16 @@ interface PlatformDetailSlimProps {
 export default function PlatformDetailSlim({
   selectedType,
   onSelectedChange
-}: PlatformDetailSlimProps) {
+}: Readonly<PlatformDetailSlimProps>) {
   const { t, i18n } = useTranslation(['page-signup'])
 
   const infoList = useMemo(() => {
     return getPlatformInfoListByTier(i18n, selectedType)
   }, [selectedType, i18n])
   const cardList = useMemo(() => {
-    return CardDisplayOrder.map((v, idx) => {
+    return CardDisplayOrder.map((v) => {
       return <RadioInput<MembershipPlanTier>
-        key={`card-${idx}`}
+        key={`card-${v}`}
         value={v}
         selectedValue={selectedType}
         onChangeValue={(v) => {

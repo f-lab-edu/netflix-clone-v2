@@ -8,7 +8,7 @@ interface PlatformInfoItemProps {
 
 export default function PlatformInfoItem({
   large, title, value
-}: PlatformInfoItemProps) {
+}: Readonly<PlatformInfoItemProps>) {
 
   return <li css={PlatformInfoItemCss} role="listitem">
     <div css={[PlatformInfoItemShellCss, large ? PlatformInfoItemShellLargeCss : PlatformInfoItemShellSmallCss]}>

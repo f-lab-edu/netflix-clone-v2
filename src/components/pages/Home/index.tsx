@@ -1,6 +1,5 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useTranslation } from 'next-i18next'
-import BaseLayout from '@/components/layout/BaseLayout';
 import LanguageSelect from '@/components/i18n/LanguageSelect';
 import BaseLayout from '@/components/layout/BaseLayout';
 import EmailSubmitForm from './component/EmailSubmitForm';

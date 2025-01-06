@@ -18,7 +18,7 @@ const ConditionalRender = ({ render, condition }: ConditionalRenderProps) => {
 }
 
 const ConditionalRenderBoolean = ({ render, condition }: ConditionalRenderBooleanProps) => {
-  return condition ? <>{render.true}</> : <>{render.false}</>
+  return <>{condition ? render.true : render.false}</>
 }
 
 ConditionalRender.Boolean = ConditionalRenderBoolean

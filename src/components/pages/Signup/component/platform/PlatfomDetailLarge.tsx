@@ -29,14 +29,12 @@ export default function PlatformDetailLarge({
   return <div css={SignupPlatformLargeCardListCss}>
     {CardDisplayOrder.map((v) => {
       const selected = selectedType === v
-      return <RadioInput<MembershipPlanTier>
+      return <RadioInput
         key={`radio-${v}`}
         value={v}
-        selectedValue={selectedType}
-        onChangeValue={(v) => {
-          if (v) {
-            onSelectedChange(v)
-          }
+        name="platformCard"
+        onChange={() => {
+          onSelectedChange(v)
         }}
         inputLayoutProps={{
           label: <div css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}>

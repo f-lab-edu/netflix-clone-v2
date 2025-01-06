@@ -1,46 +1,24 @@
 import type { InputLayoutProps } from './InputLayout';
-import type { ElementWithFilteredValue } from './hooks/useInputHelper';
-import type { Interpolation } from '@emotion/react';
+import type { InputHTMLAttributes } from 'react';
+import { useId } from 'react';
 import InputLayout from './InputLayout'
-import useInputHelper from './hooks/useInputHelper';
-interface CssProps {
-  css?: Interpolation
-}
-type InputType = string | undefined
 
-interface RadioInputProps<I> extends CssProps {
+interface RadioInputProps extends CssProps {
   inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css'>
-  selectedValue?: I
 }
-export default function RadioInput<I extends InputType = InputType>({
+export default function RadioInput({
   css,
   inputLayoutProps,
-  defaultValue,
-  value,
-  selectedValue,
-  onBlur,
-  onFocus,
-  onChange,
-  onChangeValue,
   ...props
-}: RadioInputProps<I> & ElementWithFilteredValue<HTMLInputElement, I> & CssProps) {
+}: RadioInputProps & InputHTMLAttributes<HTMLInputElement> & CssProps) {
 
-  const { layoutProps, ...inputProps } = useInputHelper<I>({
-    defaultValue,
-    value: selectedValue,
-    onBlur,
-    onFocus,
-    onChange,
-    onChangeValue,
-  })
+  const inputId = useId()
 
-  return <InputLayout {...inputLayoutProps} inputType='radio' {...layoutProps} >
+  return <InputLayout {...inputLayoutProps} inputType='radio' labelId={inputId} >
     {(throwedCss) => <input
+      id={inputId}
       type="radio"
-      checked={selectedValue === value}
-      value={value}
       {...props}
-      {...inputProps}
       css={[css, throwedCss]}
     />}
   </InputLayout>

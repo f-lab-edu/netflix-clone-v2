@@ -23,11 +23,11 @@ export default function PlatformDetailSlim({
   }, [selectedType, i18n])
   const cardList = useMemo(() => {
     return CardDisplayOrder.map((v) => {
-      return <RadioInput<MembershipPlanTier>
+      return <RadioInput
         key={`card-${v}`}
         value={v}
-        selectedValue={selectedType}
-        onChangeValue={(v) => {
+        name="platformCard"
+        onChange={() => {
           if (v) {
             onSelectedChange(v)
           }

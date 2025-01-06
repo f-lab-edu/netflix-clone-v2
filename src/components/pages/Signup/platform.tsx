@@ -2,7 +2,7 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { useMemo, useState } from 'react';
-import SecondaryLayout from '@/components/layout/SecondaryLayout';
+import SignupLayout from '@/components/layout/SignupLayout';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useWindowResize from '@/hooks/useWindowResize';
 import StepHeader from './component/StepHeader';
@@ -40,6 +40,6 @@ const PlatformPage: NextPageWithLayout = () => {
 }
 
 PlatformPage.getLayout = (page) => {
-  return <SecondaryLayout>{page}</SecondaryLayout>
+  return <SignupLayout>{page}</SignupLayout>
 }
 export default PlatformPage

@@ -1,5 +1,5 @@
 import type { NextPageWithLayout } from '@/pages/_app';
-import SecondaryLayout from '@/components/layout/SignupLayout';
+import SignupLayout from '@/components/layout/SignupLayout';
 
 const Signup: NextPageWithLayout = () => {
   return <div>
@@ -8,6 +8,6 @@ const Signup: NextPageWithLayout = () => {
 }
 
 Signup.getLayout = (page) => {
-  return <SecondaryLayout>{page}</SecondaryLayout>
+  return <SignupLayout>{page}</SignupLayout>
 }
 export default Signup

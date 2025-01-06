@@ -12,6 +12,6 @@ export default function useWindowResize() {
     return () => {
       window.removeEventListener('resize', event)
     }
-  }, [])
+  }, [event])
   return [displayWidthDeferred]
 }

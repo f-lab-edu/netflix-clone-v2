@@ -1,7 +1,7 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import SecondaryLayout from '@/components/layout/SecondaryLayout';
+import SignupLayout from '@/components/layout/SignupLayout';
 import StepHeader from './component/StepHeader';
 import { RegistrationLogoImageCss, StepLogoPositionCss } from './styles/RegistrationStyle';
 import { BodyContentShellCss, SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
@@ -24,6 +24,6 @@ const RegistrationPage: NextPageWithLayout = () => {
 }
 
 RegistrationPage.getLayout = (page) => {
-  return <SecondaryLayout>{page}</SecondaryLayout>
+  return <SignupLayout>{page}</SignupLayout>
 }
 export default RegistrationPage

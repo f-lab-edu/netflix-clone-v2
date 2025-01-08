@@ -1,11 +1,15 @@
-import type { ReactElement } from 'react';
-import { cloneElement } from 'react';
+import type { InputHTMLAttributes, ReactNode } from 'react';
+import { cloneElement, isValidElement, useMemo } from 'react';
 
-interface InputTagProps {
-  children?: ReactElement
-}
+type InputTagProps = {
+  children?: ReactNode
+} & Omit<InputHTMLAttributes<HTMLInputElement>, 'children'>
 
 export default function InputTag({ children, ...props }: InputTagProps & CssProps) {
-  const input = cloneElement(children || <input />, props)
-  return <>{input}</>
+  const render = useMemo(() => {
+    if (isValidElement(children))
+      return cloneElement(children || <input />, props)
+    else return children || <input />
+  }, [children, props])
+  return <>{render}</>
 }

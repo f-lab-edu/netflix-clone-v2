@@ -25,9 +25,7 @@ export default function DarkTextInput({
       <InputLayout.Label css={[InputLabelDefaultCss, InputLabelFromTextCss]} htmlFor={inputId}>
         {props.placeholder}
       </InputLayout.Label>
-      <InputLayout.Tag>
-        <input css={[InputTagDefaultCss, InputTagFromTextCss]} {...inputProps} id={inputId} />
-      </InputLayout.Tag>
+      <InputLayout.Tag css={[InputTagDefaultCss, InputTagFromTextCss]} {...inputProps} id={inputId} />
       <InputLayout.Outline css={InputOutlineCss} />
     </InputLayout.Shell>
     <ConditionalRender.Boolean

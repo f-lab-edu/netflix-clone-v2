@@ -4,11 +4,11 @@ import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
 import SignupDesc from './component/SignupDesc';
 import StepHeader from './component/StepHeader';
-import { BodyContentShellCss, SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
+import { SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
 
 const SignupPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
-  return <div css={BodyContentShellCss}>
+  return <>
     <div css={SignupMainContentCss}>
       {/* TODO: add check logo svg */}
       <StepHeader title={t('page-signup:main.title')} step={1} />
@@ -24,10 +24,10 @@ const SignupPage: NextPageWithLayout = () => {
         Next
       </Link>
     </div>
-  </div>
+  </>
 }
 
 SignupPage.getLayout = (page) => {
-  return <SignupLayout>{page}</SignupLayout>
+  return <SignupLayout withShell>{page}</SignupLayout>
 }
 export default SignupPage

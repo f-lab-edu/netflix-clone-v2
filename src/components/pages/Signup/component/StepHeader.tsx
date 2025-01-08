@@ -6,7 +6,7 @@ interface StepHeaderProps {
   title: string
   className?: string
 }
-export default function StepHeader({ title, step, className }: StepHeaderProps) {
+export default function StepHeader({ title, step, className }: Readonly<StepHeaderProps>) {
   const { t } = useTranslation(['page-signup'])
   return <div className={className}>
     <span css={StepHeaderStepCss}>

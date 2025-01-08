@@ -1,9 +1,9 @@
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import RadioInput from '@/components/ui/Form/RadioInput';
-import useI18nPlatformInfoListByTier from '../../hooks/useI18nPlatformInfoListByTier';
 import { SignupPlatformCardListCss } from '../../styles/SignupPlayform';
 import { CardDisplayOrder } from '../../utils/CardDisplayOrder';
+import { getPlatformInfoListByTier } from '../../utils/getPlatformInfoListByTier';
 import PlatformInfoList from './PlatformInfoList';
 import PlatformSlimCard from './PlatformSlimCard';
 
@@ -15,20 +15,19 @@ interface PlatformDetailSlimProps {
 export default function PlatformDetailSlim({
   selectedType,
   onSelectedChange
-}: PlatformDetailSlimProps) {
-  const { t } = useTranslation(['page-signup'])
-  const { getPlatformInfoListByTier } = useI18nPlatformInfoListByTier()
+}: Readonly<PlatformDetailSlimProps>) {
+  const { t, i18n } = useTranslation(['page-signup'])
 
   const infoList = useMemo(() => {
-    return getPlatformInfoListByTier(selectedType)
-  }, [selectedType, getPlatformInfoListByTier])
+    return getPlatformInfoListByTier(i18n, selectedType)
+  }, [selectedType, i18n])
   const cardList = useMemo(() => {
-    return CardDisplayOrder.map((v, idx) => {
-      return <RadioInput<MembershipPlanTier>
-        key={`card-${idx}`}
+    return CardDisplayOrder.map((v) => {
+      return <RadioInput
+        key={`card-${v}`}
         value={v}
-        selectedValue={selectedType}
-        onChangeValue={(v) => {
+        name="platformCard"
+        onChange={() => {
           if (v) {
             onSelectedChange(v)
           }

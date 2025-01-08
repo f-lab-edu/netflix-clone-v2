@@ -8,12 +8,12 @@ interface PlatformInfoItemProps {
 
 export default function PlatformInfoItem({
   large, title, value
-}: PlatformInfoItemProps) {
+}: Readonly<PlatformInfoItemProps>) {
 
   return <li css={PlatformInfoItemCss}>
     <div css={[PlatformInfoItemShellCss, large ? PlatformInfoItemShellLargeCss : PlatformInfoItemShellSmallCss]}>
-      <div css={PlatformInfoItemTitleCss}>{title}</div>
-      <div css={PlatformInfoItemValueCss}>{value}</div>
+      <h1 css={PlatformInfoItemTitleCss} role="term">{title}</h1>
+      <span css={PlatformInfoItemValueCss} role="definition">{value}</span>
     </div>
   </li>
 }

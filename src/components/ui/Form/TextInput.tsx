@@ -1,14 +1,10 @@
 import type { InputLayoutProps } from './InputLayout';
-import type { Interpolation } from '@emotion/react';
 import type { InputHTMLAttributes } from 'react';
 import { useId } from 'react';
 import InputLayout from './InputLayout'
-interface CssProps {
-  css?: Interpolation
-}
 
 interface TextInputProps extends CssProps {
-  inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css'>
+  inputLayoutProps?: Omit<InputLayoutProps, 'children' | 'css' | 'label'> & { label: string }
 }
 export default function TextInput({
   css,

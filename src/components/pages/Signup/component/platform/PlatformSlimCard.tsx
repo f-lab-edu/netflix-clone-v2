@@ -8,10 +8,10 @@ interface PlatformCardProps {
   isChecked: boolean
   alwaysBg?: boolean
   css?: Interpolation
-  className: string
+  className?: string
 }
 
-export default function PlatformSlimCard({ value, title, sub, isChecked, alwaysBg, className }: PlatformCardProps) {
+export default function PlatformSlimCard({ value, title, sub, isChecked, alwaysBg, className }: Readonly<PlatformCardProps>) {
 
   return <div className={className} css={[PlatformCardCss, isChecked ? [PlatformCardBg[value]] : PlatformCardDefaultCss, alwaysBg ? PlatformCardBg[value] : []]}>
     <h2 css={PlatformCardTitleCss}>{title}</h2>

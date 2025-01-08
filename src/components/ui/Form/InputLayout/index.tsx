@@ -1,6 +1,4 @@
-import type { InputLayoutContextValues } from './InputLayoutContext';
-import type { ReactNode } from 'react';
-import InputLayoutContext from './InputLayoutContext';
+import type { HTMLAttributes, ReactNode } from 'react';
 import InputError from './atom/InputError';
 import InputLabel from './atom/InputLabel';
 import InputOutline from './atom/InputOutline';
@@ -9,16 +7,19 @@ import InputPrefix from './atom/InputPrefix';
 import InputShell from './atom/InputShell';
 import InputTag from './atom/InputTag';
 
-interface InputLayoutProps {
-  children: ReactNode
+export interface InputLayoutValues {
+  isValid?: boolean,
+  error?: string,
 }
-const InputLayout = ({ children, className, ...props }: InputLayoutProps & CssProps & InputLayoutContextValues) => {
 
-  return <InputLayoutContext.Provider value={props}>
-    <div className={className}>
-      {children}
-    </div>
-  </InputLayoutContext.Provider>
+type InputLayoutProps = {
+  children: ReactNode
+} & HTMLAttributes<HTMLDivElement>
+const InputLayout = ({ children, className, ...props }: InputLayoutProps & CssProps) => {
+
+  return <div className={className} {...props}>
+    {children}
+  </div>
 }
 
 InputLayout.Error = InputError

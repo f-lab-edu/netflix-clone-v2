@@ -1,4 +1,4 @@
-import type { InputLayoutContextValues } from '../InputLayout/InputLayoutContext';
+import type { InputLayoutValues } from '../InputLayout';
 import type { InputHTMLAttributes } from 'react';
 import { useId, useMemo } from 'react';
 import ErrorCross from '@/assets/netflix/error-cross.svg'
@@ -6,7 +6,7 @@ import ConditionalRender from '../../utils/ConditionalRender';
 import InputLayout from '../InputLayout'
 import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputValidatedStateCss } from './style';
 
-type TextInputProps = InputLayoutContextValues & CssProps
+type TextInputProps = InputLayoutValues & CssProps
 
 export default function DarkTextInput({
   ...props
@@ -20,7 +20,7 @@ export default function DarkTextInput({
     if (isError) temp.push(InputErrorStateCss)
     return temp
   }, [isValid, isError])
-  return <InputLayout isValid={isValid} error={error} css={layoutStyle}>
+  return <InputLayout css={layoutStyle}>
     <InputLayout.Shell css={InputAreaShellCss}>
       <InputLayout.Label css={[InputLabelDefaultCss, InputLabelFromTextCss]} htmlFor={inputId}>
         {props.placeholder}

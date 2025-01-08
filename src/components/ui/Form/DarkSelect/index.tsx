@@ -1,4 +1,4 @@
-import type { InputLayoutContextValues } from '../InputLayout/InputLayoutContext';
+import type { InputLayoutValues } from '../InputLayout';
 import type { ReactNode, SelectHTMLAttributes } from 'react';
 import { useMemo } from 'react';
 import SelectArrow from '@assets/netflix/select-arrow.svg'
@@ -12,7 +12,7 @@ type DarkLanguageSelectProps = {
   postfix?: ReactNode
   prefixSize?: string
   postfixSize?: string
-} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'prefix'> & InputLayoutContextValues
+} & Omit<SelectHTMLAttributes<HTMLSelectElement>, 'prefix'> & InputLayoutValues
 
 export default function DarkSelect({ children, postfix, postfixSize, prefix, prefixSize, isValid, error, ...props }: DarkLanguageSelectProps) {
   const selectPadding = useMemo(() => {

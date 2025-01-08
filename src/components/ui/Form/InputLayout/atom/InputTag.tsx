@@ -7,7 +7,7 @@ type InputTagProps = {
 
 export default function InputTag({ children, ...props }: InputTagProps & CssProps) {
   const render = useMemo(() => {
-    if (isValidElement(children))
+    if (typeof children === 'undefined' || isValidElement(children))
       return cloneElement(children || <input />, props)
     else return children || <input />
   }, [children, props])

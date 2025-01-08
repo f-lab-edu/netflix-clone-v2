@@ -1,7 +1,7 @@
 import type { PlatformInfoItem } from './PlatformInfoList';
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
-import RadioInput from '@/components/ui/Form/RadioInput';
+import LabelRadio from '@/components/ui/Form/LabelRadio';
 import { PlatformDetailLargeCardCss, PlatformDetailLargeCardCssSelected } from '../../styles/PlatformCardStyle';
 import { SignupPlatformLargeCardListCss } from '../../styles/SignupPlayform';
 import { CardDisplayOrder } from '../../utils/CardDisplayOrder';
@@ -29,27 +29,25 @@ export default function PlatformDetailLarge({
   return <div css={SignupPlatformLargeCardListCss}>
     {CardDisplayOrder.map((v) => {
       const selected = selectedType === v
-      return <RadioInput
-        key={`radio-${v}`}
+      return <LabelRadio key={`radio-${v}`}
         value={v}
         name="platformCard"
         onChange={() => {
           onSelectedChange(v)
         }}
-        inputLayoutProps={{
-          label: <div css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}>
-            <PlatformSlimCard
-              css={{ margin: '8px', width: 'auto' }}
-              alwaysBg
-              value={v}
-              title={t(`page-signup:platform.tier.${v}.title`)}
-              sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
-              isChecked={selected}
-            />
-            <PlatformInfoList large={true} infoList={infoList[v]} />
-          </div>
-        }}
-      />
+      >
+        <div css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}>
+          <PlatformSlimCard
+            css={{ margin: '8px', width: 'auto' }}
+            alwaysBg
+            value={v}
+            title={t(`page-signup:platform.tier.${v}.title`)}
+            sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
+            isChecked={selected}
+          />
+          <PlatformInfoList large={true} infoList={infoList[v]} />
+        </div>
+      </LabelRadio>
     })}
   </div>
 }

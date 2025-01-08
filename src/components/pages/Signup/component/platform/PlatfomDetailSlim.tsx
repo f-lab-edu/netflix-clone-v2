@@ -1,6 +1,6 @@
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
-import RadioInput from '@/components/ui/Form/RadioInput';
+import LabelRadio from '@/components/ui/Form/LabelRadio';
 import { SignupPlatformCardListCss } from '../../styles/SignupPlayform';
 import { CardDisplayOrder } from '../../utils/CardDisplayOrder';
 import { getPlatformInfoListByTier } from '../../utils/getPlatformInfoListByTier';
@@ -23,7 +23,7 @@ export default function PlatformDetailSlim({
   }, [selectedType, i18n])
   const cardList = useMemo(() => {
     return CardDisplayOrder.map((v) => {
-      return <RadioInput
+      return <LabelRadio
         key={`card-${v}`}
         value={v}
         name="platformCard"
@@ -32,15 +32,14 @@ export default function PlatformDetailSlim({
             onSelectedChange(v)
           }
         }}
-        inputLayoutProps={{
-          label: <PlatformSlimCard
-            value={v}
-            title={t(`page-signup:platform.tier.${v}.title`)}
-            sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
-            isChecked={selectedType === v}
-          />
-        }}
-      />
+      >
+        <PlatformSlimCard
+          value={v}
+          title={t(`page-signup:platform.tier.${v}.title`)}
+          sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
+          isChecked={selectedType === v}
+        />
+      </LabelRadio>
     })
   }, [selectedType, onSelectedChange, t])
   return <>

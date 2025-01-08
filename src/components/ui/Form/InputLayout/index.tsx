@@ -1,10 +1,6 @@
 import type { HTMLAttributes, ReactNode } from 'react';
-import InputError from './atom/InputError';
+import InputBaseDiv from './atom/InputBaseDiv';
 import InputLabel from './atom/InputLabel';
-import InputOutline from './atom/InputOutline';
-import InputPostfix from './atom/InputPostfix';
-import InputPrefix from './atom/InputPrefix';
-import InputShell from './atom/InputShell';
 import InputTag from './atom/InputTag';
 
 export interface InputLayoutValues {
@@ -22,12 +18,12 @@ const InputLayout = ({ children, className, ...props }: InputLayoutProps & CssPr
   </div>
 }
 
-InputLayout.Error = InputError
 InputLayout.Label = InputLabel
-InputLayout.Outline = InputOutline
-InputLayout.Postfix = InputPostfix
-InputLayout.Prefix = InputPrefix
-InputLayout.Shell = InputShell
 InputLayout.Tag = InputTag
+InputLayout.Error = InputBaseDiv
+InputLayout.Outline = InputBaseDiv
+InputLayout.Postfix = InputBaseDiv
+InputLayout.Prefix = InputBaseDiv
+InputLayout.Shell = InputBaseDiv
 
 export default InputLayout

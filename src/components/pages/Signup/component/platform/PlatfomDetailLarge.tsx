@@ -32,6 +32,7 @@ export default function PlatformDetailLarge({
       return <LabelRadio key={`radio-${v}`}
         value={v}
         name="platformCard"
+        css={{ minHeight: '100%', display: 'flex' }}
         onChange={() => {
           onSelectedChange(v)
         }}

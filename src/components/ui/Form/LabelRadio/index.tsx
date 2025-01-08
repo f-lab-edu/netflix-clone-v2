@@ -7,9 +7,9 @@ type LabelRadioProps = {
   children?: ReactNode
 } & Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'id'>
 
-export default function LabelRadio({ children, ...props }: LabelRadioProps) {
+export default function LabelRadio({ children, className, ...props }: LabelRadioProps) {
   const inputId = useId()
-  return <InputLayout >
+  return <InputLayout className={className}>
     <InputLayout.Shell>
       <InputLayout.Tag id={inputId} type="radio" {...props} css={inputStyle} />
       <InputLayout.Label htmlFor={inputId}>

@@ -11,10 +11,10 @@ export const layoutCss = css([InputDivCss, {
 export const prefixCss = css({
   color: theme.color.white.default,
   position: 'absolute',
-  width: '1rem',
-  height: '1rem',
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center',
   left: '0.75rem',
-  right: 'auto',
   zIndex: 1
 })
 

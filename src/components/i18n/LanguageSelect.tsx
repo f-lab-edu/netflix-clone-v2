@@ -2,7 +2,8 @@ import type { ChangeEventHandler } from 'react';
 import { useRouter } from 'next/router'
 import { useTranslation } from 'next-i18next'
 import { languageList } from '@/lib/i18n/LanguageList'
-import DarkLanguageSelect from '../ui/Form/DarkLanguageSelect';
+import LangSvg from '@assets/netflix/lang-icon.svg'
+import DarkSelect from '../ui/Form/DarkSelect';
 
 export default function LanguageSelect() {
   const { t, i18n } = useTranslation(['common'])
@@ -13,7 +14,9 @@ export default function LanguageSelect() {
     const { pathname, asPath, query } = router
     router.replace({ pathname, query }, asPath, { locale: value })
   }
-  return <DarkLanguageSelect
+  return <DarkSelect
+    prefix={<LangSvg />}
+    prefixSize='1rem'
     defaultValue={i18n.language}
     onChange={onLanguageChange}
   >
@@ -21,5 +24,5 @@ export default function LanguageSelect() {
       // @ts-expect-error @ts-ignore
       return <option value={langCode} key={langCode}>{t(`head.languages.${langCode}`)}</option>
     })}
-  </DarkLanguageSelect>
+  </DarkSelect>
 }

@@ -1,12 +1,12 @@
 import { createContext } from 'react'
 
 export interface InputLayoutContextValues {
-  isValid: boolean,
-  isError: boolean,
+  isValid?: boolean,
+  error?: string,
 }
 
 const InputLayoutContext = createContext<InputLayoutContextValues>({
   isValid: false,
-  isError: false,
+  error: '',
 })
 export default InputLayoutContext

@@ -21,7 +21,7 @@ const Home: NextPageWithLayout = () => {
             <HeroHeadRightSide>
               <div></div>
               <LanguageSelect />
-              <HeroHeadSigninLink href="/signin">
+              <HeroHeadSigninLink href="/login">
                 {t('head.signin')}
               </HeroHeadSigninLink>
             </HeroHeadRightSide>
@@ -55,7 +55,7 @@ const Home: NextPageWithLayout = () => {
         </HeroContent>
       </HeroContentShell>
     </HeroSection>
-  );
+  )
 }
 
 Home.getLayout = (page) => {

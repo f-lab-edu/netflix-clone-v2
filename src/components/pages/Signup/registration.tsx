@@ -4,11 +4,11 @@ import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
 import StepHeader from './component/StepHeader';
 import { RegistrationLogoImageCss, StepLogoPositionCss } from './styles/RegistrationStyle';
-import { BodyContentShellCss, SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
+import { SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
 
 const RegistrationPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
-  return <div css={BodyContentShellCss}>
+  return <>
     <div css={SignupMainContentCss}>
       <div css={[RegistrationLogoImageCss, StepLogoPositionCss]}>
       </div>
@@ -20,10 +20,10 @@ const RegistrationPage: NextPageWithLayout = () => {
         Next
       </Link>
     </div>
-  </div>
+  </>
 }
 
 RegistrationPage.getLayout = (page) => {
-  return <SignupLayout>{page}</SignupLayout>
+  return <SignupLayout withShell>{page}</SignupLayout>
 }
 export default RegistrationPage

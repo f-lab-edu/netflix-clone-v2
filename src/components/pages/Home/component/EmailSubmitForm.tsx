@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
-import TextInput from '@/components/ui/Form/TextInput';
+import DarkTextInput from '@/components/ui/Form/DarkTextInput';
 import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -30,7 +30,10 @@ export default function EmailSubmitForm() {
       {t('page-home:section1.desc2')}
     </HeroDescrpition2>
     <div css={EmailFormRowLayoutCss}>
-      <TextInput
+      <DarkTextInput
+        isValid={isTouched && !invalid}
+        error={error?.message}
+        placeholder={t('page-home:emailForm.label')}
         {...register('email', {
           required: t('form.email.error.required'),
           pattern: {
@@ -38,12 +41,7 @@ export default function EmailSubmitForm() {
             message: t('common:form.email.error.pattern')
           }
         })}
-        inputLayoutProps={{
-          label: t('page-home:emailForm.label'),
-          isValid: isTouched && !invalid,
-          errorMessage: error?.message,
-        }}
-      ></TextInput>
+      ></DarkTextInput>
       <button type="submit" css={EmailFormSubmitBtnCss}>
         {t('page-home:emailForm.button')}
       </button>

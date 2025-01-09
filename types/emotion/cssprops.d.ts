@@ -4,6 +4,7 @@ import type { Theme } from '@emotion/react';
 declare global {
   interface CssProps {
     css?: Interpolation<Theme>
+    className?: string
   }
 }
 export { }

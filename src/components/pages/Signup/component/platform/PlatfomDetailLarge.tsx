@@ -32,22 +32,20 @@ export default function PlatformDetailLarge({
       return <LabelRadio key={`radio-${v}`}
         value={v}
         name="platformCard"
-        css={{ minHeight: '100%', display: 'flex' }}
+        css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}
         onChange={() => {
           onSelectedChange(v)
         }}
       >
-        <div css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}>
-          <PlatformSlimCard
-            css={{ margin: '8px', width: 'auto' }}
-            alwaysBg
-            value={v}
-            title={t(`page-signup:platform.tier.${v}.title`)}
-            sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
-            isChecked={selected}
-          />
-          <PlatformInfoList large={true} infoList={infoList[v]} />
-        </div>
+        <PlatformSlimCard
+          css={{ margin: '8px', width: 'auto' }}
+          alwaysBg
+          value={v}
+          title={t(`page-signup:platform.tier.${v}.title`)}
+          sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
+          isChecked={selected}
+        />
+        <PlatformInfoList large={true} infoList={infoList[v]} />
       </LabelRadio>
     })}
   </div>

@@ -10,7 +10,7 @@ type LabelRadioProps = {
 export default function LabelRadio({ children, className, ...props }: LabelRadioProps) {
   const inputId = useId()
   return <InputLayout className={className}>
-    <InputLayout.Shell>
+    <InputLayout.Shell css={{ display: 'grid' }}>
       <InputLayout.Tag id={inputId} type="radio" {...props} css={inputStyle} />
       <InputLayout.Label htmlFor={inputId}>
         {children}

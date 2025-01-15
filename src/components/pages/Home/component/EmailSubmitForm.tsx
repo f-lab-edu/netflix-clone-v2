@@ -1,7 +1,11 @@
+import type { EmailCheckResponseType } from '@/lib/network/types/account';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
+import { EmailCheck } from '@/lib/network/account/EmailCheck';
 import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -20,10 +24,25 @@ export default function EmailSubmitForm() {
   })
 
   const { invalid, error, isTouched } = getFieldState('email', formState)
+  const [email, setEmail] = useState('')
+  const { refetch, data } = useQuery({
+    queryKey: ['emailCheck', email],
+    enabled: false,
+    queryFn: async ({ queryKey }): Promise<EmailCheckResponseType> => {
+      const result = await EmailCheck(queryKey[1])
+      return result
+    },
 
-  function submitAction(obj: FormData) {
+  })
+  async function submitAction(obj: FormData) {
     sessionStorage.setItem('sign-tryed-email', obj.email)
-    router.push('/login')
+    setEmail(obj.email)
+    await refetch()
+    if (data?.checkResult) {
+      router.push('/login')
+    } else {
+      router.push('/signup')
+    }
   }
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>

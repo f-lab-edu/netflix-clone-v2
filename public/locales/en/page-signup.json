@@ -59,5 +59,11 @@
   "registration": {
     "title": "Finish setting up your account",
     "desc": "Netflix is personalized for you. Create a password to start watching Netflix."
+  },
+  "regform": {
+    "title": "Create a password to start your membership",
+    "desc1": "Just a few more steps and you're done!",
+    "desc2": "We hate paperwork, too.",
+    "button": "Agree and Next"
   }
 }

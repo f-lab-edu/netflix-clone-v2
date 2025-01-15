@@ -16,7 +16,7 @@ const RegistrationPage: NextPageWithLayout = () => {
       <div>{t('page-signup:registration.desc')}</div>
     </div>
     <div css={[SignupMainContentCss, { marginTop: '24px' }]}>
-      <Link css={SignupMainNextButtonCss} href="/signup/platform">
+      <Link css={SignupMainNextButtonCss} href="/signup/regform">
         Next
       </Link>
     </div>

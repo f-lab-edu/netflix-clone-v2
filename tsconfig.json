@@ -24,6 +24,11 @@
       "@I18nConfig": ["./next-i18next.config.ts"]
     }
   },
-  "include": ["types/react-svgr/index.d.ts", "next-env.d.ts", "**/*.ts", "**/*.tsx"],
+  "include": [
+    "types/react-svgr/index.d.ts",
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
   "exclude": ["node_modules"]
 }

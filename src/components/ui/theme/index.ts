@@ -27,8 +27,14 @@ export const theme: Theme = {
     red: {
       error: '#eb3942',
       default: '#e50914',
-      active: '#99161d',
-      hover: '#c11119'
+      active: {
+        light: '#e50914',
+        dark: '#99161d',
+      },
+      hover: {
+        light: '#f6121d',
+        dark: '#c11119'
+      }
     },
     green: {
       validated: '#2bb871'

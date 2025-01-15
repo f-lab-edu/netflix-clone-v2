@@ -1,7 +1,7 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useTranslation } from 'next-i18next'
-import BaseLayout from '@/components/layout/BaseLayout';
 import LanguageSelect from '@/components/i18n/LanguageSelect';
+import BaseLayout from '@/components/layout/BaseLayout';
 import EmailSubmitForm from './component/EmailSubmitForm';
 import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBottom';
 import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentDetail, HeroContentDetailShell, HeroContentDetailContentLayout, HeroContentShell } from './styles/HeroContent';
@@ -21,7 +21,7 @@ const Home: NextPageWithLayout = () => {
             <HeroHeadRightSide>
               <div></div>
               <LanguageSelect />
-              <HeroHeadSigninLink href="/login">
+              <HeroHeadSigninLink href="/signin">
                 {t('head.signin')}
               </HeroHeadSigninLink>
             </HeroHeadRightSide>

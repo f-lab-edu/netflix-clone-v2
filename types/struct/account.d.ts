@@ -141,6 +141,8 @@ declare interface PaymentMethodCard extends PaymentMethod {
 
 declare type AgeRestriction = 0 | 7 | 12 | 15 | 19
 
+declare type MembershipPlanTier = 'adsStandard' | 'standard' | 'premium'
+
 declare interface MembershipPlans {
   id: number
   /**
@@ -156,6 +158,10 @@ declare interface MembershipPlans {
    */
   price: number
   /**
+   * 동시 시청 가능 디바이스 숫자
+   */
+  maxWatcherCount: number
+  /**
    * 저장 가능 디바이스 숫자
    */
   saveAllowedDeviceNumber: number
@@ -167,4 +173,8 @@ declare interface MembershipPlans {
    * 최대 해상도 제한
    */
   maxContentResolution: ResolutionLevel
+  /**
+   * 광고 여부
+   */
+  ads: boolean
 }

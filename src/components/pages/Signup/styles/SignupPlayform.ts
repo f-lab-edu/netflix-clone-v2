@@ -15,13 +15,14 @@ export const SignupPlatformContentLargeCss = css({
   padding: '24px 38px'
 })
 
-export const SignupPlatformCardListCss = css({
-  display: 'flex',
+export const SignupPlatformCardListCss = css([{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(3, 1fr)',
   alignItems: 'stretch',
-  flexDirection: 'row',
+  gridAutoFlow: 'column',
   gap: '8px'
-})
+}])
 
-export const SignupPlatformLargeCardListCss = css(SignupPlatformCardListCss, {
+export const SignupPlatformLargeCardListCss = css([SignupPlatformCardListCss, {
   gap: '12px'
-})
+}])

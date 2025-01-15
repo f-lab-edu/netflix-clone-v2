@@ -16,6 +16,7 @@ export const RadioTagDefaultCss = css({
   border: 0
 })
 export const RadioTagContentLabelCss = css({
+  display: 'flex',
   width: '0px',
   height: '0px',
   border: 0

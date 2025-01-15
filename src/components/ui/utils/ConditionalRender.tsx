@@ -8,7 +8,7 @@ interface ConditionalRenderProps {
 }
 
 interface ConditionalRenderBooleanProps {
-  render: { false: ReactNode, true: ReactNode }
+  render: { false?: ReactNode, true?: ReactNode }
   condition: boolean
 }
 

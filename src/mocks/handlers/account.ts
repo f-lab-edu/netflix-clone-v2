@@ -1,6 +1,6 @@
 import type { EmailCheckRequestType, EmailCheckResponseType, LoginRequestType, LoginResponseType, MyInfoResponseType, RefreshTokenRequestType, RefreshTokenResponseType } from '@/lib/network/types/account';
 import type { DefaultBodyType, PathParams } from 'msw';
-import { http, HttpResponse } from 'msw'
+import { delay, http, HttpResponse } from 'msw'
 import { ErrorCode, ErrorHandler } from '../middleware/ErrorHandler';
 import { generateAuth, parseAuth, validateRefreshToken, withAuth } from '../middleware/token';
 import ErrorException from '../type/ErrorResponse';
@@ -28,6 +28,7 @@ const handlers = [
     if (foundAccount) {
       responseObj.checkResult = true
     }
+    await delay(5000)
     return HttpResponse.json(responseObj, { status: 200, statusText: 'OK' })
   }),
   http.post('/api/login', ErrorHandler<LoginRequestType, LoginResponseType>(async ({ request }) => {

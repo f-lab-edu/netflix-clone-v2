@@ -19,7 +19,9 @@ async function generateJWT(accountId: number, isRefreshToken: boolean) {
   const token = await new SignJWT({
     accountId,
     isRefreshToken
-  }).sign(secret)
+  })
+    .setExpirationTime(isRefreshToken ? '4w' : '1w')
+    .sign(secret)
   return token
 }
 
@@ -69,5 +71,17 @@ export async function parseAuth(header: Headers) {
     return result
   } catch {
     throw new ErrorException('Token Verification failed, Please check token', ErrorCode.AUTH_EXPIRED)
+  }
+}
+
+export async function validateRefreshToken(refreshToken: string) {
+  try {
+    const isVerified = await jwtVerify<JwtPayloadType>(refreshToken, secret)
+    if (!isVerified.payload.isRefreshToken) {
+      throw new ErrorException('Access token thrown', ErrorCode.WRONG_TOKEN_THROWN)
+    }
+    return isVerified.payload
+  } catch {
+    throw new ErrorException('Token Verification failed, Please check token', ErrorCode.REFRESH_TOKEN_VERIFICATION_FAILED)
   }
 }

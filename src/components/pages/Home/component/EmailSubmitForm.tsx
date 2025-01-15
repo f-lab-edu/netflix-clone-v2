@@ -1,7 +1,11 @@
+import type { EmailCheckResponseType } from '@/lib/network/types/account';
+import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import TextInput from '@/components/ui/Form/TextInput';
+import DarkTextInput from '@/components/ui/Form/DarkTextInput';
+import { EmailCheck } from '@/lib/network/account/EmailCheck';
 import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -20,17 +24,38 @@ export default function EmailSubmitForm() {
   })
 
   const { invalid, error, isTouched } = getFieldState('email', formState)
-
-  function submitAction(obj: FormData) {
+  const [email, setEmail] = useState('')
+  const { refetch, isLoading, data } = useQuery({
+    queryKey: ['emailCheck', email],
+    enabled: false,
+    queryFn: async ({ queryKey }): Promise<EmailCheckResponseType> => {
+      const result = await EmailCheck(queryKey[1])
+      return result
+    }
+  })
+  async function submitAction(obj: FormData) {
     sessionStorage.setItem('sign-tryed-email', obj.email)
-    router.push('/signin')
+    setEmail(obj.email)
+    refetch()
+
   }
+  useEffect(() => {
+    if (!data) return
+    if (data.checkResult) {
+      router.push('/signin')
+    } else {
+      router.push('/signup')
+    }
+  }, [data, router])
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>
       {t('page-home:section1.desc2')}
     </HeroDescrpition2>
     <div css={EmailFormRowLayoutCss}>
-      <TextInput
+      <DarkTextInput
+        isValid={isTouched && !invalid}
+        error={error?.message}
+        placeholder={t('page-home:emailForm.label')}
         {...register('email', {
           required: t('form.email.error.required'),
           pattern: {
@@ -38,14 +63,10 @@ export default function EmailSubmitForm() {
             message: t('common:form.email.error.pattern')
           }
         })}
-        inputLayoutProps={{
-          label: t('page-home:emailForm.label'),
-          isValid: isTouched && !invalid,
-          errorMessage: error?.message,
-        }}
-      ></TextInput>
+      ></DarkTextInput>
       <button type="submit" css={EmailFormSubmitBtnCss}>
-        {t('page-home:emailForm.button')}
+        {/* TODO: add spinner */}
+        {isLoading ? <div></div> : t('page-home:emailForm.button')}
       </button>
     </div>
   </form>

@@ -8,6 +8,7 @@ export const PlatformDetailLargeCardCss = css({
   margin: '0px',
   transition: 'margin 250ms ease-in-out, box-shadow 250ms ease-in-out, border-color 250ms ease-in-out',
   backgroundColor: 'rgb(255, 255, 255)',
+  height: '100%'
 })
 
 export const PlatformDetailLargeCardCssSelected = css({

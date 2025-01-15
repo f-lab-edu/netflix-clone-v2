@@ -1,18 +1,21 @@
+import type { SharedOptions } from 'msw';
+
+export const sharedMswOptions: SharedOptions = {
+  onUnhandledRequest: (req, print) => {
+    if (!req.url.startsWith('/api/')) {
+      return
+    }
+    print.warning()
+  }
+}
+
 async function initMSW() {
   if (typeof window === 'undefined') {
     const { server } = await import('./server')
-    server.listen()
+    server.listen(sharedMswOptions)
   } else {
     const { worker } = await import('./browser')
-    worker.start({
-      onUnhandledRequest(req, print) {
-        if (!req.url.startsWith('/api/')) {
-          return
-        }
-
-        print.warning()
-      }
-    })
+    worker.start(sharedMswOptions)
   }
 }
 

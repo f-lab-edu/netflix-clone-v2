@@ -1,8 +1,6 @@
-import type { EmailCheckResponseType } from '@/lib/network/types/account';
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
-import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
 import { EmailCheckApi } from '@/lib/network/account/EmailCheckApi';
@@ -24,29 +22,22 @@ export default function EmailSubmitForm() {
   })
 
   const { invalid, error, isTouched } = getFieldState('email')
-  const [email, setEmail] = useState('')
-  const { refetch, isLoading, data } = useQuery({
-    queryKey: ['emailCheck', email],
-    enabled: false,
-    queryFn: async ({ queryKey }): Promise<EmailCheckResponseType> => {
-      const result = await EmailCheckApi(queryKey[1])
-      return result
+  const { mutate, isPending } = useMutation({
+    mutationFn: async (email: string) => {
+      return await EmailCheckApi(email)
+    },
+    onSuccess(data) {
+      if (data.checkResult) {
+        router.push('/signin')
+      } else {
+        router.push('/signup')
+      }
     }
   })
   async function submitAction(obj: FormData) {
     sessionStorage.setItem('sign-tryed-email', obj.email)
-    setEmail(obj.email)
-    refetch()
-
+    mutate(obj.email)
   }
-  useEffect(() => {
-    if (!data) return
-    if (data.checkResult) {
-      router.push('/signin')
-    } else {
-      router.push('/signup')
-    }
-  }, [data, router])
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>
       {t('page-home:section1.desc2')}
@@ -66,7 +57,7 @@ export default function EmailSubmitForm() {
       ></DarkTextInput>
       <button type="submit" css={EmailFormSubmitBtnCss}>
         {/* TODO: add spinner */}
-        {isLoading ? <div></div> : t('page-home:emailForm.button')}
+        {isPending ? <div></div> : t('page-home:emailForm.button')}
       </button>
     </div>
   </form>

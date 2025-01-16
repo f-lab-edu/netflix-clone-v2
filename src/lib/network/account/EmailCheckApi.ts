@@ -1,7 +1,7 @@
 import type { EmailCheckResponseType } from '../types/account';
 import api from '..'
 
-export const EmailCheck = async (email: string) => {
+export const EmailCheckApi = async (email: string) => {
   const result = await api.post<EmailCheckResponseType>('emailCheck', {
     json: {
       email

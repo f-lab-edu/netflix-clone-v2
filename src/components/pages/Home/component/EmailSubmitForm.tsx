@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
-import { EmailCheck } from '@/lib/network/account/EmailCheck';
+import { EmailCheckApi } from '@/lib/network/account/EmailCheckApi';
 import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -24,7 +24,7 @@ export default function EmailSubmitForm() {
   const { invalid, error, isTouched } = getFieldState('email')
   const { mutate, isPending } = useMutation({
     mutationFn: async (email: string) => {
-      return await EmailCheck(email)
+      return await EmailCheckApi(email)
     },
     onSuccess(data) {
       if (data.checkResult) {

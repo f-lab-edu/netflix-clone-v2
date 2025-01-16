@@ -25,11 +25,11 @@ export type RefreshTokenResponseType = {
   refreshToken: string
 } & ErrorResponse
 
-export type LoginRequestType = {
-  email: string
+export type SigninRequestType = {
+  emailOrPhone: string
   password: string
 }
-export type LoginResponseType = RefreshTokenResponseType & ErrorResponse
+export type SigninResponseType = RefreshTokenResponseType & ErrorResponse
 
 export type MyInfoResponseType = {
   accountInfo: AccountBaseInfo

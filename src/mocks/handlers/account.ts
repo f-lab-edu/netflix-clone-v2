@@ -1,4 +1,4 @@
-import type { EmailCheckRequestType, EmailCheckResponseType, LoginRequestType, LoginResponseType, MyInfoResponseType, RefreshTokenRequestType, RefreshTokenResponseType, SignupRequestType, SignupResponseType } from '@/lib/network/types/account';
+import type { EmailCheckRequestType, EmailCheckResponseType, SigninRequestType, SigninResponseType, MyInfoResponseType, RefreshTokenRequestType, RefreshTokenResponseType, SignupRequestType, SignupResponseType } from '@/lib/network/types/account';
 import type { DefaultBodyType, PathParams } from 'msw';
 import { delay, http } from 'msw'
 import { ErrorCode, ErrorHandler } from '../middleware/ErrorHandler';
@@ -59,13 +59,18 @@ const handlers = [
       result: true
     })
   })),
-  http.post('/api/login', ErrorHandler<LoginRequestType, LoginResponseType>(async ({ request }) => {
+  http.post('/api/signup', ErrorHandler<SigninRequestType, SigninResponseType>(async ({ request }) => {
     const requestJson = await request.json()
     const account = Object.values(accountList).find(
-      (account) => account.email === requestJson.email && account.password === requestJson.password
+      (account) => {
+        if (account.password !== requestJson.password) return false
+        if (account.email === requestJson.emailOrPhone) return true
+        if (account.phoneVerified && account.phone === requestJson.emailOrPhone) return false
+        return false
+      }
     )
     if (!account) {
-      throw new ErrorException('Login failed', ErrorCode.LOGIN_FAILED)
+      throw new ErrorException('Login failed', ErrorCode.SIGNIN_FAILED)
     }
     const tokens = await generateAuth(account.id)
     return createSuccessResponse(tokens)

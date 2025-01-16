@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
-import { EmailCheck } from '@/lib/network/account/EmailCheck';
+import { EmailCheckApi } from '@/lib/network/account/EmailCheckApi';
 import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -17,19 +17,19 @@ interface FormData {
 export default function EmailSubmitForm() {
   const { t } = useTranslation(['common', 'page-home'])
   const router = useRouter()
-  const { handleSubmit, register, formState, getFieldState } = useForm<FormData>({
+  const { handleSubmit, register, getFieldState } = useForm<FormData>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     shouldUseNativeValidation: false,
   })
 
-  const { invalid, error, isTouched } = getFieldState('email', formState)
+  const { invalid, error, isTouched } = getFieldState('email')
   const [email, setEmail] = useState('')
   const { refetch, isLoading, data } = useQuery({
     queryKey: ['emailCheck', email],
     enabled: false,
     queryFn: async ({ queryKey }): Promise<EmailCheckResponseType> => {
-      const result = await EmailCheck(queryKey[1])
+      const result = await EmailCheckApi(queryKey[1])
       return result
     }
   })

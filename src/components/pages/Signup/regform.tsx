@@ -1,25 +1,22 @@
+import type { SignupRequestType } from '@/lib/network/types/account';
 import type { NextPageWithLayout } from '@/pages/_app';
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { Trans, useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import SignupLayout from '@/components/layout/SignupLayout';
 import LightCheckbox from '@/components/ui/Form/LightCheckbox';
 import LightTextInput from '@/components/ui/Form/LightTextInput';
+import { SignupApi } from '@/lib/network/account/SignupApi';
 import { pattern } from '@/lib/validators';
 import StepHeader from './component/StepHeader';
 
-interface FormData {
-  email: string
-  password: string
-  policy: boolean
-  specialOffer: boolean
-}
 const loadedEmail = typeof window === 'undefined' ? '' : sessionStorage.getItem('sign-tryed-email')
 
 const RegformPage: NextPageWithLayout = () => {
-  const { t } = useTranslation(['common', 'page-signup'])
   const router = useRouter()
-  const { register, handleSubmit, getFieldState } = useForm<FormData>({
+  const { t } = useTranslation(['common', 'page-signup'])
+  const { register, handleSubmit, getFieldState } = useForm<SignupRequestType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     defaultValues: {
@@ -32,10 +29,16 @@ const RegformPage: NextPageWithLayout = () => {
   const { invalid: emailInValid, error: emailError, isTouched: emailIsTouched } = getFieldState('email')
   const { invalid: passwordInValid, error: passwordError, isTouched: passwordIsTouched } = getFieldState('password')
 
-  function submitAction(obj: FormData) {
-    // TODO: /account/signup call
-    console.log(obj)
-    // router.push('/signin')
+  const { mutate } = useMutation({
+    mutationFn: async (obj: SignupRequestType) => {
+      return await SignupApi(obj)
+    },
+    onSuccess() {
+      router.push('/signin')
+    }
+  })
+  async function submitAction(obj: SignupRequestType) {
+    mutate(obj)
   }
   return <form onSubmit={handleSubmit(submitAction)}>
     <StepHeader title={t('page-signup:regform.title')} step={2} />

@@ -7,6 +7,7 @@ import { useForm } from 'react-hook-form';
 import SignupLayout from '@/components/layout/SignupLayout';
 import LightCheckbox from '@/components/ui/Form/LightCheckbox';
 import LightTextInput from '@/components/ui/Form/LightTextInput';
+import useRHFValidErrorHelper from '@/components/ui/Form/hooks/useRHFValidErrorHelper';
 import { SignupApi } from '@/lib/network/account/SignupApi';
 import { pattern } from '@/lib/validators';
 import StepHeader from './component/StepHeader';
@@ -16,7 +17,7 @@ const loadedEmail = typeof window === 'undefined' ? '' : sessionStorage.getItem(
 const RegformPage: NextPageWithLayout = () => {
   const router = useRouter()
   const { t } = useTranslation(['common', 'page-signup'])
-  const { register, handleSubmit, getFieldState } = useForm<SignupRequestType>({
+  const { register, handleSubmit, formState } = useForm<SignupRequestType>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     defaultValues: {
@@ -26,15 +27,15 @@ const RegformPage: NextPageWithLayout = () => {
       specialOffer: false
     }
   })
-  const { invalid: emailInValid, error: emailError, isTouched: emailIsTouched } = getFieldState('email')
-  const { invalid: passwordInValid, error: passwordError, isTouched: passwordIsTouched } = getFieldState('password')
 
   const { mutate } = useMutation({
     mutationFn: async (obj: SignupRequestType) => {
       return await SignupApi(obj)
     },
-    onSuccess() {
-      router.push('/signin')
+    onSuccess(data) {
+      if (data.result) {
+        router.push('/signin')
+      }
     }
   })
   async function submitAction(obj: SignupRequestType) {
@@ -50,8 +51,10 @@ const RegformPage: NextPageWithLayout = () => {
         },
         required: t('common:form.email.error.required')
       })}
-      isValid={emailIsTouched && !emailInValid}
-      error={emailError?.message}
+      {...useRHFValidErrorHelper(
+        formState.errors.email?.message,
+        formState.touchedFields.email
+      )}
     />
     <LightTextInput
       {...register('password', {
@@ -62,8 +65,10 @@ const RegformPage: NextPageWithLayout = () => {
         required: t('common:form.email.error.required')
       })}
       type="password"
-      isValid={passwordIsTouched && !passwordInValid}
-      error={passwordError?.message}
+      {...useRHFValidErrorHelper(
+        formState.errors.password?.message,
+        formState.touchedFields.password
+      )}
     />
     <LightCheckbox
       {...register('policy', {

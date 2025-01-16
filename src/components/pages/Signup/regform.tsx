@@ -29,9 +29,7 @@ const RegformPage: NextPageWithLayout = () => {
   })
 
   const { mutate } = useMutation({
-    mutationFn: async (obj: SignupRequestType) => {
-      return await SignupApi(obj)
-    },
+    mutationFn: SignupApi,
     onSuccess(data) {
       if (data.result) {
         router.push('/signin')

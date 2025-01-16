@@ -1,12 +1,13 @@
 import type { SigninRequestType } from '@/lib/network/types/account';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useMutation } from '@tanstack/react-query';
+import { useAtom } from 'jotai';
 import { useRouter } from 'next/router';
 import { useForm } from 'react-hook-form';
 import BaseLayout from '@/components/layout/BaseLayout';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
 import { SigninApi } from '@/lib/network/account/SigninApi';
-import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from '@/lib/network/utils';
+import { accessTokenAtom, refreshTokenAtom } from '@/state/Token';
 
 const SigninPage: NextPageWithLayout = () => {
   const router = useRouter()
@@ -16,11 +17,13 @@ const SigninPage: NextPageWithLayout = () => {
       password: ''
     }
   })
+  const [, setAccessToken] = useAtom(accessTokenAtom)
+  const [, setRefreshToken] = useAtom(refreshTokenAtom)
   const { mutate } = useMutation({
     mutationFn: SigninApi,
     onSuccess(result) {
-      localStorage.setItem(ACCESS_TOKEN_KEY, result.accessToken)
-      localStorage.setItem(REFRESH_TOKEN_KEY, result.refreshToken)
+      setAccessToken(result.accessToken)
+      setRefreshToken(result.refreshToken)
       router.push('/')
     }
   })

@@ -23,9 +23,7 @@ export default function EmailSubmitForm() {
 
   const { invalid, error, isTouched } = getFieldState('email')
   const { mutate, isPending } = useMutation({
-    mutationFn: async (email: string) => {
-      return await EmailCheckApi(email)
-    },
+    mutationFn: EmailCheckApi,
     onSuccess(data) {
       if (data.checkResult) {
         router.push('/signin')

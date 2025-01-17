@@ -5,6 +5,8 @@ declare interface AccountBaseInfo {
   emailVerified: boolean
   phone: string
   phoneVerified: boolean
+  policy: boolean
+  specialOffer: boolean
 }
 declare interface AccountTotalInfo {
   billing: {

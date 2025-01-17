@@ -18,6 +18,15 @@
         "required": "Email is required.",
         "pattern": "Please enter a valid email address."
       }
+    },
+    "policy": {
+      "label": "Yes, I consent to collection and use of my personal information in accordance with the <a href=\"#\">Privacy Statemenet</a>. <a href=\"#\">(Details)</a>",
+      "error": {
+        "required": "You must acknowledge that you have read and agree to the Terms of Use to continue."
+      }
+    },
+    "specialOffer": {
+      "label": "Yes, please email me Netflix special offers. (optional)"
     }
   }
 }

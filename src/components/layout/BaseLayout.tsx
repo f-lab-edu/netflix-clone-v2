@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import RootDomProvider from '@/provider/RootDom/provider';
@@ -8,6 +9,8 @@ interface BaseLayoutProps {
   children?: ReactNode,
   defaultColor?: string
 }
+
+const queryClient = new QueryClient()
 
 export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) {
   const { t } = useTranslation(['common'])
@@ -27,7 +30,9 @@ export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) 
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <RootDomProvider>
-      {children}
+      <QueryClientProvider client={queryClient}>
+        {children}
+      </QueryClientProvider>
     </RootDomProvider>
   </div>
 }

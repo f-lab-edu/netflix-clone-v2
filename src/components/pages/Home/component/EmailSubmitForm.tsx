@@ -1,7 +1,9 @@
+import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
+import { EmailCheckApi } from '@/lib/network/account/EmailCheckApi';
 import { pattern } from '@/lib/validators';
 import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -13,17 +15,26 @@ interface FormData {
 export default function EmailSubmitForm() {
   const { t } = useTranslation(['common', 'page-home'])
   const router = useRouter()
-  const { handleSubmit, register, formState, getFieldState } = useForm<FormData>({
+  const { handleSubmit, register, getFieldState } = useForm<FormData>({
     mode: 'onBlur',
     reValidateMode: 'onBlur',
     shouldUseNativeValidation: false,
   })
 
-  const { invalid, error, isTouched } = getFieldState('email', formState)
-
-  function submitAction(obj: FormData) {
+  const { invalid, error, isTouched } = getFieldState('email')
+  const { mutate, isPending } = useMutation({
+    mutationFn: EmailCheckApi,
+    onSuccess(data) {
+      if (data.checkResult) {
+        router.push('/signin')
+      } else {
+        router.push('/signup')
+      }
+    }
+  })
+  async function submitAction(obj: FormData) {
     sessionStorage.setItem('sign-tryed-email', obj.email)
-    router.push('/signin')
+    mutate(obj.email)
   }
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>
@@ -43,7 +54,8 @@ export default function EmailSubmitForm() {
         })}
       ></DarkTextInput>
       <button type="submit" css={EmailFormSubmitBtnCss}>
-        {t('page-home:emailForm.button')}
+        {/* TODO: add spinner */}
+        {isPending ? <div></div> : t('page-home:emailForm.button')}
       </button>
     </div>
   </form>

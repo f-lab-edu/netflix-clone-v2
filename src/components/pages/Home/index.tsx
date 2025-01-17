@@ -55,7 +55,7 @@ const Home: NextPageWithLayout = () => {
         </HeroContent>
       </HeroContentShell>
     </HeroSection>
-  );
+  )
 }
 
 Home.getLayout = (page) => {

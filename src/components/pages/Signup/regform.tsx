@@ -7,7 +7,7 @@ import { useForm } from 'react-hook-form';
 import SignupLayout from '@/components/layout/SignupLayout';
 import LightCheckbox from '@/components/ui/Form/LightCheckbox';
 import LightTextInput from '@/components/ui/Form/LightTextInput';
-import useRHFValidErrorHelper from '@/components/ui/Form/hooks/useRHFValidErrorHelper';
+import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import { SignupApi } from '@/lib/network/account/SignupApi';
 import { pattern } from '@/lib/validators';
 import StepHeader from './component/StepHeader';
@@ -49,7 +49,7 @@ const RegformPage: NextPageWithLayout = () => {
         },
         required: t('common:form.email.error.required')
       })}
-      {...useRHFValidErrorHelper(
+      {...RHFValidErrorHelper(
         formState.errors.email?.message,
         formState.touchedFields.email
       )}
@@ -63,7 +63,7 @@ const RegformPage: NextPageWithLayout = () => {
         required: t('common:form.email.error.required')
       })}
       type="password"
-      {...useRHFValidErrorHelper(
+      {...RHFValidErrorHelper(
         formState.errors.password?.message,
         formState.touchedFields.password
       )}

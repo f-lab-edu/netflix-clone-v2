@@ -2,7 +2,6 @@ import type { ReactNode } from 'react';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
 import RootDomProvider from '@/provider/RootDom/provider';
 import { theme } from '../ui/theme';
 
@@ -11,9 +10,10 @@ interface BaseLayoutProps {
   defaultColor?: string
 }
 
+const queryClient = new QueryClient()
+
 export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) {
   const { t } = useTranslation(['common'])
-  const [queryClient] = useState(() => new QueryClient())
   return <div css={{
     display: 'flex',
     flexDirection: 'column',

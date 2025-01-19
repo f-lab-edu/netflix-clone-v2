@@ -1,4 +1,4 @@
-import type { SigninRequestType } from '@/lib/network/types/account';
+import type { SigninWithCodeRequestType } from '@/lib/network/types/account';
 import type { ReactNode } from 'react';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
@@ -7,7 +7,7 @@ import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper'
 import validators from '@/lib/validators';
 
 interface LoginCodeFormProps {
-  mutate: (_data: SigninRequestType) => void
+  mutate: (_data: SigninWithCodeRequestType) => void
   buttonArea: ReactNode
 }
 export default function LoginCodeForm({
@@ -17,10 +17,10 @@ export default function LoginCodeForm({
 }: LoginCodeFormProps & CssProps) {
   const { t } = useTranslation(['common'])
 
-  const { register, handleSubmit, formState } = useForm<SigninRequestType>({
+  const { register, handleSubmit, formState } = useForm<SigninWithCodeRequestType>({
     mode: 'onBlur'
   })
-  const signinFunction = (obj: SigninRequestType) => {
+  const signinFunction = (obj: SigninWithCodeRequestType) => {
     mutate(obj)
   }
 

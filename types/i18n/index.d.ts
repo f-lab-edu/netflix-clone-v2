@@ -10,6 +10,7 @@ import 'i18next'
 import type common from '../../public/locales/en/common.json'
 import type PageHome from '../../public/locales/en/page-home.json'
 import type PageSignup from '../../public/locales/en/page-signup.json'
+import type PageSignin from '../../public/locales/en/page-singin.json'
 
 declare module 'i18next' {
   interface CustomTypeOptions {
@@ -18,6 +19,7 @@ declare module 'i18next' {
       common: typeof common,
       'page-home': typeof PageHome
       'page-signup': typeof PageSignup
+      'page-signin': typeof PageSignin
     }
   }
 }

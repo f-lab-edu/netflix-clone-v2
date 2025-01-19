@@ -1,0 +1,13 @@
+{
+  "title": "Sign In",
+  "loginBtn": "Sign In",
+  "loginCodeDesc": "Message and data rates may apply",
+  "sendLoginCode": "Send Sign-In Code",
+  "or": "OR",
+  "useLogincodeBtn": "Use Sign-In Code",
+  "usePasswordBtn": "Use Password",
+  "findPassword": "Forgot password?",
+  "saveLoginInfo": "Remember me",
+  "areYouGuest": "New to Netflix?",
+  "gotoSignup": "Sign up now."
+}

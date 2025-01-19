@@ -1,0 +1,13 @@
+{
+  "title": "로그인",
+  "loginBtn": "로그인",
+  "loginCodeDesc": "문자 또는 데이터 요금이 부과될 수 있습니다",
+  "sendLoginCode": "로그인 코드 받기",
+  "or": "또는",
+  "useLogincodeBtn": "로그인 코드 사용하기",
+  "usePasswordBtn": "비밀번호 사용하기",
+  "findPassword": "비밀번호를 잊으셨나요?",
+  "saveLoginInfo": "로그인 정보 저장",
+  "areYouGuest": "Netflix 회원이 아닌가요?",
+  "gotoSignup": "지금 가입하세요."
+}

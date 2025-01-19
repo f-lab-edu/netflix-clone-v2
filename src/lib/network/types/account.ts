@@ -31,6 +31,13 @@ export type SigninRequestType = {
 }
 export type SigninResponseType = RefreshTokenResponseType & ErrorResponse
 
+export type SigninWithCodeRequestType = {
+  emailOrPhone: string
+}
+export type SigninWithCodeResponseType = {
+  result: boolean
+}
+
 export type MyInfoResponseType = {
   accountInfo: AccountBaseInfo
 } & ErrorResponse

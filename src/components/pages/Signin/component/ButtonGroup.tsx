@@ -1,4 +1,5 @@
 import type { MouseEventHandler } from 'react';
+import { ButtonActionCss, ButtonSubmitCss } from '../styles/ButtonGroupStyle';
 
 interface ButtonGroupProps {
   submitText: string
@@ -15,13 +16,13 @@ export default function ButtonGroup({
   onButtonClick
 }: ButtonGroupProps) {
   return <>
-    <button type="submit" onClick={onSubmitClick}>
+    <button css={ButtonSubmitCss} type="submit" onClick={onSubmitClick}>
       {submitText}
     </button>
     <p>
       {or}
     </p>
-    <button type='button' onClick={onButtonClick}>
+    <button css={ButtonActionCss} type='button' onClick={onButtonClick}>
       {buttonText}
     </button>
   </>

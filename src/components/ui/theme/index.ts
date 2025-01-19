@@ -17,7 +17,12 @@ export const theme: Theme = {
       lightDivider: '#e6e6e6',
       footerLightFont: '#737373',
       footerLightBg: '#f3f3f3',
-      outline: 'rgba(128,128,128,0.7)'
+      outline: 'rgba(128,128,128,0.7)',
+      buttonBg: {
+        default: 'rgba(128,128,128,0.4)',
+        action: 'rgba(128,128,128,0.3)',
+        hover: 'rgba(128,128,128,0.3)'
+      }
     },
     white: {
       default: '#ffffff',

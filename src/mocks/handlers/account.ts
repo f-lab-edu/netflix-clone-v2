@@ -59,7 +59,7 @@ const handlers = [
       result: true
     })
   })),
-  http.post('/api/signup', ErrorHandler<SigninRequestType, SigninResponseType>(async ({ request }) => {
+  http.post('/api/signin', ErrorHandler<SigninRequestType, SigninResponseType>(async ({ request }) => {
     const requestJson = await request.json()
     const account = Object.values(accountList).find(
       (account) => {

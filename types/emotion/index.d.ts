@@ -9,8 +9,12 @@ declare module '@emotion/react' {
     borderRadius: {
       sm: '.325rem'
       xs: '.25rem'
+      xxs: '.125rem'
     }
     color: {
+      black: {
+        default: '#000'
+      },
       grey: {
         defaultFont: '#333'
         lightDivider: '#e6e6e6'

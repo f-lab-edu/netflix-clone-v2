@@ -4,11 +4,11 @@ import InputLayout from '../InputLayout'
 import { CheckboxDisplayAreaCss, CheckboxAreaShellCss, CheckboxDivCss, CheckboxLabelDefaultCss, CheckboxLabelFromTextCss, CheckboxTagDefaultCss } from './style';
 
 export default function DarkCheckbox({
-  ...props
+  className, ...props
 }: InputHTMLAttributes<HTMLInputElement> & CssProps) {
   const inputId = useId()
   const { ...inputProps } = props
-  return <InputLayout css={CheckboxDivCss}>
+  return <InputLayout css={CheckboxDivCss} className={className}>
     <InputLayout.Shell css={CheckboxAreaShellCss}>
       <div css={CheckboxDisplayAreaCss}>
         <InputLayout.Tag css={[CheckboxTagDefaultCss]} {...inputProps} id={inputId} type="checkbox" />

@@ -14,7 +14,7 @@ export const theme: Theme = {
   },
   color: {
     black: {
-      default: '#000'
+      default: '#000',
     },
     grey: {
       defaultFont: '#333',
@@ -30,6 +30,7 @@ export const theme: Theme = {
     },
     white: {
       default: '#ffffff',
+      opacity70: 'rgba(255,255,255,0.7)',
       active: 'rgba(255,255,255,0.7)',
       hover: 'rgba(255,255,255,0.7)',
     },

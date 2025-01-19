@@ -9,6 +9,7 @@ import { useTranslation } from 'next-i18next';
 import { useState } from 'react';
 import BaseLayout from '@/components/layout/BaseLayout';
 import { HeaderLinkStyleCss } from '@/components/layout/styles/SignupLayoutStyle';
+import DarkCheckbox from '@/components/ui/Form/DarkCheckbox';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import { SigninApi } from '@/lib/network/account/SigninApi';
 import { SigninWithLoginCodeApi } from '@/lib/network/account/SigninWithLoginCodeApi';
@@ -18,7 +19,7 @@ import NetflixLogo from '@assets/netflix/top-logo.svg'
 import ButtonGroup from './component/ButtonGroup';
 import LoginCodeForm from './component/LoginCodeForm';
 import PasswordForm from './component/PasswordForm';
-import { backgroundCss, formAreaCss, formGridCss, formPositionAreaCss, formTitleCss, headerAreaCss, signinPageBaseCss } from './styles/signinPageStyle';
+import { backgroundCss, forgotPasswordCss, formAreaCss, formGridCss, formPositionAreaCss, formTitleCss, headerAreaCss, rememberSigninInfoCss, signinPageBaseCss, signupLinkCss } from './styles/signinPageStyle';
 
 const SigninPage: NextPageWithLayout = () => {
   const router = useRouter()
@@ -107,6 +108,18 @@ const SigninPage: NextPageWithLayout = () => {
             />
           }}
         />
+        <footer>
+          <Link href="/findPassword" css={forgotPasswordCss}>
+            {t('page-signin:findPassword')}
+          </Link>
+          <DarkCheckbox css={rememberSigninInfoCss} placeholder={t('page-signin:saveLoginInfo')} />
+          <p css={signupLinkCss}>
+            {t('page-signin:areYouGuest')}&nbsp;
+            <Link href="/">
+              {t('page-signin:gotoSignup')}
+            </Link>
+          </p>
+        </footer>
       </div>
     </div>
 

@@ -29,6 +29,7 @@ declare module '@emotion/react' {
       }
       white: {
         default: '#ffffff'
+        opacity70: 'rgba(255,255,255,0.7)',
         active: 'rgba(255,255,255,0.7)'
         hover: 'rgba(255,255,255,0.7)'
       }

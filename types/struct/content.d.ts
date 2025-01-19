@@ -37,7 +37,7 @@ declare interface Specific {
   name: string
 }
 
-declare interface Series extends Content {
+declare interface Series extends Omit<Content, 'series'> {
   episodes: Video[]
 }
 

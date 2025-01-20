@@ -27,6 +27,41 @@
     },
     "specialOffer": {
       "label": "예, 넷플릭스 특별 할인 알림 이메일을 보내주세요. (선택 사항)"
+    },
+    "cardNumber": {
+      "label": "카드 번호",
+      "error": {
+        "required": "카드 번호를 입력하세요.",
+        "pattern": "신용카드 번호를 정확히 입력하세요."
+      }
+    },
+    "cardExpirationDate": {
+      "label": "유효기간",
+      "placeholder": "월/연도",
+      "error": {
+        "required": "유효기간을 입력하세요",
+        "validate": "만료연도는 2025에서 2050 사이여야 합니다."
+      }
+    },
+    "cardUserName": {
+      "label": "이름",
+      "error": {
+        "required": "이름을 입력하세요",
+        "validate": "이름을 정확히 입력하세요."
+      }
+    },
+    "cardUserBirthDate": {
+      "label": "생년월일",
+      "error": {
+        "required": "생년월일을 입력하세요.",
+        "validate": "출생 연도가 1900~2008 사이인지 확인하세요."
+      }
+    },
+    "isAgreePaymentPolicy": {
+      "label": "본인의 개인 정보를 <a href='#'>결제 서비스업체</a>에 제공하는 데에 동의합니다.",
+      "error": {
+        "required": "먼저 이용 약관에 동의하셔야 합니다."
+      }
     }
   }
 }

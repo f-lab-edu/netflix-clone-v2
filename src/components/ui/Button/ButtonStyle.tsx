@@ -35,7 +35,7 @@ export const DarkButtonInteractionCss = css({
     outline: 'none'
   }
 })
-console.log(theme.color.red.hover.light)
+
 export const LightButtonInteractionCss = css({
   '&:hover': {
     backgroundColor: theme.color.red.hover.light,

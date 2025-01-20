@@ -7,6 +7,14 @@ export const InputLabelHasValueOrFocusedCss = css([{
   top: '.5rem'
 }])
 
+const inputTextColor = theme.color.black.default
+const BackgroundColor = theme.color.white.default
+const LabelColor = theme.color.black.opacity70
+const defaultOutlineColor = theme.color.grey.default
+const errorColor = theme.color.red.error.light
+const validatedColor = theme.color.green.validated.light
+const focusOutlineColor = theme.color.black.default
+
 export const InputDivCss = css([{
   display: 'inline-flex',
   verticalAlign: 'text-top',
@@ -15,26 +23,28 @@ export const InputDivCss = css([{
   flexFlow: 'column',
   width: '100%',
   textAlign: 'start',
+  '--focus-outline-css': 'none',
   ':has(input:not(:placeholder-shown))': {
     'label': InputLabelHasValueOrFocusedCss
   },
   ':has(input:focus)': {
-    'label': InputLabelHasValueOrFocusedCss
+    'label': InputLabelHasValueOrFocusedCss,
+    '--focus-outline-css': `solid .125rem ${focusOutlineColor}`
   }
 }])
 
 export const InputDefaultStateCss = css({
-  '--outline-color': theme.color.grey.outline
+  '--outline-color': defaultOutlineColor
 })
 
 export const InputErrorStateCss = css({
-  color: theme.color.red.error.dark,
-  '--outline-color': theme.color.red.error.dark
+  color: errorColor,
+  '--outline-color': errorColor
 })
 
 export const InputValidatedStateCss = css({
-  color: theme.color.green.validated.dark,
-  '--outline-color': theme.color.green.validated.dark
+  color: validatedColor,
+  '--outline-color': validatedColor
 })
 
 export const InputAreaShellCss = css({
@@ -50,6 +60,7 @@ export const InputTagDefaultCss = css([{
   width: '100%',
   border: '0 solid transparent',
   background: 'transparent',
+  color: inputTextColor,
   '::placeholder': {
     opacity: 0
   }
@@ -58,11 +69,11 @@ export const InputTagDefaultCss = css([{
 export const InputTagFromTextCss = css([MediaPoint({
   padding: ['1.25rem 1rem 0.25rem', '1.5rem 1rem 0.5rem']
 }), {
-  outlineColor: theme.color.white.default
+  outline: 0
 }])
 
 export const InputOutlineCss = css({
-  background: 'rgba(22, 22, 22, 0.7)',
+  background: BackgroundColor,
   borderRadius: theme.borderRadius.xs,
   borderStyle: 'solid',
   borderWidth: '0.0625rem',
@@ -72,7 +83,9 @@ export const InputOutlineCss = css({
   left: 0,
   right: 0,
   bottom: 0,
-  zIndex: -1
+  zIndex: -1,
+  outlineOffset: '.125rem',
+  outline: 'var(--focus-outline-css, none)'
 })
 
 export const InputLabelDefaultCss = css([{
@@ -91,7 +104,7 @@ export const InputLabelDefaultCss = css([{
 export const InputLabelFromTextCss = css([{
   fontWeight: '400',
   lineHeight: 1.5,
-  color: theme.color.white.hover,
+  color: LabelColor,
   left: '1rem',
   right: '1rem',
   fontSize: '1rem',

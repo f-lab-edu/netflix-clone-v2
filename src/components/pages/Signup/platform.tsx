@@ -1,7 +1,7 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import SignupLayout from '@/components/layout/SignupLayout';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useWindowResize from '@/hooks/useWindowResize';
@@ -17,17 +17,25 @@ const PlatformPage: NextPageWithLayout = () => {
 
   const [windowSize] = useWindowResize()
   const isLarge = useMemo(() => windowSize > 1050, [windowSize])
-
   const [selectedType, setSelectedType] = useState<MembershipPlanTier>('premium')
 
+  const [isClient, setIsClient] = useState(false)
+  useEffect(() => {
+    setIsClient(true)
+  }, [])
   return <>
     <div css={[SignupPlatformContentCss, isLarge ? SignupPlatformContentLargeCss : {}]}>
       <StepHeader css={{ marginBottom: '.5rem' }} step={1} title={t('page-signup:platform.title')} />
       <ConditionalRender.Boolean
-        condition={isLarge}
+        condition={isClient}
         render={{
-          true: <PlatformDetailLarge onSelectedChange={setSelectedType} selectedType={selectedType} />,
-          false: <PlatformDetailSlim onSelectedChange={setSelectedType} selectedType={selectedType} />
+          true: <ConditionalRender.Boolean
+            condition={isLarge}
+            render={{
+              true: <PlatformDetailLarge onSelectedChange={setSelectedType} selectedType={selectedType} />,
+              false: <PlatformDetailSlim onSelectedChange={setSelectedType} selectedType={selectedType} />
+            }}
+          />
         }}
       />
     </div>

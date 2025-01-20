@@ -28,8 +28,8 @@ export const InputDefaultStateCss = css({
 })
 
 export const InputErrorStateCss = css({
-  color: theme.color.red.error,
-  '--outline-color': theme.color.red.error
+  color: theme.color.red.error.dark,
+  '--outline-color': theme.color.red.error.dark
 })
 
 export const InputValidatedStateCss = css({

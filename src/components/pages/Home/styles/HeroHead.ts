@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { MediaPoint } from '@/components/styled/layout';
-import { DarkButtonInteractionCss, DefaultButtonCss } from '@/components/ui/Button/ButtonStyle';
+import { DefaultButtonCss, RedButtonCss } from '@/components/ui/Button/ButtonStyle';
 import { TextDisplayCss } from '@/components/ui/Font/TextDisplayStyle';
 import { theme } from '@/components/ui/theme';
 import TopLogo from '@assets/netflix/top-logo.svg'
@@ -59,7 +59,8 @@ export const HeroHeadRightSide = styled.div([{
 export const HeroHeadSigninLink = styled(Link)([
   TextDisplayCss,
   DefaultButtonCss,
-  DarkButtonInteractionCss,
+  RedButtonCss.color,
+  RedButtonCss.interaction.dark,
   {
     minHeight: '2rem',
     borderRadius: theme.borderRadius.xs,

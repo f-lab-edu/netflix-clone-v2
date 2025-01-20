@@ -9,7 +9,7 @@ export const ErrorCode = {
   WRONG_TOKEN_THROWN: -3,
   REFRESH_TOKEN_VERIFICATION_FAILED: -4,
   DUPLICATE_EMAIL: -5,
-  LOGIN_FAILED: -100
+  SIGNIN_FAILED: -100
 }
 
 export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBodyType, ResponseBodyType extends DefaultBodyType = DefaultBodyType>(
@@ -17,10 +17,11 @@ export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBo
 ): HttpResponseResolver<PathParams, RequestBodyType, ResponseBodyType | ErrorResponse> {
   return async (args) => {
     try {
-      return resolver(args);
+      const result = await resolver(args)
+      return result;
     } catch (e) {
       if (e instanceof ErrorException) {
-        let errorStateCode = 200
+        let errorStateCode = 500
         if (e.errorCode === ErrorCode.AUTH_FAILED) {
           errorStateCode = 401
         } else if (e.errorCode === ErrorCode.AUTH_EXPIRED) {
@@ -33,7 +34,6 @@ export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBo
           status: errorStateCode
         })
       } else {
-        console.log(e)
         return HttpResponse.json<ErrorResponse>({
           errorCode: -999999,
           message: 'Unhandled error Thrown'

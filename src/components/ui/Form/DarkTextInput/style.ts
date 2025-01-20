@@ -41,7 +41,8 @@ export const InputAreaShellCss = css({
   flex: '1 1 100%',
   position: 'relative',
   display: 'flex',
-  alignItems: 'center'
+  alignItems: 'center',
+  zIndex: 0
 })
 
 export const InputTagDefaultCss = css([{

@@ -1,20 +1,47 @@
 import type { InputLayoutValues } from '../InputLayout';
 import type { InputHTMLAttributes, ReactNode } from 'react';
-import { useId } from 'react';
-import InputLayout from '../InputLayout';
+import { useId, useMemo } from 'react';
+import ErrorCross from '@/assets/netflix/error-cross.svg'
+import ConditionalRender from '../../utils/ConditionalRender';
+import InputLayout from '../InputLayout'
+import { CheckboxDisplayAreaCss, CheckboxAreaShellCss, CheckboxDivCss, CheckboxLabelDefaultCss, CheckboxLabelFromTextCss, CheckboxTagDefaultCss, CheckboxErrorMessageCss, CheckboxErrorStateCss } from './style';
 
-type CheckInputProps = InputLayoutValues & CssProps & {
-  label: ReactNode
+interface CheckboxProps extends InputLayoutValues {
+  placeholder: ReactNode
 }
-export default function CheckInput({
-  label,
-  ...inputProps
-}: CheckInputProps & Omit<InputHTMLAttributes<HTMLInputElement>, 'type'>) {
+
+export default function LightCheckbox({
+  placeholder, className, error, ...props
+}: Omit<InputHTMLAttributes<HTMLInputElement>, 'placeholder'> & CssProps & CheckboxProps) {
   const inputId = useId()
-  return <InputLayout>
-    <InputLayout.Shell>
-      <InputLayout.Tag id={inputId} type="checkbox" {...inputProps} />
-      <InputLayout.Label htmlFor={inputId}>{label}</InputLayout.Label>
+  const { ...inputProps } = props
+  const isError = useMemo(() => Boolean(error), [error])
+  const layoutStyle = useMemo(() => {
+    const temp = [CheckboxDivCss]
+    if (isError) temp.push(CheckboxErrorStateCss)
+    return temp
+  }, [isError])
+  return <InputLayout css={layoutStyle} className={className}>
+    <InputLayout.Shell css={CheckboxAreaShellCss}>
+      <div css={CheckboxDisplayAreaCss}>
+        <InputLayout.Tag css={[CheckboxTagDefaultCss]} {...inputProps} id={inputId} type="checkbox" />
+      </div>
+      <InputLayout.Label css={[CheckboxLabelDefaultCss, CheckboxLabelFromTextCss]} htmlFor={inputId}>
+        {placeholder}
+      </InputLayout.Label>
     </InputLayout.Shell>
+    <ConditionalRender.Boolean
+      condition={isError}
+      render={{
+        true: <InputLayout.Error css={CheckboxErrorMessageCss}>
+          <ErrorCross css={{
+            marginRight: '0.25rem',
+            top: '.1872rem',
+            position: 'relative'
+          }} key={'error-cross'} />
+          {error}
+        </InputLayout.Error>
+      }}
+    />
   </InputLayout>
 }

@@ -1,4 +1,5 @@
 import type { NextPageWithLayout } from '@/pages/_app';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import FirstRegistDescPart from './component/FirstRegistDescPart';
@@ -6,13 +7,11 @@ import RegistDescPart from './component/RegistDescPart';
 import RegistPaymentKindPart from './component/RegistPaymentKindPart';
 
 const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initProps) => {
+  const router = useRouter()
   const { t } = useTranslation(['common', 'page-payment'])
   const onSelectTypeAction = (type: PaymentMethodType) => {
-    switch (type) {
-      case 'card': {
-
-      } break
-    }
+    const path = initProps.isFirst ? '/signup/payment/regist' : '/payment/regist'
+    router.push(`${path}/${type}`)
   }
   return <div>
     <ConditionalRender.Boolean

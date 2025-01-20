@@ -8,7 +8,7 @@ import useWindowResize from '@/hooks/useWindowResize';
 import StepHeader from './component/StepHeader';
 import PlatformDetailLarge from './component/platform/PlatfomDetailLarge';
 import PlatformDetailSlim from './component/platform/PlatfomDetailSlim';
-import { SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
+import { SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMainStyle';
 import { SignupPlatformContentCss, SignupPlatformContentLargeCss } from './styles/SignupPlayform';
 
 const PlatformPage: NextPageWithLayout = () => {

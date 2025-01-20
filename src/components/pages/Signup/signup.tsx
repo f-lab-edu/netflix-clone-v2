@@ -5,7 +5,7 @@ import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
 import SignupDesc from './component/SignupDesc';
 import StepHeader from './component/StepHeader';
-import { SignupChecklistCss, SignupCheckmarkShellCss, SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMain';
+import { SignupChecklistCss, SignupCheckmarkShellCss, SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMainStyle';
 
 const SignupPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])

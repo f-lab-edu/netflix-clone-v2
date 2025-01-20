@@ -13,14 +13,17 @@ declare module '@emotion/react' {
     }
     color: {
       black: {
-        default: '#000'
+        default: '#000',
+        opacity70: 'rgba(0,0,0,0.7)'
       },
       grey: {
         default: 'rgb(128,128,128)',
+        opacity70: 'rgba(128,128,128,0.7)',
         defaultFont: '#333'
         lightDivider: '#e6e6e6'
         footerLightFont: '#737373'
         footerLightBg: '#f3f3f3'
+        /** @deprecated use opacity70 */
         outline: 'rgba(128,128,128,0.7)'
       }
       white: {
@@ -44,7 +47,10 @@ declare module '@emotion/react' {
         }
       }
       green: {
-        validated: '#2bb871'
+        validated: {
+          light: '#0C8849',
+          dark: '#2bb871'
+        }
       }
       blue: {
         light: {

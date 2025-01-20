@@ -11,6 +11,7 @@ import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper'
 import { SignupApi } from '@/lib/network/account/SignupApi';
 import { pattern } from '@/lib/validators';
 import StepHeader from './component/StepHeader';
+import { SignupRegformContainerCss, SignupRegformDescCss, SignupRegformInputAreaCss, SignupRegformShellCss, SignupRegformStepDisplayCss, SignupRegformSubmitCss } from './styles/SignupRegformStyle';
 
 const loadedEmail = typeof window === 'undefined' ? '' : sessionStorage.getItem('sign-tryed-email')
 
@@ -39,61 +40,79 @@ const RegformPage: NextPageWithLayout = () => {
   async function submitAction(obj: SignupRequestType) {
     mutate(obj)
   }
-  return <form onSubmit={handleSubmit(submitAction)}>
-    <StepHeader title={t('page-signup:regform.title')} step={2} />
-    <LightTextInput
-      {...register('email', {
-        pattern: {
-          value: pattern.email,
-          message: t('common:form.email.error.pattern')
-        },
-        required: t('common:form.email.error.required')
-      })}
-      {...RHFValidErrorHelper(
-        formState.errors.email?.message,
-        formState.touchedFields.email
-      )}
-    />
-    <LightTextInput
-      {...register('password', {
-        pattern: {
-          value: pattern.password,
-          message: t('common:form.email.error.pattern')
-        },
-        required: t('common:form.email.error.required')
-      })}
-      type="password"
-      {...RHFValidErrorHelper(
-        formState.errors.password?.message,
-        formState.touchedFields.password
-      )}
-    />
-    <LightCheckbox
-      {...register('policy', {
-        required: t('common:form.policy.error.required')
-      })}
-      label={
-        <Trans
-          t={t}
-          i18nKey={'common:form.policy.label'}
-          components={{
-            a: <a />
-          }}
+  return <div css={SignupRegformContainerCss}>
+    <form onSubmit={handleSubmit(submitAction)} css={SignupRegformShellCss}>
+      <StepHeader title={t('page-signup:regform.title')} step={2} css={SignupRegformStepDisplayCss} />
+      <div css={SignupRegformDescCss}>
+        <p>
+          {t('page-signup:regform.desc1')}
+        </p>
+        <p>
+          {t('page-signup:regform.desc2')}
+        </p>
+      </div>
+      <div css={SignupRegformInputAreaCss}>
+        <LightTextInput
+          placeholder={t('common:form.email.placeholder')}
+          {...register('email', {
+            pattern: {
+              value: pattern.email,
+              message: t('common:form.email.error.pattern')
+            },
+            required: t('common:form.email.error.required')
+          })}
+          {...RHFValidErrorHelper(
+            formState.errors.email?.message,
+            formState.touchedFields.email
+          )}
         />
-      }
-    />
-    <LightCheckbox
-      {...register('specialOffer', {
-      })}
-      label={<Trans t={t} i18nKey={'common:form.specialOffer.label'} />}
-    />
-    <button type="submit">
-      {t('page-signup:regform.button')}
-    </button>
-  </form>
+        <LightTextInput
+          placeholder={t('common:form.password.placeholder')}
+          {...register('password', {
+            pattern: {
+              value: pattern.password,
+              message: t('common:form.password.error.pattern')
+            },
+            required: t('common:form.password.error.required')
+          })}
+          type="password"
+          {...RHFValidErrorHelper(
+            formState.errors.password?.message,
+            formState.touchedFields.password
+          )}
+        />
+        <LightCheckbox
+          {...register('policy', {
+            required: t('common:form.policy.error.required')
+          })}
+          placeholder={
+            <Trans
+              t={t}
+              i18nKey={'common:form.policy.label'}
+              components={{
+                a: <a />
+              }}
+            />
+          }
+          {...RHFValidErrorHelper(
+            formState.errors.policy?.message,
+            formState.touchedFields.policy
+          )}
+        />
+        <LightCheckbox
+          {...register('specialOffer')}
+          placeholder={<Trans t={t} i18nKey={'common:form.specialOffer.label'} />}
+        />
+      </div>
+      <button type="submit" css={SignupRegformSubmitCss}>
+        <span>{t('page-signup:regform.button')}</span>
+      </button>
+    </form>
+  </div>
+
 }
 
 RegformPage.getLayout = (page) => {
-  return <SignupLayout>{page}</SignupLayout>
+  return <SignupLayout withShell>{page}</SignupLayout>
 }
 export default RegformPage

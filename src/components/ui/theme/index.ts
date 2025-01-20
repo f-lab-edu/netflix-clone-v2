@@ -17,6 +17,7 @@ export const theme: Theme = {
       default: '#000'
     },
     grey: {
+      default: 'rgb(128,128,128)',
       defaultFont: '#333',
       lightDivider: '#e6e6e6',
       footerLightFont: '#737373',

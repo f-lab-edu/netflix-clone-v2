@@ -6,14 +6,20 @@ export const CheckboxDivCss = css([{
 }])
 
 const checkboxSize = '1.125rem'
-const inputSize = '2.75rem'
-const inputPosition = `calc((${inputSize} - ${checkboxSize}) / -2)`
+const inputTagSize = '2.75rem'
+const inputTagPosition = `calc((${inputTagSize} - ${checkboxSize}) / -2)`
+const checkboxBgNormal = theme.color.white.default
+const checkboxBgChecked = theme.color.black.default
+const checkboxBorderColor = theme.color.grey.default
+const checkboxMaskColor = theme.color.white.default
 
 export const CheckboxAreaShellCss = css({
   position: 'relative',
   display: 'grid',
-  alignItems: 'center',
+  gridTemplateAreas: '"checkbox label" "checkbox error"',
   gridTemplateColumns: `${checkboxSize} 1fr`,
+  columnGap: '0.75rem',
+  rowGap: '.375rem',
   zIndex: 0
 })
 export const CheckboxErrorStateCss = css({
@@ -22,48 +28,65 @@ export const CheckboxErrorStateCss = css({
 })
 
 export const CheckboxDisplayAreaCss = css({
+  gridArea: 'checkbox',
   width: checkboxSize,
-  height: checkboxSize
+  height: '1.5rem',
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
+  position: 'relative',
+  '--checked-opacity': 0,
+  '--checked-bg': checkboxBgNormal,
+  ':has(input:checked)': {
+    '--checked-opacity': 1,
+    '--checked-bg': checkboxBgChecked,
+  }
 })
 
 export const CheckboxTagDefaultCss = css([{
   appearance: 'none',
   border: '0 solid transparent',
   background: 'transparent',
-  position: 'relative',
-  display: 'flex',
-  justifyContent: 'center',
-  alignItems: 'center',
-  width: inputSize,
-  height: inputSize,
-  left: inputPosition,
-  top: inputPosition,
-  ':after': {
-    content: '""',
-    display: 'block',
-    width: checkboxSize,
-    height: checkboxSize,
-    borderRadius: theme.borderRadius.xxs,
-    borderStyle: 'solid',
-    borderWidth: '1px',
-    borderColor: theme.color.black.default,
-    backgroundColor: theme.color.white.default,
-  },
-  ':checked:after': {
-    backgroundImage: 'url(/netflix/input/checkbox-checked.svg)',
-    backgroundRepeat: 'no-repeat',
-    backgroundPosition: 'center',
-    backgroundSize: '.75rem'
-  }
+  position: 'absolute',
+  cursor: 'pointer',
+  width: inputTagSize,
+  height: inputTagSize,
+  left: inputTagPosition,
+  top: inputTagPosition,
 }])
 
+const CheckboxDisplayTempCss = css({
+  position: 'absolute',
+  display: 'block',
+  width: checkboxSize,
+  height: checkboxSize,
+  pointerEvents: 'none',
+  transitionDuration: '250ms',
+  transitionProperty: 'opacity, background-color',
+  transitionTimingFunction: 'cubic-bezier(0.32, 0.94, 0.6, 1)'
+})
+
+export const CheckboxDisplayCss = css(CheckboxDisplayTempCss, {
+  borderRadius: theme.borderRadius.xxs,
+  borderStyle: 'solid',
+  borderWidth: '1px',
+  borderColor: checkboxBorderColor,
+  backgroundColor: `var(--checked-bg, ${checkboxBgNormal})`
+})
+
+export const CheckboxCheckedDisplayCss = css(CheckboxDisplayTempCss, {
+  opacity: 'var(--checked-opacity, 0)',
+  maskImage: 'url(/netflix/input/checkbox-checked.svg)',
+  maskRepeat: 'no-repeat',
+  maskPosition: 'center',
+  maskSize: '.75rem',
+  backgroundColor: checkboxMaskColor,
+})
+
 export const CheckboxLabelDefaultCss = css([{
+  gridArea: 'label',
   zIndex: 1,
-  paddingLeft: '0.75rem',
   textAlign: 'start',
-  whiteSpace: 'nowrap',
-  overflow: 'hidden',
-  textOverflow: 'ellipsis',
 }])
 
 export const CheckboxLabelFromTextCss = css([{
@@ -81,9 +104,9 @@ export const CheckboxLabelFromTextCss = css([{
 }])
 
 export const CheckboxErrorMessageCss = css({
+  gridArea: 'error',
   fontSize: '.8125rem',
   fontWeight: 400,
-  marginTop: '.375rem',
   color: 'currentcolor',
   fill: 'currentcolor'
 })

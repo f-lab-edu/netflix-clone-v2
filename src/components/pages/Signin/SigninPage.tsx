@@ -1,4 +1,5 @@
 import type { SigninResponseType, SigninWithCodeResponseType } from '@/lib/network/types/account';
+import type { ErrorResponse } from '@/lib/network/types/error';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useMutation } from '@tanstack/react-query';
 import { useAtom } from 'jotai';
@@ -14,6 +15,7 @@ import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import { SigninApi } from '@/lib/network/account/SigninApi';
 import { SigninWithLoginCodeApi } from '@/lib/network/account/SigninWithLoginCodeApi';
 import { SIGNIN_EMAIL_OR_PHONE } from '@/lib/network/utils';
+import { ErrorCode } from '@/mocks/middleware/ErrorHandler';
 import { accessTokenAtom, refreshTokenAtom } from '@/state/Token';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import ButtonGroup from './component/ButtonGroup';
@@ -29,13 +31,20 @@ const SigninPage: NextPageWithLayout = () => {
   const [, setRefreshToken] = useAtom(refreshTokenAtom)
   const { mutate: signinMutate } = useMutation({
     mutationFn: SigninApi,
-    onSuccess: loginSuccessAction
+    onSuccess: loginSuccessAction,
+    onError: loginFailedAction
   })
 
   function loginSuccessAction(data: SigninResponseType) {
     setAccessToken(data.accessToken)
     setRefreshToken(data.refreshToken)
     router.push('/selectProfile')
+  }
+  function loginFailedAction(error: Error) {
+    const errorState: ErrorResponse = JSON.parse(error.message)
+    if (errorState.errorCode === ErrorCode.SIGNIN_FAILED) {
+      // TODO: display error message
+    }
   }
 
   const { mutate: signinWithLoginCodeMutate } = useMutation({

@@ -1,10 +1,23 @@
 import type { RefreshTokenResponseType } from './types/account';
+import type { ErrorResponse } from './types/error';
+import type { HTTPError } from 'ky';
 import ky from 'ky'
 import { ACCESS_TOKEN_KEY, REFRESH_TOKEN_KEY } from './utils'
 
 const baseApi = ky.extend({
   prefixUrl: '/api/',
   hooks: {
+    beforeError: [
+      async (error: HTTPError<ErrorResponse>) => {
+        const { response } = error;
+        if (response && response.body) {
+          const json = await response.json()
+          error.name = `API Error ${json.errorCode}`;
+          error.message = JSON.stringify(json);
+        }
+        return error;
+      }
+    ],
     beforeRequest: [
       (request) => {
         if (typeof window !== 'undefined') {

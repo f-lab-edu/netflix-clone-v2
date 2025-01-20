@@ -12,6 +12,7 @@ const checkboxBgNormal = theme.color.white.default
 const checkboxBgChecked = theme.color.black.default
 const checkboxBorderColor = theme.color.grey.default
 const checkboxMaskColor = theme.color.white.default
+const focusOutlineColor = theme.color.black.default
 
 export const CheckboxAreaShellCss = css({
   position: 'relative',
@@ -37,9 +38,13 @@ export const CheckboxDisplayAreaCss = css({
   position: 'relative',
   '--checked-opacity': 0,
   '--checked-bg': checkboxBgNormal,
+  '--focus-outline-css': 'none',
   ':has(input:checked)': {
     '--checked-opacity': 1,
     '--checked-bg': checkboxBgChecked,
+  },
+  ':has(input:focus)': {
+    '--focus-outline-css': `solid .125rem ${focusOutlineColor}`
   }
 })
 
@@ -49,6 +54,7 @@ export const CheckboxTagDefaultCss = css([{
   background: 'transparent',
   position: 'absolute',
   cursor: 'pointer',
+  outline: 'none',
   width: inputTagSize,
   height: inputTagSize,
   left: inputTagPosition,
@@ -71,7 +77,9 @@ export const CheckboxDisplayCss = css(CheckboxDisplayTempCss, {
   borderStyle: 'solid',
   borderWidth: '1px',
   borderColor: checkboxBorderColor,
-  backgroundColor: `var(--checked-bg, ${checkboxBgNormal})`
+  backgroundColor: `var(--checked-bg, ${checkboxBgNormal})`,
+  outlineOffset: '.125rem',
+  outline: 'var(--focus-outline-css, none)'
 })
 
 export const CheckboxCheckedDisplayCss = css(CheckboxDisplayTempCss, {

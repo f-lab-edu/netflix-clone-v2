@@ -9,7 +9,6 @@ export default function RegistPaymentKindPart(props: RegistPaymentKindPartProps)
   const { t } = useTranslation(['page-payment'])
   return <div>
     <PaymentKindBtn title={t('page-payment:buttonPart.card')} type='card' {...props}>
-      <div></div>
     </PaymentKindBtn>
   </div>
 }

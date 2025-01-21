@@ -1,10 +1,12 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import SignupLayout from '@/components/layout/SignupLayout';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import FirstRegistDescPart from './component/FirstRegistDescPart';
 import RegistDescPart from './component/RegistDescPart';
 import RegistPaymentKindPart from './component/RegistPaymentKindPart';
+import { PageShellCss } from './styles/PageStyle';
 
 const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initProps) => {
   const router = useRouter()
@@ -13,7 +15,7 @@ const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initPr
     const path = initProps.isFirst ? '/signup/payment/regist' : '/payment/regist'
     router.push(`${path}/${type}`)
   }
-  return <div>
+  return <div css={PageShellCss}>
     <ConditionalRender.Boolean
       condition={initProps.isFirst}
       render={{
@@ -35,6 +37,10 @@ const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initPr
     />
     <RegistPaymentKindPart onSelectType={onSelectTypeAction} />
   </div>
+}
+
+PaymentRegistStartPage.getLayout = (page) => {
+  return <SignupLayout withShell>{page}</SignupLayout>
 }
 
 export default PaymentRegistStartPage

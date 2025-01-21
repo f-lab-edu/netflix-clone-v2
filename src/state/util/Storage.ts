@@ -1,7 +1,7 @@
 import type { SyncStringStorage } from 'jotai/vanilla/utils/atomWithStorage';
 import { createJSONStorage } from 'jotai/utils';
 
-const isBrowser = typeof window === 'undefined'
+const isServer = typeof window === 'undefined'
 
 const CoveredStorageGenerate = (storage: Storage | null): SyncStringStorage => ({
   getItem: (key) => {
@@ -30,8 +30,8 @@ const CoveredStorageGenerate = (storage: Storage | null): SyncStringStorage => (
   }
 })
 
-export const CoveredLocalStorage: SyncStringStorage = CoveredStorageGenerate(isBrowser ? localStorage : null)
-export const CoveredSessionStorage: SyncStringStorage = CoveredStorageGenerate(isBrowser ? sessionStorage : null)
+export const CoveredLocalStorage: SyncStringStorage = CoveredStorageGenerate(isServer ? null : localStorage)
+export const CoveredSessionStorage: SyncStringStorage = CoveredStorageGenerate(isServer ? null : sessionStorage)
 
 export const JotaiLocalStorage = createJSONStorage<string>(() => CoveredLocalStorage)
 export const JotaiSessionStorage = createJSONStorage<string>(() => CoveredSessionStorage)

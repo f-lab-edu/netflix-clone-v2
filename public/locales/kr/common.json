@@ -19,6 +19,21 @@
         "pattern": "유효한 이메일 주소를 입력하세요."
       }
     },
+    "emailOrPhone": {
+      "placeholder": "이메일 주소 또는 휴대폰 번호",
+      "error": {
+        "required": "정확한 이메일 주소나 전화번호를 입력하세요.",
+        "patternEmail": "정확한 이메일 주소를 입력하세요.",
+        "validatePhone": "정확한 전화번호를 입력하세요."
+      }
+    },
+    "password": {
+      "placeholder": "비밀번호",
+      "error": {
+        "required": "비밀번호는 4~60자 사이여야 합니다.",
+        "pattern": "비밀번호는 4~60자 사이여야 합니다."
+      }
+    },
     "policy": {
       "label": "예, 저는 <a href=\"#\">개인정보 처리방침</a>에 따른 개인정보 수집 및 활용에 동의합니다. <a href=\"#\">(상세 정보)</a>",
       "error": {

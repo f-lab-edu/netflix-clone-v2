@@ -19,6 +19,21 @@
         "pattern": "Please enter a valid email address."
       }
     },
+    "emailOrPhone": {
+      "placeholder": "Email or mobile number",
+      "error": {
+        "required": "Please enter a valid email or phone number.",
+        "patternEmail": "Please enter a valid email.",
+        "validatePhone": "Please enter a valid phone number."
+      }
+    },
+    "password": {
+      "placeholder": "Password",
+      "error": {
+        "required": "Your password must contain between 4 and 60 characters.",
+        "pattern": "Your password must contain between 4 and 60 characters."
+      }
+    },
     "policy": {
       "label": "Yes, I consent to collection and use of my personal information in accordance with the <a href=\"#\">Privacy Statemenet</a>. <a href=\"#\">(Details)</a>",
       "error": {

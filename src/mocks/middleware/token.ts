@@ -14,12 +14,19 @@ type JwtPayloadType = JWTPayload & JwtCustomPayload
 const secret = new TextEncoder().encode(
   'FciQubnp5uouLKK8s27hI6UpAfSuf9rjBMC3lyzjqqilYcc9X9L0SH5wcXUDCVAFO0S5YtIEnD3I4LEGuhsPKDPRZqDAgdFyNwus',
 )
-
+const issuer = 'jwt-issuer:matthew'
+const audience = 'jwt-audience:matthew'
 async function generateJWT(accountId: number, isRefreshToken: boolean) {
   const token = await new SignJWT({
     accountId,
     isRefreshToken
   })
+    .setProtectedHeader({
+      alg: 'HS256'
+    })
+    .setIssuedAt()
+    .setIssuer(issuer)
+    .setAudience(audience)
     .setExpirationTime(isRefreshToken ? '4w' : '1w')
     .sign(secret)
   return token

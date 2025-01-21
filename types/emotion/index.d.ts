@@ -8,12 +8,12 @@ declare module '@emotion/react' {
     }
     borderRadius: {
       sm: '.325rem'
-      xs: '.25rem',
+      xs: '.25rem'
       xxs: '.125rem'
     }
     color: {
       black: {
-        default: '#000',
+        default: '#000'
         opacity70: 'rgba(0,0,0,0.7)'
       },
       grey: {
@@ -25,9 +25,15 @@ declare module '@emotion/react' {
         footerLightBg: '#f3f3f3'
         /** @deprecated use opacity70 */
         outline: 'rgba(128,128,128,0.7)'
+        buttonBg: {
+          default: 'rgba(128,128,128,0.4)'
+          action: 'rgba(128,128,128,0.3)'
+          hover: 'rgba(128,128,128,0.3)'
+        }
       }
       white: {
         default: '#ffffff'
+        opacity70: 'rgba(255,255,255,0.7)',
         active: 'rgba(255,255,255,0.7)'
         hover: 'rgba(255,255,255,0.7)'
       }

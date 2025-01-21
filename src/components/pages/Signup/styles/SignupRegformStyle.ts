@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { DefaultButtonCss, LightButtonInteractionCss } from '@/components/ui/Button/ButtonStyle';
+import { DefaultButtonCss, RedButtonCss } from '@/components/ui/Button/ButtonStyle';
 import { TextDisplayCss } from '@/components/ui/Font/TextDisplayStyle';
 import { theme } from '@/components/ui/theme';
 
@@ -31,7 +31,7 @@ export const SignupRegformInputAreaCss = css({
   gap: '10px'
 })
 
-export const SignupRegformSubmitCss = css(DefaultButtonCss, LightButtonInteractionCss, {
+export const SignupRegformSubmitCss = css(DefaultButtonCss, RedButtonCss.color, RedButtonCss.interaction.light, {
   width: '100%',
   padding: '20px 24px',
   fontSize: '1.5rem',

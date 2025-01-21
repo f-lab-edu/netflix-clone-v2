@@ -1,6 +1,8 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
+import { useEffect } from 'react';
 import BaseLayout from '@/components/layout/BaseLayout';
 import SignInOutBtn from '@/components/ui/Button/SignInOutBtn';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
@@ -8,6 +10,15 @@ import { SignoutBgCss, SignoutContentLayoutCss, SignoutDesc1Css, SignoutDesc2Css
 
 const SignoutPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['common', 'page-signout'])
+  const router = useRouter()
+  useEffect(() => {
+    const goHomeTimeout = setTimeout(() => {
+      router.push('/')
+    }, 30000)
+    return () => {
+      clearTimeout(goHomeTimeout)
+    }
+  })
   return <div css={SignoutBgCss}>
     <div css={SignoutHeaderCss}>
       {/* HEADER */}

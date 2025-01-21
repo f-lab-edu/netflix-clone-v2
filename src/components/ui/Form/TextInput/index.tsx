@@ -7,7 +7,6 @@ import InputLayout from '../InputLayout'
 import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputThemeCss, InputValidatedStateCss } from './style';
 
 export type TextInputProps = {
-  theme: 'light' | 'dark'
   label?: string
 } & InputLayoutValues & CssProps & InputHTMLAttributes<HTMLInputElement>
 
@@ -51,10 +50,10 @@ const TextInput = ({
   </InputLayout>
 }
 
-TextInput.light = (props: Omit<TextInputProps, 'theme'>) =>
-  <TextInput {...props} theme="light" css={InputThemeCss.light} />
+TextInput.light = (props: TextInputProps) =>
+  <TextInput {...props} css={InputThemeCss.light} />
 
-TextInput.dark = (props: Omit<TextInputProps, 'theme'>) =>
-  <TextInput {...props} theme="dark" css={InputThemeCss.dark} />
+TextInput.dark = (props: TextInputProps) =>
+  <TextInput {...props} css={InputThemeCss.dark} />
 
 export default TextInput

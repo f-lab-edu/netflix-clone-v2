@@ -18,7 +18,10 @@ export default function LoginCodeForm({
   const { t } = useTranslation(['common'])
 
   const { register, handleSubmit, formState } = useForm<SigninWithCodeRequestType>({
-    mode: 'onBlur'
+    mode: 'onBlur',
+    defaultValues: {
+      emailOrPhone: ''
+    }
   })
   const signinFunction = (obj: SigninWithCodeRequestType) => {
     mutate(obj)

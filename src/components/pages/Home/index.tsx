@@ -2,10 +2,11 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import { useTranslation } from 'next-i18next'
 import LanguageSelect from '@/components/i18n/LanguageSelect';
 import BaseLayout from '@/components/layout/BaseLayout';
+import SignInOutBtn from '@/components/ui/Button/SignInOutBtn';
 import EmailSubmitForm from './component/EmailSubmitForm';
 import { HeroBottom, HeroBottomLine, HeroBottomMargin } from './styles/HeroBottom';
 import { HeroContent, HeroContentBg, HeroContentBgShadow, HeroContentDetail, HeroContentDetailShell, HeroContentDetailContentLayout, HeroContentShell } from './styles/HeroContent';
-import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninLink } from './styles/HeroHead';
+import { HeroHead, HeroHeadContent, HeroHeadLayer, HeroHeadLogo, HeroHeadRightSide, HeroHeadSigninOutLinkCss } from './styles/HeroHead';
 import { HeroDescrpition1, HeroSection, HeroTitle } from './styles/HeroSection';
 
 const Home: NextPageWithLayout = () => {
@@ -21,9 +22,11 @@ const Home: NextPageWithLayout = () => {
             <HeroHeadRightSide>
               <div></div>
               <LanguageSelect />
-              <HeroHeadSigninLink href="/signin">
-                {t('head.signin')}
-              </HeroHeadSigninLink>
+              <SignInOutBtn
+                css={HeroHeadSigninOutLinkCss}
+                signInText={t('head.signin')}
+                signOutText={t('head.signout')}
+              />
             </HeroHeadRightSide>
           </HeroHeadContent>
         </HeroHeadLayer>

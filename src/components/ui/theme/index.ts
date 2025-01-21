@@ -83,6 +83,9 @@ export const theme: Theme = {
     blue: {
       light: {
         default: '#0071eb'
+      },
+      dark: {
+        default: '#0071eb'
       }
     }
   }

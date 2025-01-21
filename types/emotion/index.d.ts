@@ -94,6 +94,9 @@ declare module '@emotion/react' {
       blue: {
         light: {
           default: '#0071eb'
+        },
+        dark: {
+          default: '#0071eb'
         }
       }
     }

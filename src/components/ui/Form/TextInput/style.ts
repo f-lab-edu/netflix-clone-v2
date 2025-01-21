@@ -40,6 +40,7 @@ const ErrorOutlineColor = `var(--error-outline-color, ${theme.color.green.valida
 const FocusOutlineColor = `var(--focus-outline-color, ${theme.color.black.default})`
 
 export const InputDivCss = css([{
+  zIndex: 0,
   display: 'inline-flex',
   verticalAlign: 'text-top',
   position: 'relative',

@@ -87,7 +87,12 @@ export const InputTagDefaultCss = css([{
   background: 'transparent',
   color: InputTextColor,
   '::placeholder': {
-    opacity: 0
+    opacity: 0,
+    transitionDuration: '250ms',
+    transitionProperty: 'opacity'
+  },
+  ':focus::placeholder': {
+    opacity: 1
   }
 }])
 

@@ -50,10 +50,12 @@ const TextInput = ({
   </InputLayout>
 }
 
-TextInput.light = (props: TextInputProps) =>
+const TextInputLight = (props: TextInputProps) =>
   <TextInput {...props} css={InputThemeCss.light} />
+TextInput.Light = TextInputLight
 
-TextInput.dark = (props: TextInputProps) =>
+const TextInputDark = (props: TextInputProps) =>
   <TextInput {...props} css={InputThemeCss.dark} />
+TextInput.Dark = TextInputDark
 
 export default TextInput

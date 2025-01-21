@@ -48,10 +48,12 @@ const Checkbox = ({
   </InputLayout>
 }
 
-Checkbox.light = (props: CheckboxProps) =>
+const CheckboxLight = (props: CheckboxProps) =>
   <Checkbox {...props} css={CheckboxThemeCss.light} />
+Checkbox.Light = CheckboxLight
 
-Checkbox.dark = (props: CheckboxProps) =>
+const CheckboxDark = (props: CheckboxProps) =>
   <Checkbox {...props} css={CheckboxThemeCss.dark} />
+Checkbox.Dark = CheckboxDark
 
 export default Checkbox

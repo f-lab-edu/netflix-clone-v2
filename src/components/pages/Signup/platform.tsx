@@ -13,8 +13,8 @@ import { SignupPlatformContentCss, SignupPlatformContentLargeCss } from './style
 
 const PlatformPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
-  // TODO: on resize display width > over 1050px change contents as full width mode
 
+  // on resize display width > over 1050px change contents as full width mode
   const [windowSize] = useWindowResize()
   const isLarge = useMemo(() => windowSize > 1050, [windowSize])
   const [selectedType, setSelectedType] = useState<MembershipPlanTier>('premium')

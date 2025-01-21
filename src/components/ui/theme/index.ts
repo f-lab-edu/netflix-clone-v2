@@ -15,7 +15,29 @@ export const theme: Theme = {
   color: {
     black: {
       default: '#000',
-      opacity70: 'rgba(0,0,0,0.7)'
+      opacity70: 'rgba(0,0,0,.7)'
+    },
+    grey16: {
+      default: '#161616',
+      opacity70: 'rgba(22,22,22,.7)'
+    },
+    grey33: {
+      default: '#333333'
+    },
+    grey73: {
+      default: '#737373',
+    },
+    grey80: {
+      default: '#808080',
+      opacity70: 'rgba(128,128,128,.7)',
+      opacity40: 'rgba(128,128,128,.4)',
+      opacity30: 'rgba(128,128,128,.3)',
+    },
+    greyE6: {
+      default: '#e6e6e6'
+    },
+    greyF3: {
+      default: '#f3f3f3'
     },
     grey: {
       default: 'rgb(128,128,128)',

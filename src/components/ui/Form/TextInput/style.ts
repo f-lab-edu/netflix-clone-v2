@@ -7,13 +7,37 @@ export const InputLabelHasValueOrFocusedCss = css([{
   top: '.5rem'
 }])
 
-const inputTextColor = theme.color.black.default
-const BackgroundColor = theme.color.white.default
-const LabelColor = theme.color.black.opacity70
-const defaultOutlineColor = theme.color.grey.default
-const errorColor = theme.color.red.error.light
-const validatedColor = theme.color.green.validated.light
-const focusOutlineColor = theme.color.black.default
+export const InputThemeCss = {
+  light: css({
+    '--input-text-color': theme.color.black.default,
+    '--background-color': theme.color.white.default,
+    '--label-text-color': theme.color.black.opacity70,
+    '--error-color': theme.color.red.error.light,
+    '--default-outline-color': theme.color.grey80.default,
+    '--error-outline-color': theme.color.red.error.light,
+    '--validated-outline-color': theme.color.green.validated.light,
+    '--focus-outline-color': theme.color.black.default
+  }),
+  dark: css({
+    '--input-text-color': theme.color.white.default,
+    '--background-color': theme.color.grey16.opacity70,
+    '--label-text-color': theme.color.white.opacity70,
+    '--error-color': theme.color.red.error.dark,
+    '--default-outline-color': theme.color.grey80.opacity70,
+    '--error-outline-color': theme.color.red.error.dark,
+    '--validated-outline-color': theme.color.green.validated.dark,
+    '--focus-outline-color': theme.color.white.default
+  })
+}
+
+const InputTextColor = `var(--input-text-color, ${theme.color.white.default})`
+const BackgroundColor = `var(--background-color, ${theme.color.white.default})`
+const LabelColor = `var(--label-text-color, ${theme.color.black.opacity70})`
+const DefaultOutlineColor = `var(--default-outline-color, ${theme.color.grey80.default})`
+const ErrorColor = `var(--error-color, ${theme.color.grey80.default})`
+const ValidatedOutlineColor = `var(--validated-outline-color, ${theme.color.red.error.light})`
+const ErrorOutlineColor = `var(--error-outline-color, ${theme.color.green.validated.light})`
+const FocusOutlineColor = `var(--focus-outline-color, ${theme.color.black.default})`
 
 export const InputDivCss = css([{
   display: 'inline-flex',
@@ -29,22 +53,22 @@ export const InputDivCss = css([{
   },
   ':has(input:focus)': {
     'label': InputLabelHasValueOrFocusedCss,
-    '--focus-outline-css': `solid .125rem ${focusOutlineColor}`
+    '--focus-outline-css': `solid .125rem ${FocusOutlineColor}`
   }
 }])
 
 export const InputDefaultStateCss = css({
-  '--outline-color': defaultOutlineColor
+  '--outline-color': DefaultOutlineColor
 })
 
 export const InputErrorStateCss = css({
-  color: errorColor,
-  '--outline-color': errorColor
+  color: ErrorColor,
+  '--outline-color': ErrorOutlineColor
 })
 
 export const InputValidatedStateCss = css({
-  color: validatedColor,
-  '--outline-color': validatedColor
+  color: ValidatedOutlineColor,
+  '--outline-color': ValidatedOutlineColor
 })
 
 export const InputAreaShellCss = css({
@@ -60,7 +84,7 @@ export const InputTagDefaultCss = css([{
   width: '100%',
   border: '0 solid transparent',
   background: 'transparent',
-  color: inputTextColor,
+  color: InputTextColor,
   '::placeholder': {
     opacity: 0
   }

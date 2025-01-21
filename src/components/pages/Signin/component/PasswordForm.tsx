@@ -5,13 +5,12 @@ import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import validators, { pattern } from '@/lib/validators';
+import useSigninWIthPasswordMutate from '../hooks/useSigninWIthPasswordMutate';
 
 interface PasswordFormProps {
-  mutate: (_data: SigninRequestType) => void
   buttonArea: ReactNode
 }
 export default function PasswordForm({
-  mutate,
   buttonArea,
   className
 }: PasswordFormProps & CssProps) {
@@ -20,8 +19,9 @@ export default function PasswordForm({
   const { register, handleSubmit, formState } = useForm<SigninRequestType>({
     mode: 'onBlur'
   })
+  const { signinMutate } = useSigninWIthPasswordMutate()
   const signinFunction = (obj: SigninRequestType) => {
-    mutate(obj)
+    signinMutate(obj)
   }
 
   return <form onSubmit={handleSubmit(signinFunction)} className={className}>

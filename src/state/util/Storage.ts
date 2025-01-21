@@ -3,24 +3,24 @@ import { createJSONStorage } from 'jotai/utils';
 
 const isBrowser = typeof window === 'undefined'
 
-export const CoveredLocalStorage: SyncStringStorage = {
+const CoveredStorageGenerate = (storage: Storage | null): SyncStringStorage => ({
   getItem: (key) => {
-    if (isBrowser) return ''
-    return localStorage.getItem(key)
+    if (!storage) return ''
+    return storage.getItem(key)
   },
   setItem(key, newValue) {
-    if (isBrowser) return
-    localStorage.setItem(key, newValue)
+    if (!storage) return
+    storage.setItem(key, newValue)
   },
   removeItem(key) {
-    if (isBrowser) return
-    localStorage.removeItem(key)
+    if (!storage) return
+    storage.removeItem(key)
   },
   subscribe(key, callback) {
-    if (isBrowser) return () => { }
+    if (!storage) return () => { }
     const windowEventListener = (e: StorageEvent) => {
-      if (e.storageArea === localStorage && e.key === key) {
-        callback(localStorage.getItem(key))
+      if (e.storageArea === storage && e.key === key) {
+        callback(storage.getItem(key))
       }
     }
     window.addEventListener('storage', windowEventListener)
@@ -28,6 +28,10 @@ export const CoveredLocalStorage: SyncStringStorage = {
       window.removeEventListener('storage', windowEventListener)
     }
   }
-}
+})
+
+export const CoveredLocalStorage: SyncStringStorage = CoveredStorageGenerate(isBrowser ? localStorage : null)
+export const CoveredSessionStorage: SyncStringStorage = CoveredStorageGenerate(isBrowser ? sessionStorage : null)
 
 export const JotaiLocalStorage = createJSONStorage<string>(() => CoveredLocalStorage)
+export const JotaiSessionStorage = createJSONStorage<string>(() => CoveredSessionStorage)

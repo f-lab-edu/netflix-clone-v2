@@ -5,18 +5,17 @@ import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import validators from '@/lib/validators';
+import useSendSigninWithCodeRequest from '../hooks/useSendSigninWithCodeRequest';
 
 interface LoginCodeFormProps {
-  mutate: (_data: SigninWithCodeRequestType) => void
   buttonArea: ReactNode
 }
 export default function LoginCodeForm({
-  mutate,
   buttonArea,
   className
 }: LoginCodeFormProps & CssProps) {
   const { t } = useTranslation(['common'])
-
+  const { signinWithLoginCodeMutate } = useSendSigninWithCodeRequest()
   const { register, handleSubmit, formState } = useForm<SigninWithCodeRequestType>({
     mode: 'onBlur',
     defaultValues: {
@@ -24,7 +23,7 @@ export default function LoginCodeForm({
     }
   })
   const signinFunction = (obj: SigninWithCodeRequestType) => {
-    mutate(obj)
+    signinWithLoginCodeMutate(obj)
   }
 
   return <form onSubmit={handleSubmit(signinFunction)} className={className}>

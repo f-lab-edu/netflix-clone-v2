@@ -54,7 +54,7 @@ export const RedButtonCss = {
 
 export const BlackButtonCss = {
   color: css({
-    backgroundColor: theme.color.grey80.default,
+    backgroundColor: theme.color.grey80.opacity40,
     color: theme.color.white.default,
   }),
   interaction: {

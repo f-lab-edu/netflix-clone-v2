@@ -12,39 +12,42 @@ export const CheckboxThemeCss = {
   light: css({
     '--checkbox-bg-normal': theme.color.white.default,
     '--checkbox-bg-checked': theme.color.black.default,
-    '--checkbox-label-color': theme.color.black.default,
-    '--checkbox-label-link-color': theme.color.blue.light.default,
     '--checkbox-border-default': theme.color.grey80.default,
     '--checkbox-border-hover': theme.color.black.default,
+    '--checkbox-border-checked': theme.color.black.default,
     '--checkbox-bolder-error': theme.color.red.error.light,
     '--checkbox-checkmask-color': theme.color.white.default,
     '--checkbox-focus-outline-color': theme.color.black.default,
     '--checkbox-error-color': theme.color.red.error.light,
+    '--checkbox-label-color': theme.color.black.default,
+    '--checkbox-label-link-color': theme.color.blue.light.default,
   }),
   dark: css({
     '--checkbox-bg-normal': theme.color.black.default,
     '--checkbox-bg-checked': theme.color.white.default,
-    '--checkbox-label-color': theme.color.white.default,
-    '--checkbox-label-link-color': theme.color.blue.dark.default,
     '--checkbox-border-default': theme.color.grey80.opacity70,
     '--checkbox-border-hover': theme.color.white.default,
+    '--checkbox-border-checked': theme.color.white.default,
     '--checkbox-bolder-error': theme.color.red.error.dark,
     '--checkbox-checkmask-color': theme.color.black.default,
     '--checkbox-focus-outline-color': 'transparent',
     '--checkbox-error-color': theme.color.red.error.dark,
+    '--checkbox-label-color': theme.color.white.default,
+    '--checkbox-label-link-color': theme.color.blue.dark.default,
   })
 }
 
 const checkboxBgNormal = `var(--checkbox-bg-normal, ${theme.color.white.default})`
 const checkboxBgChecked = `var(--checkbox-bg-checked, ${theme.color.black.default})`
-const checkboxLabelColor = `var(--checkbox-label-color, ${theme.color.black.default})`
-const checkboxLabelLinkColor = `var(--checkbox-label-link-color, ${theme.color.blue.light.default})`
 const checkboxBorderDefaultColor = `var(--checkbox-border-default, ${theme.color.grey80.default})`
 const checkboxBorderHoverColor = `var(--checkbox-border-hover, ${theme.color.black.default})`
+const checkboxBorderCheckedColor = `var(--checkbox-border-checked, ${theme.color.black.default})`
 const checkboxBorderErrorColor = `var(--checkbox-border-error, ${theme.color.red.error.light})`
 const checkboxCheckmaskColor = `var(--checkbox-checkmask-color, ${theme.color.white.default})`
 const checkboxFocusOutlineColor = `var(--checkbox-focus-outline-color, ${theme.color.black.default})`
 const checkboxErrorColor = `var(--checkbox-error-color, ${theme.color.red.error.light})`
+const checkboxLabelColor = `var(--checkbox-label-color, ${theme.color.black.default})`
+const checkboxLabelLinkColor = `var(--checkbox-label-link-color, ${theme.color.blue.light.default})`
 
 export const CheckboxAreaShellCss = css({
   position: 'relative',
@@ -54,6 +57,9 @@ export const CheckboxAreaShellCss = css({
   columnGap: '0.75rem',
   rowGap: '.375rem',
   zIndex: 0
+})
+export const CheckboxValidStateCss = css({
+  '--checkbox-border-color': checkboxBorderCheckedColor
 })
 export const CheckboxErrorStateCss = css({
   color: checkboxErrorColor,

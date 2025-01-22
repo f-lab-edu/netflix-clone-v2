@@ -1,3 +1,4 @@
+import CardValidator from 'card-validator'
 import { AsYouType } from 'libphonenumber-js/mobile'
 
 export const pattern = {
@@ -17,6 +18,29 @@ const validators = {
     if (this.phoneNumberType(v)) return true
     if (pattern.email.test(v)) return true
     return false
+  },
+  cardNumber(v: string) {
+    const result = CardValidator.number(v)
+    return result.isValid
+  },
+  cardHolderName(v: string) {
+    const result = CardValidator.cardholderName(v)
+    return result.isValid
+  },
+  cardExpireDate(v: string) {
+    const result = CardValidator.expirationDate(v, 25)
+    return result.isValid
+  },
+  birthDateType(v: string) {
+    const date = new Date(v)
+    return !!date.toJSON()
+  },
+  checkBirthDateRange(v: string) {
+    const today = new Date()
+    const maxPossibleYear = today.getFullYear() - 19
+    const date = new Date(v)
+    const year = date.getFullYear()
+    return 1900 < year && year < maxPossibleYear
   }
 }
 

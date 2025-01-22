@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { theme } from '../../theme';
-import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputOutlineCss } from '../DarkTextInput/style';
+import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputOutlineCss } from '../TextInput/style';
 import { SelectArrowPositionCss, SelectOutlineCss } from '../style/SelectStyle';
 
 export const layoutCss = css([InputDivCss, {

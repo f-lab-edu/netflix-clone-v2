@@ -3,8 +3,8 @@ import type { ReactNode, SelectHTMLAttributes } from 'react';
 import { useMemo } from 'react';
 import SelectArrow from '@assets/netflix/select-arrow.svg'
 import ConditionalRender from '../../utils/ConditionalRender';
-import { InputErrorStateCss, InputValidatedStateCss } from '../DarkTextInput/style';
 import InputLayout from '../InputLayout';
+import { InputErrorStateCss, InputThemeCss, InputValidatedStateCss } from '../TextInput/style';
 import { inputCss, layoutCss, outlineCss, postfixCss, prefixCss, shellCss } from './style';
 type DarkLanguageSelectProps = {
   children?: ReactNode
@@ -32,7 +32,7 @@ export default function DarkSelect({ children, postfix, postfixSize, prefix, pre
     return temp
   }, [isValid, error])
 
-  return <InputLayout css={[layoutCss, outlineStyle]}>
+  return <InputLayout css={[layoutCss, outlineStyle, InputThemeCss.dark]}>
     <InputLayout.Shell css={shellCss}>
       <ConditionalRender.Boolean
         condition={Boolean(prefix)}

@@ -4,7 +4,7 @@ import { theme } from '../theme';
 export const DefaultButtonCss = css({
   lineHeight: 1,
   transitionDuration: '.25s',
-  transitionProperty: ['background-color', 'border-color'],
+  transitionProperty: 'background-color, border-color',
   transitionTimingFunction: 'cubic-bezier(0.4,0,0.68,0.06)',
   border: 0,
   borderRadius: theme.borderRadius.xs,
@@ -31,7 +31,7 @@ export const RedButtonCss = {
       },
       '&:active': {
         transition: 'none',
-        color: theme.color.white.active,
+        color: theme.color.white.opacity70,
         backgroundColor: theme.color.red.active.dark,
       },
       '&:focus:not(:focus-visible)': {
@@ -54,20 +54,20 @@ export const RedButtonCss = {
 
 export const BlackButtonCss = {
   color: css({
-    backgroundColor: theme.color.grey.buttonBg.default,
+    backgroundColor: theme.color.grey80.opacity40,
     color: theme.color.white.default,
   }),
   interaction: {
     dark: css({
       '&:hover': {
         transitionTimingFunction: 'cubic-bezier(0.32,0.94,0.6,1)',
-        backgroundColor: theme.color.grey.buttonBg.hover,
+        backgroundColor: theme.color.grey80.opacity30,
         borderColor: 'black'
       },
       '&:active': {
         transition: 'none',
-        color: theme.color.white.active,
-        backgroundColor: theme.color.grey.buttonBg.action,
+        color: theme.color.white.opacity70,
+        backgroundColor: theme.color.grey80.opacity30,
       },
       '&:focus:not(:focus-visible)': {
         outline: 'none'

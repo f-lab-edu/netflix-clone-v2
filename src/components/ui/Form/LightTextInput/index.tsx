@@ -1,13 +1,8 @@
-import type { InputLayoutValues } from '../InputLayout';
-import type { InputHTMLAttributes } from 'react';
-import InputLayout from '../InputLayout';
+import type { TextInputProps } from '../TextInput';
+import TextInput from '../TextInput';
 
-type TextInputProps = InputLayoutValues & CssProps
-
-export default function LightTextInput(props: InputHTMLAttributes<HTMLInputElement> & TextInputProps) {
-  return <InputLayout>
-    <InputLayout.Shell>
-      <InputLayout.Tag {...props} />
-    </InputLayout.Shell>
-  </InputLayout>
-}
+const LegacyLightTextInput = ({ placeholder, ...props }: Omit<TextInputProps, 'theme'>) => <TextInput.Light {...props} label={placeholder} />
+/**
+ * @deprecated use TextInput.light component
+ */
+export default LegacyLightTextInput

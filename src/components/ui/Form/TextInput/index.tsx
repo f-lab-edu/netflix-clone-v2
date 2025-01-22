@@ -1,13 +1,14 @@
 import type { InputLayoutValues } from '../InputLayout';
-import type { InputHTMLAttributes } from 'react';
+import type { InputHTMLAttributes, ReactNode } from 'react';
 import { useId, useMemo } from 'react';
 import ErrorCross from '@/assets/netflix/error-cross.svg'
 import ConditionalRender from '../../utils/ConditionalRender';
 import InputLayout from '../InputLayout'
-import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputThemeCss, InputValidatedStateCss } from './style';
+import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputPostfixCss, InputTagDefaultCss, InputTagFromTextCss, InputThemeCss, InputValidatedStateCss } from './style';
 
 export type TextInputProps = {
   label?: string
+  postfix?: ReactNode
 } & InputLayoutValues & CssProps & InputHTMLAttributes<HTMLInputElement>
 
 const TextInput = ({
@@ -15,6 +16,7 @@ const TextInput = ({
   isValid,
   className,
   label,
+  postfix,
   placeholder,
   ...inputProps
 }: TextInputProps) => {
@@ -35,7 +37,7 @@ const TextInput = ({
       <InputLayout.Outline css={InputOutlineCss} />
     </InputLayout.Shell>
     <ConditionalRender.Boolean
-      condition={isError}
+      condition={isError && typeof error === 'string'}
       render={{
         true: <InputLayout.Error css={InputErrorDivCss}>
           <ErrorCross css={{

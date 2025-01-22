@@ -33,7 +33,7 @@ const Checkbox = ({
         {label}
       </InputLayout.Label>
       <ConditionalRender.Boolean
-        condition={isError}
+        condition={isError && typeof error === 'string'}
         render={{
           true: <InputLayout.Error css={CheckboxErrorMessageCss}>
             <ErrorCross css={{

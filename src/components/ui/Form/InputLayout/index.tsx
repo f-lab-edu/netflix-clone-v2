@@ -5,7 +5,7 @@ import InputTag from './atom/InputTag';
 
 export interface InputLayoutValues {
   isValid?: boolean,
-  error?: string,
+  error?: string | boolean,
 }
 
 type InputLayoutProps = {

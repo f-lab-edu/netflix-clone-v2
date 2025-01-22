@@ -9,7 +9,8 @@
       "en": "English",
       "kr": "한국어"
     },
-    "signin": "Sign In"
+    "signin": "Sign In",
+    "signout": "Sign Out"
   },
   "form": {
     "email": {

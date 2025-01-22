@@ -2,6 +2,7 @@ import { useForm } from 'react-hook-form'
 import CardInfoArea from './CardInfoArea'
 
 export const CardInfoDefaultValue: PaymentMethodCardInfo = {
+  isFirst: false,
   cardHolderName: '',
   cardNumber: '',
   dateOfBirth: '',

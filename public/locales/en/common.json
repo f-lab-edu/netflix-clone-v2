@@ -75,11 +75,29 @@
         "validate": "Make sure your birth year is between 1900 and 2008."
       }
     },
-    "isAgreePaymentPolicy": {
+    "isAgreeAllOfPolicy": {
+      "label": "I am over 19, and I agree to all terms and conditions below.",
+      "error": {
+        "required": "You must acknowledge that you have read and agree to the Terms of Use to continue."
+      }
+    },
+    "privatePolicy": {
+      "label": "I agree to the Netflix <a href='#'>Terms of Use</a> and <a href='#'>Privacy Statement</a>. (<a href='#'>Details</a>)"
+    },
+    "transferInformationToThirdPartiesPolicy": {
+      "label": "I consent to the <a href='#'>transfer of my personal information to third parties</a>"
+    },
+    "transferInformationAbroadPolicy": {
+      "label": "I consent to the <a href='#'>transfer of my personal information abroad</a>"
+    },
+    "paymentGateWayPolicy": {
       "label": "I consent to transfer my personal information to <a href='#'>payment gateway services</a>.",
       "error": {
         "required": "You must acknowledge that you have read and agree to the Terms of Use to continue."
       }
+    },
+    "billingAgree": {
+      "label": "Netflix will automatically continue your membership and charge the membership fee (currently KRW 17,000/month) to your payment method until you cancel. You may cancel at any time on the Account page at www.netflix.com. Cancellations are effective at the end of your billing cycle and you may use the service for the remaining period. If you cancel with immediate effect within 7 days from your billing date and no Netflix content was accessed through the account you can obtain a full refund of the membership fee that was charged for that billing cycle."
     }
   }
 }

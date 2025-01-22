@@ -1,21 +1,28 @@
 import { useForm } from 'react-hook-form'
 import CardInfoArea from './CardInfoArea'
 import { CardInfoDefaultValue } from './CardInfoForm'
+import FirstCardPaymentPolicyInfoArea from './FirstCardPaymentPolicyInfoArea'
 
 const CardInfoFormWithPolicys = () => {
-  const form = useForm<PaymentMethodCardInfoWithPolicy>({
-    mode: 'all',
+  const { handleSubmit, ...form } = useForm<PaymentMethodCardInfoWithPolicy>({
+    mode: 'onBlur',
     defaultValues: {
       ...CardInfoDefaultValue,
+      isFirst: true,
       billingAgree: false,
       paymentGateWayPolicy: false,
       privatePolicy: false,
       transferInformationAbroadPolicy: false,
-      transferInformationToThirdPartiesPolicy: false,
+      transferInformationToThirdPartiesPolicy: false
     }
   })
-  return <div>
+  const cardSubmitAction = () => {
+
+  }
+  return <form onSubmit={handleSubmit(cardSubmitAction)}>
     <CardInfoArea<PaymentMethodCardInfoWithPolicy> {...form}></CardInfoArea>
-  </div>
+    <FirstCardPaymentPolicyInfoArea {...form} />
+
+  </form>
 }
 export default CardInfoFormWithPolicys

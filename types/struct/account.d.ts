@@ -128,19 +128,22 @@ declare interface PaymentMethodPhone extends PaymentMethod {
 }
 
 declare interface PaymentMethodCardInfo {
+  isFirst: boolean
   cardNumber: string
   cardHolderName: string
   expiryDate: string
   dateOfBirth: string
 }
 
-declare interface PaymentMethodCardInfoWithPolicy extends PaymentMethodCardInfo {
+declare interface PaymentMethodPolicies {
   privatePolicy: boolean
   transferInformationToThirdPartiesPolicy: boolean
   transferInformationAbroadPolicy: boolean
   paymentGateWayPolicy: boolean
   billingAgree: boolean
 }
+
+declare type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
 
 declare interface PaymentMethodCard extends PaymentMethod {
   /**

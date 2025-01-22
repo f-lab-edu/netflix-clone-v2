@@ -42,12 +42,14 @@
     },
     "specialOffer": {
       "label": "Yes, please email me Netflix special offers. (optional)"
-    },
+    }
+  },
+  "paymentRegistForm": {
     "cardNumber": {
       "label": "Card number",
       "error": {
         "required": "Please enter a card number.",
-        "pattern": "Please enter a valid credit card number."
+        "validate": "Please enter a valid credit card number."
       }
     },
     "cardExpirationDate": {
@@ -67,6 +69,7 @@
     },
     "cardUserBirthDate": {
       "label": "Date of birth",
+      "placeholder": "MM/DD/YYYY",
       "error": {
         "required": "Please enter your date of birth.",
         "validate": "Make sure your birth year is between 1900 and 2008."

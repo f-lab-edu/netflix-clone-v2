@@ -42,12 +42,14 @@
     },
     "specialOffer": {
       "label": "예, 넷플릭스 특별 할인 알림 이메일을 보내주세요. (선택 사항)"
-    },
+    }
+  },
+  "paymentRegistForm": {
     "cardNumber": {
       "label": "카드 번호",
       "error": {
         "required": "카드 번호를 입력하세요.",
-        "pattern": "신용카드 번호를 정확히 입력하세요."
+        "validate": "신용카드 번호를 정확히 입력하세요."
       }
     },
     "cardExpirationDate": {
@@ -67,6 +69,7 @@
     },
     "cardUserBirthDate": {
       "label": "생년월일",
+      "placeholder": "연도/월/일",
       "error": {
         "required": "생년월일을 입력하세요.",
         "validate": "출생 연도가 1900~2008 사이인지 확인하세요."

@@ -8,15 +8,21 @@ export const CardInfoDefaultValue: PaymentMethodCardInfo = {
   dateOfBirth: '',
   expiryDate: ''
 }
-
-const CardInfoForm = () => {
-  const form = useForm<PaymentMethodCardInfo>({
+interface CardInfoFormWithPolicysProps {
+  submitBtnText: string
+}
+const CardInfoForm = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
+  const { handleSubmit, ...form } = useForm<PaymentMethodCardInfo>({
     mode: 'all',
     defaultValues: CardInfoDefaultValue
   })
-  return <div>
+  const submitAction = () => {
+
+  }
+  return <form onSubmit={handleSubmit(submitAction)}>
     <CardInfoArea {...form}></CardInfoArea>
-  </div>
+    <button>{submitBtnText}</button>
+  </form>
 }
 
 export default CardInfoForm

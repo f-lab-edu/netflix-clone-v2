@@ -15,5 +15,9 @@
   "addCardFormPart": {
     "title": "결제 정보 입력",
     "submitBtn": "저장"
+  },
+  "firstCardRegistPage": {
+    "title": "신용카드나 체크카드 등록",
+    "submitBtn": "유료 멤버십 시작"
   }
 }

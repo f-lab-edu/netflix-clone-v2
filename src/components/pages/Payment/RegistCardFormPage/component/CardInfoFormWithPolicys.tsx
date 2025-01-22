@@ -3,7 +3,11 @@ import CardInfoArea from './CardInfoArea'
 import { CardInfoDefaultValue } from './CardInfoForm'
 import FirstCardPaymentPolicyInfoArea from './FirstCardPaymentPolicyInfoArea'
 
-const CardInfoFormWithPolicys = () => {
+interface CardInfoFormWithPolicysProps {
+  submitBtnText: string
+}
+
+const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
   const { handleSubmit, ...form } = useForm<PaymentMethodCardInfoWithPolicy>({
     mode: 'onBlur',
     defaultValues: {
@@ -22,7 +26,7 @@ const CardInfoFormWithPolicys = () => {
   return <form onSubmit={handleSubmit(cardSubmitAction)}>
     <CardInfoArea<PaymentMethodCardInfoWithPolicy> {...form}></CardInfoArea>
     <FirstCardPaymentPolicyInfoArea {...form} />
-
+    <button>{submitBtnText}</button>
   </form>
 }
 export default CardInfoFormWithPolicys

@@ -7,12 +7,13 @@ interface CardInfoFormWithPolicysProps {
   submitBtnText: string
 }
 
+export type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
+
 const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
   const { handleSubmit, ...form } = useForm<PaymentMethodCardInfoWithPolicy>({
     mode: 'onBlur',
     defaultValues: {
       ...CardInfoDefaultValue,
-      isFirst: true,
       billingAgree: false,
       paymentGateWayPolicy: false,
       privatePolicy: false,
@@ -21,11 +22,10 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
     }
   })
   const cardSubmitAction = () => {
-
   }
   return <form onSubmit={handleSubmit(cardSubmitAction)}>
     <CardInfoArea<PaymentMethodCardInfoWithPolicy> {...form}></CardInfoArea>
-    <FirstCardPaymentPolicyInfoArea {...form} />
+    <FirstCardPaymentPolicyInfoArea<PaymentMethodCardInfoWithPolicy> {...form} />
     <button>{submitBtnText}</button>
   </form>
 }

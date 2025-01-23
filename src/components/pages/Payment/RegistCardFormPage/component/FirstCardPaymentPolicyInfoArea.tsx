@@ -1,5 +1,5 @@
 import type { ChangeEvent } from 'react';
-import type { DeepPartial, FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormStateReturn, UseFormWatch } from 'react-hook-form';
+import type { DeepPartial, FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormStateReturn } from 'react-hook-form';
 import { Trans, useTranslation } from 'next-i18next';
 import { useCallback, useMemo, useState } from 'react';
 import Checkbox from '@/components/ui/Form/Checkbox';
@@ -7,12 +7,11 @@ import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper'
 import { CardPaymentPolicyCheckAllCss, CardPaymentPolicyInfoShellCss, CardPaymentPolicyItemListCss } from '../style/CardPaymentPolicyInfoAreaCss';
 
 type CardPaymentPolicyInfoProps<T extends FieldValues> = {
-  watch: T extends PaymentMethodCardInfo ? UseFormWatch<T> : never;
-  register: T extends PaymentMethodCardInfo ? UseFormRegister<T> : never;
-  formState: T extends PaymentMethodCardInfo ? UseFormStateReturn<T> : never;
-  setValue: T extends PaymentMethodCardInfo ? UseFormSetValue<T> : never
+  register: T extends PaymentMethodPolicies ? UseFormRegister<T> : never;
+  formState: T extends PaymentMethodPolicies ? UseFormStateReturn<T> : never;
+  setValue: T extends PaymentMethodPolicies ? UseFormSetValue<T> : never
 };
-const FirstCardPaymentPolicyInfoArea = ({ register, formState, setValue }: CardPaymentPolicyInfoProps<PaymentMethodCardInfoWithPolicy>) => {
+const FirstCardPaymentPolicyInfoArea = <T extends PaymentMethodPolicies>({ register, formState, setValue }: CardPaymentPolicyInfoProps<T>) => {
   const { t } = useTranslation(['common'])
   const [policies, setPolicies] = useState<DeepPartial<PaymentMethodPolicies> | undefined>(formState.defaultValues)
   const isChecked = useMemo(() => {

@@ -109,7 +109,6 @@ interface PaymentMethodPhoneInfo {
 }
 
 declare interface PaymentMethodCardInfo {
-  isFirst: boolean
   cardNumber: string
   cardHolderName: string
   expiryDate: string

@@ -3,24 +3,9 @@ import type { DefaultBodyType, PathParams } from 'msw';
 import { delay, http } from 'msw'
 import { ErrorCode, ErrorHandler } from '../middleware/ErrorHandler';
 import { generateAuth, parseAuth, validateRefreshToken, withAuth } from '../middleware/token';
+import { GetMSWAccountById, GetMSWAllAcount, InsertMSWAccount } from '../mockDataStorage/account';
 import ErrorException from '../type/ErrorResponse';
 import { createSuccessResponse } from '.';
-
-let accountAutoId = 1
-const accountList: {
-  [key: number]: AccountBaseInfo
-} = {
-  1: {
-    id: 1,
-    email: 'test@test.com',
-    emailVerified: false,
-    password: 'test1234',
-    phone: '',
-    phoneVerified: false,
-    policy: true,
-    specialOffer: false
-  }
-}
 
 const handlers = [
   http.post<PathParams, EmailCheckRequestType, EmailCheckResponseType>('/api/emailCheck', async ({ request }) => {
@@ -28,6 +13,7 @@ const handlers = [
     const responseObj = {
       checkResult: false
     }
+    const accountList = GetMSWAllAcount()
     const foundAccount = Object.values(accountList).find(account =>
       account.email === requestJson.email
     )
@@ -39,16 +25,14 @@ const handlers = [
   }),
   http.post('/api/signup', ErrorHandler<SignupRequestType, SignupResponseType>(async ({ request }) => {
     const requestJson = await request.json()
+    const accountList = GetMSWAllAcount()
     const foundAccount = Object.values(accountList).find(account =>
       account.email === requestJson.email
     )
     if (foundAccount) {
       throw new ErrorException('Duplicate Email used', ErrorCode.DUPLICATE_EMAIL)
     }
-
-    const newId = ++accountAutoId
-    const newAccountInfo: AccountBaseInfo = {
-      id: newId,
+    InsertMSWAccount({
       ...requestJson,
       emailVerified: false,
       phone: '',
@@ -61,6 +45,7 @@ const handlers = [
   })),
   http.post('/api/signin', ErrorHandler<SigninRequestType, SigninResponseType>(async ({ request }) => {
     const requestJson = await request.json()
+    const accountList = GetMSWAllAcount()
     const account = Object.values(accountList).find(
       (account) => {
         if (account.password !== requestJson.password) return false
@@ -83,8 +68,9 @@ const handlers = [
   })),
   http.get('/api/account/me', ErrorHandler<DefaultBodyType, MyInfoResponseType>(withAuth(async ({ request }) => {
     const token = await parseAuth(request.headers)
+    const accountInfo = GetMSWAccountById(token.payload.accountId)
     return createSuccessResponse({
-      accountInfo: accountList[token.payload.accountId]
+      accountInfo: accountInfo
     })
   })))
 ]

@@ -35,7 +35,7 @@ const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initPr
         </>
       }}
     />
-    <RegistPaymentKindPart onSelectType={onSelectTypeAction} />
+    <RegistPaymentKindPart onClick={() => onSelectTypeAction('card')} />
   </div>
 }
 

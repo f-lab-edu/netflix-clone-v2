@@ -36,9 +36,15 @@ const handlers = [
       ...requestJson,
       emailVerified: false,
       phone: '',
-      phoneVerified: false
-    }
-    accountList[newId] = newAccountInfo
+      phoneVerified: false,
+      billingPolicies: {
+        billingAgree: false,
+        paymentGateWayPolicy: false,
+        privatePolicy: false,
+        transferInformationAbroadPolicy: false,
+        transferInformationToThirdPartiesPolicy: false
+      }
+    })
     return createSuccessResponse({
       result: true
     })

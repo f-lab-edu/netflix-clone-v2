@@ -7,6 +7,7 @@ declare interface AccountBaseInfo {
   phoneVerified: boolean
   policy: boolean
   specialOffer: boolean
+  billingPolicies: PaymentMethodPolicies
 }
 declare interface AccountTotalInfo {
   billing: {
@@ -42,10 +43,6 @@ declare interface AccountTotalInfo {
    */
   security: {
     /**
-     * 현재 계정 정보
-     */
-    currentInfo: AccountBaseInfo
-    /**
      * 액세스 정보
      */
     accessInfo: {
@@ -80,51 +77,35 @@ declare type PaymentMethodType = 'phone' | 'card' | 'simplePay'
 /**
  * 결제 수단
  */
-declare interface PaymentMethod {
+type PaymentMethod = {
   id: number
+  accountId: number
+  /**
+   * 결제 수단 타입
+   */
   type: PaymentMethodType
+  simplePay?: PaymentMethodSimplePayInfo
+  phone?: PaymentMethodPhoneInfo
+  card?: PaymentMethodCardInfo
 }
 
-declare interface PaymentMethodSimplePay extends PaymentMethod {
+interface PaymentMethodSimplePayInfo {
   /**
-   * 결제 수단 타입
+   * simplePay의 이름
    */
-  type: 'simplePay'
-  /**
-   * 결제 수단의 type이 simplePay인 경우 simplePay 정보
-   */
-  simplePay: {
-    /**
-     * simplePay의 id
-     */
-    id: number
-    /**
-     * simplePay의 이름
-     */
-    name: string
-    paymentToken: string
-  }
+  name: string
+  paymentToken: string
 }
-
-declare interface PaymentMethodPhone extends PaymentMethod {
+interface PaymentMethodPhoneInfo {
   /**
-   * 결제 수단 타입
+   * 전화번호
    */
-  type: 'phone'
+  phoneNumber: string
   /**
-   * 결제 수단의 type이 phone인 경우 전화번호 정보
+   * 통신사
    */
-  phone: {
-    /**
-     * 전화번호
-     */
-    phoneNumber: string
-    /**
-     * 통신사
-     */
-    carrier: string
-    paymentToken: string
-  }
+  carrier: string
+  paymentToken: string
 }
 
 declare interface PaymentMethodCardInfo {
@@ -141,19 +122,6 @@ declare interface PaymentMethodPolicies {
   transferInformationAbroadPolicy: boolean
   paymentGateWayPolicy: boolean
   billingAgree: boolean
-}
-
-declare type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
-
-declare interface PaymentMethodCard extends PaymentMethod {
-  /**
-   * 결제 수단 타입
-   */
-  type: 'card'
-  /**
-   * 결제 수단의 type이 card인 경우 카드 정보
-   */
-  card: PaymentMethodCardInfo
 }
 
 declare type AgeRestriction = 0 | 7 | 12 | 15 | 19

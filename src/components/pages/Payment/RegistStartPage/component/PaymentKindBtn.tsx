@@ -1,23 +1,28 @@
 import type { MouseEventHandler, ReactNode } from 'react';
+import { useId } from 'react';
 import RegistKindBtnArrow from '@/assets/netflix/payment/RegistKindBtnArrow.svg'
 import { PaymentKindBtnChildCss, PaymentKindBtnContentCss, PaymentKindBtnShellCss, PaymentKindBtnTitleCss } from '../styles/PaymentKindBtnStyle';
 interface PaymentKindBtnProps {
-  title: string,
-  children?: ReactNode,
+  title: string
+  desc?: string
+  children?: ReactNode
   onClick: MouseEventHandler
 }
 const PaymentKindBtn = ({
   title,
+  desc,
   children,
   onClick
 }: PaymentKindBtnProps) => {
+  const id = useId()
   return <button
     onClick={onClick}
     css={PaymentKindBtnShellCss}
+    aria-labelledby={id}
   >
     <div css={PaymentKindBtnContentCss} role="grid">
-      <p css={PaymentKindBtnTitleCss}>{title}</p>
-      <div css={PaymentKindBtnChildCss}>{children}</div>
+      <p id={id} css={PaymentKindBtnTitleCss}>{title}</p>
+      <div aria-label={desc} css={PaymentKindBtnChildCss}>{children}</div>
     </div>
     <div>
       <RegistKindBtnArrow />

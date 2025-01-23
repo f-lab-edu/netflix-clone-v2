@@ -7,7 +7,7 @@ import InputLayout from '../InputLayout'
 import { CheckboxDisplayAreaCss, CheckboxAreaShellCss, CheckboxDivCss, CheckboxLabelDefaultCss, CheckboxLabelFromTextCss, CheckboxTagDefaultCss, CheckboxErrorMessageCss, CheckboxErrorStateCss, CheckboxDisplayCss, CheckboxCheckedDisplayCss, CheckboxThemeCss, CheckboxValidStateCss } from './style';
 
 export type CheckboxProps = {
-  label: ReactNode
+  label?: ReactNode
 } & InputLayoutValues & InputHTMLAttributes<HTMLInputElement> & CssProps
 
 const Checkbox = ({

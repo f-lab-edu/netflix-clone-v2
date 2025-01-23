@@ -1,4 +1,5 @@
 import { useForm } from 'react-hook-form'
+import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import CardInfoArea from './CardInfoArea'
 import { CardInfoDefaultValue } from './CardInfoForm'
 import FirstCardPaymentPolicyInfoArea from './FirstCardPaymentPolicyInfoArea'
@@ -21,7 +22,28 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationToThirdPartiesPolicy: false
     }
   })
-  const cardSubmitAction = () => {
+
+  const { RegistPaymentMutation } = useRegistPaymentMutation()
+  const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {
+    const { billingAgree,
+      paymentGateWayPolicy,
+      privatePolicy,
+      transferInformationAbroadPolicy,
+      transferInformationToThirdPartiesPolicy, ...cardObj
+    } = obj
+    RegistPaymentMutation({
+      paymentMethod: {
+        type: 'card',
+        card: cardObj
+      },
+      policies: {
+        billingAgree,
+        paymentGateWayPolicy,
+        privatePolicy,
+        transferInformationAbroadPolicy,
+        transferInformationToThirdPartiesPolicy
+      }
+    })
   }
   return <form onSubmit={handleSubmit(cardSubmitAction)}>
     <CardInfoArea<PaymentMethodCardInfoWithPolicy> {...form}></CardInfoArea>

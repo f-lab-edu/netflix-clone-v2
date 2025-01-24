@@ -1,6 +1,6 @@
 import type { JWTPayload } from 'jose';
 import type { DefaultBodyType, HttpResponseResolver, PathParams } from 'msw';
-import { jwtDecrypt, jwtVerify, SignJWT } from 'jose'
+import { jwtVerify, SignJWT } from 'jose'
 import ErrorException from '../type/ErrorResponse';
 import { ErrorCode } from './ErrorHandler';
 
@@ -73,11 +73,11 @@ export function withAuth<RequestBodyType extends DefaultBodyType, ResponseBodyTy
 export async function parseAuth(header: Headers) {
   const parsedHeader = String(header.get('Authorization') || ' ').split(' ');
   try {
-    const result = await jwtDecrypt<JwtPayloadType>(parsedHeader[1], secret)
+    const result = await jwtVerify<JwtPayloadType>(parsedHeader[1], secret)
     if (!result) throw new Error()
     return result
   } catch {
-    throw new ErrorException('Token Verification failed, Please check token', ErrorCode.AUTH_EXPIRED)
+    throw new ErrorException('Token Parse failed, Please check token', ErrorCode.AUTH_EXPIRED)
   }
 }
 

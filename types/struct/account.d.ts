@@ -7,6 +7,9 @@ declare interface AccountBaseInfo {
   phoneVerified: boolean
   policy: boolean
   specialOffer: boolean
+  membership?: MembershipPlans
+  paymentMethod?: PaymentMethod
+  profiles?: Profile[]
 }
 declare interface AccountTotalInfo {
   billing: {

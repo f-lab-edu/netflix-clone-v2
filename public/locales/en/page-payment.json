@@ -1,0 +1,19 @@
+{
+  "firstRegist": {
+    "title": "Choose how to pay",
+    "desc1": "Your payment is encrypted and you can change how you pay anytime.",
+    "desc2": "Secure for peace of mind.<br/>Cancel easily online."
+  },
+  "registNewPayment": {
+    "title": "Add a payment method",
+    "desc": "This will only be used as a backup if there’s an issue with your existing payment method."
+  },
+  "buttonPart": {
+    "card": "Credit or Debit Card",
+    "giftOrPromoCode": "Redeem Gift or Promo Code"
+  },
+  "addCardFormPart": {
+    "title": "Enter payment details",
+    "submitBtn": "Save"
+  }
+}

@@ -42,9 +42,7 @@ const FirstCardPaymentPolicyInfoArea = ({ register, formState, setValue }: CardP
   const generateToggleSinglePolicyChangeEvent = useCallback((name: Path<PaymentMethodPolicies>) => {
     return (e: ChangeEvent<HTMLInputElement>) => {
       setPolicies((oldPolicies) => {
-        return Object.assign({}, oldPolicies, {
-          [name]: e.target.checked
-        })
+        return { ...oldPolicies, [name]: e.target.checked }
       })
     }
   }, [])

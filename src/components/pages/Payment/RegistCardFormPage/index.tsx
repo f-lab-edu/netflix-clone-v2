@@ -16,9 +16,8 @@ const RegistCardFormPage: NextPageWithLayout<{ isFirst: boolean }> = ({ isFirst 
           <StepHeader title={t('page-payment:firstCardRegistPage.title')} step={3} />
           <CardInfoFormWithPolicys submitBtnText={t('page-payment:firstCardRegistPage.submitBtn')} />
         </>,
-        false: <>
+        false:
           <CardInfoForm submitBtnText={t('page-payment:addCardFormPart.submitBtn')} />
-        </>
       }}
     />
   </div>

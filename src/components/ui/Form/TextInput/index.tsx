@@ -4,7 +4,7 @@ import { useId, useMemo } from 'react';
 import ErrorCross from '@/assets/netflix/error-cross.svg'
 import ConditionalRender from '../../utils/ConditionalRender';
 import InputLayout from '../InputLayout'
-import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputPostfixCss, InputTagDefaultCss, InputTagFromTextCss, InputThemeCss, InputValidatedStateCss } from './style';
+import { InputAreaShellCss, InputDefaultStateCss, InputDivCss, InputErrorDivCss, InputErrorStateCss, InputLabelDefaultCss, InputLabelFromTextCss, InputOutlineCss, InputTagDefaultCss, InputTagFromTextCss, InputThemeCss, InputValidatedStateCss } from './style';
 
 export type TextInputProps = {
   label?: string
@@ -16,7 +16,6 @@ const TextInput = ({
   isValid,
   className,
   label,
-  postfix,
   placeholder,
   ...inputProps
 }: TextInputProps) => {

@@ -1,8 +1,10 @@
-import { useCallback, useDeferredValue, useEffect, useState } from 'react'
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react'
 
 export default function useWindowResize() {
   const [displayWidth, setDisplayWidth] = useState(0)
   const displayWidthDeferred = useDeferredValue(displayWidth)
+  const isLarge = useMemo(() => displayWidthDeferred > 1050, [displayWidthDeferred])
+
   const event = useCallback(() => {
     setDisplayWidth(window.innerWidth)
   }, [])
@@ -13,5 +15,8 @@ export default function useWindowResize() {
       window.removeEventListener('resize', event)
     }
   }, [event])
-  return [displayWidthDeferred]
+  return {
+    displayWidthDeferred,
+    isLarge
+  }
 }

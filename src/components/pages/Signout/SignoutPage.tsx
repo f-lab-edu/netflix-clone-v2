@@ -20,8 +20,7 @@ const SignoutPage: NextPageWithLayout = () => {
     }
   })
   return <div css={SignoutBgCss}>
-    <div css={SignoutHeaderCss}>
-      {/* HEADER */}
+    <nav css={SignoutHeaderCss}>
       <Link href="/" css={SignoutLogoCss}>
         <NetflixLogo />
       </Link>
@@ -30,17 +29,15 @@ const SignoutPage: NextPageWithLayout = () => {
         signInText={t('common:head.signin')}
         signOutText={t('common:head.signout')}
       />
-    </div>
-    <div css={SignoutContentLayoutCss}>
-      {/* BODY */}
+    </nav>
+    <main css={SignoutContentLayoutCss}>
       <h1 css={SignoutTitleCss}>{t('page-signout:title')}</h1>
       <p css={SignoutDesc1Css}>{t('page-signout:desc1')}</p>
       <p css={SignoutDesc2Css}>{t('page-signout:desc2')}</p>
       <button css={SignoutGotoMainBtnCss}>{t('page-signout:btn')}</button>
-    </div>
-    <div>
-      {/* FOOTER */}
-    </div>
+    </main>
+    <footer>
+    </footer>
   </div>
 }
 

@@ -4,8 +4,8 @@ import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import FirstRegistDescPart from './component/FirstRegistDescPart';
+import PaymentKindBtn from './component/PaymentKindBtn';
 import RegistDescPart from './component/RegistDescPart';
-import RegistPaymentKindPart from './component/RegistPaymentKindPart';
 import { PageShellCss } from './styles/PageStyle';
 
 const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initProps) => {
@@ -35,7 +35,12 @@ const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initPr
         </>
       }}
     />
-    <RegistPaymentKindPart onSelectType={onSelectTypeAction} />
+    <div>
+      <PaymentKindBtn
+        title={t('page-payment:buttonPart.card')}
+        onClick={() => onSelectTypeAction('card')}
+      />
+    </div>
   </div>
 }
 

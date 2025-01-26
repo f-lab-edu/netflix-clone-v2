@@ -76,14 +76,16 @@ declare interface BillingHistory {
 }
 
 /**
+ * 결제 수단 타입
+ */
+declare type PaymentMethodType = 'phone' | 'card' | 'simplePay'
+
+/**
  * 결제 수단
  */
 declare interface PaymentMethod {
   id: number
-  /**
-   * 결제 수단 타입
-   */
-  type: 'phone' | 'card' | 'simplePay'
+  type: PaymentMethodType
 }
 
 declare interface PaymentMethodSimplePay extends PaymentMethod {

@@ -15,7 +15,7 @@ export default function SignInOutBtn({ signInText, signOutText, ...props }: Sign
   return <ConditionalRender.Boolean
     condition={hasSignined}
     render={{
-      true: <Link {...props} onClick={removeJWT} href="/">
+      true: <Link {...props} onClick={removeJWT} href="/signout">
         {signOutText}
       </Link>,
       false: <Link {...props} href="/signin">

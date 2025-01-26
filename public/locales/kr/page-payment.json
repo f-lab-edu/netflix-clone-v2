@@ -1,0 +1,19 @@
+{
+  "firstRegist": {
+    "title": "결제 방법 선택",
+    "desc1": "결제 정보는 암호화되며, 결제 방법은 언제든지 변경할 수 있습니다.",
+    "desc2": "안심하고 즐기세요.<br/>해지는 온라인으로 간편하게."
+  },
+  "registNewPayment": {
+    "title": "결제 수단 등록",
+    "desc": "기존 결제 수단에 문제가 생겼을 때만 예비 결제 수단으로 사용됩니다."
+  },
+  "buttonPart": {
+    "card": "신용카드 또는 체크카드",
+    "giftOrPromoCode": "기프트 또는 프로모션 코드 사용"
+  },
+  "addCardFormPart": {
+    "title": "결제 정보 입력",
+    "submitBtn": "저장"
+  }
+}

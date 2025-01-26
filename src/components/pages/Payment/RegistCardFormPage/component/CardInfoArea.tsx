@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next';
 import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import useBirthDateInputFieldOnChangeEvent from '@/hooks/InputFilter/useBirthDateInputFieldOnChangeEvent';
-import { CardExpireDateInputFieldOnChangeEvent, CardNumberInputFieldOnChangeEvent, StringInputFieldOnChangeEvent } from '@/lib/InputFilter';
+import { CardExpireDateInputFieldOnChangeEvent, CardNumberInputFieldOnChangeEvent } from '@/lib/InputFilter';
 import validators from '@/lib/validators';
 import { CardInfoAreaShellCss } from '../style/CardInfoAreaCss';
 
@@ -51,8 +51,7 @@ export default function CardInfoArea<T extends PaymentMethodCardInfo>({ register
         validate: (v) => {
           return validators.cardHolderName(v) || t('common:paymentRegistForm.cardUserName.error.validate')
         },
-        required: t('common:paymentRegistForm.cardUserName.error.required'),
-        onChange: StringInputFieldOnChangeEvent
+        required: t('common:paymentRegistForm.cardUserName.error.required')
       })}
       {...RHFValidErrorHelper(
         formState.errors.cardHolderName?.message,

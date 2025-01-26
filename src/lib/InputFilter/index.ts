@@ -29,7 +29,3 @@ export const BirthDateInputFieldOnChangeEventForKr: ChangeEventHandler<HTMLInput
     e.target.value = [matchResult[1], matchResult[2], matchResult[3], matchResult[4]].filter(Boolean).slice(0, 3).join('/')
   }
 }
-
-export const StringInputFieldOnChangeEvent: ChangeEventHandler<HTMLInputElement> = (e) => {
-  e.target.value = e.target.value.replace(/(?!\s)+/g, '')
-}

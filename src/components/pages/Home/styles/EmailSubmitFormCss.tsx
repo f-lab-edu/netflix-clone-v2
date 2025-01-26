@@ -1,6 +1,6 @@
 import { css } from '@emotion/react';
 import { MediaPoint } from '@/components/styled/layout';
-import { DefaultButtonCss } from '@/components/ui/Button/ButtonStyle';
+import { DefaultButtonCss, RedButtonCss } from '@/components/ui/Button/ButtonStyle';
 
 export const EmailFormRowLayoutCss = css([{
   flexFlow: 'nowrap',
@@ -13,7 +13,7 @@ export const EmailFormRowLayoutCss = css([{
   flexDirection: ['column', 'row'],
 })])
 
-export const EmailFormSubmitBtnCss = css([DefaultButtonCss, {
+export const EmailFormSubmitBtnCss = css([DefaultButtonCss, RedButtonCss.color, RedButtonCss.interaction.dark, {
   fontSize: '1.125rem',
   fontWeight: 500,
   minHeight: '3.5rem'

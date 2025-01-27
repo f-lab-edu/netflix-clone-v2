@@ -3,6 +3,7 @@ import type { ErrorResponse } from '@/lib/network/types/error';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import { useRouter } from 'next/router';
+import { MY_INFO_QUERY_KEY } from '@/hooks/Query/keys/account';
 import useGetSigninAccountInfo from '@/hooks/Query/useGetLoginAccountInfo';
 import { SigninApi } from '@/lib/network/account/SigninApi'
 import { ErrorCode } from '@/mocks/middleware/ErrorHandler';
@@ -12,7 +13,7 @@ import { accessTokenAtom, refreshTokenAtom } from '@/state/Token'
 export default function useSigninWIthPasswordMutate() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const { refetch, data: accountInfo } = useGetSigninAccountInfo({
+  const { data: accountInfo } = useGetSigninAccountInfo({
     enabled: false
   })
   const [, setCurrentProfile] = useAtom(currentProfileAtom)
@@ -26,8 +27,10 @@ export default function useSigninWIthPasswordMutate() {
   async function loginSuccessAction(data: SigninResponseType) {
     setAccessToken(data.accessToken)
     setRefreshToken(data.refreshToken)
-    queryClient.clear()
-    await refetch()
+    queryClient.invalidateQueries({
+      queryKey: MY_INFO_QUERY_KEY,
+      refetchType: 'inactive',
+    })
     if (!accountInfo?.accountInfo.membership) {
       if (!accountInfo?.accountInfo.profiles?.length) {
         router.push('/firstProfile')

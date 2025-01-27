@@ -2,10 +2,12 @@ import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
-import DarkTextInput from '@/components/ui/Form/DarkTextInput';
+import TextInput from '@/components/ui/Form/TextInput';
+import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import useJWTs from '@/hooks/account/useJWTs';
 import { EmailCheckApi } from '@/lib/network/account/EmailCheckApi';
 import { pattern } from '@/lib/validators';
-import { EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
+import { EmailFormFinishSignupBtnCss, EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
 
 interface FormData {
@@ -20,6 +22,8 @@ export default function EmailSubmitForm() {
     reValidateMode: 'onBlur',
     shouldUseNativeValidation: false,
   })
+
+  const { hasLogin } = useJWTs()
 
   const { invalid, error, isTouched } = getFieldState('email')
   const { mutate, isPending } = useMutation({
@@ -36,27 +40,43 @@ export default function EmailSubmitForm() {
     sessionStorage.setItem('sign-tryed-email', obj.email)
     mutate(obj.email)
   }
+  function gotoRegistMembershipWithPaymentMethod() {
+    router.push('/signup')
+  }
   return <form onSubmit={handleSubmit(submitAction)}>
     <HeroDescrpition2>
       {t('page-home:section1.desc2')}
     </HeroDescrpition2>
     <div css={EmailFormRowLayoutCss}>
-      <DarkTextInput
-        isValid={isTouched && !invalid}
-        error={error?.message}
-        placeholder={t('page-home:emailForm.label')}
-        {...register('email', {
-          required: t('form.email.error.required'),
-          pattern: {
-            value: pattern.email,
-            message: t('common:form.email.error.pattern')
-          }
-        })}
-      ></DarkTextInput>
-      <button type="submit" css={EmailFormSubmitBtnCss}>
-        {/* TODO: add spinner */}
-        {isPending ? <div></div> : t('page-home:emailForm.button')}
-      </button>
+      <ConditionalRender.Boolean
+        condition={hasLogin}
+        render={{
+          true: <button
+            onClick={gotoRegistMembershipWithPaymentMethod}
+            css={EmailFormFinishSignupBtnCss}
+          >
+            {t('page-home:emailForm.finishRegist')}
+          </button>,
+          false: <>
+            <TextInput.Dark
+              isValid={isTouched && !invalid}
+              error={error?.message}
+              label={t('page-home:emailForm.label')}
+              {...register('email', {
+                required: t('form.email.error.required'),
+                pattern: {
+                  value: pattern.email,
+                  message: t('common:form.email.error.pattern')
+                }
+              })}
+            />
+            <button type="submit" css={EmailFormSubmitBtnCss}>
+              {/* TODO: add spinner */}
+              {isPending ? <div></div> : t('page-home:emailForm.button')}
+            </button>
+          </>
+        }}
+      />
     </div>
   </form>
 }

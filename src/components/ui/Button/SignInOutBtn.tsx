@@ -1,6 +1,5 @@
 import type { AnchorHTMLAttributes } from 'react';
 import Link from 'next/link';
-import { useMemo } from 'react';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 
@@ -10,10 +9,9 @@ interface SignInOutBtnProps {
 }
 
 export default function SignInOutBtn({ signInText, signOutText, ...props }: SignInOutBtnProps & Omit<AnchorHTMLAttributes<HTMLAnchorElement>, 'onClick' | 'href'> & CssProps) {
-  const { accessToken, removeJWT } = useJWTs()
-  const hasSignined = useMemo(() => Boolean(accessToken), [accessToken])
+  const { removeJWT, hasLogin } = useJWTs()
   return <ConditionalRender.Boolean
-    condition={hasSignined}
+    condition={hasLogin}
     render={{
       true: <Link {...props} onClick={removeJWT} href="/signout">
         {signOutText}

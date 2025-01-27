@@ -6,6 +6,7 @@
   },
   "emailForm": {
     "label": "이메일 주소",
-    "button": "시작하기"
+    "button": "시작하기",
+    "finishRegist": "가입 마무리하기"
   }
 }

@@ -1,20 +1,16 @@
-import type { FieldValues, UseFormRegister, UseFormStateReturn } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
+import { useFormContext } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
-import useBirthDateInputFieldOnChangeEvent from '@/hooks/InputFilter/useBirthDateInputFieldOnChangeEvent';
-import { CardExpireDateInputFieldOnChangeEvent, CardNumberInputFieldOnChangeEvent } from '@/lib/InputFilter';
+import useBirthDateChange from '@/hooks/InputFilter/useBirthDateChange';
+import { ExpireDateTextFilter, CardNumberTextFilter } from '@/lib/InputFilter';
 import validators from '@/lib/validators';
-import { CardInfoAreaShellCss } from '../style/CardInfoAreaCss';
+import { CardInfoAreaShellCss } from '../style/RHFCardInfoAreaCss';
 
-type CardInfoProps<T extends FieldValues> = {
-  register: T extends PaymentMethodCardInfo ? UseFormRegister<T> : never;
-  formState: T extends PaymentMethodCardInfo ? UseFormStateReturn<T> : never;
-};
-
-export default function CardInfoArea<T extends PaymentMethodCardInfo>({ register, formState }: CardInfoProps<T>) {
+export default function RHFCardInfoArea() {
+  const { register, formState } = useFormContext<PaymentMethodCardInfo>()
   const { t } = useTranslation(['common', 'page-payment'])
-  const BirthDateInputFieldOnChangeEvent = useBirthDateInputFieldOnChangeEvent()
+  const onBirthDateChange = useBirthDateChange()
   return <div css={CardInfoAreaShellCss}>
     <TextInput.Light
       label={t('common:paymentRegistForm.cardNumber.label')}
@@ -23,7 +19,9 @@ export default function CardInfoArea<T extends PaymentMethodCardInfo>({ register
           return validators.cardNumber(v) || t('common:paymentRegistForm.cardNumber.error.validate')
         },
         required: t('common:paymentRegistForm.cardNumber.error.required'),
-        onChange: CardNumberInputFieldOnChangeEvent
+        onChange: (e) => {
+          e.target.value = CardNumberTextFilter(e.target.value)
+        }
       })}
       {...RHFValidErrorHelper(
         formState.errors.cardNumber?.message,
@@ -38,7 +36,9 @@ export default function CardInfoArea<T extends PaymentMethodCardInfo>({ register
           return validators.cardExpireDate(v) || t('common:paymentRegistForm.cardExpirationDate.error.validate')
         },
         required: t('common:paymentRegistForm.cardExpirationDate.error.required'),
-        onChange: CardExpireDateInputFieldOnChangeEvent
+        onChange: (e) => {
+          e.target.value = ExpireDateTextFilter(e.target.value)
+        }
       })}
       {...RHFValidErrorHelper(
         formState.errors.expiryDate?.message,
@@ -66,7 +66,7 @@ export default function CardInfoArea<T extends PaymentMethodCardInfo>({ register
           return validators.birthDateType(v) && validators.checkBirthDateRange(v) || t('common:paymentRegistForm.cardUserBirthDate.error.validate')
         },
         required: t('common:paymentRegistForm.cardUserBirthDate.error.required'),
-        onChange: BirthDateInputFieldOnChangeEvent
+        onChange: onBirthDateChange
       })}
       {...RHFValidErrorHelper(
         formState.errors.dateOfBirth?.message,

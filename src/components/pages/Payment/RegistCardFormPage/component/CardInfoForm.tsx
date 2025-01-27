@@ -1,5 +1,5 @@
-import { useForm } from 'react-hook-form'
-import CardInfoArea from './CardInfoArea'
+import { FormProvider, useForm } from 'react-hook-form'
+import RHFCardInfoArea from './RHFCardInfoArea'
 
 export const CardInfoDefaultValue: PaymentMethodCardInfo = {
   isFirst: false,
@@ -12,17 +12,20 @@ interface CardInfoFormWithPolicysProps {
   submitBtnText: string
 }
 const CardInfoForm = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
-  const { handleSubmit, ...form } = useForm<PaymentMethodCardInfo>({
+  const rhf = useForm<PaymentMethodCardInfo>({
     mode: 'all',
     defaultValues: CardInfoDefaultValue
   })
   const submitAction = () => {
 
   }
-  return <form onSubmit={handleSubmit(submitAction)}>
-    <CardInfoArea {...form}></CardInfoArea>
-    <button>{submitBtnText}</button>
-  </form>
+  return <FormProvider {...rhf}>
+    <form onSubmit={rhf.handleSubmit(submitAction)}>
+      <RHFCardInfoArea />
+      <button>{submitBtnText}</button>
+    </form>
+  </FormProvider>
+
 }
 
 export default CardInfoForm

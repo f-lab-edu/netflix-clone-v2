@@ -1,5 +1,5 @@
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
-import Link from 'next/link';
 import { MediaPoint } from '@/components/styled/layout';
 import { DefaultButtonCss, RedButtonCss } from '@/components/ui/Button/ButtonStyle';
 import { TextDisplayCss } from '@/components/ui/Font/TextDisplayStyle';
@@ -56,7 +56,7 @@ export const HeroHeadRightSide = styled.div([{
   columnGap: '12px',
 }])
 
-export const HeroHeadSigninLink = styled(Link)([
+export const HeroHeadSigninOutLinkCss = css([
   TextDisplayCss,
   DefaultButtonCss,
   RedButtonCss.color,

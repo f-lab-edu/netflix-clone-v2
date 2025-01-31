@@ -75,3 +75,21 @@ export const BlackButtonCss = {
     })
   }
 }
+
+export const BlueButtonCss = {
+  color: css({
+    background: '#0080ff',
+    boxShadow: '0 1px 0 rgba(0, 0, 0, .55)',
+    color: '#fff'
+  }),
+  interaction: {
+    dark: css({
+      '&:active': {
+        background: '#0166c9'
+      },
+      '&:hover': {
+        background: '#2490fd'
+      }
+    })
+  }
+}

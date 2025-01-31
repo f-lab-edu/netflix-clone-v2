@@ -11,6 +11,7 @@ import type common from '../../public/locales/en/common.json'
 import type PageHome from '../../public/locales/en/page-home.json'
 import type PagePayment from '../../public/locales/en/page-payment.json'
 import type PageSignin from '../../public/locales/en/page-signin.json'
+import type PageSignout from '../../public/locales/en/page-signout.json'
 import type PageSignup from '../../public/locales/en/page-signup.json'
 
 declare module 'i18next' {
@@ -21,6 +22,7 @@ declare module 'i18next' {
       'page-home': typeof PageHome
       'page-payment': typeof PagePayment
       'page-signup': typeof PageSignup
+      'page-signout': typeof PageSignout
       'page-signin': typeof PageSignin
     }
   }

@@ -1,7 +1,7 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import SignupLayout from '@/components/layout/SignupLayout';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useWindowResize from '@/hooks/useWindowResize';
@@ -15,8 +15,9 @@ const PlatformPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
 
   // on resize display width > over 1050px change contents as full width mode
-  const [windowSize] = useWindowResize()
-  const isLarge = useMemo(() => windowSize > 1050, [windowSize])
+  const {
+    isLarge
+  } = useWindowResize()
   const [selectedType, setSelectedType] = useState<MembershipPlanTier>('premium')
 
   const [isClient, setIsClient] = useState(false)

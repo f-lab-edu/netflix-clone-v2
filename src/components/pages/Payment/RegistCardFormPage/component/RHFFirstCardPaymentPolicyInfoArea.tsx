@@ -1,52 +1,42 @@
+import type { PaymentMethodCardInfoWithPolicy } from './CardInfoFormWithPolicys';
 import type { ChangeEvent } from 'react';
-import type { DeepPartial, FieldValues, Path, UseFormRegister, UseFormSetValue, UseFormStateReturn } from 'react-hook-form';
+import type { Path } from 'react-hook-form';
 import { Trans, useTranslation } from 'next-i18next';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback } from 'react';
+import { useFormContext } from 'react-hook-form';
 import Checkbox from '@/components/ui/Form/Checkbox';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
+import useAllCheckedValue from '../hooks/useAllCheckedValue';
 import { CardPaymentPolicyCheckAllCss, CardPaymentPolicyInfoShellCss, CardPaymentPolicyItemListCss } from '../style/CardPaymentPolicyInfoAreaCss';
 
-type CardPaymentPolicyInfoProps<T extends FieldValues> = {
-  register: T extends PaymentMethodPolicies ? UseFormRegister<T> : never;
-  formState: T extends PaymentMethodPolicies ? UseFormStateReturn<T> : never;
-  setValue: T extends PaymentMethodPolicies ? UseFormSetValue<T> : never
-};
-const FirstCardPaymentPolicyInfoArea = <T extends PaymentMethodPolicies>({ register, formState, setValue }: CardPaymentPolicyInfoProps<T>) => {
+const RHFFirstCardPaymentPolicyInfoArea = () => {
+  const { formState, setValue, register } = useFormContext<PaymentMethodCardInfoWithPolicy>()
   const { t } = useTranslation(['common'])
-  const [policies, setPolicies] = useState<DeepPartial<PaymentMethodPolicies> | undefined>(formState.defaultValues)
-  const isChecked = useMemo(() => {
-    return policies?.billingAgree &&
-      policies?.paymentGateWayPolicy &&
-      policies?.privatePolicy &&
-      policies?.transferInformationAbroadPolicy &&
-      policies?.transferInformationToThirdPartiesPolicy
-  }, [
-    policies
-  ])
+  const { isCheckedAll, onChangeAll, onChangeSingle } = useAllCheckedValue(
+    formState.defaultValues,
+    [
+      'billingAgree',
+      'paymentGateWayPolicy',
+      'privatePolicy',
+      'transferInformationAbroadPolicy',
+      'transferInformationToThirdPartiesPolicy'
+    ]
+  )
+
   function toggleAllPolicied(v: boolean) {
     setValue('billingAgree', v)
     setValue('paymentGateWayPolicy', v)
     setValue('privatePolicy', v)
     setValue('transferInformationAbroadPolicy', v)
     setValue('transferInformationToThirdPartiesPolicy', v)
-    setPolicies({
-      billingAgree: v,
-      paymentGateWayPolicy: v,
-      privatePolicy: v,
-      transferInformationAbroadPolicy: v,
-      transferInformationToThirdPartiesPolicy: v,
-    })
+    onChangeAll(v)
   }
 
   const generateToggleSinglePolicyChangeEvent = useCallback((name: Path<PaymentMethodPolicies>) => {
     return (e: ChangeEvent<HTMLInputElement>) => {
-      setPolicies((oldPolicies) => {
-        return Object.assign({}, oldPolicies, {
-          [name]: e.target.checked
-        })
-      })
+      onChangeSingle(name, e.target.checked)
     }
-  }, [])
+  }, [onChangeSingle])
 
   const generateFieldErrorState = useCallback((name: Path<PaymentMethodPolicies>) => {
     return RHFValidErrorHelper(
@@ -82,7 +72,7 @@ const FirstCardPaymentPolicyInfoArea = <T extends PaymentMethodPolicies>({ regis
             a: <a />
           }}
         />}
-        checked={isChecked}
+        checked={isCheckedAll}
         onChange={(e) => {
           toggleAllPolicied(e.target.checked)
         }}
@@ -98,4 +88,4 @@ const FirstCardPaymentPolicyInfoArea = <T extends PaymentMethodPolicies>({ regis
     </div>
   </div>
 }
-export default FirstCardPaymentPolicyInfoArea
+export default RHFFirstCardPaymentPolicyInfoArea

@@ -12,7 +12,7 @@ const RegistrationPage: NextPageWithLayout = () => {
     <div css={SignupMainContentCss}>
       <div css={[RegistrationLogoImageCss, StepLogoPositionCss]}>
       </div>
-      <StepHeader title={t('page-signup:registration.title')} step={3} />
+      <StepHeader title={t('page-signup:registration.title')} step={2} />
       <div>{t('page-signup:registration.desc')}</div>
     </div>
     <div css={[SignupMainContentCss, { marginTop: '24px' }]}>

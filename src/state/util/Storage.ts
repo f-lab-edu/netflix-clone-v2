@@ -33,5 +33,5 @@ const CoveredStorageGenerate = (storage: Storage | null): SyncStringStorage => (
 export const CoveredLocalStorage: SyncStringStorage = CoveredStorageGenerate(isServer ? null : localStorage)
 export const CoveredSessionStorage: SyncStringStorage = CoveredStorageGenerate(isServer ? null : sessionStorage)
 
-export const JotaiLocalStorage = createJSONStorage<string>(() => CoveredLocalStorage)
-export const JotaiSessionStorage = createJSONStorage<string>(() => CoveredSessionStorage)
+export const JotaiLocalStorage = <T = string>() => createJSONStorage<T>(() => CoveredLocalStorage)
+export const JotaiSessionStorage = <T = string>() => createJSONStorage<T>(() => CoveredSessionStorage)

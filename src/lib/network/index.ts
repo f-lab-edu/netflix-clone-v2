@@ -21,7 +21,7 @@ const baseApi = ky.extend({
     beforeRequest: [
       (request) => {
         if (typeof window !== 'undefined') {
-          const token = localStorage.getItem(ACCESS_TOKEN_KEY)
+          const token = localStorage.getItem(ACCESS_TOKEN_KEY)?.replace(/"/g, '')
           if (token) {
             request.headers.set('Authorization', `Bearer ${token}`)
           }
@@ -40,7 +40,7 @@ const api = baseApi.extend({
   hooks: {
     beforeRetry: [
       async ({ request }) => {
-        const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)
+        const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)?.replace(/"/g, '')
         if (!refreshToken) return ky.stop
         const tokens = await baseApi.post('account/refresh', {
           json: {

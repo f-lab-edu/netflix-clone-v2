@@ -6,6 +6,7 @@
   },
   "emailForm": {
     "label": "Email address",
-    "button": "Get Started"
+    "button": "Get Started",
+    "finishRegist": "Finish Sign-Up"
   }
 }

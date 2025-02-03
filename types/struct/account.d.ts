@@ -130,6 +130,8 @@ declare type AgeRestriction = 0 | 7 | 12 | 15 | 19
 
 declare type MembershipPlanTier = 'adsStandard' | 'standard' | 'premium'
 
+declare type DeviceType = 'tv' | 'computer' | 'mobile' | 'tablet'
+
 declare interface MembershipPlans {
   id: number
   /**
@@ -137,13 +139,13 @@ declare interface MembershipPlans {
    */
   plan: string
   /**
-   * 설명
-   */
-  description: string
-  /**
    * 가격
    */
   price: number
+  /**
+   * 멤버쉽에서 허용된 디바이스 목록
+   */
+  device: DeviceType[]
   /**
    * 동시 시청 가능 디바이스 숫자
    */
@@ -164,4 +166,8 @@ declare interface MembershipPlans {
    * 광고 여부
    */
   ads: boolean
+  /**
+   * 화면 노출 순서
+   */
+  sortOrder: number
 }

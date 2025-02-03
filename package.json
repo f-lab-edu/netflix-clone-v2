@@ -19,6 +19,7 @@
     "@emotion/styled": "^11.14.0",
     "@tanstack/react-query": "^5.62.10",
     "@tanstack/react-query-devtools": "^5.63.0",
+    "card-validator": "^10.0.2",
     "facepaint": "^1.2.1",
     "i18next": "^24.2.0",
     "jose": "^5.9.6",

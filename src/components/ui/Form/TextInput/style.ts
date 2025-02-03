@@ -30,13 +30,13 @@ export const InputThemeCss = {
   })
 }
 
-const InputTextColor = `var(--input-text-color, ${theme.color.white.default})`
+const InputTextColor = `var(--input-text-color, ${theme.color.black.default})`
 const BackgroundColor = `var(--background-color, ${theme.color.white.default})`
 const LabelColor = `var(--label-text-color, ${theme.color.black.opacity70})`
+const ErrorColor = `var(--error-color, ${theme.color.red.error.light})`
 const DefaultOutlineColor = `var(--default-outline-color, ${theme.color.grey80.default})`
-const ErrorColor = `var(--error-color, ${theme.color.grey80.default})`
-const ValidatedOutlineColor = `var(--validated-outline-color, ${theme.color.red.error.light})`
-const ErrorOutlineColor = `var(--error-outline-color, ${theme.color.green.validated.light})`
+const ErrorOutlineColor = `var(--error-outline-color, ${theme.color.red.error.light})`
+const ValidatedOutlineColor = `var(--validated-outline-color, ${theme.color.green.validated.light})`
 const FocusOutlineColor = `var(--focus-outline-color, ${theme.color.black.default})`
 
 export const InputDivCss = css([{

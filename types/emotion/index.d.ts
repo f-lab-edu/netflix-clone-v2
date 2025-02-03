@@ -32,6 +32,9 @@ declare module '@emotion/react' {
         opacity40: 'rgba(128,128,128,.4)',
         opacity30: 'rgba(128,128,128,.3)',
       },
+      greyCC: {
+        default: '#CCCCCC'
+      },
       greyE6: {
         default: '#e6e6e6'
       },

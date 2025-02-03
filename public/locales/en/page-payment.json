@@ -15,5 +15,9 @@
   "addCardFormPart": {
     "title": "Enter payment details",
     "submitBtn": "Save"
+  },
+  "firstCardRegistPage": {
+    "title": "Set up your credit or debit card",
+    "submitBtn": "Start Paid Membership"
   }
 }

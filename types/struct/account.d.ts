@@ -126,6 +126,25 @@ declare interface PaymentMethodPhone extends PaymentMethod {
     paymentToken: string
   }
 }
+
+declare interface PaymentMethodCardInfo {
+  isFirst: boolean
+  cardNumber: string
+  cardHolderName: string
+  expiryDate: string
+  dateOfBirth: string
+}
+
+declare interface PaymentMethodPolicies {
+  privatePolicy: boolean
+  transferInformationToThirdPartiesPolicy: boolean
+  transferInformationAbroadPolicy: boolean
+  paymentGateWayPolicy: boolean
+  billingAgree: boolean
+}
+
+declare type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
+
 declare interface PaymentMethodCard extends PaymentMethod {
   /**
    * 결제 수단 타입
@@ -134,13 +153,7 @@ declare interface PaymentMethodCard extends PaymentMethod {
   /**
    * 결제 수단의 type이 card인 경우 카드 정보
    */
-  card: {
-    cardNumber: string
-    cardHolderName: string
-    expiryDate: string
-    cvv: string
-    paymentToken: string
-  }
+  card: PaymentMethodCardInfo
 }
 
 declare type AgeRestriction = 0 | 7 | 12 | 15 | 19

@@ -30,6 +30,7 @@ export const UpdateMSWAccountById = (accountId: number, newData: AccountBaseInfo
 export const InsertMSWAccount = (newData: Omit<AccountBaseInfo, 'id'>) => {
   const idx = issueAutoKeyIndex()
   UpdateMSWAccountById(idx, { id: idx, ...newData })
+  return idx
 }
 
 export const DeleteMSWAccountById = (accountId: number) => {

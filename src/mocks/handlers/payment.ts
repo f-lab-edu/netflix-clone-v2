@@ -15,13 +15,15 @@ const handlers = [
         const accountId = token.payload.accountId
         const accountInfo = GetMSWAccountById(accountId)
 
-        UpdateMSWAccountById(accountId, {
-          ...accountInfo,
-          billingPolicies: Object.assign({}, accountInfo.billingPolicies, data.policies)
-        })
-        InsertMSWPaymentMethod({
+        const paymentMethodIdx = InsertMSWPaymentMethod({
           ...data.paymentMethod,
           accountId,
+        })
+        UpdateMSWAccountById(accountId, {
+          ...accountInfo,
+          billingPolicies: Object.assign({}, accountInfo.billingPolicies, data.policies),
+          paymentMethod: paymentMethodIdx,
+          membership: data.membershipTier ? data.membershipTier : accountInfo.membership
         })
 
         return createSuccessResponse({

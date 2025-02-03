@@ -8,8 +8,8 @@ declare interface AccountBaseInfo {
   policy: boolean
   specialOffer: boolean
   billingPolicies: PaymentMethodPolicies
-  membership?: MembershipPlans
-  paymentMethod?: PaymentMethod
+  membership?: MembershipPlanTier
+  paymentMethod?: number
   profiles?: Profile[]
 }
 declare interface AccountTotalInfo {

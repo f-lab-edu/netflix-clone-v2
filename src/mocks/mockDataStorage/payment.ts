@@ -23,6 +23,7 @@ export const InsertMSWPaymentMethod = (newData: Omit<PaymentMethod, 'id'>) => {
   const idx = issueAutoKeyIndex()
   storage[idx] = { id: idx, ...newData }
   saveDataToStorage(storage)
+  return idx
 }
 
 export const DeleteMSWAccountById = (accountId: number) => {

@@ -8,6 +8,7 @@ const nextConfig: NextConfig = {
   compiler: {
     emotion: true,
   },
+  transpilePackages: ['jotai-devtools'],
   experimental: {
     turbo: {
       rules: {

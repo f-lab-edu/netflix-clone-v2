@@ -1,5 +1,6 @@
+import { useAtom } from 'jotai'
 import { FormProvider, useForm } from 'react-hook-form'
-import ClientOnly from '@/components/ui/utils/ClientOnly'
+import { signupMembershipTier } from '@/state/Signup'
 import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import { CardInfoDefaultValue } from './CardInfoForm'
 import ChoosenPlanTier from './ChoosenPlanTier'
@@ -24,6 +25,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationToThirdPartiesPolicy: false
     }
   })
+  const [choosenTier] = useAtom(signupMembershipTier)
 
   const { RegistPaymentMutation } = useRegistPaymentMutation()
   const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {
@@ -38,6 +40,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
         type: 'card',
         card: cardObj
       },
+      membershipTier: choosenTier,
       policies: {
         billingAgree,
         paymentGateWayPolicy,
@@ -50,9 +53,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
   return <FormProvider {...rhf}>
     <form onSubmit={rhf.handleSubmit(cardSubmitAction)}>
       <RHFCardInfoArea />
-      <ClientOnly>
-        <ChoosenPlanTier />
-      </ClientOnly>
+      <ChoosenPlanTier />
       <RHFFirstCardPaymentPolicyInfoArea />
       <button>{submitBtnText}</button>
     </form>

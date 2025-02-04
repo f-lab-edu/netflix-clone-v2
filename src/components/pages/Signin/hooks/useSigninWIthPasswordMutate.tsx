@@ -31,7 +31,7 @@ export default function useSigninWIthPasswordMutate() {
       queryKey: MY_INFO_QUERY_KEY,
       refetchType: 'inactive',
     })
-    if (!accountInfo?.accountInfo.membership) {
+    if (accountInfo?.accountInfo.membership) {
       if (!accountInfo?.accountInfo.profiles?.length) {
         router.push('/firstProfile')
       } else if (accountInfo.accountInfo.profiles.length === 1) {

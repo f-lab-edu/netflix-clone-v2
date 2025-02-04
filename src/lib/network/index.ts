@@ -15,9 +15,13 @@ const baseApi = ky.extend({
       async (error: HTTPError<ErrorResponse>) => {
         const { response } = error;
         if (response && response.body) {
-          const json = await response.json()
-          error.name = `API Error ${json.errorCode}`;
-          error.message = JSON.stringify(json);
+          try {
+            const json = await response.json()
+            error.name = `API Error ${json.errorCode}`;
+            error.message = JSON.stringify(json);
+          } catch {
+            return error
+          }
         }
         return error;
       }
@@ -52,8 +56,8 @@ const api = baseApi.extend({
               refreshToken
             }
           }).json<RefreshTokenResponseType>()
-          localStorage.setItem(ACCESS_TOKEN_KEY, tokens.accessToken)
-          localStorage.setItem(REFRESH_TOKEN_KEY, tokens.refreshToken)
+          localStorage.setItem(ACCESS_TOKEN_KEY, JSON.stringify(tokens.accessToken))
+          localStorage.setItem(REFRESH_TOKEN_KEY, JSON.stringify(tokens.refreshToken))
           request.headers.set('Authorization', `Bearer ${tokens.accessToken}`)
         }
       }

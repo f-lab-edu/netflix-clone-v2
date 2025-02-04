@@ -3,9 +3,7 @@ import type { NextPage } from 'next';
 import type { AppProps } from 'next/app';
 import type { ReactElement, ReactNode } from 'react';
 import { appWithTranslation } from 'next-i18next'
-import initMSW from '@/mocks';
 import I18nConfig from '@I18nConfig';
-initMSW();
 
 export type NextPageWithLayout<P = object, IP = P> = NextPage<P, IP> & {
   getLayout?: (_page: ReactElement) => ReactNode

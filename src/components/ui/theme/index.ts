@@ -42,6 +42,9 @@ export const theme: Theme = {
     greyF3: {
       default: '#f3f3f3'
     },
+    greyF4: {
+      default: '#f4f4f4'
+    },
     grey: {
       default: 'rgb(128,128,128)',
       opacity70: 'rgba(128,128,128,0.7)',

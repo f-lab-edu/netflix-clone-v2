@@ -1,6 +1,8 @@
 import { FormProvider, useForm } from 'react-hook-form'
+import ClientOnly from '@/components/ui/utils/ClientOnly'
 import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import { CardInfoDefaultValue } from './CardInfoForm'
+import ChoosenPlanTier from './ChoosenPlanTier'
 import RHFCardInfoArea from './RHFCardInfoArea'
 import RHFFirstCardPaymentPolicyInfoArea from './RHFFirstCardPaymentPolicyInfoArea'
 
@@ -48,6 +50,9 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
   return <FormProvider {...rhf}>
     <form onSubmit={rhf.handleSubmit(cardSubmitAction)}>
       <RHFCardInfoArea />
+      <ClientOnly>
+        <ChoosenPlanTier />
+      </ClientOnly>
       <RHFFirstCardPaymentPolicyInfoArea />
       <button>{submitBtnText}</button>
     </form>

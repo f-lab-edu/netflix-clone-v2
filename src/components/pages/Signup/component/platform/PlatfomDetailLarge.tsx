@@ -20,7 +20,7 @@ export default function PlatformDetailLarge({
   return <div css={SignupPlatformLargeCardListCss}>
     {data.map((v) => {
       const selected = selectedType === v.plan
-      return <LabelRadio key={`radio-${v}`}
+      return <LabelRadio key={`radio-${v.plan}`}
         value={v.plan}
         name="platformCard"
         css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}

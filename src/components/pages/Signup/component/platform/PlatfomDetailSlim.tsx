@@ -21,7 +21,7 @@ export default function PlatformDetailSlim({
   const cardList = useMemo(() => {
     return data.map((v) => {
       return <LabelRadio
-        key={`card-${v}`}
+        key={`card-${v.plan}`}
         value={v.plan}
         name="platformCard"
         onChange={() => {

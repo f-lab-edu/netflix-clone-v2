@@ -23,7 +23,7 @@ export const GetMSWAccountById = (accountId: number) => {
 
 export const UpdateMSWAccountById = (accountId: number, newData: AccountBaseInfo) => {
   const datas = loadDataFromStorage()
-  Object.assign(datas[accountId] || {}, newData)
+  datas[accountId] = Object.assign(datas[accountId] || {}, newData)
   saveDataToStorage(datas)
 }
 

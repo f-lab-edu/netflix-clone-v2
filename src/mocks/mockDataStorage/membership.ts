@@ -11,7 +11,7 @@ const initData: Omit<MembershipPlans, 'id'>[] = [
   {
     ads: true,
     plan: 'adsStandard',
-    maxContentResolution: 'HD',
+    maxContentResolution: 'FHD',
     maxWatcherCount: 2,
     price: 5500,
     saveAllowedDeviceNumber: 2,
@@ -21,7 +21,7 @@ const initData: Omit<MembershipPlans, 'id'>[] = [
   {
     ads: false,
     plan: 'standard',
-    maxContentResolution: 'HD',
+    maxContentResolution: 'FHD',
     maxWatcherCount: 2,
     price: 13500,
     saveAllowedDeviceNumber: 2,

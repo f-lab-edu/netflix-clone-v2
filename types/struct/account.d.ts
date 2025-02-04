@@ -137,7 +137,7 @@ declare interface MembershipPlans {
   /**
    * 플랜 명
    */
-  plan: string
+  plan: MembershipPlanTier
   /**
    * 가격
    */

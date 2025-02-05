@@ -3,6 +3,7 @@ import type { ErrorResponse } from '@/lib/network/types/error';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import { MY_INFO_QUERY_KEY } from '@/hooks/Query/keys/account';
 import useGetSigninAccountInfo from '@/hooks/Query/useGetLoginAccountInfo';
 import { SigninApi } from '@/lib/network/account/SigninApi'
@@ -13,9 +14,8 @@ import { accessTokenAtom, refreshTokenAtom } from '@/state/Token'
 export default function useSigninWIthPasswordMutate() {
   const router = useRouter()
   const queryClient = useQueryClient()
-  const { data: accountInfo } = useGetSigninAccountInfo({
-    enabled: false
-  })
+  const [accountInfoEnabled, setAccountInfoEnabled] = useState(false)
+  const { data: accountInfo } = useGetSigninAccountInfo({ enabled: accountInfoEnabled })
   const [, setCurrentProfile] = useAtom(currentProfileAtom)
   const [, setAccessToken] = useAtom(accessTokenAtom)
   const [, setRefreshToken] = useAtom(refreshTokenAtom)
@@ -31,6 +31,10 @@ export default function useSigninWIthPasswordMutate() {
       queryKey: MY_INFO_QUERY_KEY,
       refetchType: 'inactive',
     })
+    setAccountInfoEnabled(true)
+  }
+  useEffect(() => {
+    if (!accountInfoEnabled) return
     if (accountInfo?.accountInfo.membership) {
       if (!accountInfo?.accountInfo.profiles?.length) {
         router.push('/firstProfile')
@@ -45,7 +49,7 @@ export default function useSigninWIthPasswordMutate() {
     } else {
       router.push('/')
     }
-  }
+  }, [accountInfo, accountInfoEnabled, router, setCurrentProfile])
   function loginFailedAction(error: Error) {
     const errorState: ErrorResponse = JSON.parse(error.message)
     if (errorState.errorCode === ErrorCode.SIGNIN_FAILED) {

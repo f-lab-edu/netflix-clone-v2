@@ -8,10 +8,7 @@ export default function useGetSigninAccountInfo(options: {
 }) {
   return useQuery<MyInfoResponseType>({
     queryKey: MY_INFO_QUERY_KEY,
-    queryFn: async () => {
-      const result = await GetAccountInfoApi()
-      return result
-    },
+    queryFn: GetAccountInfoApi,
     ...options
   })
 }

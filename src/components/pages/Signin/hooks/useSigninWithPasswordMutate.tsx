@@ -1,36 +1,22 @@
-import type { SigninResponseType } from '@/lib/network/types/account';
 import type { ErrorResponse } from '@/lib/network/types/error';
-import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useAtom } from 'jotai'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { MY_INFO_QUERY_KEY } from '@/hooks/Query/keys/account';
-import useGetSigninAccountInfo from '@/hooks/Query/useGetLoginAccountInfo';
-import { SigninApi } from '@/lib/network/account/SigninApi'
+import useGetSigninAccountInfo from '@/hooks/Query/account/useGetLoginAccountInfo';
+import useSigninWithPasswordMutation from '@/hooks/mutation/account/useSigninWithPasswordMutation';
 import { ErrorCode } from '@/mocks/middleware/ErrorHandler';
 import { currentProfileAtom } from '@/state/Profile';
-import { accessTokenAtom, refreshTokenAtom } from '@/state/Token'
 
-export default function useSigninWIthPasswordMutate() {
+export default function useSigninWithPasswordMutate() {
   const router = useRouter()
-  const queryClient = useQueryClient()
   const [accountInfoEnabled, setAccountInfoEnabled] = useState(false)
   const { data: accountInfo } = useGetSigninAccountInfo({ enabled: accountInfoEnabled })
   const [, setCurrentProfile] = useAtom(currentProfileAtom)
-  const [, setAccessToken] = useAtom(accessTokenAtom)
-  const [, setRefreshToken] = useAtom(refreshTokenAtom)
-  const { mutate: signinMutate } = useMutation({
-    mutationFn: SigninApi,
+  const { mutate: signinMutate } = useSigninWithPasswordMutation({
     onSuccess: loginSuccessAction,
     onError: loginFailedAction
   })
-  async function loginSuccessAction(data: SigninResponseType) {
-    setAccessToken(data.accessToken)
-    setRefreshToken(data.refreshToken)
-    queryClient.invalidateQueries({
-      queryKey: MY_INFO_QUERY_KEY,
-      refetchType: 'inactive',
-    })
+  async function loginSuccessAction() {
     setAccountInfoEnabled(true)
   }
   useEffect(() => {

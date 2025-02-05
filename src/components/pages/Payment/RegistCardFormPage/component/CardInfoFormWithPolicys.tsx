@@ -1,8 +1,8 @@
 import { useAtom } from 'jotai'
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
+import useRegistPaymentMutation from '@/hooks/mutation/payment/useRegistPaymentMutation'
 import { signupMembershipTier } from '@/state/Signup'
-import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import { CardInfoDefaultValue } from './CardInfoForm'
 import ChoosenPlanTier from './ChoosenPlanTier'
 import RHFCardInfoArea from './RHFCardInfoArea'
@@ -29,7 +29,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
   })
   const [choosenTier] = useAtom(signupMembershipTier)
 
-  const { RegistPaymentMutation } = useRegistPaymentMutation()
+  const { mutate: registPaymentMutate } = useRegistPaymentMutation()
   const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {
     const { billingAgree,
       paymentGateWayPolicy,
@@ -37,7 +37,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationAbroadPolicy,
       transferInformationToThirdPartiesPolicy, ...cardObj
     } = obj
-    RegistPaymentMutation({
+    registPaymentMutate({
       paymentMethod: {
         type: 'card',
         card: cardObj

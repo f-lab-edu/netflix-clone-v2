@@ -1,5 +1,5 @@
 import { FormProvider, useForm } from 'react-hook-form'
-import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
+import useRegistPaymentMutation from '@/hooks/mutation/payment/useRegistPaymentMutation'
 import RHFCardInfoArea from './RHFCardInfoArea'
 
 export const CardInfoDefaultValue: PaymentMethodCardInfo = {
@@ -16,9 +16,9 @@ const CardInfoForm = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
     mode: 'all',
     defaultValues: CardInfoDefaultValue
   })
-  const { RegistPaymentMutation } = useRegistPaymentMutation()
+  const { mutate: registPaymentMutation } = useRegistPaymentMutation()
   const submitAction = (cardObj: PaymentMethodCardInfo) => {
-    RegistPaymentMutation({
+    registPaymentMutation({
       paymentMethod: {
         type: 'card',
         card: cardObj

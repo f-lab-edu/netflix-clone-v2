@@ -19,7 +19,7 @@ export default function PlatformDetailSlim({
   const { t } = useTranslation(['page-signup'])
 
   const cardList = useMemo(() => {
-    return data.map((v) => {
+    return data.list.map((v) => {
       return <LabelRadio
         key={`card-${v.plan}`}
         value={v.plan}

@@ -2,9 +2,8 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
-import { useState } from 'react';
+import { Suspense, useState } from 'react';
 import SignupLayout from '@/components/layout/SignupLayout';
-import ClientOnly from '@/components/ui/utils/ClientOnly';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 import useWindowResize from '@/hooks/useWindowResize';
@@ -31,7 +30,7 @@ const PlatformPage: NextPageWithLayout = () => {
   return <>
     <div css={[SignupPlatformContentCss, isLarge ? SignupPlatformContentLargeCss : {}]}>
       <StepHeader css={{ marginBottom: '.5rem' }} step={2} title={t('page-signup:platform.title')} />
-      <ClientOnly>
+      <Suspense>
         <ConditionalRender.Boolean
           condition={isLarge}
           render={{
@@ -39,7 +38,7 @@ const PlatformPage: NextPageWithLayout = () => {
             false: <PlatformDetailSlim onSelectedChange={setSelectedType} selectedType={selectedType} />
           }}
         />
-      </ClientOnly>
+      </Suspense>
     </div>
     <div css={[SignupMainContentCss, { marginTop: '24px' }]}>
       <Link css={SignupMainNextButtonCss} href={hasLogin ? '/signup/payment/regist/' : '/signup/registration'} onClick={goNextAction}>

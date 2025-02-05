@@ -1,4 +1,5 @@
 import { useAtom } from 'jotai'
+import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { signupMembershipTier } from '@/state/Signup'
 import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
@@ -14,6 +15,7 @@ interface CardInfoFormWithPolicysProps {
 export type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
 
 const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
+  const router = useRouter()
   const rhf = useForm<PaymentMethodCardInfoWithPolicy>({
     mode: 'onBlur',
     defaultValues: {
@@ -47,6 +49,10 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
         privatePolicy,
         transferInformationAbroadPolicy,
         transferInformationToThirdPartiesPolicy
+      }
+    }, {
+      onSuccess() {
+        router.push('/firstProfile')
       }
     })
   }

@@ -16,8 +16,7 @@ interface SignupLayoutProps {
 export default function SignupLayout({ isDark, children, withShell }: SignupLayoutProps) {
   const { t } = useTranslation(['common'])
   return <BaseLayout defaultColor={theme.color.grey.defaultFont}>
-    {/* HEADER */}
-    <div css={[isDark ? {} : HeaderBorderCss, HeaderDefaultStyleCss]}>
+    <header css={[isDark ? {} : HeaderBorderCss, HeaderDefaultStyleCss]}>
       <Link css={HeaderLinkStyleCss} href="/">
         <NetflixLogo />
       </Link>
@@ -26,10 +25,9 @@ export default function SignupLayout({ isDark, children, withShell }: SignupLayo
         signInText={t('head.signin')}
         signOutText={t('head.signout')}
       />
-    </div>
-    {/* BODY */}
+    </header>
     {/* TODO: need to add animation https://dev.to/joseph42a/nextjs-page-transition-with-framer-motion-33dg */}
-    <div css={BodyLayoutCss}>
+    <main css={BodyLayoutCss}>
       <ConditionalRender.Boolean
         condition={withShell || false}
         render={{
@@ -37,12 +35,11 @@ export default function SignupLayout({ isDark, children, withShell }: SignupLayo
           false: children
         }}
       />
-    </div>
-    {/* FOOTER */}
-    <div css={FooterLayoutCss}>
+    </main>
+    <footer css={FooterLayoutCss}>
       <div css={FooterContentShellCss}>
         {/* TODO: add footer contents */}
       </div>
-    </div>
+    </footer>
   </BaseLayout>
 }

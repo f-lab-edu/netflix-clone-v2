@@ -35,7 +35,8 @@ export const BrowserLayoutHeaderLinkCss = css([{
 }])
 
 export const BrowserLayoutMainCss = css({
-  padding: layoutPadding
+  padding: layoutPadding,
+  flexGrow: 1
 })
 
 export const BrowserLayoutFooterCss = css({

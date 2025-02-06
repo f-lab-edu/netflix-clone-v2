@@ -50,12 +50,12 @@ const handlers = [
   >(async ({ request }) => {
     const token = await parseAuth(request.headers)
     const accountInfo = GetMSWAccountById(token.payload.accountId)
-    const newProfile: Omit<Profile, 'id'> = Object.assign({
+    const newProfile: Omit<Profile, 'id'> = {
+      ...profileTemplate,
       name: '',
       email: accountInfo.email
-    }, profileTemplate)
+    }
 
-    // TODO: save Profile
     const id = InsertMSWProfile(newProfile)
     if (!accountInfo.defaultProfileId) {
       accountInfo.defaultProfileId = id

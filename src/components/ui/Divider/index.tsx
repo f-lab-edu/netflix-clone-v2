@@ -1,7 +1,7 @@
 import { theme } from '../theme'
 import { DividerCss, DividerHorizontalCss } from './style'
 
-interface DividerProps {
+interface DividerProps extends CssProps {
   horizontal?: boolean
   color: string
 }
@@ -9,8 +9,8 @@ const Divider = ({
   horizontal,
   color,
   ...props
-}: DividerProps & CssProps) => {
-  return <div {...props} css={[
+}: DividerProps) => {
+  return <div {...props} role='separator' css={[
     horizontal ? DividerHorizontalCss : DividerCss,
     {
       backgroundColor: color

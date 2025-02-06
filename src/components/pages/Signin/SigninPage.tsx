@@ -79,11 +79,10 @@ const SigninPage: NextPageWithLayout = () => {
         </footer>
       </div>
     </div>
-
   </div>
 }
 SigninPage.getLayout = (page) => {
-  return <BaseLayout >{page}</BaseLayout>
+  return <BaseLayout.Light >{page}</BaseLayout.Light>
 }
 
 export default SigninPage

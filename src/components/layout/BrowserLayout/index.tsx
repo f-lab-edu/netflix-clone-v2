@@ -18,7 +18,7 @@ export default function BrowserLayout({
   hideHeader
 }: BrowserLayoutProps) {
   const { t } = useTranslation(['common'])
-  return <BaseLayout>
+  return <BaseLayout.Dark>
     <div css={BrowserLayoutShellCss}>
       <ConditionalRender.Boolean
         condition={hideHeader || false}
@@ -42,5 +42,5 @@ export default function BrowserLayout({
 
       </footer>
     </div>
-  </BaseLayout>
+  </BaseLayout.Dark>
 }

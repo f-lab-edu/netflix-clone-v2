@@ -62,7 +62,7 @@ const Home: NextPageWithLayout = () => {
 }
 
 Home.getLayout = (page) => {
-  return <BaseLayout>{page}</BaseLayout>
+  return <BaseLayout.Dark>{page}</BaseLayout.Dark>
 }
 
 export default Home

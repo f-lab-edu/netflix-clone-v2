@@ -7,20 +7,30 @@ import { theme } from '../ui/theme';
 
 interface BaseLayoutProps {
   children?: ReactNode,
-  defaultColor?: string
+  backgrondColor: string
+  primaryTextColor: string
+  seconderyTextColor: string
 }
 
 const queryClient = new QueryClient()
 
-export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) {
+const BaseLayout = ({
+  children,
+  backgrondColor,
+  primaryTextColor,
+  seconderyTextColor
+}: BaseLayoutProps) => {
   const { t } = useTranslation(['common'])
   return <div css={{
     display: 'flex',
     flexDirection: 'column',
-    color: defaultColor ?? theme.color.white.default,
     width: '100%',
     fontFamily: `${theme.fonts.NetflixSans}, ${theme.fonts.Roboto}`,
     minHeight: '100vh',
+    background: backgrondColor,
+    '--primary-text-color': primaryTextColor,
+    '--secondery-text-color': seconderyTextColor,
+    color: 'var(--primary-text-color)',
   }}>
     <Head>
       <title>{t('header.title')}</title>
@@ -36,3 +46,27 @@ export default function BaseLayout({ children, defaultColor }: BaseLayoutProps) 
     </RootDomProvider>
   </div>
 }
+
+const DarkBaseLayout = (
+  props: Omit<BaseLayoutProps, 'backgrondColor' | 'primaryTextColor' | 'seconderyTextColor'>
+) =>
+  <BaseLayout
+    backgrondColor={theme.color.black.default}
+    primaryTextColor={theme.color.white.default}
+    seconderyTextColor={theme.color.white.opacity70}
+    {...props}
+  />
+BaseLayout.Dark = DarkBaseLayout
+
+const LightBaseLayout = (
+  props: Omit<BaseLayoutProps, 'backgrondColor' | 'primaryTextColor' | 'seconderyTextColor'>
+) =>
+  <BaseLayout
+    backgrondColor={theme.color.white.default}
+    primaryTextColor={theme.color.grey33.default}
+    seconderyTextColor={theme.color.black.opacity70}
+    {...props}
+  />
+BaseLayout.Light = LightBaseLayout
+
+export default BaseLayout

@@ -3,7 +3,6 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import SignInOutBtn from '../../ui/Button/SignInOutBtn';
-import { theme } from '../../ui/theme';
 import ConditionalRender from '../../ui/utils/ConditionalRender';
 import BaseLayout from '../BaseLayout'
 import { BodyContentShellCss, BodyLayoutCss, FooterContentShellCss, FooterLayoutCss, HeaderBorderCss, HeaderDefaultStyleCss, HeaderLinkStyleCss, HeaderLoginLinkStyleCss } from '../styles/SignupLayoutStyle';
@@ -15,7 +14,7 @@ interface SignupLayoutProps {
 
 export default function SignupLayout({ isDark, children, withShell }: SignupLayoutProps) {
   const { t } = useTranslation(['common'])
-  return <BaseLayout defaultColor={theme.color.grey.defaultFont}>
+  return <BaseLayout.Light>
     <header css={[isDark ? {} : HeaderBorderCss, HeaderDefaultStyleCss]}>
       <Link css={HeaderLinkStyleCss} href="/">
         <NetflixLogo />
@@ -41,5 +40,5 @@ export default function SignupLayout({ isDark, children, withShell }: SignupLayo
         {/* TODO: add footer contents */}
       </div>
     </footer>
-  </BaseLayout>
+  </BaseLayout.Light>
 }

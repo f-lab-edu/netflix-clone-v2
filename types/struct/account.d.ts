@@ -10,7 +10,8 @@ declare interface AccountBaseInfo {
   billingPolicies: PaymentMethodPolicies
   membership?: MembershipPlanTier
   paymentMethod?: number
-  profiles?: Profile[]
+  defaultProfileId: number
+  profileIds?: number[]
 }
 declare interface AccountTotalInfo {
   billing: {

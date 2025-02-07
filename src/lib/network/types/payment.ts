@@ -2,7 +2,7 @@ import type { ErrorResponse } from './error';
 
 export type RegistPaymentMethodRequestType = {
   paymentMethod: Omit<PaymentMethod, 'accountId' | 'id'>
-  policies: Partial<PaymentMethodPolicies>
+  policies?: Partial<PaymentMethodPolicies>
   membershipTier?: MembershipPlanTier
 }
 export type RegistPaymentMethodResponseType = {

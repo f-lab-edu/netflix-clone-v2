@@ -22,8 +22,7 @@ const CardInfoForm = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
       paymentMethod: {
         type: 'card',
         card: cardObj
-      },
-      policies: {}
+      }
     })
   }
   return <FormProvider {...rhf}>

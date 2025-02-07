@@ -17,10 +17,7 @@ declare interface Content {
   keywords: string[]
 }
 
-declare interface SoundQuality {
-  id: number
-  name: string
-}
+declare type SoundQuality = 'immersive' | undefined
 
 declare interface Genre {
   id: number

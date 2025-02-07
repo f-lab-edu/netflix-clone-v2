@@ -2,7 +2,7 @@ import { PlatformInfoItemCss, PlatformInfoItemShellCss, PlatformInfoItemShellLar
 
 interface PlatformInfoItemProps {
   title: string
-  value: string
+  value: string | number
   large: boolean
 }
 

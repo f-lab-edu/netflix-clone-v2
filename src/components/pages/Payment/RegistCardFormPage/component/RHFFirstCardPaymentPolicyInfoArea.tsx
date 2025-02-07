@@ -1,3 +1,4 @@
+import type { PaymentMethodCardInfoWithPolicy } from './CardInfoFormWithPolicys';
 import type { ChangeEvent } from 'react';
 import type { Path } from 'react-hook-form';
 import { Trans, useTranslation } from 'next-i18next';
@@ -6,11 +7,13 @@ import { useFormContext } from 'react-hook-form';
 import Checkbox from '@/components/ui/Form/Checkbox';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import useAllCheckedValue from '../hooks/useAllCheckedValue';
+import useSelectedMembershipOnSteps from '../hooks/useSelectedMembershipOnSteps';
 import { CardPaymentPolicyCheckAllCss, CardPaymentPolicyInfoShellCss, CardPaymentPolicyItemListCss } from '../style/CardPaymentPolicyInfoAreaCss';
 
 const RHFFirstCardPaymentPolicyInfoArea = () => {
+  const selectedMembershipOnSteps = useSelectedMembershipOnSteps()
   const { formState, setValue, register } = useFormContext<PaymentMethodCardInfoWithPolicy>()
-  const { t } = useTranslation(['common'])
+  const { t, i18n } = useTranslation(['common'])
   const { isCheckedAll, onChangeAll, onChangeSingle } = useAllCheckedValue(
     formState.defaultValues,
     [
@@ -49,6 +52,9 @@ const RHFFirstCardPaymentPolicyInfoArea = () => {
       label={<Trans
         t={t}
         i18nKey={`common:paymentRegistForm.${name}.label`}
+        values={{
+          price: i18n.format(selectedMembershipOnSteps?.price, 'krwCurrency', i18n.language)
+        }}
         components={{
           a: <a />
         }}
@@ -59,7 +65,7 @@ const RHFFirstCardPaymentPolicyInfoArea = () => {
       })}
       {...generateFieldErrorState(name)}
     />
-  }, [t, generateFieldErrorState, generateToggleSinglePolicyChangeEvent, register])
+  }, [t, generateFieldErrorState, generateToggleSinglePolicyChangeEvent, register, i18n, selectedMembershipOnSteps])
 
   return <div css={CardPaymentPolicyInfoShellCss}>
     <div css={CardPaymentPolicyCheckAllCss}>

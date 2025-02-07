@@ -42,9 +42,8 @@ export async function generateAuth(accountId: number) {
 }
 
 export function withAuth<RequestBodyType extends DefaultBodyType, ResponseBodyType extends DefaultBodyType>(
-  resolver: HttpResponseResolver
+  resolver: HttpResponseResolver<PathParams, RequestBodyType, ResponseBodyType>
 ): HttpResponseResolver<PathParams, RequestBodyType, ResponseBodyType> {
-  // @ts-expect-error - ignore type checking for now
   return async (args) => {
     const { request } = args;
 
@@ -67,7 +66,7 @@ export function withAuth<RequestBodyType extends DefaultBodyType, ResponseBodyTy
     } catch {
       throw new ErrorException('Token Verification failed, Please check token', ErrorCode.AUTH_EXPIRED)
     }
-  };
+  }
 }
 
 export async function parseAuth(header: Headers) {

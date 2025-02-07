@@ -12,9 +12,9 @@ export const ErrorCode = {
   SIGNIN_FAILED: -100
 }
 
-export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBodyType, ResponseBodyType extends DefaultBodyType = DefaultBodyType>(
-  resolver: HttpResponseResolver<PathParams, RequestBodyType, ResponseBodyType>
-): HttpResponseResolver<PathParams, RequestBodyType, ResponseBodyType | ErrorResponse> {
+export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBodyType, ResponseBodyType extends DefaultBodyType = DefaultBodyType, P extends PathParams = PathParams>(
+  resolver: HttpResponseResolver<P, RequestBodyType, ResponseBodyType>
+): HttpResponseResolver<P, RequestBodyType, ResponseBodyType | ErrorResponse> {
   return async (args) => {
     try {
       const result = await resolver(args)

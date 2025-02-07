@@ -19,5 +19,9 @@
   "firstCardRegistPage": {
     "title": "신용카드나 체크카드 등록",
     "submitBtn": "유료 멤버십 시작"
+  },
+  "firstMembership": {
+    "monthly": "매월 {{value}}",
+    "change": "변경"
   }
 }

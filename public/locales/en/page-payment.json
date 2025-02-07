@@ -19,5 +19,9 @@
   "firstCardRegistPage": {
     "title": "Set up your credit or debit card",
     "submitBtn": "Start Paid Membership"
+  },
+  "firstMembership": {
+    "monthly": "{{value}}/month",
+    "change": "Change"
   }
 }

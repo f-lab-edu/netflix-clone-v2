@@ -1,7 +1,6 @@
-import { useAtom } from 'jotai'
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
-import { signupMembershipTier } from '@/state/Signup'
+import { useSignupMembershipTier } from '@/state/signup/hooks'
 import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import { CardInfoDefaultValue } from './CardInfoForm'
 import ChosenPlanTier from './ChosenPlanTier'
@@ -27,7 +26,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationToThirdPartiesPolicy: false
     }
   })
-  const [chosenTier] = useAtom(signupMembershipTier)
+  const [chosenTier] = useSignupMembershipTier()
 
   const { RegistPaymentMutation } = useRegistPaymentMutation()
   const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {

@@ -1,9 +1,8 @@
-import { useAtom } from 'jotai'
 import useMembershipByPlan from '@/hooks/Query/membership/useMembershipByPlan'
-import { signupMembershipTier } from '@/state/Signup'
+import { useSignupMembershipTier } from '@/state/signup/hooks'
 
 export default function useSelectedMembershipOnSteps() {
-  const [chosenTier] = useAtom(signupMembershipTier)
+  const [chosenTier] = useSignupMembershipTier()
   const { data } = useMembershipByPlan(chosenTier)
   return data
 }

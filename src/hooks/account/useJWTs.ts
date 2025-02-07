@@ -1,7 +1,6 @@
 import { useQueryClient } from '@tanstack/react-query';
-import { useAtom } from 'jotai';
 import { useMemo } from 'react';
-import { accessTokenAtom, refreshTokenAtom } from '@/state/Token';
+import { useAccessTokenAtom, useRefreshTokenAtom } from '@/state/token/hooks';
 
 interface UpdateJWTParams {
   accessToken: string
@@ -10,8 +9,8 @@ interface UpdateJWTParams {
 
 export default function useJWTs() {
   const queryClient = useQueryClient()
-  const [accessToken, setAccessToken] = useAtom(accessTokenAtom)
-  const [, setRefreshToken] = useAtom(refreshTokenAtom)
+  const [accessToken, setAccessToken] = useAccessTokenAtom()
+  const [, setRefreshToken] = useRefreshTokenAtom()
   const hasLogin = useMemo(() => Boolean(accessToken), [accessToken])
   const updateJWT = ({ accessToken, refreshToken }: UpdateJWTParams) => {
     setAccessToken(accessToken)

@@ -1,24 +1,23 @@
 import type { SigninResponseType } from '@/lib/network/types/account';
 import type { ErrorResponse } from '@/lib/network/types/error';
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { useAtom } from 'jotai'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { MY_INFO_QUERY_KEY } from '@/hooks/Query/keys/account';
 import useGetSigninAccountInfo from '@/hooks/Query/useGetLoginAccountInfo';
 import { SigninApi } from '@/lib/network/account/SigninApi'
 import { ErrorCode } from '@/mocks/middleware/ErrorHandler';
-import { currentProfileAtom } from '@/state/Profile';
-import { accessTokenAtom, refreshTokenAtom } from '@/state/Token'
+import { useCurrentProfileAtom } from '@/state/profile/hooks';
+import { useAccessTokenAtom, useRefreshTokenAtom } from '@/state/token/hooks';
 
 export default function useSigninWIthPasswordMutate() {
   const router = useRouter()
   const queryClient = useQueryClient()
   const [accountInfoEnabled, setAccountInfoEnabled] = useState(false)
   const { data: accountInfo } = useGetSigninAccountInfo({ enabled: accountInfoEnabled })
-  const [, setCurrentProfile] = useAtom(currentProfileAtom)
-  const [, setAccessToken] = useAtom(accessTokenAtom)
-  const [, setRefreshToken] = useAtom(refreshTokenAtom)
+  const [, setCurrentProfile] = useCurrentProfileAtom()
+  const [, setAccessToken] = useAccessTokenAtom()
+  const [, setRefreshToken] = useRefreshTokenAtom()
   const { mutate: signinMutate } = useMutation({
     mutationFn: SigninApi,
     onSuccess: loginSuccessAction,

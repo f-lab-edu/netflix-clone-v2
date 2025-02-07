@@ -1,5 +1,5 @@
 declare interface Profile {
-  accountId: number
+  id: number
   name: string
   // 프로필 잠금 설정
   isLocked: boolean

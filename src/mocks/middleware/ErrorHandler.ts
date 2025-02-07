@@ -9,7 +9,8 @@ export const ErrorCode = {
   WRONG_TOKEN_THROWN: -3,
   REFRESH_TOKEN_VERIFICATION_FAILED: -4,
   DUPLICATE_EMAIL: -5,
-  SIGNIN_FAILED: -100
+  SIGNIN_FAILED: -100,
+  DISABLE_DELETE_DEFAULT_PROFILE: -300
 }
 
 export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBodyType, ResponseBodyType extends DefaultBodyType = DefaultBodyType, P extends PathParams = PathParams>(

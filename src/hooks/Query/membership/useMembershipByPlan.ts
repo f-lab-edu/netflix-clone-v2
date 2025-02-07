@@ -1,10 +1,7 @@
-import { useSuspenseQuery } from '@tanstack/react-query';
-import { GetMembershipList } from '@/lib/network/membership/GetMembershipList';
+import useMembershipList from './useMembershipList';
 
 export default function useMembershipByPlan(plan?: MembershipPlanTier) {
-  return useSuspenseQuery({
-    queryKey: ['membership-list'],
-    queryFn: GetMembershipList,
+  return useMembershipList({
     select({ list }) {
       return list.find(v => v.plan === plan)
     }

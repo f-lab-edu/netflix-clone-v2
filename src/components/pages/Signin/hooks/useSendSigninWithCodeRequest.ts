@@ -1,14 +1,12 @@
 import type { SigninWithCodeResponseType } from '@/lib/network/types/account';
-import { useMutation } from '@tanstack/react-query'
 import { useRouter } from 'next/router';
-import { SigninWithLoginCodeApi } from '@/lib/network/account/SigninWithLoginCodeApi'
+import useSigninWithCodeMutation from '@/hooks/mutation/account/useSigninWithCodeMutation';
 import { useSigninEmailOrPhoneAtom } from '@/state/account/hooks';
 
 export default function useSendSigninWithCodeRequest() {
   const router = useRouter()
   const [, setSigninEmailOrPhone] = useSigninEmailOrPhoneAtom()
-  const { mutate: signinWithLoginCodeMutate } = useMutation({
-    mutationFn: SigninWithLoginCodeApi,
+  const { mutate: signinWithLoginCodeMutate } = useSigninWithCodeMutation({
     onMutate(variables) {
       setSigninEmailOrPhone(variables.emailOrPhone)
       return () => {

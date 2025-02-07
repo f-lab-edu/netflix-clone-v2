@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
+import useRegistPaymentMutation from '@/hooks/mutation/payment/useRegistPaymentMutation'
 import { useSignupMembershipTier } from '@/state/signup/hooks'
-import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import { CardInfoDefaultValue } from './CardInfoForm'
 import ChosenPlanTier from './ChosenPlanTier'
 import RHFCardInfoArea from './RHFCardInfoArea'
@@ -28,7 +28,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
   })
   const [chosenTier] = useSignupMembershipTier()
 
-  const { RegistPaymentMutation } = useRegistPaymentMutation()
+  const { mutate: registPaymentMutate } = useRegistPaymentMutation()
   const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {
     const { billingAgree,
       paymentGateWayPolicy,
@@ -36,7 +36,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationAbroadPolicy,
       transferInformationToThirdPartiesPolicy, ...cardObj
     } = obj
-    RegistPaymentMutation({
+    registPaymentMutate({
       paymentMethod: {
         type: 'card',
         card: cardObj

@@ -18,7 +18,7 @@ export default function PlatformDetailLarge({
   const { t } = useTranslation(['page-signup'])
 
   return <div css={SignupPlatformLargeCardListCss}>
-    {data.map((v) => {
+    {data.list.map((v) => {
       const selected = selectedType === v.plan
       return <LabelRadio key={`radio-${v.plan}`}
         value={v.plan}

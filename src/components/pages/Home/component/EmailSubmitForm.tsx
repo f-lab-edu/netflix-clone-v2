@@ -1,11 +1,10 @@
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
-import { EmailCheckApi } from '@/lib/network/account/EmailCheckApi';
+import useEmailCheckMutation from '@/hooks/mutation/account/useEmailCheckMutation';
 import { pattern } from '@/lib/validators';
 import { EmailFormFinishSignupBtnCss, EmailFormRowLayoutCss, EmailFormSubmitBtnCss } from '../styles/EmailSubmitFormCss';
 import { HeroDescrpition2 } from '../styles/HeroSection';
@@ -26,8 +25,7 @@ export default function EmailSubmitForm() {
   const { hasLogin } = useJWTs()
 
   const { invalid, error, isTouched } = getFieldState('email')
-  const { mutate, isPending } = useMutation({
-    mutationFn: EmailCheckApi,
+  const { mutate: emailCheckMutate, isPending } = useEmailCheckMutation({
     onSuccess(data) {
       if (data.checkResult) {
         router.push('/signin')
@@ -38,7 +36,7 @@ export default function EmailSubmitForm() {
   })
   async function submitAction(obj: FormData) {
     sessionStorage.setItem('sign-tryed-email', obj.email)
-    mutate(obj.email)
+    emailCheckMutate(obj.email)
   }
   function gotoRegistMembershipWithPaymentMethod() {
     router.push('/signup')

@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { signupMembershipTier } from '@/state/Signup'
 import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
 import { CardInfoDefaultValue } from './CardInfoForm'
-import ChoosenPlanTier from './ChoosenPlanTier'
+import ChosenPlanTier from './ChosenPlanTier'
 import RHFCardInfoArea from './RHFCardInfoArea'
 import RHFFirstCardPaymentPolicyInfoArea from './RHFFirstCardPaymentPolicyInfoArea'
 
@@ -27,7 +27,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationToThirdPartiesPolicy: false
     }
   })
-  const [choosenTier] = useAtom(signupMembershipTier)
+  const [chosenTier] = useAtom(signupMembershipTier)
 
   const { RegistPaymentMutation } = useRegistPaymentMutation()
   const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {
@@ -42,7 +42,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
         type: 'card',
         card: cardObj
       },
-      membershipTier: choosenTier,
+      membershipTier: chosenTier,
       policies: {
         billingAgree,
         paymentGateWayPolicy,
@@ -59,7 +59,7 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
   return <FormProvider {...rhf}>
     <form onSubmit={rhf.handleSubmit(cardSubmitAction)}>
       <RHFCardInfoArea />
-      <ChoosenPlanTier />
+      <ChosenPlanTier />
       <RHFFirstCardPaymentPolicyInfoArea />
       <button>{submitBtnText}</button>
     </form>

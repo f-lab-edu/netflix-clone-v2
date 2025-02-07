@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
 import { theme } from '@/components/ui/theme';
 
-export const ChoosenPlanTierAreaStyle = css({
+export const ChosenPlanTierAreaStyle = css({
   background: theme.color.greyF4.default,
   borderRadius: theme.borderRadius.sm,
   display: 'grid',
@@ -12,20 +12,20 @@ export const ChoosenPlanTierAreaStyle = css({
   marginTop: '10px',
 })
 
-export const ChoosenPlanTierMonthlyStyle = css({
+export const ChosenPlanTierMonthlyStyle = css({
   gridArea: 'monthly',
   fontWeight: 500,
   color: theme.color.grey33.default,
   fontSize: '1rem'
 })
 
-export const ChoosenPlanTierTitleStyle = css({
+export const ChosenPlanTierTitleStyle = css({
   gridArea: 'title',
   color: theme.color.grey73.default,
   fontSize: '1rem'
 })
 
-export const ChoosenPlanTierChangeLinkStyle = css({
+export const ChosenPlanTierChangeLinkStyle = css({
   gridArea: 'change',
   display: 'flex',
   justifyContent: 'center',

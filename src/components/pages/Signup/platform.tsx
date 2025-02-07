@@ -1,5 +1,4 @@
 import type { NextPageWithLayout } from '@/pages/_app';
-import { useAtom } from 'jotai';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Suspense, useState } from 'react';
@@ -7,7 +6,7 @@ import SignupLayout from '@/components/layout/SignupLayout';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 import useWindowResize from '@/hooks/useWindowResize';
-import { signupMembershipTier } from '@/state/Signup';
+import { useSignupMembershipTier } from '@/state/signup/hooks';
 import StepHeader from './component/StepHeader';
 import PlatformDetailLarge from './component/platform/PlatfomDetailLarge';
 import PlatformDetailSlim from './component/platform/PlatfomDetailSlim';
@@ -17,7 +16,8 @@ import { SignupPlatformContentCss, SignupPlatformContentLargeCss } from './style
 const PlatformPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
   const { hasLogin } = useJWTs()
-  const [, setMembershipTier] = useAtom(signupMembershipTier)
+
+  const [, setMembershipTier] = useSignupMembershipTier()
   // on resize display width > over 1050px change contents as full width mode
   const {
     isLarge

@@ -1,12 +1,11 @@
 import type { SigninWithCodeResponseType } from '@/lib/network/types/account';
-import { useAtom } from 'jotai'
 import { useRouter } from 'next/router';
 import useSigninWithCodeMutation from '@/hooks/mutation/account/useSigninWithCodeMutation';
-import { signinEmailOrPhoneAtom } from '@/state/Account'
+import { useSigninEmailOrPhoneAtom } from '@/state/account/hooks';
 
 export default function useSendSigninWithCodeRequest() {
   const router = useRouter()
-  const [, setSigninEmailOrPhone] = useAtom(signinEmailOrPhoneAtom)
+  const [, setSigninEmailOrPhone] = useSigninEmailOrPhoneAtom()
   const { mutate: signinWithLoginCodeMutate } = useSigninWithCodeMutation({
     onMutate(variables) {
       setSigninEmailOrPhone(variables.emailOrPhone)

@@ -1,17 +1,16 @@
 import type { ErrorResponse } from '@/lib/network/types/error';
-import { useAtom } from 'jotai'
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import useGetSigninAccountInfo from '@/hooks/Query/account/useGetLoginAccountInfo';
 import useSigninWithPasswordMutation from '@/hooks/mutation/account/useSigninWithPasswordMutation';
 import { ErrorCode } from '@/mocks/middleware/ErrorHandler';
-import { currentProfileAtom } from '@/state/Profile';
+import { useCurrentProfileAtom } from '@/state/profile/hooks';
 
 export default function useSigninWithPasswordMutate() {
   const router = useRouter()
   const [accountInfoEnabled, setAccountInfoEnabled] = useState(false)
   const { data: accountInfo } = useGetSigninAccountInfo({ enabled: accountInfoEnabled })
-  const [, setCurrentProfile] = useAtom(currentProfileAtom)
+  const [, setCurrentProfile] = useCurrentProfileAtom()
   const { mutate: signinMutate } = useSigninWithPasswordMutation({
     onSuccess: loginSuccessAction,
     onError: loginFailedAction

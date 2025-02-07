@@ -19,41 +19,41 @@
       "download": "Download devices",
       "ads": "Ads"
     },
-    "tier": {
-      "adsStandard": {
-        "title": "Standard with ads",
-        "resolutionSimple": "1080p",
-        "price": "5500.0",
-        "quality": "Good",
-        "resolution": "1080p (Full HD)",
-        "devices": "TV, computer, mobile phone, tablet",
-        "watch": "2",
-        "download": "2",
-        "ads": "Less than you might think"
-      },
-      "standard": {
-        "title": "Standard",
-        "resolutionSimple": "1080p",
-        "price": "13500.0",
-        "quality": "Good",
-        "resolution": "1080p (Full HD)",
-        "devices": "TV, computer, mobile phone, tablet",
-        "watch": "2",
-        "download": "2",
-        "ads": "No ads"
-      },
-      "premium": {
-        "title": "Premium",
-        "resolutionSimple": "4K + HDR",
-        "price": "17000.0",
-        "quality": "Best",
-        "resolution": "4K (Ultra HD) + HDR",
-        "audio": "Included",
-        "devices": "TV, computer, mobile phone, tablet",
-        "watch": "4",
-        "download": "6",
-        "ads": "No ads"
-      }
+    "tierTitles": {
+      "adsStandard": "Standard with ads",
+      "standard": "Standard",
+      "premium": "Premium"
+    },
+    "ads": {
+      "true": "Less than you might think",
+      "false": "No ads"
+    },
+    "maxContentResolution": {
+      "UHD": "4K(UHD) + HDR",
+      "FHD": "1080p (Full HD)",
+      "HD": "",
+      "SD": ""
+    },
+    "maxContentResolutionSimple": {
+      "UHD": "4K + HDR",
+      "FHD": "1080p",
+      "HD": "",
+      "SD": ""
+    },
+    "resolutionQuality": {
+      "UHD": "Best",
+      "FHD": "Good",
+      "HD": "",
+      "SD": ""
+    },
+    "deviceType": {
+      "tv": "TV",
+      "computer": "computer",
+      "mobile": "mobile phone",
+      "tablet": "tablet"
+    },
+    "soundQuality": {
+      "immersive": "Included"
     }
   },
   "registration": {

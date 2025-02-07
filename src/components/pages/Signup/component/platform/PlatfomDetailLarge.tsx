@@ -1,11 +1,8 @@
-import type { PlatformInfoItem } from './PlatformInfoList';
 import { useTranslation } from 'next-i18next';
-import { useMemo } from 'react';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
+import useMembershipList from '@/hooks/Query/membership/useMembershipList';
 import { PlatformDetailLargeCardCss, PlatformDetailLargeCardCssSelected } from '../../styles/PlatformCardStyle';
 import { SignupPlatformLargeCardListCss } from '../../styles/SignupPlayform';
-import { CardDisplayOrder } from '../../utils/CardDisplayOrder';
-import { getPlatformInfoListByTier } from '../../utils/getPlatformInfoListByTier';
 import PlatformInfoList from './PlatformInfoList';
 import PlatformSlimCard from './PlatformSlimCard';
 interface PlatformDetailLargeProps {
@@ -17,35 +14,29 @@ export default function PlatformDetailLarge({
   selectedType,
   onSelectedChange
 }: Readonly<PlatformDetailLargeProps>) {
-  const { t, i18n } = useTranslation(['page-signup'])
-  const infoList = useMemo(() => {
-    return CardDisplayOrder.reduce((acc, tier) => {
-      acc[tier] = getPlatformInfoListByTier(i18n, tier)
-      return acc
-      // eslint-disable-next-line no-unused-vars
-    }, {} as { [k in MembershipPlanTier]: PlatformInfoItem[] })
-  }, [i18n])
+  const { data } = useMembershipList()
+  const { t } = useTranslation(['page-signup'])
 
   return <div css={SignupPlatformLargeCardListCss}>
-    {CardDisplayOrder.map((v) => {
-      const selected = selectedType === v
-      return <LabelRadio key={`radio-${v}`}
-        value={v}
+    {data.list.map((v) => {
+      const selected = selectedType === v.plan
+      return <LabelRadio key={`radio-${v.plan}`}
+        value={v.plan}
         name="platformCard"
         css={[PlatformDetailLargeCardCss, selected && PlatformDetailLargeCardCssSelected]}
         onChange={() => {
-          onSelectedChange(v)
+          onSelectedChange(v.plan)
         }}
       >
         <PlatformSlimCard
           css={{ margin: '8px', width: 'auto' }}
           alwaysBg
-          value={v}
-          title={t(`page-signup:platform.tier.${v}.title`)}
-          sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
+          value={v.plan}
+          title={t(`page-signup:platform.tierTitles.${v.plan}`)}
+          sub={t(`page-signup:platform.maxContentResolutionSimple.${v.maxContentResolution}`)}
           isChecked={selected}
         />
-        <PlatformInfoList large={true} infoList={infoList[v]} />
+        <PlatformInfoList large={true} plan={v.plan} />
       </LabelRadio>
     })}
   </div>

@@ -7,9 +7,11 @@ declare interface AccountBaseInfo {
   phoneVerified: boolean
   policy: boolean
   specialOffer: boolean
-  membership?: MembershipPlans
-  paymentMethod?: PaymentMethod
-  profiles?: Profile[]
+  billingPolicies: PaymentMethodPolicies
+  membership?: MembershipPlanTier
+  paymentMethod?: number
+  defaultProfileId: number
+  profileIds?: number[]
 }
 declare interface AccountTotalInfo {
   billing: {
@@ -45,10 +47,6 @@ declare interface AccountTotalInfo {
    */
   security: {
     /**
-     * 현재 계정 정보
-     */
-    currentInfo: AccountBaseInfo
-    /**
      * 액세스 정보
      */
     accessInfo: {
@@ -83,55 +81,38 @@ declare type PaymentMethodType = 'phone' | 'card' | 'simplePay'
 /**
  * 결제 수단
  */
-declare interface PaymentMethod {
+type PaymentMethod = {
   id: number
+  accountId: number
+  /**
+   * 결제 수단 타입
+   */
   type: PaymentMethodType
+  simplePay?: PaymentMethodSimplePayInfo
+  phone?: PaymentMethodPhoneInfo
+  card?: PaymentMethodCardInfo
 }
 
-declare interface PaymentMethodSimplePay extends PaymentMethod {
+interface PaymentMethodSimplePayInfo {
   /**
-   * 결제 수단 타입
+   * simplePay의 이름
    */
-  type: 'simplePay'
-  /**
-   * 결제 수단의 type이 simplePay인 경우 simplePay 정보
-   */
-  simplePay: {
-    /**
-     * simplePay의 id
-     */
-    id: number
-    /**
-     * simplePay의 이름
-     */
-    name: string
-    paymentToken: string
-  }
+  name: string
+  paymentToken: string
 }
-
-declare interface PaymentMethodPhone extends PaymentMethod {
+interface PaymentMethodPhoneInfo {
   /**
-   * 결제 수단 타입
+   * 전화번호
    */
-  type: 'phone'
+  phoneNumber: string
   /**
-   * 결제 수단의 type이 phone인 경우 전화번호 정보
+   * 통신사
    */
-  phone: {
-    /**
-     * 전화번호
-     */
-    phoneNumber: string
-    /**
-     * 통신사
-     */
-    carrier: string
-    paymentToken: string
-  }
+  carrier: string
+  paymentToken: string
 }
 
 declare interface PaymentMethodCardInfo {
-  isFirst: boolean
   cardNumber: string
   cardHolderName: string
   expiryDate: string
@@ -146,37 +127,26 @@ declare interface PaymentMethodPolicies {
   billingAgree: boolean
 }
 
-declare type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
-
-declare interface PaymentMethodCard extends PaymentMethod {
-  /**
-   * 결제 수단 타입
-   */
-  type: 'card'
-  /**
-   * 결제 수단의 type이 card인 경우 카드 정보
-   */
-  card: PaymentMethodCardInfo
-}
-
 declare type AgeRestriction = 0 | 7 | 12 | 15 | 19
 
 declare type MembershipPlanTier = 'adsStandard' | 'standard' | 'premium'
+
+declare type DeviceType = 'tv' | 'computer' | 'mobile' | 'tablet'
 
 declare interface MembershipPlans {
   id: number
   /**
    * 플랜 명
    */
-  plan: string
-  /**
-   * 설명
-   */
-  description: string
+  plan: MembershipPlanTier
   /**
    * 가격
    */
   price: number
+  /**
+   * 멤버쉽에서 허용된 디바이스 목록
+   */
+  device: DeviceType[]
   /**
    * 동시 시청 가능 디바이스 숫자
    */
@@ -197,4 +167,8 @@ declare interface MembershipPlans {
    * 광고 여부
    */
   ads: boolean
+  /**
+   * 화면 노출 순서
+   */
+  sortOrder: number
 }

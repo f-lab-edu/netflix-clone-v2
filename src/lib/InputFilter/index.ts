@@ -12,12 +12,12 @@ export const ExpireDateTextFilter = (t: string): string => {
 
 export const BirthDateEnTypeFilter = (t: string): string => {
   const numberText = NumberTextFilter(t)
-  const matchResult = /(\d{2})(\d{2})?(\d{4})?(.+)/.exec(numberText)
+  const matchResult = /(\d{2})?(\d{2})?(\d{4})?(.+)/.exec(numberText)
   return matchResult ? [matchResult[1], matchResult[2], matchResult[3], matchResult[4]].filter(Boolean).slice(0, 3).join('/') : ''
 }
 
 export const BirthDateKrTypeFilter = (t: string): string => {
   const numberText = NumberTextFilter(t)
-  const matchResult = /(\d{4})(\d{2})?(\d{2})?(.+)/.exec(numberText)
+  const matchResult = /(\d{4})?(\d{2})?(\d{2})?(.+)/.exec(numberText)
   return matchResult ? [matchResult[1], matchResult[2], matchResult[3], matchResult[4]].filter(Boolean).slice(0, 3).join('/') : ''
 }

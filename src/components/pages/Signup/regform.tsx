@@ -1,6 +1,5 @@
 import type { SignupRequestType } from '@/lib/network/types/account';
 import type { NextPageWithLayout } from '@/pages/_app';
-import { useMutation } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { Trans, useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
@@ -8,7 +7,7 @@ import SignupLayout from '@/components/layout/SignupLayout';
 import LightCheckbox from '@/components/ui/Form/LightCheckbox';
 import LightTextInput from '@/components/ui/Form/LightTextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
-import { SignupApi } from '@/lib/network/account/SignupApi';
+import useSignupMutation from '@/hooks/mutation/account/useSignupMutation';
 import { pattern } from '@/lib/validators';
 import StepHeader from './component/StepHeader';
 import { SignupRegformContainerCss, SignupRegformDescCss, SignupRegformInputAreaCss, SignupRegformShellCss, SignupRegformStepDisplayCss, SignupRegformSubmitCss } from './styles/SignupRegformStyle';
@@ -29,8 +28,7 @@ const RegformPage: NextPageWithLayout = () => {
     }
   })
 
-  const { mutate } = useMutation({
-    mutationFn: SignupApi,
+  const { mutate } = useSignupMutation({
     onSuccess(data) {
       if (data.result) {
         router.push('/signin')

@@ -21,7 +21,7 @@ const config: UserConfig = {
     init: (i18next: i18n) => {
       i18next.services.formatter?.add('krwCurrency', (value, lng) => {
         const digitNumber = new Intl.NumberFormat('ko-kr', { maximumSignificantDigits: 3 }).format(
-          value,
+          value || 0,
         )
         if (lng === 'kr') {
           return digitNumber + ' 원'

@@ -19,41 +19,41 @@
       "download": "저장 디바이스",
       "ads": "광고"
     },
-    "tier": {
-      "adsStandard": {
-        "title": "광고형 스탠다드",
-        "resolutionSimple": "1080p",
-        "price": "5500.0",
-        "quality": "좋음",
-        "resolution": "1080p(풀 HD)",
-        "devices": "TV, 컴퓨터, 스마트폰, 태블릿",
-        "watch": "2",
-        "download": "2",
-        "ads": "생각보다 적은 광고"
-      },
-      "standard": {
-        "title": "스탠다드",
-        "resolutionSimple": "1080p",
-        "price": "13500.0",
-        "quality": "좋음",
-        "resolution": "1080p(풀 HD)",
-        "devices": "TV, 컴퓨터, 스마트폰, 태블릿",
-        "watch": "2",
-        "download": "2",
-        "ads": "무광고"
-      },
-      "premium": {
-        "title": "프리미엄",
-        "resolutionSimple": "4K + HDR",
-        "price": "17000.0",
-        "quality": "가장 좋음",
-        "resolution": "4K(UHD) + HDR",
-        "audio": "포함",
-        "devices": "TV, 컴퓨터, 스마트폰, 태블릿",
-        "watch": "4",
-        "download": "6",
-        "ads": "무광고"
-      }
+    "tierTitles": {
+      "adsStandard": "광고형 스탠다드",
+      "standard": "스탠다드",
+      "premium": "프리미엄"
+    },
+    "ads": {
+      "true": "생각보다 적은 광고",
+      "false": "무광고"
+    },
+    "maxContentResolution": {
+      "UHD": "4K(UHD) + HDR",
+      "FHD": "1080p(풀 HD)",
+      "HD": "",
+      "SD": ""
+    },
+    "maxContentResolutionSimple": {
+      "UHD": "4K + HDR",
+      "FHD": "1080p",
+      "HD": "",
+      "SD": ""
+    },
+    "resolutionQuality": {
+      "UHD": "가장 좋음",
+      "FHD": "좋음",
+      "HD": "",
+      "SD": ""
+    },
+    "deviceType": {
+      "tv": "TV",
+      "computer": "컴퓨터",
+      "mobile": "스마트폰",
+      "tablet": "테블릿"
+    },
+    "soundQuality": {
+      "immersive": "포함"
     },
     "info": {
       "info1": "광고형 멤버십에 대해 자세히 알아보세요. 광고형 멤버십을 선택하면, 맞춤형 광고와 Netflix의 개인정보 처리방침에 부합하는 기타 목적을 위해 생년월일을 제공해 주셔야 합니다.",

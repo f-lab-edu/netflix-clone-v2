@@ -1,8 +1,14 @@
 import { HttpResponse } from 'msw'
 import AccountHandlers from './account'
+import MembershipHandlers from './membership'
+import PaymentHandlers from './payment'
+import ProfileHandlers from './profile'
 
 const handlers = [
-  ...AccountHandlers
+  ...AccountHandlers,
+  ...MembershipHandlers,
+  ...PaymentHandlers,
+  ...ProfileHandlers,
 ]
 
 const successResponseObj = {

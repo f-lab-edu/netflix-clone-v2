@@ -1,9 +1,8 @@
 import { useTranslation } from 'next-i18next';
 import { useMemo } from 'react';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
+import useMembershipList from '@/hooks/Query/membership/useMembershipList';
 import { SignupPlatformCardListCss } from '../../styles/SignupPlayform';
-import { CardDisplayOrder } from '../../utils/CardDisplayOrder';
-import { getPlatformInfoListByTier } from '../../utils/getPlatformInfoListByTier';
 import PlatformInfoList from './PlatformInfoList';
 import PlatformSlimCard from './PlatformSlimCard';
 
@@ -16,36 +15,34 @@ export default function PlatformDetailSlim({
   selectedType,
   onSelectedChange
 }: Readonly<PlatformDetailSlimProps>) {
-  const { t, i18n } = useTranslation(['page-signup'])
+  const { data } = useMembershipList()
+  const { t } = useTranslation(['page-signup'])
 
-  const infoList = useMemo(() => {
-    return getPlatformInfoListByTier(i18n, selectedType)
-  }, [selectedType, i18n])
   const cardList = useMemo(() => {
-    return CardDisplayOrder.map((v) => {
+    return data.list.map((v) => {
       return <LabelRadio
-        key={`card-${v}`}
-        value={v}
+        key={`card-${v.plan}`}
+        value={v.plan}
         name="platformCard"
         onChange={() => {
           if (v) {
-            onSelectedChange(v)
+            onSelectedChange(v.plan)
           }
         }}
       >
         <PlatformSlimCard
-          value={v}
-          title={t(`page-signup:platform.tier.${v}.title`)}
-          sub={t(`page-signup:platform.tier.${v}.resolutionSimple`)}
-          isChecked={selectedType === v}
+          value={v.plan}
+          title={t(`page-signup:platform.tierTitles.${v.plan}`)}
+          sub={t(`page-signup:platform.maxContentResolutionSimple.${v.maxContentResolution}`)}
+          isChecked={selectedType === v.plan}
         />
       </LabelRadio>
     })
-  }, [selectedType, onSelectedChange, t])
+  }, [selectedType, onSelectedChange, t, data])
   return <>
     <div css={SignupPlatformCardListCss}>
       {cardList}
     </div>
-    <PlatformInfoList large={false} infoList={infoList} />
+    <PlatformInfoList large={false} plan={selectedType} />
   </>
 }

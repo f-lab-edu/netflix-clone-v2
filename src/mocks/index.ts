@@ -15,7 +15,8 @@ async function initMSW() {
     server.listen(sharedMswOptions)
   } else {
     const { worker } = await import('./browser')
-    worker.start(sharedMswOptions)
+    const result = await worker.start({ ...sharedMswOptions, quiet: true })
+    return result ? true : false
   }
 }
 

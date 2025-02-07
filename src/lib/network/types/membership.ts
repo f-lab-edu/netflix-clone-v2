@@ -1,8 +1,4 @@
-export type MembershipResponseType = {
-  membership: MembershipPlans
-}
-
-export type MembershipListResponseType = {
+export type GetMembershipListResponseType = {
   list: MembershipPlans[]
 }
 

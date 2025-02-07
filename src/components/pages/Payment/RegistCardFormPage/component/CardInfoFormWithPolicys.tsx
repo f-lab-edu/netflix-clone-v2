@@ -1,6 +1,9 @@
+import { useRouter } from 'next/router'
 import { FormProvider, useForm } from 'react-hook-form'
-import useRegistPaymentMutation from '../hooks/useRegistPaymentMutation'
+import useRegistPaymentMutation from '@/hooks/mutation/payment/useRegistPaymentMutation'
+import { useSignupMembershipTier } from '@/state/signup/hooks'
 import { CardInfoDefaultValue } from './CardInfoForm'
+import ChosenPlanTier from './ChosenPlanTier'
 import RHFCardInfoArea from './RHFCardInfoArea'
 import RHFFirstCardPaymentPolicyInfoArea from './RHFFirstCardPaymentPolicyInfoArea'
 
@@ -11,6 +14,7 @@ interface CardInfoFormWithPolicysProps {
 export type PaymentMethodCardInfoWithPolicy = PaymentMethodCardInfo & PaymentMethodPolicies
 
 const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps) => {
+  const router = useRouter()
   const rhf = useForm<PaymentMethodCardInfoWithPolicy>({
     mode: 'onBlur',
     defaultValues: {
@@ -22,8 +26,9 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationToThirdPartiesPolicy: false
     }
   })
+  const [chosenTier] = useSignupMembershipTier()
 
-  const { RegistPaymentMutation } = useRegistPaymentMutation()
+  const { mutate: registPaymentMutate } = useRegistPaymentMutation()
   const cardSubmitAction = (obj: PaymentMethodCardInfoWithPolicy) => {
     const { billingAgree,
       paymentGateWayPolicy,
@@ -31,11 +36,12 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
       transferInformationAbroadPolicy,
       transferInformationToThirdPartiesPolicy, ...cardObj
     } = obj
-    RegistPaymentMutation({
+    registPaymentMutate({
       paymentMethod: {
         type: 'card',
         card: cardObj
       },
+      membershipTier: chosenTier,
       policies: {
         billingAgree,
         paymentGateWayPolicy,
@@ -43,11 +49,16 @@ const CardInfoFormWithPolicys = ({ submitBtnText }: CardInfoFormWithPolicysProps
         transferInformationAbroadPolicy,
         transferInformationToThirdPartiesPolicy
       }
+    }, {
+      onSuccess() {
+        router.push('/firstProfile')
+      }
     })
   }
   return <FormProvider {...rhf}>
     <form onSubmit={rhf.handleSubmit(cardSubmitAction)}>
       <RHFCardInfoArea />
+      <ChosenPlanTier />
       <RHFFirstCardPaymentPolicyInfoArea />
       <button>{submitBtnText}</button>
     </form>

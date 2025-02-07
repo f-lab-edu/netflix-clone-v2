@@ -41,6 +41,9 @@ declare module '@emotion/react' {
       greyF3: {
         default: '#f3f3f3'
       },
+      greyF4: {
+        default: '#f4f4f4'
+      },
       grey: {
         /** @deprecated use theme.color.grey80.default */
         default: 'rgb(128,128,128)',

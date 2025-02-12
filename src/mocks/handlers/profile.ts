@@ -63,14 +63,16 @@ const handlers = [
     }
 
     const id = InsertMSWProfile(newProfile)
+    let isFirst = false
     if (!accountInfo.defaultProfileId) {
+      isFirst = true
       accountInfo.defaultProfileId = id
     }
 
     accountInfo.profileIds = accountInfo.profileIds ? [...accountInfo.profileIds, id] : [id]
     UpdateMSWAccountById(token.payload.accountId, accountInfo)
     await delay(2000)
-    return createSuccessResponse({ result: true })
+    return createSuccessResponse({ id, isFirst })
   })),
   http.post('/api/profile', ErrorHandler<
     UpdateProfileRequestType,

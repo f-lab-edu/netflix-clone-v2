@@ -4,7 +4,8 @@ export type CreateProfileRequestType = {
   name: string
 }
 export type CreateProfileResponseType = {
-  result: boolean
+  id: number
+  isFirst: boolean
 } & ErrorResponse
 
 export type UpdateProfileRequestType = {

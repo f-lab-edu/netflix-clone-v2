@@ -3,6 +3,7 @@ import { useTranslation } from 'next-i18next'
 import { FormProvider, useForm } from 'react-hook-form'
 import BrowserLayout from '@/components/layout/BrowserLayout'
 import RHFProfileForm from '@/components/ui/Profile/RHFProfileForm'
+import { ProfileFormCss } from '@/components/ui/Profile/RHFProfileForm/style'
 import { FirstProfileFormCss, FirstProfileShellCss } from './styles/FirstProfilePageStyle'
 
 const FirstProfilePage: NextPageWithLayout = () => {
@@ -16,15 +17,18 @@ const FirstProfilePage: NextPageWithLayout = () => {
   const saveProfileAction = () => {
   }
   return <div css={FirstProfileShellCss}>
-    <FormProvider {...form}>
-      <RHFProfileForm
-        css={FirstProfileFormCss}
-        title={t('page-firstProfile:title')}
-        desc={t('page-firstProfile:desc')}
-        submitAction={saveProfileAction}
-        isDark
-      />
-    </FormProvider>
+    <form
+      css={[FirstProfileFormCss, ProfileFormCss]}
+      onSubmit={form.handleSubmit(saveProfileAction)}
+    >
+      <FormProvider {...form}>
+        <RHFProfileForm
+          title={t('page-firstProfile:title')}
+          desc={t('page-firstProfile:desc')}
+          isDark
+        />
+      </FormProvider>
+    </form>
   </div>
 }
 

@@ -5,7 +5,7 @@ import Divider from '../../Divider'
 import TextInput from '../../Form/TextInput'
 import ConditionalRender from '../../utils/ConditionalRender'
 import ProfileImage from '../ProfileImage'
-import { ProfileBtnAreaGridCss, ProfileBtnStyleCss, ProfileChildDescCss, ProfileChildrenGridCss, ProfileChildSwitchCss, ProfileChildTitleCss, ProfileEditFieldGridCss, ProfileFormCss, ProfileTitleAreaCss } from './style'
+import { ProfileBtnAreaGridCss, ProfileBtnStyleCss, ProfileChildDescCss, ProfileChildrenGridCss, ProfileChildSwitchCss, ProfileChildTitleCss, ProfileEditFieldGridCss, ProfileTitleAreaCss } from './style'
 
 interface ProfileOptions {
   name: string
@@ -17,7 +17,6 @@ interface RHFProfileFormProps {
   desc: string
   hasChildrenOption?: boolean
   hasCancelBtn?: boolean
-  submitAction: (_profile: ProfileOptions) => void
   isDark?: boolean
 }
 export default function RHFProfileForm({
@@ -25,16 +24,13 @@ export default function RHFProfileForm({
   desc,
   hasChildrenOption,
   hasCancelBtn,
-  submitAction,
   isDark,
-  className,
 }: RHFProfileFormProps & CssProps) {
   const { t } = useTranslation(['common'])
   const {
-    handleSubmit,
     register
   } = useFormContext<ProfileOptions>()
-  return <form className={className} css={ProfileFormCss} onSubmit={handleSubmit(submitAction)}>
+  return <>
     <div css={ProfileTitleAreaCss}>
       <h1>{title}</h1>
       <h3>{desc}</h3>
@@ -102,5 +98,5 @@ export default function RHFProfileForm({
         }}
       />
     </div>
-  </form>
+  </>
 }

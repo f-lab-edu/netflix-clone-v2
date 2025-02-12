@@ -1,6 +1,6 @@
 import type { CreateProfileRequestType, CreateProfileResponseType, DeleteProfileRequestPathType, DeleteProfileResponseType, GetProfileRequestPathType, GetProfileResponseType, GetProfilesResponseType, UpdateProfileRequestType, UpdateProfileResponseType } from '@/lib/network/types/profile';
 import type { DefaultBodyType } from 'msw';
-import { http } from 'msw';
+import { delay, http } from 'msw';
 import { ErrorCode, ErrorHandler } from '../middleware/ErrorHandler';
 import { parseAuth } from '../middleware/token';
 import { GetMSWAccountById, UpdateMSWAccountById } from '../mockDataStorage/account';
@@ -50,6 +50,12 @@ const handlers = [
   >(async ({ request }) => {
     const token = await parseAuth(request.headers)
     const accountInfo = GetMSWAccountById(token.payload.accountId)
+    if (
+      accountInfo.profileIds &&
+      accountInfo.profileIds.length > 5
+    ) {
+      throw new ErrorException('Profile limit', ErrorCode.ALREADY_TOO_MANY_PROFILE_HAVE)
+    }
     const newProfile: Omit<Profile, 'id'> = {
       ...profileTemplate,
       name: '',
@@ -57,14 +63,16 @@ const handlers = [
     }
 
     const id = InsertMSWProfile(newProfile)
+    let isFirst = false
     if (!accountInfo.defaultProfileId) {
+      isFirst = true
       accountInfo.defaultProfileId = id
     }
 
     accountInfo.profileIds = accountInfo.profileIds ? [...accountInfo.profileIds, id] : [id]
     UpdateMSWAccountById(token.payload.accountId, accountInfo)
-
-    return createSuccessResponse({ result: true })
+    await delay(2000)
+    return createSuccessResponse({ id, isFirst })
   })),
   http.post('/api/profile', ErrorHandler<
     UpdateProfileRequestType,

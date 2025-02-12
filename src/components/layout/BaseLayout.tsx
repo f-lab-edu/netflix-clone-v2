@@ -17,7 +17,16 @@ interface BaseLayoutProps {
   seconderyTextColor: string
 }
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    mutations: {
+      throwOnError: true
+    },
+    queries: {
+      throwOnError: true
+    }
+  }
+})
 const MSWLoader = dynamic(() => import('@/components/MSWLoader'), { ssr: false })
 
 const BaseLayout = ({

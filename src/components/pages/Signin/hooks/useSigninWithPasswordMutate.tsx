@@ -21,11 +21,11 @@ export default function useSigninWithPasswordMutate() {
   useEffect(() => {
     if (!accountInfoEnabled) return
     if (accountInfo?.accountInfo.membership) {
-      if (!accountInfo?.accountInfo.profiles?.length) {
+      if (!accountInfo?.accountInfo.profileIds?.length) {
         router.push('/firstProfile')
-      } else if (accountInfo.accountInfo.profiles.length === 1) {
-        if (accountInfo.accountInfo.profiles[0]) {
-          setCurrentProfile(accountInfo.accountInfo.profiles[0])
+      } else if (accountInfo.accountInfo.profileIds.length === 1) {
+        if (accountInfo.accountInfo.profileIds[0]) {
+          setCurrentProfile(accountInfo.accountInfo.profileIds[0])
         }
         router.push('/browse')
       } else {

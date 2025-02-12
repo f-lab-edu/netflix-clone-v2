@@ -10,7 +10,8 @@ export const ErrorCode = {
   REFRESH_TOKEN_VERIFICATION_FAILED: -4,
   DUPLICATE_EMAIL: -5,
   SIGNIN_FAILED: -100,
-  DISABLE_DELETE_DEFAULT_PROFILE: -300
+  DISABLE_DELETE_DEFAULT_PROFILE: -300,
+  ALREADY_TOO_MANY_PROFILE_HAVE: -2000
 }
 
 export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBodyType, ResponseBodyType extends DefaultBodyType = DefaultBodyType, P extends PathParams = PathParams>(

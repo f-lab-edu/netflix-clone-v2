@@ -8,7 +8,7 @@ const isServer = typeof window === 'undefined'
 
 const path = isServer ? 'http://localhost/api/' : '/api/'
 
-const baseApi = ky.extend({
+const api = ky.extend({
   prefixUrl: path,
   hooks: {
     beforeError: [
@@ -36,22 +36,13 @@ const baseApi = ky.extend({
         }
         return request
       }
-    ]
-  },
-  retry: {
-    limit: 1,
-    statusCodes: [403],
-    backoffLimit: 500,
-  }
-})
-const api = baseApi.extend({
-  hooks: {
+    ],
     beforeRetry: [
-      async ({ request }) => {
+      async function ({ request }) {
         if (!isServer) {
           const refreshToken = localStorage.getItem(REFRESH_TOKEN_KEY)?.replace(/"/g, '')
-          if (!refreshToken) return ky.stop
-          const tokens = await baseApi.post('account/refresh', {
+          if (!refreshToken) return api.stop
+          const tokens = await api.post('account/refresh', {
             json: {
               refreshToken
             }
@@ -62,6 +53,11 @@ const api = baseApi.extend({
         }
       }
     ]
+  },
+  retry: {
+    limit: 1,
+    statusCodes: [403],
+    backoffLimit: 500,
   }
 })
 export default api

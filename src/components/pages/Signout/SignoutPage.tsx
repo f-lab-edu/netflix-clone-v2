@@ -33,7 +33,7 @@ const SignoutPage: NextPageWithLayout = () => {
 }
 
 SignoutPage.getLayout = (page) => {
-  return <BaseLayout>{page}</BaseLayout>
+  return <BaseLayout.Dark>{page}</BaseLayout.Dark>
 }
 
 export default SignoutPage

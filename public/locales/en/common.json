@@ -43,6 +43,15 @@
     },
     "specialOffer": {
       "label": "Yes, please email me Netflix special offers. (optional)"
+    },
+    "profile": {
+      "name": {
+        "label": "Name"
+      },
+      "child": {
+        "title": "Kids Profile",
+        "desc": "Only see kid-friendly TV shows or movies"
+      }
     }
   },
   "paymentRegistForm": {
@@ -100,5 +109,10 @@
     "billingAgree": {
       "label": "Netflix will automatically continue your membership and charge the membership fee (currently {{price}}/month) to your payment method until you cancel. You may cancel at any time on the Account page at www.netflix.com. Cancellations are effective at the end of your billing cycle and you may use the service for the remaining period. If you cancel with immediate effect within 7 days from your billing date and no Netflix content was accessed through the account you can obtain a full refund of the membership fee that was charged for that billing cycle."
     }
+  },
+  "btn": {
+    "create": "Create",
+    "save": "Save",
+    "cancel": "Cancel"
   }
 }

@@ -40,10 +40,9 @@ export default function RHFProfileForm({
       <h3>{desc}</h3>
     </div>
     <div css={ProfileEditFieldGridCss}>
-      <ProfileImage
+      <ProfileImage.lg
         alt='Profile Sample'
         profile='/netflix/profile/profileImage.png'
-        size={120}
       />
       <ConditionalRender.Boolean
         condition={isDark || false}

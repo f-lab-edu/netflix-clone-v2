@@ -2,29 +2,20 @@ import Image from 'next/image'
 import { useMemo } from 'react'
 import ConditionalRender from '../../utils/ConditionalRender'
 import { EditableProfileImageBtnCss, EditableProfileImageIconCss, ProfileImageCss } from './style'
-
-type ProfileImageSize = 'md' | 'lg' | 'sm'
-
 interface ProfileImageProps {
   isEditable?: boolean
   profile: string
   alt: string
-  size?: ProfileImageSize | number
+  size?: number
   isAnimated?: boolean
 }
 
-export default function ProfileImage({
+const ProfileImage = ({
   profile, size, isEditable, alt,
   ...props
-}: ProfileImageProps & CssProps) {
+}: ProfileImageProps & CssProps) => {
   const displaySize = useMemo(() => {
     switch (size) {
-      case 'sm':
-        return 32
-      case 'md':
-        return 40
-      case 'lg':
-        return 120
       default: return size || 0
     }
   }, [size])
@@ -49,3 +40,11 @@ export default function ProfileImage({
     }}
   />
 }
+
+ProfileImage.sm = (props: Omit<ProfileImageProps, 'size'>) => <ProfileImage size={32} {...props} />
+
+ProfileImage.md = (props: Omit<ProfileImageProps, 'size'>) => <ProfileImage size={40} {...props} />
+
+ProfileImage.lg = (props: Omit<ProfileImageProps, 'size'>) => <ProfileImage size={120} {...props} />
+
+export default ProfileImage

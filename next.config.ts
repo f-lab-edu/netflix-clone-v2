@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
   reactStrictMode: true,
   i18n: i18nConfig.i18n,
   compiler: {
+    styledJsx: false,
     emotion: true,
   },
   transpilePackages: ['jotai-devtools'],

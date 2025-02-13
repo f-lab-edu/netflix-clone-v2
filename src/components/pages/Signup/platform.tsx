@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import { Suspense, useState } from 'react';
 import SignupLayout from '@/components/layout/SignupLayout';
+import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 import useWindowResize from '@/hooks/useWindowResize';
@@ -27,7 +28,7 @@ const PlatformPage: NextPageWithLayout = () => {
   const goNextAction = () => {
     setMembershipTier(selectedType)
   }
-  return <>
+  return <PageInOutAnimate>
     <div css={[SignupPlatformContentCss, isLarge ? SignupPlatformContentLargeCss : {}]}>
       <StepHeader css={{ marginBottom: '.5rem' }} step={2} title={t('page-signup:platform.title')} />
       <Suspense>
@@ -45,7 +46,7 @@ const PlatformPage: NextPageWithLayout = () => {
         Next
       </Link>
     </div>
-  </>
+  </PageInOutAnimate>
 }
 
 PlatformPage.getLayout = (page) => {

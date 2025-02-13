@@ -2,6 +2,7 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
+import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import FirstRegistDescPart from './component/FirstRegistDescPart';
 import PaymentKindBtn from './component/PaymentKindBtn';
@@ -15,7 +16,7 @@ const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initPr
     const path = initProps.isFirst ? '/signup/payment/regist' : '/payment/regist'
     router.push(`${path}/${type}`)
   }
-  return <div css={PageShellCss}>
+  return <PageInOutAnimate css={PageShellCss}>
     <ConditionalRender.Boolean
       condition={initProps.isFirst}
       render={{
@@ -41,7 +42,7 @@ const PaymentRegistStartPage: NextPageWithLayout<{ isFirst: boolean }> = (initPr
         onClick={() => onSelectTypeAction('card')}
       />
     </div>
-  </div>
+  </PageInOutAnimate>
 }
 
 PaymentRegistStartPage.getLayout = (page) => {

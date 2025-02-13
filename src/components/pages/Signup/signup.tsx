@@ -3,13 +3,14 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
+import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
 import SignupDesc from './component/SignupDesc';
 import StepHeader from './component/StepHeader';
 import { SignupChecklistCss, SignupCheckmarkShellCss, SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMainStyle';
 
 const SignupPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
-  return <>
+  return <PageInOutAnimate>
     <div css={SignupMainContentCss}>
       <div css={SignupCheckmarkShellCss}>
         <Image src="/netflix/signup/Checkmark.png" width="50" height="50" alt="checkmark" />
@@ -27,7 +28,7 @@ const SignupPage: NextPageWithLayout = () => {
         Next
       </Link>
     </div>
-  </>
+  </PageInOutAnimate>
 }
 
 SignupPage.getLayout = (page) => {

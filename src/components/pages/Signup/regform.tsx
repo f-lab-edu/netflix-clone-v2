@@ -4,9 +4,10 @@ import { useRouter } from 'next/router';
 import { Trans, useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import SignupLayout from '@/components/layout/SignupLayout';
-import LightCheckbox from '@/components/ui/Form/LightCheckbox';
-import LightTextInput from '@/components/ui/Form/LightTextInput';
+import Checkbox from '@/components/ui/Form/Checkbox';
+import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
+import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
 import useSignupMutation from '@/hooks/mutation/account/useSignupMutation';
 import { pattern } from '@/lib/validators';
 import StepHeader from './component/StepHeader';
@@ -38,7 +39,7 @@ const RegformPage: NextPageWithLayout = () => {
   async function submitAction(obj: SignupRequestType) {
     mutate(obj)
   }
-  return <div css={SignupRegformContainerCss}>
+  return <PageInOutAnimate css={SignupRegformContainerCss}>
     <form onSubmit={handleSubmit(submitAction)} css={SignupRegformShellCss}>
       <StepHeader title={t('page-signup:regform.title')} step={2} css={SignupRegformStepDisplayCss} />
       <div css={SignupRegformDescCss}>
@@ -50,8 +51,8 @@ const RegformPage: NextPageWithLayout = () => {
         </p>
       </div>
       <div css={SignupRegformInputAreaCss}>
-        <LightTextInput
-          placeholder={t('common:form.email.placeholder')}
+        <TextInput.Light
+          label={t('common:form.email.placeholder')}
           {...register('email', {
             pattern: {
               value: pattern.email,
@@ -64,8 +65,8 @@ const RegformPage: NextPageWithLayout = () => {
             formState.touchedFields.email
           )}
         />
-        <LightTextInput
-          placeholder={t('common:form.password.placeholder')}
+        <TextInput.Light
+          label={t('common:form.password.placeholder')}
           {...register('password', {
             pattern: {
               value: pattern.password,
@@ -79,11 +80,11 @@ const RegformPage: NextPageWithLayout = () => {
             formState.touchedFields.password
           )}
         />
-        <LightCheckbox
+        <Checkbox.Light
           {...register('policy', {
             required: t('common:form.policy.error.required')
           })}
-          placeholder={
+          label={
             <Trans
               t={t}
               i18nKey={'common:form.policy.label'}
@@ -97,16 +98,16 @@ const RegformPage: NextPageWithLayout = () => {
             formState.touchedFields.policy
           )}
         />
-        <LightCheckbox
+        <Checkbox.Light
           {...register('specialOffer')}
-          placeholder={<Trans t={t} i18nKey={'common:form.specialOffer.label'} />}
+          label={<Trans t={t} i18nKey={'common:form.specialOffer.label'} />}
         />
       </div>
       <button type="submit" css={SignupRegformSubmitCss}>
         <span>{t('page-signup:regform.button')}</span>
       </button>
     </form>
-  </div>
+  </PageInOutAnimate>
 
 }
 

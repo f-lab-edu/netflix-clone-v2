@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form';
 import DarkTextInput from '@/components/ui/Form/DarkTextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import validators, { pattern } from '@/lib/validators';
-import useSigninWithPasswordMutate from '../hooks/useSigninWIthPasswordMutate';
+import useSigninWithPasswordMutate from '../hooks/useSigninWithPasswordMutate';
 
 interface PasswordFormProps {
   buttonArea: ReactNode

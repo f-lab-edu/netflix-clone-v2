@@ -6,7 +6,7 @@ import SignupLayout from '@/components/layout/SignupLayout';
 import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
-import useWindowResize from '@/hooks/useWindowResize';
+import useWindowSize from '@/provider/WindowResizeProvider/hooks/useWindowSize';
 import { useSignupMembershipTier } from '@/state/signup/hooks';
 import StepHeader from './component/StepHeader';
 import PlatformDetailLarge from './component/platform/PlatfomDetailLarge';
@@ -22,7 +22,7 @@ const PlatformPage: NextPageWithLayout = () => {
   // on resize display width > over 1050px change contents as full width mode
   const {
     isLarge
-  } = useWindowResize()
+  } = useWindowSize()
   const [selectedType, setSelectedType] = useState<MembershipPlanTier>('premium')
 
   const goNextAction = () => {

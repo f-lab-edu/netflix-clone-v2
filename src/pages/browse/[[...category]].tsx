@@ -12,3 +12,10 @@ export const getStaticProps: GetStaticProps = async ({
     },
   }
 }
+
+export const getStaticPaths = async () => {
+  return {
+    paths: [],
+    fallback: true,
+  }
+}

@@ -2,13 +2,14 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
+import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
 import StepHeader from './component/StepHeader';
 import { RegistrationLogoImageCss, StepLogoPositionCss } from './styles/RegistrationStyle';
 import { SignupMainContentCss, SignupMainNextButtonCss } from './styles/SignupMainStyle';
 
 const RegistrationPage: NextPageWithLayout = () => {
   const { t } = useTranslation(['page-signup'])
-  return <>
+  return <PageInOutAnimate>
     <div css={SignupMainContentCss}>
       <div css={[RegistrationLogoImageCss, StepLogoPositionCss]}>
       </div>
@@ -20,7 +21,7 @@ const RegistrationPage: NextPageWithLayout = () => {
         Next
       </Link>
     </div>
-  </>
+  </PageInOutAnimate>
 }
 
 RegistrationPage.getLayout = (page) => {

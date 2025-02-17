@@ -1,47 +1,29 @@
 import type { ReactNode } from 'react';
-import * as Sentry from '@sentry/nextjs'
-import { Component } from 'react';
+import SuspenseErrorBoundary from './SuspenseErrorBoundary';
 
 type ErrorDisplayProps = {
   children: ReactNode
 }
 
-type ErrorDisplayState = {
-  errorMsg: string
-}
-
-class ErrorDisplay extends Component<ErrorDisplayProps, ErrorDisplayState> {
-  constructor(props: ErrorDisplayProps) {
-    super(props)
-    this.state = {
-      errorMsg: ''
-    }
-  }
-
-  public componentDidCatch(error: Error): void {
-    // TODO: logging on service
-    Sentry.captureException(error)
-  }
-
-  static getDerivedStateFromError(error: Error) {
-    try {
-      const json = JSON.parse(error.message)
-      return {
-        errorMsg: json.message
+export default function ErrorDisplay({ children }: ErrorDisplayProps) {
+  return <SuspenseErrorBoundary
+    loadingFallback={children}
+    errorFallback={({ error }) => {
+      let message
+      if (error instanceof Error) {
+        try {
+          const json = JSON.parse(error.message)
+          message = json.message
+        } catch {
+          message = error.message
+        }
       }
-    } catch {
-      return {
-        errorMsg: error.message
-      }
-    }
-  }
-
-  render() {
-    return <div>
-      {this.state.errorMsg ? <div css={[]}>{this.state.errorMsg}</div> : undefined}
-      {this.props.children}
-    </div>
-  }
+      return <>
+        <div>{message}</div>
+        {children}
+      </>
+    }}
+  >
+    {children}
+  </SuspenseErrorBoundary>
 }
-
-export default ErrorDisplay

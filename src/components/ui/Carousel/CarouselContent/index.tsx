@@ -19,7 +19,8 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
   items,
   animeDuration,
   children,
-}: CarouselContentProps<T>) {
+  className
+}: CarouselContentProps<T> & CssProps) {
   const {
     isTouched,
     firstItemIdx,
@@ -63,7 +64,7 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
   const moveNext = () => {
     setMoveSize(displayOnce)
   }
-  return <div css={CarouselContentCss}>
+  return <div css={CarouselContentCss} className={className}>
     <motion.ul
       css={[CarouselContentShellCss(itemWidth)]}
       onTransitionEnd={animationFinishedAction}

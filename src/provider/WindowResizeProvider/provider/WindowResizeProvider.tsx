@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import { useCallback, useDeferredValue, useEffect, useState } from 'react';
+import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
 import WindowResizeProviderContext from './WindowResizeProviderContext';
 
 export interface RootDomProviderProps {
@@ -22,7 +22,9 @@ export default function WindowResizeProvider({ children }: RootDomProviderProps)
     }
   }, [event])
 
-  return <WindowResizeProviderContext.Provider value={{ width: deferredWidth }}>
+  const providerValue = useMemo(() => ({ width: deferredWidth }), [deferredWidth])
+
+  return <WindowResizeProviderContext.Provider value={providerValue}>
     {children}
   </WindowResizeProviderContext.Provider>
 }

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import CarouselChips from '../CarouselChips';
 import CarouselContent from '../CarouselContent';
 import CarouselStateProvider from '../provider/CarouselStateProvider';
-import { CarouselChipsAreaCss, CarouselContentAreaCss, CarouselShellCss, CarouselTitleAreaCss } from './style';
+import { CarouselChipsAreaCss, CarouselChipsShellCss, CarouselContentAreaCss, CarouselShellCss, CarouselTitleAreaCss } from './style';
 
 interface IndexedItems {
   id: number
@@ -24,7 +24,9 @@ export default function Carousel<T extends IndexedItems = IndexedItems>({
       {title}
     </div>
     <CarouselStateProvider itemsLength={carouselContentsProps.items.length}>
-      <CarouselChips css={CarouselChipsAreaCss} />
+      <div css={CarouselChipsAreaCss} >
+        <CarouselChips css={CarouselChipsShellCss} />
+      </div>
       <CarouselContent css={CarouselContentAreaCss} {...carouselContentsProps} />
     </CarouselStateProvider>
   </div >

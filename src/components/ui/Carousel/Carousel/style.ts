@@ -17,7 +17,13 @@ export const CarouselTitleAreaCss = css({
 })
 
 export const CarouselChipsAreaCss = css({
-  gridArea: 'chips'
+  gridArea: 'chips',
+  position: 'relative'
+})
+
+export const CarouselChipsShellCss = css({
+  position: 'absolute',
+  right: 0
 })
 
 export const CarouselContentAreaCss = css({

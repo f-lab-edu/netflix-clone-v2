@@ -2,7 +2,7 @@ import type { NextPageWithLayout } from '@/pages/_app';
 // import { useParams } from 'next/navigation';
 import { useState } from 'react';
 import BrowserLayout from '@/components/layout/BrowserLayout';
-import { ContentCarousel } from '../../ui/Carousel';
+import Carousel from '@/components/ui/Carousel';
 
 const BrowsePage: NextPageWithLayout = () => {
   // TODO: use on other browse page
@@ -31,7 +31,7 @@ const BrowsePage: NextPageWithLayout = () => {
       <h1></h1>
     </section>
     {/* TODO: list */}
-    <ContentCarousel items={contentItems} title='title' />
+    <Carousel.Content items={contentItems} title='title' />
   </div>
 }
 BrowsePage.getLayout = (page) => {

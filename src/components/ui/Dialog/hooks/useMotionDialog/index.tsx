@@ -21,7 +21,7 @@ export default function useMotionDialog<T>(
   visibleStyle: ((_startPointRect: DialogRect) => CSSObject | SerializedStyles) | CSSObject | SerializedStyles,
   options?: MotionProps
 ) {
-  const computedOptions = useMemo(() => options || {}, [options])
+  const computedOptions = useMemo(() => options ?? {}, [options])
   const [promise, setPromise] = useState<PromiseWithResolvers<T> | undefined>(undefined)
   const isOpen = useMemo(() => !!promise, [promise])
 
@@ -103,12 +103,11 @@ export default function useMotionDialog<T>(
       displayPosition.scale = 1
     }
     return {
-      ...computedOptions,
-      layoutId: computedOptions.layoutId,
       layoutDependency: isOpen,
       initial: startPosition,
       animate: displayPosition,
-      exit: startPosition
+      exit: startPosition,
+      ...computedOptions
     }
   }, [isOpen, computedOptions])
   const portal = createPortal(

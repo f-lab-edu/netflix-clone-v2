@@ -1,4 +1,5 @@
 import type { CSSObject, Interpolation, SerializedStyles } from '@emotion/react';
+import type { MotionProps } from 'motion/react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react'
 import { useMemo, useState } from 'react'
@@ -18,8 +19,9 @@ interface DialogRect {
 export default function useMotionDialog<T>(
   children: (_closeAction: (_result: T) => void) => ReactNode,
   visibleStyle: ((_startPointRect: DialogRect) => CSSObject | SerializedStyles) | CSSObject | SerializedStyles,
-  rootLayoutId?: string,
+  options?: MotionProps
 ) {
+  const computedOptions = useMemo(() => options || {}, [options])
   const [promise, setPromise] = useState<PromiseWithResolvers<T> | undefined>(undefined)
   const isOpen = useMemo(() => !!promise, [promise])
 
@@ -62,7 +64,7 @@ export default function useMotionDialog<T>(
 
   const rootRefRect = useMemo(() => {
     if (!rootRef || !isOpen) return { width: 0, height: 0, left: 0, top: 0 }
-    if (!rootLayoutId && startEl !== rootRef && !(startEl instanceof HTMLElement)) {
+    if (!computedOptions.layoutId && startEl !== rootRef && !(startEl instanceof HTMLElement)) {
       return {
         zIndex: parentZIndex,
         left: 0,
@@ -80,7 +82,7 @@ export default function useMotionDialog<T>(
       width: rect.width,
       height: rect.height,
     }
-  }, [isOpen, rootLayoutId, rootRef, startEl, parentZIndex])
+  }, [isOpen, computedOptions.layoutId, rootRef, startEl, parentZIndex])
 
   const displayedRect = useMemo(() => typeof visibleStyle === 'function' ? visibleStyle(rootRefRect) : visibleStyle, [visibleStyle, rootRefRect])
 
@@ -96,23 +98,25 @@ export default function useMotionDialog<T>(
     const displayPosition: { opacity: number, scale?: number } = {
       opacity: 1
     }
-    if (!rootLayoutId) {
+    if (!computedOptions.layoutId) {
       startPosition.scale = 0
       displayPosition.scale = 1
     }
     return {
-      layoutId: rootLayoutId,
+      ...computedOptions,
+      layoutId: computedOptions.layoutId,
       layoutDependency: isOpen,
       initial: startPosition,
       animate: displayPosition,
       exit: startPosition
     }
-  }, [rootLayoutId, isOpen])
+  }, [isOpen, computedOptions])
   const portal = createPortal(
     <AnimatePresence>
       {
         isOpen && <motion.div
           css={styleCss}
+          viewport={{ amount: 'all' }}
           {...rootProps}
           transition={{ duration: .5 }}
         >

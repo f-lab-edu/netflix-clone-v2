@@ -1,25 +1,25 @@
 import type { WindowResizeProviderContextType } from './WindowResizeProviderContext';
 import type { ReactNode } from 'react';
-import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import WindowResizeProviderContext from './WindowResizeProviderContext';
+import { useDebounceState } from '@/hooks/useDebounce';
 
 export interface RootDomProviderProps {
   children: ReactNode
 }
 
 export default function WindowResizeProvider({ children }: RootDomProviderProps) {
-  const [size, setSize] = useState<WindowResizeProviderContextType>({
+  const [size, setSize] = useDebounceState<WindowResizeProviderContextType>({
     width: 0,
     height: 0
-  })
-  const deferredSize = useDeferredValue(size)
+  }, 100)
 
   const event = useCallback(() => {
     setSize({
       width: window.innerWidth,
       height: window.innerHeight
     })
-  }, [])
+  }, [setSize])
 
   useEffect(() => {
     event()
@@ -29,9 +29,7 @@ export default function WindowResizeProvider({ children }: RootDomProviderProps)
     }
   }, [event])
 
-  const providerValue = useMemo(() => deferredSize, [deferredSize])
-
-  return <WindowResizeProviderContext.Provider value={providerValue}>
+  return <WindowResizeProviderContext.Provider value={size}>
     {children}
   </WindowResizeProviderContext.Provider>
 }

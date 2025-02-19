@@ -1,3 +1,4 @@
+import type { WindowResizeProviderContextType } from './WindowResizeProviderContext';
 import type { ReactNode } from 'react';
 import { useCallback, useDeferredValue, useEffect, useMemo, useState } from 'react';
 import WindowResizeProviderContext from './WindowResizeProviderContext';
@@ -7,11 +8,17 @@ export interface RootDomProviderProps {
 }
 
 export default function WindowResizeProvider({ children }: RootDomProviderProps) {
-  const [width, setWidth] = useState<number>(0)
-  const deferredWidth = useDeferredValue(width)
+  const [size, setSize] = useState<WindowResizeProviderContextType>({
+    width: 0,
+    height: 0
+  })
+  const deferredSize = useDeferredValue(size)
 
   const event = useCallback(() => {
-    setWidth(window.innerWidth)
+    setSize({
+      width: window.innerWidth,
+      height: window.innerHeight
+    })
   }, [])
 
   useEffect(() => {
@@ -22,7 +29,7 @@ export default function WindowResizeProvider({ children }: RootDomProviderProps)
     }
   }, [event])
 
-  const providerValue = useMemo(() => ({ width: deferredWidth }), [deferredWidth])
+  const providerValue = useMemo(() => deferredSize, [deferredSize])
 
   return <WindowResizeProviderContext.Provider value={providerValue}>
     {children}

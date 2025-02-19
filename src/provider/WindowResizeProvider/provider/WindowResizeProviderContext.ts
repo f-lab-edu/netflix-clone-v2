@@ -1,9 +1,11 @@
 import { createContext } from 'react'
 
-type WindowResizeProviderContextType = {
+export type WindowResizeProviderContextType = {
   width: number
+  height: number
 }
 const WindowResizeProviderContext = createContext<WindowResizeProviderContextType>({
-  width: 0
+  width: 0,
+  height: 0
 })
 export default WindowResizeProviderContext

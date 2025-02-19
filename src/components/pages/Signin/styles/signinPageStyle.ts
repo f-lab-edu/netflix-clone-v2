@@ -8,19 +8,26 @@ export const signinPageBaseCss = css({
   flexDirection: 'column',
   backgroundColor: '#000',
   justifyContent: 'center',
-  alignItems: 'center'
+  alignItems: 'center',
+  overflow: 'hidden'
 })
 
 export const backgroundCss = css({
   pointerEvents: 'none',
   zIndex: 0,
   position: 'absolute',
+  width: '100%',
   top: 0,
   left: 0,
-  minHeight: '100vh',
   opacity: '0.5',
+  '> *': {
+    display: 'block',
+    width: '100%',
+    aspectRatio: '16/9'
+  },
   '~ *': {
     zIndex: 1,
+
   }
 })
 

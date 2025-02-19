@@ -82,7 +82,7 @@ const SigninPage: NextPageWithLayout = () => {
   </div>
 }
 SigninPage.getLayout = (page) => {
-  return <BaseLayout.Light >{page}</BaseLayout.Light>
+  return <BaseLayout.Dark>{page}</BaseLayout.Dark>
 }
 
 export default SigninPage

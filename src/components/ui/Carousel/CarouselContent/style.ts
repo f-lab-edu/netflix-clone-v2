@@ -2,7 +2,14 @@ import { css } from '@emotion/react';
 
 export const CarouselContentCss = css({
   position: 'relative',
-  display: 'flex'
+  display: 'flex',
+})
+
+export const CarouselContentListShellCss = css({
+  margin: '-4vw',
+  maxWidth: '100vw',
+  padding: '4vw',
+  overflow: 'hidden'
 })
 
 export const CarouselArrowBtnShellCss = css({

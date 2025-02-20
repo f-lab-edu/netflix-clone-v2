@@ -3,7 +3,7 @@ import { motion } from 'motion/react';
 import { useMemo } from 'react';
 import ConditionalRender from '../../utils/ConditionalRender';
 import useCarouselState from '../hooks/useCarouselState';
-import { CarouselArrowBtnShellCss, CarouselContentCss, CarouselContentShellCss } from './style';
+import { CarouselArrowBtnShellCss, CarouselContentCss, CarouselContentListShellCss, CarouselContentShellCss } from './style';
 
 export interface IndexedItems {
   id: number
@@ -66,19 +66,21 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
     setMoveSize(displayOnce)
   }
   return <div css={CarouselContentCss} className={className}>
-    <motion.ul
-      css={[CarouselContentShellCss(itemWidth)]}
-      onTransitionEnd={animationFinishedAction}
-      style={transitionStyle}
-    >
-      {
-        displayItems.map((item, idx) => {
-          return <li key={`item-${item.id}`}>
-            {children(item, idx)}
-          </li>
-        })
-      }
-    </motion.ul>
+    <div css={CarouselContentListShellCss}>
+      <motion.ul
+        css={[CarouselContentShellCss(itemWidth)]}
+        onTransitionEnd={animationFinishedAction}
+        style={transitionStyle}
+      >
+        {
+          displayItems.map((item, idx) => {
+            return <li key={`item-${item.id}`}>
+              {children(item, idx)}
+            </li>
+          })
+        }
+      </motion.ul>
+    </div>
     <div css={CarouselArrowBtnShellCss}>
       <div>
         <ConditionalRender.Boolean

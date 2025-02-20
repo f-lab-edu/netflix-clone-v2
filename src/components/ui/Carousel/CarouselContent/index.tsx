@@ -45,13 +45,14 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
     return tempList
   }, [firstItemIdx, displayOnce, isTouched, items])
 
-  const itemWidth = useMemo(() => 100 / displayOnce, [displayOnce])
+  // window's left, right padding size is 8vw
+  const itemWidth = useMemo(() => (100 - 8) / displayOnce, [displayOnce])
   const transitionSizeByItem = useMemo(() => itemWidth * -1, [itemWidth])
 
   const transitionStyle = useMemo(() => {
     const x = isTouched ?
-      `${(moveSize + displayOnce + 1) * transitionSizeByItem}%` :
-      `${moveSize * transitionSizeByItem}%`
+      `${(moveSize + displayOnce + 1) * transitionSizeByItem}vw` :
+      `${moveSize * transitionSizeByItem}vw`
     return {
       x,
       transitionDuration: moveSize ? animeDuration : '0ms'

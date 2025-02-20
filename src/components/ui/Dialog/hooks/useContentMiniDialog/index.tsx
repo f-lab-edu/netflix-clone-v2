@@ -17,10 +17,11 @@ export default function useContentMiniDialog() {
     const width = rect.width * 1.5
     return {
       width: width,
-      left: rect.width * 0.5 + rect.left,
-      top: rect.height * 0.5 + rect.top,
-      scale: 0,
-      opacity: 0
+      left: rect.left,
+      top: rect.top,
+      scale: rect.width / width,
+      opacity: 0,
+      transformOrigin: '0% 0% 0',
     }
   }, [])
   const activePosition = useCallback<MotionDialogTransitionFunc>((rect) => {
@@ -66,7 +67,7 @@ export default function useContentMiniDialog() {
     animate: activePosition,
     exit: disabledPosition,
     style: {
-      transformOrigin: '0% 0% 0',
+      transformOrigin: '50% 50% 0',
       height: 'auto',
     },
     transition: {

@@ -1,15 +1,11 @@
-import type { DialogStyleFunction } from '../useMotionDialog';
+import type { MotionDialogTransitionFunc } from '../useMotionDialog';
 import { useCallback, useMemo } from 'react';
 import useMotionDialog from '../useMotionDialog';
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style';
-// import useWindowSize from '@/provider/WindowResizeProvider/hooks/useWindowSize';
+import useWindowSize from '@/provider/WindowResizeProvider/hooks/useWindowSize';
 
-export default function useContentMiniDialog(contentId: number) {
-  // const { width } = useWindowSize()
-  const { width } = useMemo(() => ({
-    width: 840,
-    height: 0
-  }), [])
+export default function useContentMiniDialog() {
+  const { width } = useWindowSize()
   const minLeft = useMemo(() => {
     return width * .04
   }, [width])
@@ -17,7 +13,17 @@ export default function useContentMiniDialog(contentId: number) {
     return width - minLeft
   }, [width, minLeft])
 
-  const positionSize = useCallback<DialogStyleFunction>((rect) => {
+  const disabledPosition = useCallback<MotionDialogTransitionFunc>((rect) => {
+    return {
+      left: rect.width * 0.5 + rect.left,
+      top: rect.height * 0.5 + rect.top,
+      width: 0,
+      height: 0,
+      opacity: 0,
+      transition: { duration: 0 }
+    }
+  }, [])
+  const activePosition = useCallback<MotionDialogTransitionFunc>((rect) => {
     const width = rect.width * 1.5
     const padSize = rect.width / 4
     let left = 0
@@ -32,7 +38,9 @@ export default function useContentMiniDialog(contentId: number) {
       width: width,
       height: 'auto',
       left: left,
-      top: rect.top - rect.height / 4
+      top: rect.top - rect.height / 4,
+      opacity: 1,
+      transition: { duration: 0.3 }
     }
   }, [maxLeft, minLeft])
 
@@ -53,7 +61,9 @@ export default function useContentMiniDialog(contentId: number) {
         </div>
       </div>
     </div>
-  }, positionSize, {
-    layoutId: `content-${contentId}`
+  }, {
+    initial: disabledPosition,
+    animate: activePosition,
+    exit: disabledPosition,
   })
 }

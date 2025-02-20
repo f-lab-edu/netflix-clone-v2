@@ -1,4 +1,5 @@
 import type { MotionDialogTransitionFunc } from '../useMotionDialog';
+import Image from 'next/image';
 import { useCallback, useMemo } from 'react';
 import useMotionDialog from '../useMotionDialog';
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style';
@@ -20,7 +21,7 @@ export default function useContentMiniDialog() {
       left: rect.left,
       top: rect.top,
       scale: rect.width / width,
-      opacity: 0,
+      opacity: .2,
       transformOrigin: '0% 0% 0',
     }
   }, [])
@@ -54,7 +55,13 @@ export default function useContentMiniDialog() {
       onBlur={() => closeAction(false)}
       onMouseLeave={() => closeAction(false)}
     >
-      <div css={ContentDialogImgShellCss}></div>
+      <Image
+        css={ContentDialogImgShellCss}
+        src='/netflix/movies/thunbnail/harbin.png'
+        alt="Harbin"
+        width={320}
+        height={180}
+      />
       <div css={ContentDetailShellCss}>
         <div role="grid" css={ContentDialogButtonAreaCss}>
           sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf

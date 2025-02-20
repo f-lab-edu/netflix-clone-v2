@@ -9,6 +9,7 @@ export const ContentDialogShellCss = css({
 })
 
 export const ContentDialogImgShellCss = css({
+  width: '100%',
   aspectRatio: 16 / 9,
 })
 

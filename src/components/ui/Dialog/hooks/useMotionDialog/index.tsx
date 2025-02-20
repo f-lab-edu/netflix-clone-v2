@@ -1,4 +1,4 @@
-import type { CSSObject, Interpolation, SerializedStyles } from '@emotion/react';
+import type { CSSObject, Interpolation } from '@emotion/react';
 import type { MotionProps } from 'motion/react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react'
@@ -16,9 +16,14 @@ interface DialogRect {
   maxHeight?: number
 }
 
+type DialogStyleStatic = CSSObject
+export type DialogStyleFunction = (_startPointRect: DialogRect) => DialogStyleStatic
+
+export type DialogStyleTypes = DialogStyleFunction | DialogStyleStatic
+
 export default function useMotionDialog<T>(
   children: (_closeAction: (_result: T) => void) => ReactNode,
-  visibleStyle: ((_startPointRect: DialogRect) => CSSObject | SerializedStyles) | CSSObject | SerializedStyles,
+  visibleStyle: DialogStyleTypes,
   options?: MotionProps
 ) {
   const computedOptions = useMemo(() => options ?? {}, [options])
@@ -73,12 +78,11 @@ export default function useMotionDialog<T>(
         height: 0
       }
     }
-
     const rect = startEl.getBoundingClientRect()
     return {
       zIndex: parentZIndex + 10,
-      left: rect.left,
-      top: rect.top,
+      left: rect.left + window.scrollX,
+      top: rect.top + window.scrollY,
       width: rect.width,
       height: rect.height,
     }
@@ -88,6 +92,7 @@ export default function useMotionDialog<T>(
 
   const styleCss = useMemo<Interpolation | undefined>(() => rootRefRect.zIndex ? {
     zIndex: rootRefRect.zIndex,
+    position: 'absolute',
     ...displayedRect
   } : undefined, [rootRefRect, displayedRect])
 
@@ -115,7 +120,6 @@ export default function useMotionDialog<T>(
       {
         isOpen && <motion.div
           css={styleCss}
-          viewport={{ amount: 'all' }}
           {...rootProps}
           transition={{ duration: .5 }}
         >

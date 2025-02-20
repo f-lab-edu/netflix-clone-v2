@@ -132,6 +132,7 @@ export default function useMotionDialog<T>(
   )
   return {
     openDialog,
+    closeDialog,
     portal,
     ref: setRootRef
   }

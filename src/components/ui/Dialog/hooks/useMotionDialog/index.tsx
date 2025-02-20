@@ -131,7 +131,7 @@ export default function useMotionDialog<T>(
     'as'
   )
   return {
-    onClick: openDialog,
+    openDialog,
     portal,
     ref: setRootRef
   }

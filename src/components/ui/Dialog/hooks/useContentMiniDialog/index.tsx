@@ -14,13 +14,13 @@ export default function useContentMiniDialog() {
   }, [width, minLeft])
 
   const disabledPosition = useCallback<MotionDialogTransitionFunc>((rect) => {
+    const width = rect.width * 1.5
     return {
+      width: width,
       left: rect.width * 0.5 + rect.left,
       top: rect.height * 0.5 + rect.top,
-      width: 0,
-      height: 0,
-      opacity: 0,
-      transition: { duration: 0 }
+      scale: 0,
+      opacity: 0
     }
   }, [])
   const activePosition = useCallback<MotionDialogTransitionFunc>((rect) => {
@@ -36,11 +36,10 @@ export default function useContentMiniDialog() {
     }
     return {
       width: width,
-      height: 'auto',
       left: left,
       top: rect.top - rect.height / 4,
+      scale: 1,
       opacity: 1,
-      transition: { duration: 0.3 }
     }
   }, [maxLeft, minLeft])
 
@@ -57,7 +56,8 @@ export default function useContentMiniDialog() {
       <div css={ContentDialogImgShellCss}></div>
       <div css={ContentDetailShellCss}>
         <div role="grid" css={ContentDialogButtonAreaCss}>
-          sdf
+          sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
+          sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
         </div>
       </div>
     </div>
@@ -65,5 +65,12 @@ export default function useContentMiniDialog() {
     initial: disabledPosition,
     animate: activePosition,
     exit: disabledPosition,
+    style: {
+      transformOrigin: '0% 0% 0',
+      height: 'auto',
+    },
+    transition: {
+      duration: 0.3
+    }
   })
 }

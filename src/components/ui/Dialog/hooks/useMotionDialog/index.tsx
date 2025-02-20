@@ -1,5 +1,4 @@
-import type { CSSObject, Interpolation } from '@emotion/react';
-import type { MotionProps } from 'motion/react';
+import type { MotionProps, TargetAndTransition } from 'motion/react';
 import type { ReactNode } from 'react';
 import { AnimatePresence, motion } from 'motion/react'
 import { useMemo, useState } from 'react'
@@ -16,15 +15,17 @@ interface DialogRect {
   maxHeight?: number
 }
 
-type DialogStyleStatic = CSSObject
-export type DialogStyleFunction = (_startPointRect: DialogRect) => DialogStyleStatic
+export type MotionDialogTransitionFunc = (_rect: DialogRect) => TargetAndTransition
 
-export type DialogStyleTypes = DialogStyleFunction | DialogStyleStatic
+interface MotionPropsOverwrite {
+  initial?: MotionDialogTransitionFunc,
+  animate?: MotionDialogTransitionFunc,
+  exit?: MotionDialogTransitionFunc
+}
 
 export default function useMotionDialog<T>(
   children: (_closeAction: (_result: T) => void) => ReactNode,
-  visibleStyle: DialogStyleTypes,
-  options?: MotionProps
+  options?: Omit<MotionProps, 'initial' | 'animate' | 'exit'> & MotionPropsOverwrite
 ) {
   const computedOptions = useMemo(() => options ?? {}, [options])
   const [promise, setPromise] = useState<PromiseWithResolvers<T> | undefined>(undefined)
@@ -68,60 +69,50 @@ export default function useMotionDialog<T>(
   }, [startEl])
 
   const rootRefRect = useMemo(() => {
-    if (!rootRef || !isOpen) return { width: 0, height: 0, left: 0, top: 0 }
+    const defaultObj = { width: 0, height: 0, left: 0, top: 0 }
+    if (!rootRef) return defaultObj
     if (!computedOptions.layoutId && startEl !== rootRef && !(startEl instanceof HTMLElement)) {
-      return {
-        zIndex: parentZIndex,
-        left: 0,
-        top: 0,
-        width: 0,
-        height: 0
-      }
+      return defaultObj
     }
     const rect = startEl.getBoundingClientRect()
     return {
-      zIndex: parentZIndex + 10,
       left: rect.left + window.scrollX,
       top: rect.top + window.scrollY,
       width: rect.width,
       height: rect.height,
     }
-  }, [isOpen, computedOptions.layoutId, rootRef, startEl, parentZIndex])
+  }, [computedOptions.layoutId, rootRef, startEl])
 
-  const displayedRect = useMemo(() => typeof visibleStyle === 'function' ? visibleStyle(rootRefRect) : visibleStyle, [visibleStyle, rootRefRect])
-
-  const styleCss = useMemo<Interpolation | undefined>(() => rootRefRect.zIndex ? {
-    zIndex: rootRefRect.zIndex,
-    position: 'absolute',
-    ...displayedRect
-  } : undefined, [rootRefRect, displayedRect])
+  const initialProps = useMemo(() => computedOptions?.initial ? computedOptions.initial(rootRefRect) : undefined, [computedOptions, rootRefRect])
+  const animateProps = useMemo(() => computedOptions?.animate ? computedOptions.animate(rootRefRect) : undefined, [computedOptions, rootRefRect])
+  const exitProps = useMemo(() => computedOptions?.exit ? computedOptions.exit(rootRefRect) : undefined, [computedOptions, rootRefRect])
 
   const rootProps = useMemo(() => {
-    const startPosition: { opacity: number, scale?: number } = {
-      opacity: 0
-    }
-    const displayPosition: { opacity: number, scale?: number } = {
-      opacity: 1
-    }
-    if (!computedOptions.layoutId) {
-      startPosition.scale = 0
-      displayPosition.scale = 1
-    }
     return {
       layoutDependency: isOpen,
-      initial: startPosition,
-      animate: displayPosition,
-      exit: startPosition,
-      ...computedOptions
+      ...computedOptions,
+      initial: initialProps,
+      animate: animateProps,
+      exit: exitProps,
     }
-  }, [isOpen, computedOptions])
+  }, [
+    isOpen,
+    computedOptions,
+    initialProps,
+    animateProps,
+    exitProps
+  ])
   const portal = createPortal(
     <AnimatePresence>
       {
         isOpen && <motion.div
-          css={styleCss}
-          {...rootProps}
+          style={{
+            ...rootProps.style,
+            zIndex: parentZIndex + 10,
+            position: 'absolute'
+          }}
           transition={{ duration: .5 }}
+          {...rootProps}
         >
           {children(closeDialog)}
         </motion.div>
@@ -132,7 +123,6 @@ export default function useMotionDialog<T>(
   )
   return {
     openDialog,
-    closeDialog,
     portal,
     ref: setRootRef
   }

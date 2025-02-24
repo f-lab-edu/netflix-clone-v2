@@ -1,12 +1,12 @@
 import type { MotionDialogTransitionFunc } from '../useMotionDialog';
 import Image from 'next/image';
 import { useCallback, useMemo } from 'react';
+import { useWindowWidth } from '@/state/windowSize';
 import useMotionDialog from '../useMotionDialog';
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style';
-import useWindowSize from '@/provider/WindowResizeProvider/hooks/useWindowSize';
 
 export default function useContentMiniDialog() {
-  const { width } = useWindowSize()
+  const [width] = useWindowWidth()
   const minLeft = useMemo(() => {
     return width * .04
   }, [width])

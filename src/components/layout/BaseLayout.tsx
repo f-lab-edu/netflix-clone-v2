@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { Suspense } from 'react';
+import PortalProvider from '@/provider/PortalProvider';
 import RootDomProvider from '@/provider/RootDom/provider';
 import 'jotai-devtools/styles.css'
 import { useWindowResized } from '@/state/windowSize/hooks';
@@ -62,7 +63,9 @@ const BaseLayout = ({
     <RootDomProvider>
       <Suspense><MSWLoader>
         <QueryClientProvider client={queryClient}>
-          {children}
+          <PortalProvider>
+            {children}
+          </PortalProvider>
         </QueryClientProvider>
       </MSWLoader></Suspense>
     </RootDomProvider>

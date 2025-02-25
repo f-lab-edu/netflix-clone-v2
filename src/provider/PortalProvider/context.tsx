@@ -1,13 +1,23 @@
 import type { ReactElement } from 'react';
 import { createContext } from 'react';
 
+export interface DialogRect {
+  left: number
+  top: number
+  width: number
+  height: number
+  maxWidth?: number
+  maxHeight?: number
+}
+
 export type ValueType = unknown
 
 export type DialogContent = ReactElement<PortalDialogInterface>
 
 export interface DialogObj {
-  zIndex: number
-  isOpen: boolean
+  zIndex?: number
+  isOpen?: boolean
+  rect?: DialogRect
   resolve?: (_value?: any | PromiseLike<any>) => void;
   reject?: (_reason?: any) => void;
 }
@@ -17,15 +27,11 @@ export interface PortalDialogInterface extends Omit<DialogObj, 'content' | 'reso
 }
 
 interface PortalProviderContextValue {
-  registPortal: (_content: DialogContent) => string
-  openPortal: (_id: string) => PromiseLike<any>
+  openPortal: (_id: string, _content: DialogContent, _rect?: DialogRect) => PromiseLike<any>
   closePortal: (_id: string, _value?: any) => void
-  deletePortal: (_id: string) => void
 }
 
 export const PortalContext = createContext<PortalProviderContextValue>({
-  registPortal: () => '',
-  closePortal: () => { },
   openPortal: () => Promise.resolve(),
-  deletePortal: () => { }
+  closePortal: () => { }
 })

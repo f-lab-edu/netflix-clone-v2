@@ -39,6 +39,7 @@ const eslintConfig = [
           },
         },
       ],
+      "@typescript-eslint/no-explicit-any": ["off"],
       "@typescript-eslint/consistent-type-imports": [
         "error",
         {

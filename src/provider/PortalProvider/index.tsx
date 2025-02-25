@@ -1,8 +1,8 @@
-import type { DialogContent, DialogObj, ValueType } from './context';
+import type { DialogContent, DialogObj, DialogRect, ValueType } from './context';
 import type { ReactNode } from 'react';
+import { AnimatePresence } from 'motion/react';
 import { cloneElement, useCallback, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom';
-import { v4 as uuid } from 'uuid'
 import useRootDom from '../RootDom/hooks/useRootDom';
 import { PortalContext } from './context'
 
@@ -17,48 +17,26 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
   const rootEl = useMemo(() => getRootDom() ?? document.body, [getRootDom])
   const dialogContents = useRef(new Map())
 
-  const registPortal = useCallback((content: DialogContent) => {
-    const id = uuid()
+  const openPortal = useCallback((id: string, content: DialogContent, rect?: DialogRect) => {
     dialogContents.current.set(id, content)
-    setDialogs((prev) => ({
-      ...prev,
-      [id]: {
-        zIndex: ++zIndex.current * 10,
-        isOpen: false,
-      }
-    }))
-    return id
-  }, [])
-  const openPortal = useCallback((id: string) => {
-    if (!dialogs[id]) throw new Error('Wrong Dialog tried open')
     return new Promise<T>((resolve, reject) => {
       setDialogs((prev) => ({
         ...prev,
         [id]: {
-          ...dialogs[id],
+          zIndex: ++zIndex.current * 10,
           isOpen: true,
+          rect,
           resolve,
           reject
         }
       }))
     })
-  }, [dialogs])
+  }, [])
 
   const closePortal = useCallback((id: string, value?: T) => {
     if (!dialogs[id]) return
     if (dialogs[id].resolve) dialogs[id].resolve(value)
-    setDialogs((prev) => ({
-      ...prev,
-      [id]: {
-        ...prev[id],
-        isOpen: false,
-        reject: undefined,
-        resolve: undefined
-      }
-    }))
-  }, [dialogs])
 
-  const deletePortal = useCallback((id: string) => {
     setDialogs((prev) => {
       const tempObj = { ...prev }
       if (tempObj[id]?.resolve) tempObj[id].resolve()
@@ -66,23 +44,23 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
       dialogContents.current.delete(id)
       return tempObj
     })
-  }, [])
+  }, [dialogs])
 
   return <PortalContext.Provider value={{
-    registPortal,
     openPortal,
-    closePortal,
-    deletePortal
+    closePortal
   }}>
     {children}
     {createPortal(<div>
-      {Object.keys(dialogs).map(k => {
-        return cloneElement(dialogContents.current.get(k), {
-          closePortal: (value?: T) => closePortal(k, value),
-          ...dialogs[k],
-          key: k
-        })
-      })}
+      <AnimatePresence>
+        {Object.keys(dialogs).map(k => {
+          return cloneElement(dialogContents.current.get(k), {
+            closePortal: (value?: T) => closePortal(k, value),
+            ...dialogs[k],
+            key: k
+          })
+        })}
+      </AnimatePresence>
     </div>, rootEl, 'portal-all')}
   </PortalContext.Provider>
 }

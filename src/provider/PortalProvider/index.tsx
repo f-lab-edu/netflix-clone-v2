@@ -35,15 +35,13 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
 
   const closePortal = useCallback((id: string, value?: T) => {
     if (!dialogs[id]) return
-    if (dialogs[id].resolve) dialogs[id].resolve(value)
 
     setDialogs((prev) => {
-      const tempObj = { ...prev }
-      if (tempObj[id]?.resolve) tempObj[id].resolve()
-      delete tempObj[id]
+      const { [id]: old, ...others } = prev
+      if (old?.resolve) old.resolve(value)
       dialogContents.current.delete(id)
-      if (!Object.keys(tempObj).length) zIndex.current = 0
-      return tempObj
+      if (!Object.keys(others).length) zIndex.current = 0
+      return others
     })
   }, [dialogs])
 

@@ -42,6 +42,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
       if (tempObj[id]?.resolve) tempObj[id].resolve()
       delete tempObj[id]
       dialogContents.current.delete(id)
+      if (!Object.keys(tempObj).length) zIndex.current = 0
       return tempObj
     })
   }, [dialogs])

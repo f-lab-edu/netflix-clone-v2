@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { usePortal } from '@/provider/PortalProvider/hook';
 import { useWindowWidth } from '@/state/windowSize';
 import calcStartRefRect from '../../utils/calcStartRefRect';
-import MiniDialog from './component/MiniDialog';
+import MiniDialog from './component';
 
 const CONTENT_MINI_DIALOG_KEY = 'content-mini-dialog'
 

@@ -50,5 +50,6 @@
     "jotai-devtools": "^0.10.1",
     "msw": "^2.7.0",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

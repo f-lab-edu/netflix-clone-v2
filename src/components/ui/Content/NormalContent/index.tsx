@@ -11,21 +11,21 @@ interface NormalContentProps {
 const MotionImage = motion(Image)
 
 export default function NormalContent({ content }: NormalContentProps) {
-  const { openDialog, portal, ref } = useContentMiniDialog()
+  const { openDialog } = useContentMiniDialog()
   const willOpen = useRef<boolean>(false)
 
-  return <div ref={ref}>
+  return <div>
     <MotionImage
       css={NormalContentImageCss}
       src={content.thumbnail}
       width={320}
       height={180}
       alt={content.title}
-      onMouseEnter={() => {
+      onMouseEnter={(e) => {
         willOpen.current = true
         setTimeout(() => {
           if (willOpen.current) {
-            openDialog()
+            openDialog(e.target as HTMLElement)
           }
         }, 500)
       }}
@@ -33,6 +33,5 @@ export default function NormalContent({ content }: NormalContentProps) {
         willOpen.current = false
       }}
     />
-    {portal}
   </div >
 }

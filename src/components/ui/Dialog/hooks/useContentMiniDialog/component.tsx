@@ -1,5 +1,5 @@
 import type { MotionDialogProps } from '../../component/MotionDialog';
-import type { PortalDialogInterface } from '@/provider/PortalProvider/context';
+import type { PortalDialogInterface } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import Image from 'next/image'
 import MotionDialog from '../../component/MotionDialog'
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style'

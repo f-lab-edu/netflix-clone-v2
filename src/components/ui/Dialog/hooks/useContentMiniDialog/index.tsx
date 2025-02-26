@@ -1,7 +1,7 @@
 import type { MotionDialogTransitionFunc } from '../../component/MotionDialog';
-import type { DialogRect } from '@/provider/PortalProvider/context';
+import type { DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import { useCallback, useMemo } from 'react';
-import { usePortal } from '@/provider/PortalProvider/hook';
+import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';
 import { useWindowWidth } from '@/state/windowSize';
 import MiniDialog from './component';
 

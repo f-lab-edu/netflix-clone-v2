@@ -3,7 +3,7 @@ import type { ReactNode } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { cloneElement, useCallback, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom';
-import useRootDom from '../RootDom/hooks/useRootDom';
+import useRootDom from '../../../../../provider/RootDom/hooks/useRootDom';
 import { PortalContext } from './context'
 
 interface PortalProviderProps {

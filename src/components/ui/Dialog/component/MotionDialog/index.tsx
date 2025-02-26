@@ -1,4 +1,4 @@
-import type { DialogObj, DialogRect } from '@/provider/PortalProvider/context';
+import type { DialogObj, DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import type { MotionProps, TargetAndTransition } from 'motion/react';
 import type { ReactElement } from 'react';
 import { motion } from 'motion/react';

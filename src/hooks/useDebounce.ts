@@ -7,7 +7,7 @@ export function useDebounceState<T>(initValue: T, delay: number): [T, (_input: T
 
   const setState = useCallback((input: T) => {
     value.current = input
-    if (timeout.current) return
+    clearTimeout(timeout.current)
 
     timeout.current = setTimeout(() => {
       setDebouncedValue(value.current)

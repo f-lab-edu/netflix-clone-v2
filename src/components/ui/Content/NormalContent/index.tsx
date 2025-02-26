@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import Image from 'next/image'
 import { useRef } from 'react'
 import useContentMiniDialog from '../../Dialog/hooks/useContentMiniDialog'
+import calcStartRefRect from '../../Dialog/utils/calcStartRefRect'
 import { NormalContentImageCss } from './style'
 
 interface NormalContentProps {
@@ -25,7 +26,8 @@ export default function NormalContent({ content }: NormalContentProps) {
         willOpen.current = true
         setTimeout(() => {
           if (willOpen.current) {
-            openDialog(e.target as HTMLElement)
+            const rect = calcStartRefRect(e.target as HTMLElement)
+            openDialog(rect)
           }
         }, 500)
       }}

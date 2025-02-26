@@ -62,6 +62,7 @@ export const theme: Theme = {
     white: {
       default: '#ffffff',
       opacity70: 'rgba(255,255,255,0.7)',
+      opacity75: 'rgba(255,255,255,0.75)',
       active: 'rgba(255,255,255,0.7)',
       hover: 'rgba(255,255,255,0.7)',
     },

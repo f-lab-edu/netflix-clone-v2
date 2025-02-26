@@ -12,8 +12,8 @@ const handlers = [
     ({ request }) => {
       const url = new URL(request.url)
       const keyword = url.searchParams.get('keyword') ?? ''
-      const size = Number(url.searchParams.get('size')) ?? 10
-      const page = Number(url.searchParams.get('page')) ?? 1
+      const size = Number(url.searchParams.get('size'))
+      const page = Number(url.searchParams.get('page'))
 
       const contentList = GetMSWContentList()
       if (!isNumber(size) || !isNumber(page)) throw new ErrorException('wrong value inserted', ErrorCode.WRONG_REQUEST)

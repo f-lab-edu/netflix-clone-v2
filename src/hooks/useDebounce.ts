@@ -21,10 +21,13 @@ export function useDebounceState<T>(initValue: T, delay: number): [T, (_input: T
 
 export function useDebounce(action: () => void, delay: number) {
   const debounce = useMemo(() => {
-    let before: NodeJS.Timeout
+    let before: NodeJS.Timeout | undefined
     return () => {
-      if (before) return
-      before = setTimeout(action, delay)
+      clearTimeout(before)
+      before = setTimeout(() => {
+        action()
+        before = undefined
+      }, delay)
     }
   }, [action, delay])
   return debounce

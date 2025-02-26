@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
-import { useWindowHeight, useWindowWidth } from '.'
 import { useDebounce } from '@/hooks/useDebounce'
+import { useWindowHeight, useWindowWidth } from '.'
 
 export const useWindowResized = () => {
   const [, setWindowWidth] = useWindowWidth()
@@ -17,5 +17,5 @@ export const useWindowResized = () => {
     return () => {
       window.removeEventListener('resize', event)
     }
-  })
+  }, [])
 }

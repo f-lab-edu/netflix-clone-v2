@@ -11,7 +11,6 @@ export function useDebounceState<T>(initValue: T, delay: number): [T, (_input: T
 
     timeout.current = setTimeout(() => {
       setDebouncedValue(value.current)
-      timeout.current = undefined
     }, delay)
 
   }, [delay])
@@ -26,7 +25,6 @@ export function useDebounce(action: () => void, delay: number) {
       clearTimeout(before)
       before = setTimeout(() => {
         action()
-        before = undefined
       }, delay)
     }
   }, [action, delay])

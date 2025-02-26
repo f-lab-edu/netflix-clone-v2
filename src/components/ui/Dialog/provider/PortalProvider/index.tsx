@@ -23,11 +23,15 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
       setDialogs((prev) => ({
         ...prev,
         [id]: {
-          zIndex: ++zIndex.current * 10,
-          isOpen: true,
-          rect,
-          resolve,
-          reject
+          promise: {
+            resolve,
+            reject
+          },
+          props: {
+            css: { zIndex: ++zIndex.current * 10 },
+            isOpen: true,
+            rect,
+          }
         }
       }))
     })
@@ -38,7 +42,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
 
     setDialogs((prev) => {
       const { [id]: old, ...others } = prev
-      if (old?.resolve) old.resolve(value)
+      if (old?.promise.resolve) old.promise.resolve(value)
       dialogContents.current.delete(id)
       if (!Object.keys(others).length) zIndex.current = 0
       return others
@@ -55,7 +59,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
         {Object.keys(dialogs).map(k => {
           return cloneElement(dialogContents.current.get(k), {
             closePortal: (value?: T) => closePortal(k, value),
-            ...dialogs[k],
+            ...dialogs[k].props,
             key: k
           })
         })}

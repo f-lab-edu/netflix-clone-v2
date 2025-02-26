@@ -14,15 +14,21 @@ export type ValueType = unknown
 
 export type DialogContent = ReactElement<PortalDialogInterface>
 
-export interface DialogObj {
-  zIndex?: number
-  isOpen?: boolean
-  rect?: DialogRect
+export interface DialogPromiseObj {
   resolve?: (_value?: any | PromiseLike<any>) => void;
   reject?: (_reason?: any) => void;
 }
 
-export interface PortalDialogInterface extends Omit<DialogObj, 'content' | 'resolve' | 'reject'> {
+export interface DialogPropsObj extends CssProps {
+  isOpen?: boolean
+  rect?: DialogRect
+}
+export interface DialogObj {
+  promise: DialogPromiseObj
+  props: DialogPropsObj
+}
+
+export interface PortalDialogInterface extends DialogPropsObj {
   closePortal?: (_value?: any) => void
 }
 

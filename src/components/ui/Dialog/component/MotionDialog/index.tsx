@@ -1,4 +1,4 @@
-import type { DialogObj, DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
+import type { DialogPropsObj, DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import type { MotionProps, TargetAndTransition } from 'motion/react';
 import type { ReactElement } from 'react';
 import { motion } from 'motion/react';
@@ -13,7 +13,7 @@ interface MotionPropsOverwrite {
 
 export type MotionDialogOptions = Omit<MotionProps, 'initial' | 'animate' | 'exit'> & MotionPropsOverwrite
 
-export interface MotionDialogProps extends DialogObj {
+export interface MotionDialogProps extends DialogPropsObj {
   options?: MotionDialogOptions
   children?: ReactElement<{ closePortal: () => void }>
   rect?: DialogRect
@@ -22,9 +22,8 @@ export interface MotionDialogProps extends DialogObj {
 export default function MotionDialog({
   isOpen,
   options,
-  children,
   rect,
-  zIndex,
+  ...props
 }: MotionDialogProps) {
   return <motion.div
     layoutDependency={isOpen}
@@ -32,13 +31,8 @@ export default function MotionDialog({
     initial={options?.initial ? options.initial(rect) : undefined}
     animate={options?.animate ? options.animate(rect) : undefined}
     exit={options?.exit ? options.exit(rect) : undefined}
-    style={{
-      zIndex: zIndex,
-      position: 'absolute',
-      ...options?.style,
-    }}
+    css={{ position: 'absolute' }}
     transition={{ duration: .5, ...options?.transition }}
-  >
-    {children}
-  </motion.div>
+    {...props}
+  />
 }

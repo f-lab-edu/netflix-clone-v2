@@ -1,3 +1,4 @@
+import MembershipInitData from './initData/membership.json'
 import AutoKeyGenerator from './utils/AutoKeyGenerator'
 import JSONStorageGenerator from './utils/JSONStorageGenerator'
 
@@ -7,40 +8,6 @@ type MSWMembershipDataStruct = {
   [key: number]: MembershipPlans
 }
 
-const initData: Omit<MembershipPlans, 'id'>[] = [
-  {
-    ads: true,
-    plan: 'adsStandard',
-    maxContentResolution: 'FHD',
-    maxWatcherCount: 2,
-    price: 5500,
-    saveAllowedDeviceNumber: 2,
-    device: ['tv', 'computer', 'mobile', 'tablet'],
-    sortOrder: 1000
-  },
-  {
-    ads: false,
-    plan: 'standard',
-    maxContentResolution: 'FHD',
-    maxWatcherCount: 2,
-    price: 13500,
-    saveAllowedDeviceNumber: 2,
-    device: ['tv', 'computer', 'mobile', 'tablet'],
-    sortOrder: 2000
-  },
-  {
-    ads: false,
-    plan: 'premium',
-    maxContentResolution: 'UHD',
-    maxWatcherCount: 4,
-    price: 17000,
-    saveAllowedDeviceNumber: 6,
-    device: ['tv', 'computer', 'mobile', 'tablet'],
-    soundQuality: 'immersive',
-    sortOrder: 3000
-  }
-]
-
 const isServer = typeof window === 'undefined'
 
 const { issueAutoKeyIndex } = AutoKeyGenerator(isServer, AutoKeyName)
@@ -48,9 +15,10 @@ const { loadDataFromStorage, saveDataToStorage } = JSONStorageGenerator<MSWMembe
 
 export const saveInitData = () => {
   const obj = {} as MSWMembershipDataStruct
-  initData.forEach((initObj) => {
+  MembershipInitData.forEach((initObj) => {
+    const tempObj = initObj as Omit<MembershipPlans, 'id'>
     const idx = issueAutoKeyIndex()
-    const temp = { id: idx, ...initObj }
+    const temp = { id: idx, ...tempObj }
     obj[idx] = temp
   })
   saveDataToStorage(obj)

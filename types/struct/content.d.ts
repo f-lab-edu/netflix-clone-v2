@@ -6,15 +6,18 @@ declare interface Content {
   previewVideo: string
   ageRestriction: AgeRestriction
   soundQuality?: SoundQuality
-  genres: Genre[]
-  actors: Actor[]
-  specific: Specific[]
-  rules: Rule[]
-  series: Serie[]
   uploadDate: number
   hasNewEpisode: boolean
   isTop10: boolean
   keywords: string[]
+}
+
+declare interface ContentWithDetails extends Content {
+  rules: Rule[]
+  series: Serie[]
+  genres: Genre[]
+  actors: Actor[]
+  specific: Specific[]
 }
 
 declare type SoundQuality = 'immersive' | undefined

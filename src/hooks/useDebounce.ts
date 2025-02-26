@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useRef, useState } from 'react';
 
 export function useDebounceState<T>(initValue: T, delay: number): [T, (_input: T) => void] {
   const [debouncedValue, setDebouncedValue] = useState<T>(initValue);
@@ -19,14 +19,12 @@ export function useDebounceState<T>(initValue: T, delay: number): [T, (_input: T
 }
 
 export function useDebounce(action: () => void, delay: number) {
-  const debounce = useMemo(() => {
-    let before: NodeJS.Timeout | undefined
-    return () => {
-      clearTimeout(before)
-      before = setTimeout(() => {
-        action()
-      }, delay)
-    }
+  const before = useRef<NodeJS.Timeout | undefined>(undefined)
+  const debounce = useCallback(() => {
+    clearTimeout(before.current)
+    before.current = setTimeout(() => {
+      action()
+    }, delay)
   }, [action, delay])
   return debounce
 }

@@ -5,25 +5,43 @@ import SignInOutBtn from '@/components/ui/Button/SignInOutBtn';
 import ConditionalRender from '@/components/ui/utils/ConditionalRender';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import BaseLayout from '../BaseLayout';
-import { BrowserLayoutFooterCss, BrowserLayoutHeaderCss, BrowserLayoutHeaderLinkCss, BrowserLayoutMainCss, BrowserLayoutShellCss } from '../styles/BrowserLayoutStyle';
+import { BrowserLayoutFooterCss, BrowserLayoutHeaderCss, BrowserLayoutHeaderLeftAreaCss, BrowserLayoutHeaderLinkCss, BrowserLayoutHeaderRightAreaCss, BrowserLayoutMainCss, BrowserLayoutShellCss } from '../styles/BrowserLayoutStyle';
 import { HeaderLoginLinkStyleCss } from '../styles/SignupLayoutStyle';
+import BrowseMenuList from './component/BrowseMenuList';
+import SearchInputField from './component/SearchInputField';
 
 interface BrowserLayoutProps {
   children: ReactNode
-  hideHeader?: boolean
+  headerType?: 'noHeader' | 'normal' | 'browse'
 }
 
 export default function BrowserLayout({
   children,
-  hideHeader
+  headerType
 }: BrowserLayoutProps) {
   const { t } = useTranslation(['common'])
+
   return <BaseLayout.Dark>
     <div css={BrowserLayoutShellCss}>
-      <ConditionalRender.Boolean
-        condition={hideHeader || false}
+      <ConditionalRender
+        condition={headerType || 'normal'}
         render={{
-          false: <header css={[BrowserLayoutHeaderCss]}>
+          noHeader: undefined,
+          browse: <header css={[BrowserLayoutHeaderCss]}>
+            <div css={BrowserLayoutHeaderLeftAreaCss}>
+              <Link css={BrowserLayoutHeaderLinkCss} href="/">
+                <NetflixLogo />
+              </Link>
+              <BrowseMenuList />
+            </div>
+            <div css={BrowserLayoutHeaderRightAreaCss}>
+              {/* search bar */}
+              <SearchInputField />
+              {/* alarm */}
+              {/* profile */}
+            </div>
+          </header>,
+          normal: <header css={[BrowserLayoutHeaderCss]}>
             <Link css={BrowserLayoutHeaderLinkCss} href="/">
               <NetflixLogo />
             </Link>

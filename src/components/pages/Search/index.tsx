@@ -24,6 +24,6 @@ const SearchPage: NextPageWithLayout = () => {
   </div>
 }
 SearchPage.getLayout = (page) => {
-  return <BrowserLayout>{page}</BrowserLayout>
+  return <BrowserLayout headerType='browse'>{page}</BrowserLayout>
 }
 export default SearchPage

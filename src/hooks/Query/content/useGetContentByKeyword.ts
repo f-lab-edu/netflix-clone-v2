@@ -15,10 +15,7 @@ export default function useGetContentByKeyword(keyword: string) {
       return { ...lastPageParam, page: lastPageParam.page + 1 }
     },
     select({ pages }) {
-      return pages.reduce((acc, cur) => {
-        acc.push(...cur.list)
-        return acc
-      }, [] as Content[])
+      return pages.flatMap(v => v.list)
     }
   })
 }

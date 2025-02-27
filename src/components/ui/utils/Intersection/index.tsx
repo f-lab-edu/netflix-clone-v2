@@ -15,8 +15,8 @@ export default function Intersection({
   thresholds
 }: IntersectionProps) {
   const callback: IntersectionCallback = (v) => {
-    if (typeof thresholds === 'number' && v.intersectionRatio >= thresholds) {
-      onVisible(v)
+    if (typeof thresholds === 'number') {
+      if (v.intersectionRatio >= thresholds) onVisible(v)
     } else {
       onVisible(v)
     }

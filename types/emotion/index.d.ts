@@ -71,6 +71,7 @@ declare module '@emotion/react' {
       white: {
         default: '#ffffff'
         opacity70: 'rgba(255,255,255,0.7)',
+        opacity75: 'rgba(255,255,255,0.75)',
         /** @deprecated use opacity70 */
         active: 'rgba(255,255,255,0.7)'
         /** @deprecated use opacity70 */

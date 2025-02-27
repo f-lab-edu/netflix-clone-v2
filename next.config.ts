@@ -6,6 +6,14 @@ const nextConfig: NextConfig = {
   /* config options here */
   reactStrictMode: true,
   i18n: i18nConfig.i18n,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'file.koreafilm.or.kr'
+      }
+    ]
+  },
   compiler: {
     styledJsx: false,
     emotion: true,

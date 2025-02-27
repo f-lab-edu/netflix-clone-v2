@@ -11,13 +11,11 @@ export default function useGetContentByKeyword(keyword: string) {
       keyword,
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (lastPage.total <= lastPageParam.page * lastPageParam.size) return null
       return { ...lastPageParam, page: lastPageParam.page + 1 }
     },
     select({ pages }) {
-      return pages.reduce((acc, cur) => {
-        acc.push(...cur.list)
-        return acc
-      }, [] as Content[])
+      return pages.flatMap(v => v.list)
     }
   })
 }

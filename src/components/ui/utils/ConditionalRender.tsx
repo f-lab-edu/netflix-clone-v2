@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
 
 type KeyType = string | number
+type ConditionRendererType = { [k: KeyType]: ReactNode }
 
-interface ConditionalRenderProps {
-  render: { [k: KeyType]: ReactNode }
-  condition: KeyType
+interface ConditionalRenderProps<P> {
+  render: P
+  condition: keyof P
 }
 
 interface ConditionalRenderBooleanProps {
@@ -12,7 +13,7 @@ interface ConditionalRenderBooleanProps {
   condition: boolean
 }
 
-const ConditionalRender = ({ render, condition }: ConditionalRenderProps) => {
+const ConditionalRender = <P extends ConditionRendererType = ConditionRendererType>({ render, condition }: ConditionalRenderProps<P>) => {
   if (render[condition]) return <>{render[condition]}</>
   return null
 }

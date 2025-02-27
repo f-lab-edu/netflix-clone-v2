@@ -19,15 +19,14 @@ const handlers = [
       if (!isNumber(size) || !isNumber(page)) throw new ErrorException('wrong value inserted', ErrorCode.WRONG_REQUEST)
 
       const resultList = keyword ? contentList.filter((content) => {
-        return content.title.includes(keyword) ||
+        return content.thumbnail && content.title.includes(keyword) ||
           content.description.includes(keyword) ||
           content.keywords.join(',').includes(keyword)
       }) : contentList
       return createSuccessResponse({
-        list: resultList.slice(page - 1 * size, page * size),
+        list: resultList.slice((page - 1) * size, page * size),
         total: resultList.length
       })
-
     }
   ))
 ]

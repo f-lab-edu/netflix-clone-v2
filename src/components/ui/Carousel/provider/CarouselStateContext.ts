@@ -6,6 +6,7 @@ interface CarouselState {
   moveSize: number
   itemsLength: number
   displayOnce: number
+  itemWidth: number
   setMoveSize: (_moveSize: number) => void
   animationFinishedAction: () => void
 }
@@ -16,6 +17,7 @@ const CarouselStateContext = createContext<CarouselState>({
   moveSize: 0,
   itemsLength: 0,
   displayOnce: 0,
+  itemWidth: 0,
   setMoveSize: () => { },
   animationFinishedAction: () => { }
 })

@@ -8,7 +8,7 @@
     ]
   },
   "scripts": {
-    "dev": "next dev --turbo",
+    "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -50,5 +50,6 @@
     "jotai-devtools": "^0.10.1",
     "msw": "^2.7.0",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }

@@ -1,6 +1,6 @@
 import type { SyntheticEvent } from 'react';
 import useAnimation from '@/provider/AnimationProvider/hooks/useAnimation';
-import { DialogContainer } from './Styled'
+import { DialogContainerCss } from './style'
 
 type CloseAction = () => void
 export interface ContentDialogProps {
@@ -17,7 +17,7 @@ export default function ContentDialog({ children }: ContentDialogProps) {
   // TODO: add animation for open/close action
   // Will trigger, when changed url
 
-  return <DialogContainer {...register()} role="dialog">
+  return <div css={DialogContainerCss} {...register()} role="dialog" >
     {children(closeAction)}
-  </DialogContainer>
+  </div>
 }

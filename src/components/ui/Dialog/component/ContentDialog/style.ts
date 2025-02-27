@@ -1,7 +1,7 @@
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import { theme } from '@/components/ui/theme';
 
-export const DialogContainer = styled.div([{
+export const DialogContainerCss = css([{
   willChange: 'scroll-position',
   position: 'fixed',
   borderRadius: theme.borderRadius.sm,

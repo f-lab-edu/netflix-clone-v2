@@ -21,7 +21,7 @@ const BrowsePage: NextPageWithLayout = () => {
     rules: [],
     series: [],
     specific: [],
-    thumbnail: '',
+    thumbnail: '/netflix/movies/thunbnail/harbin.png',
     uploadDate: 0
   })))
   return <div>

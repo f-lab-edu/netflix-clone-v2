@@ -16,3 +16,14 @@ export function useDebounceState<T>(initValue: T, delay: number): [T, (_input: T
 
   return [debouncedValue, setState];
 }
+
+export function useDebounce<T extends (..._args: unknown[]) => void>(action: T, delay: number): T {
+  const before = useRef<NodeJS.Timeout | undefined>(undefined)
+  const debounce = useCallback((...args: Parameters<T>) => {
+    clearTimeout(before.current)
+    before.current = setTimeout(() => {
+      action(...args)
+    }, delay)
+  }, [action, delay])
+  return debounce as T
+}

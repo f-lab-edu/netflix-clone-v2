@@ -1,4 +1,4 @@
-import type { ContentDialogProps } from './component/ContentDialog/ContentDialog';
+import type { ContentDialogProps } from './component/ContentDialog';
 import type { ReactElement } from 'react';
 import { useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
@@ -24,7 +24,7 @@ export default function ContentDetailDialog({ activator, ...contentProps }: Cont
   const rootDom = useMemo(() => getRootDom(), [getRootDom])
   const activatorRef = useRef<HTMLElement>(null)
   const [activatorPosition, setActivatorPosition] = useState<DOMRect>()
-  useHoldBackWindow(eventState, prevState, rootDom)
+  useHoldBackWindow(eventState, rootDom)
   const activatorMemo = useMemo(() => {
     return activator(toggleEventState, (ref) => {
       activatorRef.current = ref

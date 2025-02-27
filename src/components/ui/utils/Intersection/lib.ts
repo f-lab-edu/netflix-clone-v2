@@ -11,6 +11,8 @@ const getObserver = (): IntersectionObserver => {
         const callback = observerActions.get(v.target)
         if (callback) callback(v)
       })
+    }, {
+      threshold: Array(101).fill(1).map((v, i) => i * 0.01)
     })
   }
   return observer

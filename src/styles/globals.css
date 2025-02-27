@@ -11,6 +11,7 @@ body {
 }
 
 body {
+  position: relative;
   color: var(--foreground);
   background: var(--background);
   word-break: keep-all;

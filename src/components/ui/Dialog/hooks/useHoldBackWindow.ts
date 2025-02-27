@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 
-export default function useScrollLockByRootDom(eventState: boolean, prevState: boolean, rootDom: HTMLElement | null) {
+export default function useHoldBackWindow(eventState: boolean, rootDom: HTMLElement | null) {
   useEffect(() => {
     if (eventState) {
       const scrolled = window.scrollY

@@ -5,9 +5,10 @@ import dynamic from 'next/dynamic';
 import Head from 'next/head';
 import { useTranslation } from 'next-i18next';
 import { Suspense } from 'react';
+import PortalProvider from '@/components/ui/Dialog/provider/PortalProvider';
 import RootDomProvider from '@/provider/RootDom/provider';
 import 'jotai-devtools/styles.css'
-import WindowResizeProvider from '@/provider/WindowResizeProvider/provider';
+import { useWindowResized } from '@/state/windowSize/hooks';
 import { theme } from '../ui/theme';
 import ClientOnly from '../ui/utils/ClientOnly';
 
@@ -37,6 +38,7 @@ const BaseLayout = ({
   seconderyTextColor
 }: BaseLayoutProps) => {
   const { t } = useTranslation(['common'])
+  useWindowResized()
   return <div css={{
     display: 'flex',
     flexDirection: 'column',
@@ -58,15 +60,15 @@ const BaseLayout = ({
     <ClientOnly>
       <DevTools />
     </ClientOnly>
-    <WindowResizeProvider>
-      <RootDomProvider>
-        <Suspense><MSWLoader>
-          <QueryClientProvider client={queryClient}>
+    <RootDomProvider>
+      <Suspense><MSWLoader>
+        <QueryClientProvider client={queryClient}>
+          <PortalProvider>
             {children}
-          </QueryClientProvider>
-        </MSWLoader></Suspense>
-      </RootDomProvider>
-    </WindowResizeProvider>
+          </PortalProvider>
+        </QueryClientProvider>
+      </MSWLoader></Suspense>
+    </RootDomProvider>
   </div>
 }
 

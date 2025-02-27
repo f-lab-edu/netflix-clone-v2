@@ -1,12 +1,17 @@
-import type { MotionDialogTransitionFunc } from '../useMotionDialog';
-import Image from 'next/image';
+import type { MotionDialogTransitionFunc } from '../../component/MotionDialog';
+import type { DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import { useCallback, useMemo } from 'react';
-import useMotionDialog from '../useMotionDialog';
-import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style';
-import useWindowSize from '@/provider/WindowResizeProvider/hooks/useWindowSize';
+import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';
+import { useWindowWidth } from '@/state/windowSize';
+import MiniDialog from './component';
+
+const CONTENT_MINI_DIALOG_KEY = 'content-mini-dialog'
 
 export default function useContentMiniDialog() {
-  const { width } = useWindowSize()
+
+  const { closePortal, openPortal: openDialogPortal } = usePortal()
+
+  const [width] = useWindowWidth()
   const minLeft = useMemo(() => {
     return width * .04
   }, [width])
@@ -15,6 +20,7 @@ export default function useContentMiniDialog() {
   }, [width, minLeft])
 
   const disabledPosition = useCallback<MotionDialogTransitionFunc>((rect) => {
+    if (!rect) return {}
     const width = rect.width * 1.5
     return {
       width: width,
@@ -26,6 +32,7 @@ export default function useContentMiniDialog() {
     }
   }, [])
   const activePosition = useCallback<MotionDialogTransitionFunc>((rect) => {
+    if (!rect) return {}
     const width = rect.width * 1.5
     const padSize = rect.width / 4
     let left = 0
@@ -45,40 +52,25 @@ export default function useContentMiniDialog() {
     }
   }, [maxLeft, minLeft])
 
-  return useMotionDialog((closeAction) => {
-    return <div
-      tabIndex={-1}
-      css={ContentDialogShellCss}
-      ref={(el) => {
-        el?.focus()
+  const openDialog = (rect: DialogRect) => {
+    openDialogPortal(CONTENT_MINI_DIALOG_KEY, <MiniDialog
+      options={{
+        initial: disabledPosition,
+        animate: activePosition,
+        exit: disabledPosition,
+        style: {
+          transformOrigin: '50% 50% 0',
+          height: 'auto',
+        },
+        transition: {
+          duration: 0.3
+        }
       }}
-      onBlur={() => closeAction(false)}
-      onMouseLeave={() => closeAction(false)}
-    >
-      <Image
-        css={ContentDialogImgShellCss}
-        src='/netflix/movies/thunbnail/harbin.png'
-        alt="Harbin"
-        width={320}
-        height={180}
-      />
-      <div css={ContentDetailShellCss}>
-        <div role="grid" css={ContentDialogButtonAreaCss}>
-          sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
-          sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
-        </div>
-      </div>
-    </div>
-  }, {
-    initial: disabledPosition,
-    animate: activePosition,
-    exit: disabledPosition,
-    style: {
-      transformOrigin: '50% 50% 0',
-      height: 'auto',
-    },
-    transition: {
-      duration: 0.3
-    }
-  })
+    />, rect)
+  }
+
+  return {
+    closeDialog: () => closePortal(CONTENT_MINI_DIALOG_KEY),
+    openDialog
+  }
 }

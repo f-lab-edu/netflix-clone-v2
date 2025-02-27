@@ -2,6 +2,7 @@ import { motion } from 'motion/react'
 import Image from 'next/image'
 import { useRef } from 'react'
 import useContentMiniDialog from '../../Dialog/hooks/useContentMiniDialog'
+import calcStartRefRect from '../../Dialog/utils/calcStartRefRect'
 import { NormalContentImageCss } from './style'
 
 interface NormalContentProps {
@@ -11,21 +12,22 @@ interface NormalContentProps {
 const MotionImage = motion(Image)
 
 export default function NormalContent({ content }: NormalContentProps) {
-  const { openDialog, portal, ref } = useContentMiniDialog()
+  const { openDialog } = useContentMiniDialog()
   const willOpen = useRef<boolean>(false)
 
-  return <div ref={ref}>
+  return <div>
     <MotionImage
       css={NormalContentImageCss}
       src={content.thumbnail}
       width={320}
       height={180}
       alt={content.title}
-      onMouseEnter={() => {
+      onMouseEnter={(e) => {
         willOpen.current = true
         setTimeout(() => {
           if (willOpen.current) {
-            openDialog()
+            const rect = calcStartRefRect(e.target as HTMLElement)
+            openDialog(rect)
           }
         }, 500)
       }}
@@ -33,6 +35,5 @@ export default function NormalContent({ content }: NormalContentProps) {
         willOpen.current = false
       }}
     />
-    {portal}
   </div >
 }

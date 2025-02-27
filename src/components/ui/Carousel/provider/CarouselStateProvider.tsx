@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import useWindowSize from '@/provider/WindowResizeProvider/hooks/useWindowSize';
+import { useWindowWidth } from '@/state/windowSize';
 import CarouselStateContext from './CarouselStateContext';
 
 export interface IndexedItems {
@@ -19,7 +19,7 @@ interface CarouselStateProviderProps {
 }
 
 export default function CarouselStateProvider({ children, itemsLength }: CarouselStateProviderProps) {
-  const { width } = useWindowSize()
+  const [width] = useWindowWidth()
   const displayOnce = useMemo(() => {
     if (width >= 1400) return 6
     if (width >= 1100) return 5

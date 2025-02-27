@@ -1,8 +1,10 @@
+import type { IntersectionCallback } from '@/components/ui/utils/Intersection/lib';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import BrowserLayout from '@/components/layout/BrowserLayout';
+import Intersection from '@/components/ui/utils/Intersection';
 import { useDebounceState } from '@/hooks/useDebounce';
 
 const SearchPage: NextPageWithLayout = () => {
@@ -19,8 +21,19 @@ const SearchPage: NextPageWithLayout = () => {
     setKeyword(keywordParam)
   }, [router, searchParams, setKeyword])
 
+  const loadMoreAction: IntersectionCallback = (v) => {
+    if (v.intersectionRatio === 1) {
+      console.log(v)
+    }
+  }
+
   return <div>
     {keyword}
+    <Intersection onVisible={loadMoreAction}>
+      <div>
+        Loading Skeleton
+      </div>
+    </Intersection>
   </div>
 }
 SearchPage.getLayout = (page) => {

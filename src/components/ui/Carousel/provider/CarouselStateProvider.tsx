@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useCallback, useMemo, useState } from 'react';
-import { useWindowWidth } from '@/state/windowSize';
+import useContentListDisplayWidth from '../../Content/hooks/useContentListDisplayWidth';
 import CarouselStateContext from './CarouselStateContext';
 
 export interface IndexedItems {
@@ -19,14 +19,7 @@ interface CarouselStateProviderProps {
 }
 
 export default function CarouselStateProvider({ children, itemsLength }: CarouselStateProviderProps) {
-  const [width] = useWindowWidth()
-  const displayOnce = useMemo(() => {
-    if (width >= 1400) return 6
-    if (width >= 1100) return 5
-    if (width >= 800) return 4
-    if (width >= 500) return 3
-    return 2
-  }, [width])
+  const { displayOnce, ...displayState } = useContentListDisplayWidth()
 
   const [carouselState, setCarouselState] = useState<CarouselState>({
     firstItemIdx: 0,
@@ -75,12 +68,13 @@ export default function CarouselStateProvider({ children, itemsLength }: Carouse
   const providerValue = useMemo(() => {
     return {
       itemsLength,
+      ...displayState,
       displayOnce,
       ...carouselState,
       setMoveSize,
       animationFinishedAction
     }
-  }, [itemsLength, carouselState, displayOnce, animationFinishedAction, setMoveSize])
+  }, [itemsLength, carouselState, displayState, displayOnce, animationFinishedAction, setMoveSize])
   return <CarouselStateContext.Provider value={providerValue}>
     {children}
   </CarouselStateContext.Provider>

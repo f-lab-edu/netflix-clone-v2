@@ -18,25 +18,32 @@ const sizes: Record<DisplaySize, number> = {
 export const MediaPoint = facepaint(
   Object.values(sizes).slice(1).map(v => `@media (min-width: ${v}px)`)
 )
-export const BreakPoints = {
+
+type CssArgs = CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]
+
+const BreakPointsBase = (size: number, args: CssArgs) => css({ [`@media (min-width: ${size}px)`]: args })
+const BreakPoints = Object.assign(BreakPointsBase, {
   /**
    * minWidth: 0px
    */
-  xs: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.xs}px)`]: args }),
+  xs: (args: CssArgs) => BreakPointsBase(sizes.xs, args),
   /**
    * minWidth: 600px
    */
-  sm: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.sm}px)`]: args }),
+  sm: (args: CssArgs) => BreakPointsBase(sizes.sm, args),
   /**
    * minWidth: 960px
    */
-  md: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.md}px)`]: args }),
+  md: (args: CssArgs) => BreakPointsBase(sizes.md, args),
   /**
    * minWidth: 1280px
    */
-  lg: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.lg}px)`]: args }),
+  lg: (args: CssArgs) => BreakPointsBase(sizes.lg, args),
   /**
    * minWidth: 1920px
    */
-  full: (args: CSSObject | SerializedStyles | (CSSObject | SerializedStyles)[]) => css({ [`@media (min-width: ${sizes.full}px)`]: args })
+  full: (args: CssArgs) => BreakPointsBase(sizes.full, args)
+})
+export {
+  BreakPoints
 }

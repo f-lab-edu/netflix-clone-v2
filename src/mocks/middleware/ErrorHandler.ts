@@ -11,7 +11,8 @@ export const ErrorCode = {
   DUPLICATE_EMAIL: -5,
   SIGNIN_FAILED: -100,
   DISABLE_DELETE_DEFAULT_PROFILE: -300,
-  ALREADY_TOO_MANY_PROFILE_HAVE: -2000
+  ALREADY_TOO_MANY_PROFILE_HAVE: -2000,
+  WRONG_REQUEST: -200
 }
 
 export function ErrorHandler<RequestBodyType extends DefaultBodyType = DefaultBodyType, ResponseBodyType extends DefaultBodyType = DefaultBodyType, P extends PathParams = PathParams>(

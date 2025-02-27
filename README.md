@@ -75,3 +75,6 @@ apollo/server, typeorm, type-graph, mysql
 ## Naming Rule
 - 재사용을 위한 CSS객체가 아닌 Element CSS 객체의 경우 `Css` postfix를 명시
 - API호출 메소드의 경우 `Api` postfix를 명시
+
+# 영화 데이터 출처
+https://www.kmdb.or.kr/info/api/apiDetail/6

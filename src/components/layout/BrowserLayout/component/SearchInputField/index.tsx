@@ -30,9 +30,6 @@ export default function SearchInputField() {
 
   return <div
     css={[SearchLayoutCss]}
-    onMouseEnter={() => {
-      inputRef.current?.focus()
-    }}
   >
     <label htmlFor={id}>
       <SearchIcon />

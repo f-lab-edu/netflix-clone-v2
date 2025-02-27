@@ -1,5 +1,14 @@
+import type { CSSObject } from '@emotion/react';
 import { css } from '@emotion/react';
 import { theme } from '@/components/ui/theme';
+
+const SearchLayoutOnEditCss: CSSObject = {
+  columnGap: '16px',
+  borderColor: theme.color.white.opacity75,
+  '> input': {
+    width: '220px'
+  }
+}
 
 export const SearchLayoutCss = css({
   display: 'flex',
@@ -12,7 +21,10 @@ export const SearchLayoutCss = css({
   transitionProperty: 'border-color',
   'svg': {
     display: 'block'
-  }
+  },
+  ':hover': SearchLayoutOnEditCss,
+  ':has(input:focus)': SearchLayoutOnEditCss,
+  ':has(input:not(:placeholder-shown))': SearchLayoutOnEditCss
 })
 
 export const SearchInputTextCss = css({
@@ -22,12 +34,4 @@ export const SearchInputTextCss = css({
   outline: 'none',
   transitionDuration: '.5s',
   transitionProperty: 'width',
-})
-
-export const SearchLayoutOnEditCss = css({
-  columnGap: '16px',
-  borderColor: theme.color.white.opacity75,
-  '> input': {
-    width: '220px'
-  }
 })

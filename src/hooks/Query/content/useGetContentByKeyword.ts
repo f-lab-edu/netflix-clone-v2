@@ -11,6 +11,7 @@ export default function useGetContentByKeyword(keyword: string) {
       keyword,
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (lastPage.total <= lastPageParam.page * lastPageParam.size) return null
       return { ...lastPageParam, page: lastPageParam.page + 1 }
     },
     select({ pages }) {

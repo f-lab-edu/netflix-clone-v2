@@ -49,10 +49,12 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
     })
   }, [dialogs])
 
-  return <PortalContext.Provider value={{
+  const value = useMemo(() => ({
     openPortal,
     closePortal
-  }}>
+  }), [openPortal, closePortal])
+
+  return <PortalContext.Provider value={value}>
     {children}
     {createPortal(<div>
       <AnimatePresence>

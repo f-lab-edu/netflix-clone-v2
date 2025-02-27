@@ -10,12 +10,12 @@ export interface DialogRect {
   maxHeight?: number
 }
 
-export type ValueType = unknown
+export type ValueType = any
 
 export type DialogContent = ReactElement<PortalDialogInterface>
 
 export interface DialogPromiseObj {
-  resolve?: (_value?: any | PromiseLike<any>) => void;
+  resolve?: (_value?: any) => void;
   reject?: (_reason?: any) => void;
 }
 

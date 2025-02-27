@@ -10,8 +10,8 @@ export default function SearchInputField() {
   const searchParam = useSearchParams()
   const inputRef = useRef<HTMLInputElement | null>(null)
   const id = useId()
-  const [isFocus, setFocus] = useState(false)
-  const [isHover, setHover] = useState(false)
+  const [isFocus, setIsFocus] = useState(false)
+  const [isHover, setIsHover] = useState(false)
   const [keyword, setKeyword] = useState(searchParam.get('keyword') || '')
 
   useEffect(() => {
@@ -32,11 +32,12 @@ export default function SearchInputField() {
 
   return <div
     css={[SearchLayoutCss, isFocus || isHover || keyword ? SearchLayoutOnEditCss : undefined]}
+    role="textbox"
     onMouseEnter={() => {
-      setHover(true)
+      setIsHover(true)
       inputRef.current?.focus()
     }}
-    onMouseLeave={() => setHover(false)}
+    onMouseLeave={() => setIsHover(false)}
   >
     <label htmlFor={id}>
       <SearchIcon />
@@ -48,8 +49,8 @@ export default function SearchInputField() {
       type="text"
       defaultValue={keyword}
       placeholder={'설명'}
-      onFocus={() => setFocus(true)}
-      onBlur={() => setFocus(false)}
+      onFocus={() => setIsFocus(true)}
+      onBlur={() => setIsFocus(false)}
       onChange={(e) => {
         setKeyword(e.target.value)
       }}

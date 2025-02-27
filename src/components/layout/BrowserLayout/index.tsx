@@ -24,7 +24,7 @@ export default function BrowserLayout({
   return <BaseLayout.Dark>
     <div css={BrowserLayoutShellCss}>
       <ConditionalRender
-        condition={headerType || 'normal'}
+        condition={headerType ?? 'normal'}
         render={{
           noHeader: undefined,
           browse: <header css={[BrowserLayoutHeaderCss]}>

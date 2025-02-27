@@ -9,7 +9,7 @@ const SearchPage: NextPageWithLayout = () => {
   const router = useRouter()
   // TODO: use on other browse page
   const searchParams = useSearchParams()
-  const [keyword, setKeyword] = useDebounceState('', 500, { clearAll: true })
+  const [keyword, setKeyword] = useDebounceState('', 500)
   useEffect(() => {
     const keywordParam = searchParams.get('keyword')
     if (!keywordParam) {

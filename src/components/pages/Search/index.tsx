@@ -22,14 +22,12 @@ const SearchPage: NextPageWithLayout = () => {
   }, [router, searchParams, setKeyword])
 
   const loadMoreAction: IntersectionCallback = (v) => {
-    if (v.intersectionRatio === 1) {
-      console.log(v)
-    }
+    console.log(v)
   }
 
   return <div>
     {keyword}
-    <Intersection onVisible={loadMoreAction}>
+    <Intersection onVisible={loadMoreAction} thresholds={1}>
       <div>
         Loading Skeleton
       </div>

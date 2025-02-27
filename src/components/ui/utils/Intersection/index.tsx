@@ -5,13 +5,22 @@ import useIntersection from './hook';
 
 interface IntersectionProps {
   children: ReactElement<{ ref: RefCallback<Element | null> }>
-  onVisible: IntersectionCallback
+  onVisible: IntersectionCallback,
+  thresholds?: number
 }
 
 export default function Intersection({
   children,
-  onVisible
+  onVisible,
+  thresholds
 }: IntersectionProps) {
-  const { ref } = useIntersection(onVisible)
+  const callback: IntersectionCallback = (v) => {
+    if (typeof thresholds === 'number' && v.intersectionRatio >= thresholds) {
+      onVisible(v)
+    } else {
+      onVisible(v)
+    }
+  }
+  const { ref } = useIntersection(callback)
   return cloneElement(children, { ref: ref })
 }

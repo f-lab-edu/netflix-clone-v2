@@ -1,18 +1,38 @@
-import type { IntersectionCallback } from '@/components/utils/Intersection/lib';
 import { useEffect } from 'react';
-import { observe, unobserve } from '@/components/utils/Intersection/lib';
 import useCallbackRef from '@/hooks/useCallbackRef';
-import { useDebounce } from '@/hooks/useDebounce';
 
-export default function useIntersection(callback: IntersectionCallback) {
+export type IntersectionCallback = (_isVisible: boolean, _threshold: number) => void
+
+const observerActions = new WeakMap<Element, boolean>()
+
+export interface IntersectionOptions {
+  root?: Element | Document | null,
+  rootMargin?: string
+  thresholds?: number | number[]
+  onVisible: IntersectionCallback
+}
+
+export default function useIntersection({ onVisible, thresholds = [], ...intersectionOptions }: IntersectionOptions) {
   const [refState, setRefState] = useCallbackRef<Element | null>(null)
-  const debounceCallback = useDebounce(callback, 100)
   useEffect(() => {
-    if (refState) observe(refState, debounceCallback)
+    if (!('IntersectionObserver' in window)) return
+    if (!refState) return
+    observerActions.set(refState, false)
+    const tempThresHolds = Array.isArray(thresholds) ? thresholds : [thresholds]
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        const isVisible = entry.isIntersecting && tempThresHolds.some(v => v <= entry.intersectionRatio)
+        if (observerActions.get(refState) !== isVisible) {
+          observerActions.set(refState, isVisible)
+          onVisible(isVisible, entry.intersectionRatio)
+        }
+      })
+    }, { ...intersectionOptions, threshold: tempThresHolds })
+    observer.observe(refState)
     return () => {
-      if (refState) unobserve(refState)
+      observer.unobserve(refState)
     }
-  }, [refState, debounceCallback])
+  }, [refState, onVisible, thresholds, intersectionOptions])
   return {
     ref: setRefState
   }

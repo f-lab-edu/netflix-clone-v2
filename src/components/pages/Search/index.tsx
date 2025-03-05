@@ -1,4 +1,4 @@
-import type { IntersectionCallback } from '@/components/utils/Intersection/lib';
+import type { IntersectionCallback } from '@/components/utils/Intersection/hook';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
@@ -27,7 +27,8 @@ const SearchPage: NextPageWithLayout = () => {
 
   const { data, hasNextPage, fetchNextPage, isFetching, isSuccess } = useGetContentByKeyword(keyword)
 
-  const loadMoreAction: IntersectionCallback = () => {
+  const loadMoreAction: IntersectionCallback = (isVisible) => {
+    if (!isVisible) return
     if (isFetching) return
     if (!isSuccess) return
     fetchNextPage()

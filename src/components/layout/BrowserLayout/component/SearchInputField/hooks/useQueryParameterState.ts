@@ -16,7 +16,7 @@ export default function useQueryParameterState(key: string, action?: CustomActio
     const value = event.target.value
     setKeyword(value)
 
-    const actionFunc = action ? action : router.replace
+    const actionFunc = action ?? router.replace
     actionFunc({
       query: { ...router.query, [key]: value }
     })

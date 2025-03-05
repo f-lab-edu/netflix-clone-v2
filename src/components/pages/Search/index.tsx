@@ -20,7 +20,6 @@ const SearchPage: NextPageWithLayout = () => {
   useEffect(() => {
     const keywordParam = searchParams.get('keyword')
     if (!keywordParam) {
-      router.back()
       return
     }
     setKeyword(keywordParam)

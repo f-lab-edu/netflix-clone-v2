@@ -1,6 +1,6 @@
-import type { IntersectionCallback } from '@/components/ui/utils/Intersection/lib';
+import type { IntersectionCallback } from '@/components/utils/Intersection/lib';
 import { useEffect } from 'react';
-import { observe, unobserve } from '@/components/ui/utils/Intersection/lib';
+import { observe, unobserve } from '@/components/utils/Intersection/lib';
 import useCallbackRef from '@/hooks/useCallbackRef';
 import { useDebounce } from '@/hooks/useDebounce';
 

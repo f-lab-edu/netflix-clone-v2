@@ -1,8 +1,8 @@
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useMemo } from 'react';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import { ConstListStyleCss } from '../../Content/style/listStyle';
-import ConditionalRender from '../../utils/ConditionalRender';
 import useCarouselState from '../hooks/useCarouselState';
 import { CarouselArrowBtnShellCss, CarouselContentCss, CarouselContentListShellCss, CarouselContentShellCss } from './style';
 

@@ -6,7 +6,7 @@ import { useState } from 'react';
 import BaseLayout from '@/components/layout/BaseLayout';
 import { HeaderLinkStyleCss } from '@/components/layout/styles/SignupLayoutStyle';
 import DarkCheckbox from '@/components/ui/Form/DarkCheckbox';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import ButtonGroup from './component/ButtonGroup';
 import LoginCodeForm from './component/LoginCodeForm';

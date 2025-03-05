@@ -1,9 +1,9 @@
 import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import SignInOutBtn from '../../ui/Button/SignInOutBtn';
-import ConditionalRender from '../../ui/utils/ConditionalRender';
 import BaseLayout from '../BaseLayout'
 import { BodyContentShellCss, BodyLayoutCss, FooterContentShellCss, FooterLayoutCss, HeaderBorderCss, HeaderDefaultStyleCss, HeaderLinkStyleCss, HeaderLoginLinkStyleCss } from '../styles/SignupLayoutStyle';
 interface SignupLayoutProps {

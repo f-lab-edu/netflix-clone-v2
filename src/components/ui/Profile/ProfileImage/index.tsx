@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { useMemo } from 'react'
-import ConditionalRender from '../../utils/ConditionalRender'
+import ConditionalRender from '@/components/utils/ConditionalRender'
 import { EditableProfileImageBtnCss, EditableProfileImageIconCss, ProfileImageCss } from './style'
 interface ProfileImageProps {
   isEditable?: boolean

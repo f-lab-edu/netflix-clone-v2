@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import { useForm } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 import useEmailCheckMutation from '@/hooks/mutation/account/useEmailCheckMutation';
 import { pattern } from '@/lib/validators';

@@ -2,7 +2,7 @@ import type { InputLayoutValues } from '../InputLayout';
 import type { InputHTMLAttributes, ReactNode } from 'react';
 import { useId, useMemo } from 'react';
 import ErrorCross from '@/assets/netflix/error-cross.svg'
-import ConditionalRender from '../../utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import InputLayout from '../InputLayout'
 import { CheckboxDisplayAreaCss, CheckboxAreaShellCss, CheckboxDivCss, CheckboxLabelDefaultCss, CheckboxLabelFromTextCss, CheckboxTagDefaultCss, CheckboxErrorMessageCss, CheckboxErrorStateCss, CheckboxDisplayCss, CheckboxCheckedDisplayCss, CheckboxThemeCss, CheckboxValidStateCss } from './style';
 

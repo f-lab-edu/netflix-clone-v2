@@ -4,7 +4,7 @@ import { useTranslation } from 'next-i18next';
 import { Suspense, useState } from 'react';
 import SignupLayout from '@/components/layout/SignupLayout';
 import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 import { useSignupMembershipTier } from '@/state/signup/hooks';
 import { useWindowSize } from '@/state/windowSize';

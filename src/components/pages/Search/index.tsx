@@ -1,4 +1,4 @@
-import type { IntersectionCallback } from '@/components/ui/utils/Intersection/lib';
+import type { IntersectionCallback } from '@/components/utils/Intersection/lib';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
@@ -6,8 +6,8 @@ import { useEffect } from 'react';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import NormalContent from '@/components/ui/Content/NormalContent';
 import { ConstListStyleCss } from '@/components/ui/Content/style/listStyle';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
-import Intersection from '@/components/ui/utils/Intersection';
+import ConditionalRender from '@/components/utils/ConditionalRender';
+import Intersection from '@/components/utils/Intersection';
 import useGetContentByKeyword from '@/hooks/Query/content/useGetContentByKeyword';
 import { useDebounceState } from '@/hooks/useDebounce';
 import { SearchPageListCss } from './style';

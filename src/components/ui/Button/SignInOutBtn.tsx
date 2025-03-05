@@ -1,6 +1,6 @@
 import type { AnchorHTMLAttributes } from 'react';
 import Link from 'next/link';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import useJWTs from '@/hooks/account/useJWTs';
 
 interface SignInOutBtnProps {

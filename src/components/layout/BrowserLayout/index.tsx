@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import Link from 'next/link';
 import { useTranslation } from 'next-i18next';
 import SignInOutBtn from '@/components/ui/Button/SignInOutBtn';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import NetflixLogo from '@assets/netflix/top-logo.svg'
 import BaseLayout from '../BaseLayout';
 import { BrowserLayoutFooterCss, BrowserLayoutHeaderCss, BrowserLayoutHeaderLeftAreaCss, BrowserLayoutHeaderLinkCss, BrowserLayoutHeaderRightAreaCss, BrowserLayoutMainCss, BrowserLayoutShellCss } from '../styles/BrowserLayoutStyle';

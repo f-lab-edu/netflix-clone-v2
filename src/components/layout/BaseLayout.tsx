@@ -10,7 +10,7 @@ import RootDomProvider from '@/provider/RootDom/provider';
 import 'jotai-devtools/styles.css'
 import { useWindowResized } from '@/state/windowSize/hooks';
 import { theme } from '../ui/theme';
-import ClientOnly from '../ui/utils/ClientOnly';
+import ClientOnly from '../utils/ClientOnly';
 
 interface BaseLayoutProps {
   children?: ReactNode,

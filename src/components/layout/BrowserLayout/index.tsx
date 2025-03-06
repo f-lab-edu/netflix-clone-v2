@@ -9,6 +9,7 @@ import { BrowserLayoutFooterCss, BrowserLayoutHeaderCss, BrowserLayoutHeaderLeft
 import { HeaderLoginLinkStyleCss } from '../styles/SignupLayoutStyle';
 import BrowseMenuList from './component/BrowseMenuList';
 import SearchInputField from './component/SearchInputField';
+import useSearchFilter from './component/SearchInputField/hooks/useSearchFilter';
 
 interface BrowserLayoutProps {
   children: ReactNode
@@ -20,6 +21,7 @@ export default function BrowserLayout({
   headerType
 }: BrowserLayoutProps) {
   const { t } = useTranslation(['common'])
+  const [searchFilterValue, onSearchFilterChange] = useSearchFilter()
 
   return <BaseLayout.Dark>
     <div css={BrowserLayoutShellCss}>
@@ -36,7 +38,10 @@ export default function BrowserLayout({
             </div>
             <div css={BrowserLayoutHeaderRightAreaCss}>
               {/* search bar */}
-              <SearchInputField />
+              <SearchInputField
+                defaultValue={searchFilterValue}
+                onChange={onSearchFilterChange}
+              />
               {/* alarm */}
               {/* profile */}
             </div>

@@ -4,31 +4,30 @@ import useQueryParameterState from './useQueryParameterState';
 export default function useSearchFilter() {
   const router = useRouter()
   const queryKey = 'keyword'
+  const fallbackKey = 'fallbackUrl'
   return useQueryParameterState(queryKey, ({
     query
   }) => {
+    const { [fallbackKey]: fallbackUrl, ...queryOthers } = query
     if (
-      router.pathname === '/search' &&
-      (
-        !query ||
-        typeof query === 'string' ||
-        typeof query === 'object' && !query[queryKey]?.toString().length
-      )
+      location.pathname === '/search' && !query[queryKey]?.toString().length
     ) {
-      router.back()
+      router.push({
+        pathname: String(fallbackUrl ?? '') || '/browse'
+      })
       return
     }
-    if (router.pathname === '/search') {
-      {
-        router.replace({
-          query
-        })
+
+    const routerAction = location.pathname !== '/search' ? router.push : router.replace
+    routerAction({
+      pathname: '/search',
+      query: {
+        ...query,
+        [fallbackKey]: fallbackUrl || location.pathname
       }
-    } else {
-      router.push({
-        pathname: '/search',
-        query,
-      })
-    }
+    }, {
+      pathname: '/search',
+      query: queryOthers
+    }, { shallow: true })
   })
 }

@@ -1,8 +1,6 @@
 import type { IntersectionCallback } from '@/components/utils/Intersection/hook';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/router';
-import { useEffect } from 'react';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import NormalContent from '@/components/ui/Content/NormalContent';
 import { ConstListStyleCss } from '@/components/ui/Content/style/listStyle';
@@ -13,17 +11,11 @@ import { useDebounceState } from '@/hooks/useDebounce';
 import { SearchPageListCss } from './style';
 
 const SearchPage: NextPageWithLayout = () => {
-  const router = useRouter()
   // TODO: use on other browse page
   const searchParams = useSearchParams()
-  const [keyword, setKeyword] = useDebounceState(searchParams.get('keyword') || '', 500)
-  useEffect(() => {
-    const keywordParam = searchParams.get('keyword')
-    if (!keywordParam) {
-      return
-    }
-    setKeyword(keywordParam)
-  }, [router, searchParams, setKeyword])
+  const queryParam = searchParams.get('keyword') || ''
+  const [keyword, setKeyword] = useDebounceState(queryParam, 1000)
+  setKeyword(queryParam)
 
   const { data, hasNextPage, fetchNextPage, isFetching, isSuccess } = useGetContentByKeyword(keyword)
 

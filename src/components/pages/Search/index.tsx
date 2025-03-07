@@ -1,4 +1,3 @@
-import type { IntersectionCallback } from '@/components/utils/Intersection/hook';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { useSearchParams } from 'next/navigation';
 import BrowserLayout from '@/components/layout/BrowserLayout';
@@ -17,14 +16,7 @@ const SearchPage: NextPageWithLayout = () => {
   const [keyword, setKeyword] = useDebounceState(queryParam, 1000)
   setKeyword(queryParam)
 
-  const { data, hasNextPage, fetchNextPage, isFetching, isSuccess } = useGetContentByKeyword(keyword)
-
-  const loadMoreAction: IntersectionCallback = (isVisible) => {
-    if (!isVisible) return
-    if (isFetching) return
-    if (!isSuccess) return
-    fetchNextPage()
-  }
+  const { data, hasNextPage, fetchNextPageOnIdle: callOnIdle, isSuccess } = useGetContentByKeyword(keyword)
 
   return <div>
     <div css={[ConstListStyleCss, SearchPageListCss]}>
@@ -33,7 +25,7 @@ const SearchPage: NextPageWithLayout = () => {
     <ConditionalRender.Boolean
       condition={hasNextPage && isSuccess}
       render={{
-        true: <Intersection onVisible={loadMoreAction} thresholds={1}>
+        true: <Intersection onVisible={() => callOnIdle()} thresholds={1}>
           <div css={{ marginBottom: '100px' }}>
             Loading Skeleton
           </div>

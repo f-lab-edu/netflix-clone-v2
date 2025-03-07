@@ -1,10 +1,9 @@
-import type { FetchNextPageOptions } from '@tanstack/react-query';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { useCallback } from 'react';
+import useInfiniteQueryFetchOnIdle from '@/hooks/useInfiniteQueryFetchOnIdle';
 import { GetContentByKeyword } from '@/lib/network/content/GetContentByKeyword';
 
 export default function useGetContentByKeyword(keyword: string) {
-  const { isFetching, isSuccess, fetchNextPage, ...infiniteQueryObj } = useInfiniteQuery({
+  const infiniteQueryObj = useInfiniteQuery({
     queryKey: ['content', 'search', keyword],
     queryFn: ({ pageParam }) => GetContentByKeyword(pageParam),
     initialPageParam: {
@@ -20,15 +19,8 @@ export default function useGetContentByKeyword(keyword: string) {
       return pages.flatMap(v => v.list)
     }
   })
-  const fetchNextPageOnIdle = useCallback((options?: FetchNextPageOptions) => {
-    if (isFetching) return
-    if (!isSuccess) return
-    return fetchNextPage(options)
-  }, [isFetching, isSuccess, fetchNextPage])
+  const fetchNextPageOnIdle = useInfiniteQueryFetchOnIdle(infiniteQueryObj)
   return {
-    isFetching,
-    isSuccess,
-    fetchNextPage,
     ...infiniteQueryObj,
     fetchNextPageOnIdle
   }

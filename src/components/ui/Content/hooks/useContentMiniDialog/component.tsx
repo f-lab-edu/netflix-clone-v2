@@ -1,7 +1,7 @@
-import type { MotionDialogProps } from '../../component/MotionDialog';
+import type { MotionDialogProps } from '@/components/ui/Dialog/MotionDialog';
 import type { PortalDialogInterface } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import Image from 'next/image'
-import MotionDialog from '../../component/MotionDialog'
+import MotionDialog from '@/components/ui/Dialog/MotionDialog';
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style'
 
 export default function MiniDialog({

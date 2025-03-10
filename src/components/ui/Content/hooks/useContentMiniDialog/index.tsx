@@ -1,4 +1,4 @@
-import type { MotionDialogTransitionFunc } from '../../component/MotionDialog';
+import type { MotionDialogTransitionFunc } from '@/components/ui/Dialog/MotionDialog';
 import type { DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import { useCallback, useMemo } from 'react';
 import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';

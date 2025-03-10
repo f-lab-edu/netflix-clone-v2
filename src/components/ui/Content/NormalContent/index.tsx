@@ -1,8 +1,8 @@
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { useRef } from 'react'
-import useContentMiniDialog from '../../Dialog/hooks/useContentMiniDialog'
 import calcStartRefRect from '../../Dialog/utils/calcStartRefRect'
+import useContentMiniDialog from '../hooks/useContentMiniDialog'
 import { NormalContentImageCss } from './style'
 
 interface NormalContentProps {

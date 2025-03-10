@@ -1,8 +1,9 @@
 import { useInfiniteQuery } from '@tanstack/react-query';
+import useInfiniteQueryFetchOnIdle from '@/hooks/useInfiniteQueryFetchOnIdle';
 import { GetContentByKeyword } from '@/lib/network/content/GetContentByKeyword';
 
 export default function useGetContentByKeyword(keyword: string) {
-  return useInfiniteQuery({
+  const infiniteQueryObj = useInfiniteQuery({
     queryKey: ['content', 'search', keyword],
     queryFn: ({ pageParam }) => GetContentByKeyword(pageParam),
     initialPageParam: {
@@ -11,13 +12,16 @@ export default function useGetContentByKeyword(keyword: string) {
       keyword,
     },
     getNextPageParam: (lastPage, allPages, lastPageParam) => {
+      if (lastPage.total <= lastPageParam.page * lastPageParam.size) return null
       return { ...lastPageParam, page: lastPageParam.page + 1 }
     },
     select({ pages }) {
-      return pages.reduce((acc, cur) => {
-        acc.push(...cur.list)
-        return acc
-      }, [] as Content[])
+      return pages.flatMap(v => v.list)
     }
   })
+  const fetchNextPageOnIdle = useInfiniteQueryFetchOnIdle(infiniteQueryObj)
+  return {
+    ...infiniteQueryObj,
+    fetchNextPageOnIdle
+  }
 }

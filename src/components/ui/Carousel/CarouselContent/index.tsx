@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { motion } from 'motion/react';
 import { useMemo } from 'react';
-import ConditionalRender from '../../utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
+import { ConstListStyleCss } from '../../Content/style/listStyle';
 import useCarouselState from '../hooks/useCarouselState';
 import { CarouselArrowBtnShellCss, CarouselContentCss, CarouselContentListShellCss, CarouselContentShellCss } from './style';
 
@@ -26,6 +27,7 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
     firstItemIdx,
     displayOnce,
     moveSize,
+    itemWidth,
     setMoveSize,
     animationFinishedAction
   } = useCarouselState()
@@ -46,7 +48,6 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
   }, [firstItemIdx, displayOnce, isTouched, items])
 
   // window's left, right padding size is 8vw
-  const itemWidth = useMemo(() => (100 - 8) / displayOnce, [displayOnce])
   const transitionSizeByItem = useMemo(() => itemWidth * -1, [itemWidth])
 
   const transitionStyle = useMemo(() => {
@@ -68,7 +69,7 @@ export default function CarouselContent<T extends IndexedItems = IndexedItems>({
   return <div css={CarouselContentCss} className={className}>
     <div css={CarouselContentListShellCss}>
       <motion.ul
-        css={[CarouselContentShellCss(itemWidth)]}
+        css={[CarouselContentShellCss, ConstListStyleCss]}
         onTransitionEnd={animationFinishedAction}
         style={transitionStyle}
       >

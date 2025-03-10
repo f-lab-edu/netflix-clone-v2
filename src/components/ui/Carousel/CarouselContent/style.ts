@@ -30,15 +30,9 @@ export const CarouselArrowBtnShellCss = css({
   }
 })
 
-export const CarouselContentShellCss = (displayContentWidth: number) => css({
+export const CarouselContentShellCss = css({
   display: 'flex',
   flexBasis: '100%',
   listStyle: 'none',
-  ['--carousel-content-width']: `${displayContentWidth - .2}vw`,
-  columnGap: '.2vw',
-  '> *': {
-    width: 'var(--carousel-content-width, 50%)',
-    minWidth: 'var(--carousel-content-width, 50%)',
-    maxWIdth: 'var(--carousel-content-width, 50%)'
-  }
+  ['--content-column-gap']: '.2vw'
 })

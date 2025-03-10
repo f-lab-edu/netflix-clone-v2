@@ -27,10 +27,24 @@ export const BrowserLayoutHeaderCss = css([{
   height: '68px'
 })])
 
-export const BrowserLayoutHeaderLinkCss = css([{
-  fill: theme.color.red.default,
+export const BrowserLayoutHeaderLeftAreaCss = css({
   height: '100%',
   maxHeight: '30px',
+  display: 'flex',
+  alignItems: 'center'
+})
+
+export const BrowserLayoutHeaderRightAreaCss = css({
+  height: '100%',
+  display: 'flex',
+  alignItems: 'center'
+})
+
+export const BrowserLayoutHeaderLinkCss = css([{
+  fill: theme.color.red.default,
+  display: 'block',
+  height: '100%',
+  maxHeight: '25px',
   aspectRatio: '37 / 10'
 }])
 

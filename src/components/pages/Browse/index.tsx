@@ -35,6 +35,6 @@ const BrowsePage: NextPageWithLayout = () => {
   </div>
 }
 BrowsePage.getLayout = (page) => {
-  return <BrowserLayout>{page}</BrowserLayout>
+  return <BrowserLayout headerType='browse'>{page}</BrowserLayout>
 }
 export default BrowsePage

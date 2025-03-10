@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useTranslation } from 'next-i18next';
 import SignupLayout from '@/components/layout/SignupLayout';
 import PageInOutAnimate from '@/components/ui/animation/PageInOutAnimate';
-import ConditionalRender from '@/components/ui/utils/ConditionalRender';
+import ConditionalRender from '@/components/utils/ConditionalRender';
 import FirstRegistDescPart from './component/FirstRegistDescPart';
 import PaymentKindBtn from './component/PaymentKindBtn';
 import RegistDescPart from './component/RegistDescPart';

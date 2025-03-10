@@ -27,7 +27,7 @@ export default function NormalContent({ content }: NormalContentProps) {
         setTimeout(() => {
           if (willOpen.current) {
             const rect = calcStartRefRect(e.target as HTMLElement)
-            openDialog(rect)
+            openDialog(rect, content)
           }
         }, 500)
       }}

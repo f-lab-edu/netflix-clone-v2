@@ -6,8 +6,9 @@ import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShel
 
 export default function MiniDialog({
   closePortal,
+  content,
   ...props
-}: PortalDialogInterface & MotionDialogProps) {
+}: PortalDialogInterface & MotionDialogProps & { content: Content }) {
   return <MotionDialog {...props}>
     <div
       tabIndex={-1}
@@ -20,15 +21,15 @@ export default function MiniDialog({
     >
       <Image
         css={ContentDialogImgShellCss}
-        src='/netflix/movies/thunbnail/harbin.png'
+        src={content.thumbnail}
         alt="Harbin"
         width={320}
         height={180}
       />
       <div css={ContentDetailShellCss}>
         <div role="grid" css={ContentDialogButtonAreaCss}>
-          sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
-          sdfsdfsdfsdfsdfsdfsdfsdfsdfsdf
+          <h1>{content.title}</h1>
+          <p>{content.description}</p>
         </div>
       </div>
     </div>

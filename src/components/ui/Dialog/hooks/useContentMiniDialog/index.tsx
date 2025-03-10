@@ -52,8 +52,9 @@ export default function useContentMiniDialog() {
     }
   }, [maxLeft, minLeft])
 
-  const openDialog = (rect: DialogRect) => {
+  const openDialog = (rect: DialogRect, content: Content) => {
     openDialogPortal(CONTENT_MINI_DIALOG_KEY, <MiniDialog
+      content={content}
       options={{
         initial: disabledPosition,
         animate: activePosition,

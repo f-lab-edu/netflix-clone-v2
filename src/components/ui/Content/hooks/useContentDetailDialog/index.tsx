@@ -44,7 +44,7 @@ export default function useContentDetailDialog() {
     openDialogPortal(
       CONTENT_DETAIL_DIALOG_KEY,
       <ContentDetailDialog
-        content={content}
+        contentId={content.id}
         options={{
           initial: disabledPosition,
           animate: activePosition,

@@ -24,7 +24,7 @@ export default function ContentDetailDialog({
 
   return <>
     <Backdrop css={css} opacity={.7} transition={props.options?.transition} />
-    <MotionDialog {...props} css={[
+    <MotionDialog {...props} isFixed css={[
       css,
       ContentDetailShell
     ]}>

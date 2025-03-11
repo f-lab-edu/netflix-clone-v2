@@ -23,7 +23,6 @@ export default function useContentDetailDialog() {
   const disabledPosition = useCallback<MotionDialogTransitionFunc>((rect) => {
     if (!rect) return {}
     return {
-      width: rect.width,
       left: rect.left,
       top: rect.top,
       scale: rect.width / windowWidth,
@@ -31,16 +30,14 @@ export default function useContentDetailDialog() {
       transformOrigin: '0% 0% 0',
     }
   }, [windowWidth])
-  const activePosition = useCallback<MotionDialogTransitionFunc>((rect) => {
-    if (!rect) return {}
+  const activePosition = useCallback<MotionDialogTransitionFunc>(() => {
     return {
-      width: windowWidth,
       left: 0,
       top: 0,
       scale: 1,
       opacity: 1,
     }
-  }, [windowWidth])
+  }, [])
 
   const openDialog = (content: Content, rect?: DialogRect, endRect?: DialogRect) => {
     setIsOpen(true)
@@ -53,7 +50,7 @@ export default function useContentDetailDialog() {
           animate: activePosition,
           exit: disabledPosition,
           transition: {
-            duration: 0.5
+            duration: .3
           }
         }}
       />,

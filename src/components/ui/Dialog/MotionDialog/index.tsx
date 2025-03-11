@@ -21,14 +21,13 @@ export interface MotionDialogProps extends DialogPropsObj {
 }
 
 export default function MotionDialog({
-  isOpen,
   options,
   rect,
   endRect = rect,
   ...props
 }: MotionDialogProps) {
   return <motion.div
-    layoutDependency={isOpen}
+    layoutDependency={true}
     {...options}
     initial={options?.initial ? options.initial(rect) : undefined}
     animate={options?.animate ? options.animate(rect) : undefined}

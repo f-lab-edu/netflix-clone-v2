@@ -29,7 +29,6 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
           },
           props: {
             css: { zIndex: ++zIndex.current * 10 },
-            isOpen: true,
             rect,
             endRect: endRect ?? rect
           }

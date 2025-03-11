@@ -20,7 +20,6 @@ export interface DialogPromiseObj {
 }
 
 export interface DialogPropsObj extends CssProps {
-  isOpen?: boolean
   rect?: DialogRect
   endRect?: DialogRect
 }

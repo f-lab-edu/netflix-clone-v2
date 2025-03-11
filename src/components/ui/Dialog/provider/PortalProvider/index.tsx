@@ -17,7 +17,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
   const rootEl = useMemo(() => getRootDom() ?? document.body, [getRootDom])
   const dialogContents = useRef(new Map())
 
-  const openPortal = useCallback((id: string, content: DialogContent, rect?: DialogRect) => {
+  const openPortal = useCallback((id: string, content: DialogContent, rect?: DialogRect, endRect?: DialogRect) => {
     dialogContents.current.set(id, content)
     return new Promise<T>((resolve, reject) => {
       setDialogs((prev) => ({
@@ -31,6 +31,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
             css: { zIndex: ++zIndex.current * 10 },
             isOpen: true,
             rect,
+            endRect: endRect ?? rect
           }
         }
       }))

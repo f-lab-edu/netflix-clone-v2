@@ -16,13 +16,15 @@ export type MotionDialogOptions = Omit<MotionProps, 'initial' | 'animate' | 'exi
 export interface MotionDialogProps extends DialogPropsObj {
   options?: MotionDialogOptions
   children?: ReactElement<{ closePortal: () => void }>
-  rect?: DialogRect
+  rect?: DialogRect,
+  endRect?: DialogRect
 }
 
 export default function MotionDialog({
   isOpen,
   options,
   rect,
+  endRect = rect,
   ...props
 }: MotionDialogProps) {
   return <motion.div
@@ -30,7 +32,7 @@ export default function MotionDialog({
     {...options}
     initial={options?.initial ? options.initial(rect) : undefined}
     animate={options?.animate ? options.animate(rect) : undefined}
-    exit={options?.exit ? options.exit(rect) : undefined}
+    exit={options?.exit ? options.exit(endRect) : undefined}
     css={{ position: 'absolute' }}
     transition={{ duration: .5, ...options?.transition }}
     {...props}

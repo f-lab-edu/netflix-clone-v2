@@ -22,6 +22,7 @@ export interface DialogPromiseObj {
 export interface DialogPropsObj extends CssProps {
   isOpen?: boolean
   rect?: DialogRect
+  endRect?: DialogRect
 }
 export interface DialogObj {
   promise: DialogPromiseObj
@@ -33,7 +34,7 @@ export interface PortalDialogInterface extends DialogPropsObj {
 }
 
 interface PortalProviderContextValue {
-  openPortal: (_id: string, _content: DialogContent, _rect?: DialogRect) => PromiseLike<any>
+  openPortal: (_id: string, _content: DialogContent, _rect?: DialogRect, _endRect?: DialogRect) => PromiseLike<any>
   closePortal: (_id: string, _value?: any) => void
 }
 

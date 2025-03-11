@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import Backdrop from '@/components/ui/Dialog/Backdrop';
 import MotionDialog from '@/components/ui/Dialog/MotionDialog';
 import CloseIcon from '@assets/netflix/close-icon.svg'
-import { ContentDetailCloseBtn, ContentDetailImage, ContentDetailImageArea, ContentDetailLayout, ContentDetailShell } from './style';
+import { ContentDetailCloseBtn, ContentDetailControl, ContentDetailImage, ContentDetailImageArea, ContentDetailLayout, ContentDetailShell } from './style';
 
 export default function ContentDetailDialog({
   content,
@@ -32,10 +32,17 @@ export default function ContentDetailDialog({
             src={content.thumbnail}
             alt={content.title}
           />
-          <button css={ContentDetailCloseBtn} onClick={closeDialog}>
-            <CloseIcon />
-          </button>
+          <div css={ContentDetailControl}>
+            <button css={ContentDetailCloseBtn} onClick={closeDialog}>
+              <CloseIcon />
+            </button>
+            <div></div>
+            <button>
+              {/* Mute */}
+            </button>
+          </div>
         </div>
+        <div css={{ height: 2000 }}></div>
       </div>
     </MotionDialog>
   </>

@@ -7,8 +7,9 @@ interface BackDropProps {
   transition?: Transition
 }
 
-export default function Backdrop({ opacity, transition }: BackDropProps) {
+export default function Backdrop({ opacity, transition, className }: BackDropProps & CssProps) {
   return <motion.div
+    className={className}
     layoutDependency={true}
     transition={{
       duration: .5,

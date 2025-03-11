@@ -1,5 +1,4 @@
 import { css } from '@emotion/react'
-import { theme } from '@/components/ui/theme'
 
 export const DialogBackdropCss = css({
   position: 'fixed',
@@ -10,5 +9,5 @@ export const DialogBackdropCss = css({
   left: '0',
   width: '100%',
   height: '100%',
-  backgroundColor: theme.color.black.default,
+  background: 'var(--background-color)',
 })

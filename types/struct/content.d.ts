@@ -18,6 +18,7 @@ declare interface ContentWithDetails extends Content {
   genres: Genre[]
   actors: Actor[]
   specific: Specific[]
+  playtime: number
 }
 
 declare type SoundQuality = 'immersive' | undefined

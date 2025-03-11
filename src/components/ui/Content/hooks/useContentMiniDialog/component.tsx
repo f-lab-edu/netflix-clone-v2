@@ -19,11 +19,8 @@ export default function MiniDialog({
   } = useContentDetailDialog()
   const openDetailDialog = useCallback<MouseEventHandler<HTMLDivElement>>((e) => {
     const startRect = calcStartRefRect(e.target as HTMLElement)
-    if (closePortal) {
-      closePortal()
-    }
     openContentDetailDialog(content, startRect, rect)
-  }, [openContentDetailDialog, content, rect, closePortal])
+  }, [openContentDetailDialog, content, rect])
   return <MotionDialog {...props} rect={rect}>
     <div
       tabIndex={-1}

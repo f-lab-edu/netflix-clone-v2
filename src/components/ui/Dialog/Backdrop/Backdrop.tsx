@@ -1,21 +1,24 @@
+import type { Transition } from 'motion/react';
 import { motion } from 'motion/react'
 import { DialogBackdropCss } from './style'
 
 interface BackDropProps {
   opacity: number
-  delay: string
+  transition?: Transition
 }
 
-export default function Backdrop({ opacity, delay }: BackDropProps) {
+export default function Backdrop({ opacity, transition }: BackDropProps) {
   return <motion.div
+    layoutDependency={true}
     transition={{
-      duration: delay
+      duration: .5,
+      ...transition
     }}
     initial={{
       opacity: 0
     }}
     animate={{
-      opacity: opacity
+      opacity: opacity,
     }}
     exit={{
       opacity: 0

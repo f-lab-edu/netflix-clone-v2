@@ -1,5 +1,5 @@
+import type { ContentDetailDialogProps } from './component';
 import type { MotionDialogTransitionFunc } from '@/components/ui/Dialog/MotionDialog';
-import type { DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import { useCallback, useMemo, useState } from 'react';
 import useHoldBackWindow from '@/components/ui/Dialog/hooks/useHoldBackWindow';
 import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';
@@ -39,12 +39,12 @@ export default function useContentDetailDialog() {
     }
   }, [])
 
-  const openDialog = (content: Content, rect?: DialogRect, endRect?: DialogRect) => {
+  const openDialog = (props: ContentDetailDialogProps) => {
     setIsOpen(true)
     openDialogPortal(
       CONTENT_DETAIL_DIALOG_KEY,
       <ContentDetailDialog
-        contentId={content.id}
+        {...props}
         options={{
           initial: disabledPosition,
           animate: activePosition,
@@ -53,9 +53,7 @@ export default function useContentDetailDialog() {
             duration: .3
           }
         }}
-      />,
-      rect,
-      endRect
+      />
     )
       .then(() => {
         setIsOpen(false)

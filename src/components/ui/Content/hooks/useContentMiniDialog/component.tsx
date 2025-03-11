@@ -2,33 +2,28 @@ import type { MotionDialogProps } from '@/components/ui/Dialog/MotionDialog';
 import type { PortalDialogInterface } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import type { MouseEventHandler } from 'react';
 import Image from 'next/image'
-import { useCallback } from 'react';
 import MotionDialog from '@/components/ui/Dialog/MotionDialog';
-import calcStartRefRect from '@/components/ui/Dialog/utils/calcStartRefRect';
-import useContentDetailDialog from '../useContentDetailDialog';
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style'
+
+export interface MiniDialogProps extends MotionDialogProps {
+  content: Content
+  onClick?: MouseEventHandler<HTMLDivElement>
+}
 
 export default function MiniDialog({
   closePortal,
   content,
-  rect,
+  onClick,
   ...props
-}: PortalDialogInterface & MotionDialogProps & { content: Content }) {
-  const {
-    openDialog: openContentDetailDialog
-  } = useContentDetailDialog()
-  const openDetailDialog = useCallback<MouseEventHandler<HTMLDivElement>>((e) => {
-    const startRect = calcStartRefRect(e.target as HTMLElement)
-    openContentDetailDialog(content, startRect, rect)
-  }, [openContentDetailDialog, content, rect])
-  return <MotionDialog {...props} rect={rect}>
+}: PortalDialogInterface & MiniDialogProps) {
+  return <MotionDialog {...props}>
     <div
       tabIndex={-1}
       css={ContentDialogShellCss}
       ref={(el) => {
         el?.focus()
       }}
-      onClick={openDetailDialog}
+      onClick={onClick}
       onBlur={() => closePortal && closePortal()}
       onMouseLeave={() => closePortal && closePortal()}
     >

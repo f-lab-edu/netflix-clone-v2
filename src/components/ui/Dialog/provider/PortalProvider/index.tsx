@@ -1,4 +1,4 @@
-import type { DialogContent, DialogObj, DialogRect, ValueType } from './context';
+import type { DialogContent, DialogObj, ValueType } from './context';
 import type { ReactNode } from 'react';
 import { AnimatePresence } from 'motion/react';
 import { cloneElement, useCallback, useMemo, useRef, useState } from 'react'
@@ -17,7 +17,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
   const rootEl = useMemo(() => getRootDom()?.firstElementChild ?? document.body, [getRootDom])
   const dialogContents = useRef(new Map())
 
-  const openPortal = useCallback((id: string, content: DialogContent, rect?: DialogRect, endRect?: DialogRect) => {
+  const openPortal = useCallback((id: string, content: DialogContent) => {
     dialogContents.current.set(id, content)
     return new Promise<T>((resolve, reject) => {
       setDialogs((prev) => ({
@@ -28,9 +28,7 @@ export default function PortalProvider<T extends ValueType = ValueType>({ childr
             reject
           },
           props: {
-            css: { zIndex: ++zIndex.current * 10 },
-            rect,
-            endRect: endRect ?? rect
+            css: { zIndex: ++zIndex.current * 10 }
           }
         }
       }))

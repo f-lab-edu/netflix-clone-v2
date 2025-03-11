@@ -9,12 +9,16 @@ import useGetContentById from '@/hooks/Query/content/useGetContentById';
 import CloseIcon from '@assets/netflix/close-icon.svg'
 import { ContentDetailCloseBtn, ContentDetailControl, ContentDetailImage, ContentDetailImageArea, ContentDetailLayout, ContentDetailShell } from './style';
 
+export interface ContentDetailDialogProps extends MotionDialogProps {
+  contentId: number
+}
+
 export default function ContentDetailDialog({
   contentId,
   closePortal,
   css,
   ...props
-}: PortalDialogInterface & MotionDialogProps & { contentId: number }) {
+}: PortalDialogInterface & ContentDetailDialogProps) {
 
   const { data: content } = useGetContentById(contentId)
 

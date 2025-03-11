@@ -33,7 +33,7 @@ export interface PortalDialogInterface extends DialogPropsObj {
 }
 
 interface PortalProviderContextValue {
-  openPortal: (_id: string, _content: DialogContent, _rect?: DialogRect, _endRect?: DialogRect) => PromiseLike<any>
+  openPortal: (_id: string, _content: DialogContent) => PromiseLike<any>
   closePortal: (_id: string, _value?: any) => void
 }
 

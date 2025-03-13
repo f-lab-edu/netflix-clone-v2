@@ -5,7 +5,7 @@ import { JotaiLocalStorage } from '@/state/util/Storage';
 export const defaultReviewState: DramaReviewFormData = {
   contentId: 0,
   watchState: 'none',
-  rate: 0,
+  rate: 5,
   comment: '',
   watchEndDate: '',
   watchStartDate: '',

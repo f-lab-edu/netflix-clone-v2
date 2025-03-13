@@ -1,4 +1,4 @@
-import type { MouseEventHandler } from 'react';
+import type { KeyboardEventHandler, MouseEventHandler } from 'react';
 import Image from 'next/image'
 import { useRef } from 'react'
 import calcStartRefRect from '../../Dialog/utils/calcStartRefRect'
@@ -15,8 +15,8 @@ export default function NormalContent({ content }: NormalContentProps) {
   const { openDialog } = useContentMiniDialog()
   const { openDialog: openDetailDialog } = useContentDetailDialog()
   const willOpen = useRef<boolean>(false)
-  const detailDialogOpenAction: MouseEventHandler<HTMLDivElement> = (e) => {
-    const rect = calcStartRefRect(e.target as HTMLDivElement, true)
+  const detailDialogOpenAction = (target: HTMLDivElement) => {
+    const rect = calcStartRefRect(target, true)
     let endRect
     if (el.current) endRect = calcStartRefRect(el.current, true)
     openDetailDialog({
@@ -24,6 +24,12 @@ export default function NormalContent({ content }: NormalContentProps) {
       rect,
       endRect
     })
+  }
+  const detailOpenByClick: MouseEventHandler = (e) => detailDialogOpenAction(e.target as HTMLDivElement)
+  const detailOpenByKeyboard: KeyboardEventHandler = (e) => {
+    if (e.key === 'enter') {
+      detailDialogOpenAction(e.target as HTMLDivElement)
+    }
   }
   return <div>
     <Image
@@ -33,7 +39,8 @@ export default function NormalContent({ content }: NormalContentProps) {
       width={320}
       height={180}
       alt={content.title}
-      onClick={detailDialogOpenAction}
+      onClick={detailOpenByClick}
+      onKeyUp={detailOpenByKeyboard}
       onMouseEnter={(e) => {
         willOpen.current = true
         setTimeout(() => {
@@ -42,7 +49,7 @@ export default function NormalContent({ content }: NormalContentProps) {
             openDialog({
               rect,
               content,
-              onClick: detailDialogOpenAction
+              onClick: detailOpenByClick
             })
           }
         }, 500)

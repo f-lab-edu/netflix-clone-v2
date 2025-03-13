@@ -1,19 +1,21 @@
 import type { MotionDialogProps } from '@/components/ui/Dialog/MotionDialog';
 import type { PortalDialogInterface } from '@/components/ui/Dialog/provider/PortalProvider/context';
-import type { MouseEventHandler } from 'react';
+import type { KeyboardEventHandler, MouseEventHandler } from 'react';
 import Image from 'next/image'
 import MotionDialog from '@/components/ui/Dialog/MotionDialog';
 import { ContentDetailShellCss, ContentDialogButtonAreaCss, ContentDialogImgShellCss, ContentDialogShellCss } from './style'
 
 export interface MiniDialogProps extends MotionDialogProps {
   content: Content
-  onClick?: MouseEventHandler<HTMLDivElement>
+  onClick?: MouseEventHandler
+  onKeyUp?: KeyboardEventHandler
 }
 
 export default function MiniDialog({
   closePortal,
   content,
   onClick,
+  onKeyUp,
   ...props
 }: PortalDialogInterface & MiniDialogProps) {
   return <MotionDialog {...props}>
@@ -24,6 +26,7 @@ export default function MiniDialog({
         el?.focus()
       }}
       onClick={onClick}
+      onKeyUp={onKeyUp}
       onBlur={() => closePortal && closePortal()}
       onMouseLeave={() => closePortal && closePortal()}
     >

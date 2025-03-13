@@ -49,7 +49,8 @@ export default function NormalContent({ content }: NormalContentProps) {
             openDialog({
               rect,
               content,
-              onClick: detailOpenByClick
+              onClick: detailOpenByClick,
+              onKeyUp: detailOpenByKeyboard
             })
           }
         }, 500)

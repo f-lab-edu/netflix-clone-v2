@@ -2,17 +2,18 @@ import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { JotaiLocalStorage } from '@/state/util/Storage';
 
-export const defaultReviewState = {
+export const defaultReviewState: DramaReviewFormData = {
   contentId: 0,
   watchState: 'none',
   rate: 0,
   comment: '',
   watchEndDate: '',
   watchStartDate: '',
-  willRecommend: false
+  isPublic: 'false',
+  willRecommend: 'false'
 }
 
-const reviewStateAtom = atomWithStorage('write-review-state', defaultReviewState, JotaiLocalStorage<DramaReviewData>())
+const reviewStateAtom = atomWithStorage('write-review-state', defaultReviewState, JotaiLocalStorage<DramaReviewFormData>())
 
 const useReviewState = () => useAtom(reviewStateAtom)
 

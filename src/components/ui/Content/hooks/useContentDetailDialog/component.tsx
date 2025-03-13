@@ -1,6 +1,7 @@
 import type { MotionDialogProps } from '@/components/ui/Dialog/MotionDialog';
 import type { PortalDialogInterface } from '@/components/ui/Dialog/provider/PortalProvider/context';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import Backdrop from '@/components/ui/Dialog/Backdrop';
 import MotionDialog from '@/components/ui/Dialog/MotionDialog';
@@ -19,13 +20,18 @@ export default function ContentDetailDialog({
   css,
   ...props
 }: PortalDialogInterface & ContentDetailDialogProps) {
-
+  const router = useRouter()
   const { data: content } = useGetContentById(contentId)
 
   const closeDialog = useCallback(() => {
     if (closePortal) closePortal(false)
   }, [closePortal])
-
+  const gotoReview = () => {
+    router.push({
+      pathname: `/review/${contentId}`
+    })
+    closeDialog()
+  }
   return <>
     <Backdrop css={css} opacity={.7} transition={props.options?.transition} />
     <MotionDialog {...props} isFixed css={[
@@ -54,6 +60,7 @@ export default function ContentDetailDialog({
                   </h2>
                   <div>
                     <button>재생</button>
+                    <button onClick={gotoReview}>Review</button>
                   </div>
                 </div>
                 <button>
@@ -63,10 +70,11 @@ export default function ContentDetailDialog({
             </div>
             <div>
               <div>
-                <div>
+                <p>
                   {content?.uploadDate}
+                  &nbsp;
                   {content?.playtime}
-                </div>
+                </p>
                 <p>
                   {content?.description}
                 </p>

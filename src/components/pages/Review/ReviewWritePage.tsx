@@ -21,10 +21,10 @@ const ReviewWritePage: NextPageWithLayout = () => {
   const { data: content } = useGetContentById(contentId)
   const { steps, setSteps, gotoNext, gotoPrev } = useReviewSteps()
   const [reviewData, setReviewData] = useReviewState()
-
   const { handleSubmit, ...formProps } = useForm<DramaReviewFormData>({
     mode: 'onBlur',
-    defaultValues: reviewData
+    defaultValues: reviewData,
+    values: reviewData
   })
 
   useEffect(() => {

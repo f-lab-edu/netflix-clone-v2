@@ -52,7 +52,16 @@ export const saveInitData = () => {
 
 export const GetMSWContentById = (id: number) => {
   const allDataObj = loadDataFromStorage()
-  return allDataObj[id]
+  const content: ContentWithDetails = {
+    ...allDataObj[id],
+    rules: [],
+    actors: [],
+    series: [],
+    genres: [],
+    specific: [],
+    playtime: 0
+  }
+  return content
 }
 
 export const GetMSWContentList = () => {

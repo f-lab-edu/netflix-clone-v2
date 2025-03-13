@@ -9,3 +9,10 @@ export type ContentSearchResponse = {
   list: Content[],
   total: number
 } & ErrorResponse
+
+export type ContentByIdPathParam = {
+  contentId: string
+}
+export type ContentByIdResponse = {
+  content: ContentWithDetails
+} & ErrorResponse

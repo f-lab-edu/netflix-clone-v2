@@ -35,6 +35,7 @@ const handlers = [
     InsertMSWAccount({
       ...requestJson,
       emailVerified: false,
+      defaultProfileId: 0,
       phone: '',
       phoneVerified: false,
       billingPolicies: {

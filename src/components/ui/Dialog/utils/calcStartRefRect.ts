@@ -1,4 +1,4 @@
-export default function calcStartRefRect(ref?: HTMLElement) {
+export default function calcStartRefRect(ref?: HTMLElement, isFixed?: boolean) {
   if (!ref) return {
     left: 0,
     top: 0,
@@ -7,8 +7,8 @@ export default function calcStartRefRect(ref?: HTMLElement) {
   }
   const rect = ref.getBoundingClientRect()
   return {
-    left: rect.left + window.scrollX,
-    top: rect.top + window.scrollY,
+    left: rect.left + (isFixed ? 0 : window.scrollX),
+    top: rect.top + (isFixed ? 0 : window.scrollY),
     width: rect.width,
     height: rect.height,
   }

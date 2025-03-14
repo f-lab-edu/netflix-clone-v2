@@ -2,7 +2,8 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
-import { useEffect, useMemo } from 'react';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
@@ -16,6 +17,7 @@ import useReviewState, { defaultReviewState } from './hooks/useReviewState';
 import useReviewSteps from './hooks/useReviewSteps';
 
 const ReviewWritePage: NextPageWithLayout = () => {
+  const router = useRouter()
   const { contentId: contentIdStr } = useParams<{ contentId: string }>()
   const contentId = useMemo(() => Number(contentIdStr), [contentIdStr])
   const { data: content } = useGetContentById(contentId)
@@ -27,13 +29,18 @@ const ReviewWritePage: NextPageWithLayout = () => {
     values: reviewData
   })
 
+  const initReviewStates = useCallback(() => {
+    setReviewData({ ...defaultReviewState, contentId: Number(contentIdStr) })
+    setSteps(1)
+  }, [contentIdStr, setReviewData, setSteps])
+
   useEffect(() => {
     if (!(reviewData && contentIdStr)) return
     if (contentIdStr !== String(reviewData.contentId)) {
-      setReviewData({ ...defaultReviewState, contentId: Number(contentIdStr) })
-      setSteps(1)
+      initReviewStates()
     }
-  }, [contentIdStr, reviewData, setReviewData, setSteps])
+  }, [contentIdStr, reviewData, initReviewStates])
+
   const onSubmitAction = (data: DramaReviewFormData) => {
     setReviewData({
       ...data,
@@ -42,6 +49,8 @@ const ReviewWritePage: NextPageWithLayout = () => {
     if (steps === 4) {
       // TODO: save review
       console.log('save data : ', data)
+      router.push(`/review/${contentIdStr}`)
+      initReviewStates()
     } else {
       gotoNext()
     }
@@ -58,7 +67,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
         <ConditionalRender
           condition={steps}
           render={{
-            1: <ReviewStep1 {...formProps} onGoBackAction={gotoPrev} />,
+            1: <ReviewStep1 {...formProps} onGoBackAction={gotoPrev} contentUploadDate={content?.uploadDate} />,
             2: <ReviewStep2 {...formProps} onGoBackAction={gotoPrev} />,
             3: <ReviewStep3 {...formProps} onGoBackAction={gotoPrev} />,
             4: <ReviewStep4 {...formProps} onGoBackAction={gotoPrev} />,

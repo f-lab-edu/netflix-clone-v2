@@ -2,7 +2,7 @@ import { useTranslation } from 'next-i18next';
 import { useFormContext } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
-import useBirthDateChange from '@/hooks/InputFilter/useBirthDateChange';
+import useDateChange from '@/hooks/InputFilter/useDateChange';
 import { ExpireDateTextFilter, CardNumberTextFilter } from '@/lib/InputFilter';
 import validators from '@/lib/validators';
 import { CardInfoAreaShellCss } from '../style/RHFCardInfoAreaCss';
@@ -10,7 +10,7 @@ import { CardInfoAreaShellCss } from '../style/RHFCardInfoAreaCss';
 export default function RHFCardInfoArea() {
   const { register, formState } = useFormContext<PaymentMethodCardInfo>()
   const { t } = useTranslation(['common', 'page-payment'])
-  const onBirthDateChange = useBirthDateChange()
+  const onBirthDateChange = useDateChange()
   return <div css={CardInfoAreaShellCss}>
     <TextInput.Light
       label={t('common:paymentRegistForm.cardNumber.label')}

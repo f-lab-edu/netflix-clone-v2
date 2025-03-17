@@ -7,7 +7,7 @@ import { useCallback, useEffect, useMemo } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
-import ConditionalRender from '@/components/utils/ConditionalRender';
+import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
 import ReviewStep1 from './components/ReviewStep1';
 import ReviewStep2 from './components/ReviewStep2';
@@ -65,7 +65,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
     <form onSubmit={handleSubmit(onSubmitAction)}>
       <FormProvider {...formProps} handleSubmit={handleSubmit}>
         <AnimatePresence>
-          <ConditionalRender
+          <SwitchRender
             condition={steps}
             render={{
               1: <ReviewStep1 onGoBackAction={gotoPrev} contentUploadDate={content?.uploadDate} />,

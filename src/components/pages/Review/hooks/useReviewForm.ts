@@ -14,14 +14,15 @@ const formDataKey = 'write-review-state'
 
 export default function useReviewForm(
   contentUploadDate: number,
-  props?: UseFormProps<DramaReviewFormData>
+  storage: Storage = localStorage,
+  props?: UseFormProps<DramaReviewFormData>,
 ) {
   const { contentId: contentIdStr } = useParams<{ contentId: string }>()
 
-  const { setSteps } = useReviewSteps()
+  const { setSteps, steps } = useReviewSteps()
 
   const loadSavedData = (): DramaReviewFormData => {
-    const state = localStorage.getItem(formDataKey)
+    const state = storage.getItem(formDataKey)
     return state ? JSON.parse(state) as DramaReviewFormData : {
       contentId: contentIdStr,
       watchState: 'none',
@@ -53,16 +54,16 @@ export default function useReviewForm(
           message: '시청 시작일은 개봉일보다 빠를 수 없습니다.',
           path: ['watchStartDate']
         })
-        .refine((data) => !(data.watchState === 'end' && !data.watchEndDate), {
+        .refine((data) => data.watchState === 'end' ? data.watchEndDate : true, {
           message: '다봤음 상태에서 시청 종료일을 선택해야 합니다.',
           path: ['watchEndDate']
         })
-        .refine((data) => data.watchState === 'end' && dateChecker(data.watchStartDate, data.watchEndDate), {
+        .refine((data) => data.watchState === 'end' ? dateChecker(data.watchStartDate, data.watchEndDate) : true, {
           message: '시청 종료일은 시청 시작일보다 빠를 수 없습니다.',
           path: ['watchEndDate']
         })
         .refine((data) =>
-          data.rate === 1 || data.rate === 5 ?
+          steps >= 3 && (data.rate === 1 || data.rate === 5) ?
             data.comment.length >= 100 && data.comment.length <= 300 :
             true, {
           message: '별점이 1점 또는 5점이면 후기는 최소 100자에서 300자를 작성 해야합니다.',
@@ -70,6 +71,10 @@ export default function useReviewForm(
         })
     ),
   })
+  const values = watch()
+  useEffect(() => {
+    storage.setItem(formDataKey, JSON.stringify(values))
+  }, [values, storage])
 
   const initReviewStates = useCallback((contentId: string) => {
     setValue('contentId', contentId)
@@ -82,14 +87,6 @@ export default function useReviewForm(
     setValue('willRecommend', 'false')
     setSteps(1)
   }, [setSteps, setValue])
-
-  const values = watch()
-  const saveData = (data: DramaReviewFormData) => {
-    localStorage.setItem(formDataKey, JSON.stringify(data))
-  }
-  useEffect(() => {
-    saveData(values)
-  }, [values])
 
   useEffect(() => {
     const contentId = getValues('contentId')

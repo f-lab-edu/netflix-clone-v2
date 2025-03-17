@@ -3,8 +3,7 @@ import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useMemo } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
+import { FormProvider } from 'react-hook-form';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
 import SwitchRender from '@/components/utils/SwitchRender';
@@ -13,44 +12,23 @@ import ReviewStep1 from './components/ReviewStep1';
 import ReviewStep2 from './components/ReviewStep2';
 import ReviewStep3 from './components/ReviewStep3';
 import ReviewStep4 from './components/ReviewStep4';
-import useReviewState, { defaultReviewState } from './hooks/useReviewState';
+import useReviewForm from './hooks/useReviewForm';
 import useReviewSteps from './hooks/useReviewSteps';
 
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
   const { contentId: contentIdStr } = useParams<{ contentId: string }>()
-  const contentId = useMemo(() => Number(contentIdStr), [contentIdStr])
-  const { data: content } = useGetContentById(contentId)
-  const { steps, setSteps, gotoNext, gotoPrev } = useReviewSteps()
-  const [reviewData, setReviewData] = useReviewState()
-  const { handleSubmit, ...formProps } = useForm<DramaReviewFormData>({
-    mode: 'onBlur',
-    defaultValues: reviewData,
-    values: reviewData
-  })
+  const { data: content } = useGetContentById(Number(contentIdStr))
+  const { steps, gotoNext, gotoPrev } = useReviewSteps()
 
-  const initReviewStates = useCallback(() => {
-    setReviewData({ ...defaultReviewState, contentId: Number(contentIdStr) })
-    setSteps(1)
-  }, [contentIdStr, setReviewData, setSteps])
-
-  useEffect(() => {
-    if (!(reviewData && contentIdStr)) return
-    if (contentIdStr !== String(reviewData.contentId)) {
-      initReviewStates()
-    }
-  }, [contentIdStr, reviewData, initReviewStates])
+  const { handleSubmit, setValue, getValues, initReviewStates, ...formProps } = useReviewForm(content?.uploadDate ?? 0)
 
   const onSubmitAction = (data: DramaReviewFormData) => {
-    setReviewData({
-      ...data,
-      contentId: Number(contentIdStr)
-    })
     if (steps === 4) {
       // TODO: save review
       console.log('save data : ', data)
       router.push(`/review/${contentIdStr}`)
-      initReviewStates()
+      initReviewStates(contentIdStr)
     } else {
       gotoNext()
     }
@@ -63,12 +41,17 @@ const ReviewWritePage: NextPageWithLayout = () => {
       height="477"
     />
     <form onSubmit={handleSubmit(onSubmitAction)}>
-      <FormProvider {...formProps} handleSubmit={handleSubmit}>
+      <FormProvider
+        {...formProps}
+        handleSubmit={handleSubmit}
+        setValue={setValue}
+        getValues={getValues}
+      >
         <AnimatePresence>
           <SwitchRender
             condition={steps}
             render={{
-              1: <ReviewStep1 onGoBackAction={gotoPrev} contentUploadDate={content?.uploadDate} />,
+              1: <ReviewStep1 />,
               2: <ReviewStep2 onGoBackAction={gotoPrev} />,
               3: <ReviewStep3 onGoBackAction={gotoPrev} />,
               4: <ReviewStep4 onGoBackAction={gotoPrev} />,

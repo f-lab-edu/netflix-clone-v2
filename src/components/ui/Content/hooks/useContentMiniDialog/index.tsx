@@ -1,5 +1,5 @@
-import type { MotionDialogTransitionFunc } from '../../component/MotionDialog';
-import type { DialogRect } from '@/components/ui/Dialog/provider/PortalProvider/context';
+import type { MiniDialogProps } from './component';
+import type { MotionDialogTransitionFunc } from '@/components/ui/Dialog/MotionDialog';
 import { useCallback, useMemo } from 'react';
 import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';
 import { useWindowWidth } from '@/state/windowSize';
@@ -52,8 +52,9 @@ export default function useContentMiniDialog() {
     }
   }, [maxLeft, minLeft])
 
-  const openDialog = (rect: DialogRect) => {
+  const openDialog = (props: MiniDialogProps) => {
     openDialogPortal(CONTENT_MINI_DIALOG_KEY, <MiniDialog
+      {...props}
       options={{
         initial: disabledPosition,
         animate: activePosition,
@@ -66,7 +67,7 @@ export default function useContentMiniDialog() {
           duration: 0.3
         }
       }}
-    />, rect)
+    />)
   }
 
   return {

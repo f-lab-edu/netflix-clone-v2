@@ -14,24 +14,27 @@ interface MotionPropsOverwrite {
 export type MotionDialogOptions = Omit<MotionProps, 'initial' | 'animate' | 'exit'> & MotionPropsOverwrite
 
 export interface MotionDialogProps extends DialogPropsObj {
+  isFixed?: boolean
   options?: MotionDialogOptions
   children?: ReactElement<{ closePortal: () => void }>
-  rect?: DialogRect
+  rect?: DialogRect,
+  endRect?: DialogRect
 }
 
 export default function MotionDialog({
-  isOpen,
   options,
   rect,
+  endRect = rect,
+  isFixed,
   ...props
 }: MotionDialogProps) {
   return <motion.div
-    layoutDependency={isOpen}
+    layoutDependency={true}
     {...options}
     initial={options?.initial ? options.initial(rect) : undefined}
     animate={options?.animate ? options.animate(rect) : undefined}
-    exit={options?.exit ? options.exit(rect) : undefined}
-    css={{ position: 'absolute' }}
+    exit={options?.exit ? options.exit(endRect) : undefined}
+    css={{ position: isFixed ? 'fixed' : 'absolute' }}
     transition={{ duration: .5, ...options?.transition }}
     {...props}
   />

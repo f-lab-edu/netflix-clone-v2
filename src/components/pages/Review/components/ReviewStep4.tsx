@@ -1,17 +1,16 @@
-import type { UseFormReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
 
-interface ReviewStepsProps extends Omit<UseFormReturn<DramaReviewFormData>, 'handleSubmit'> {
+interface ReviewStepsProps {
   onGoBackAction: () => void
 }
 
 export default function ReviewStep4({
   onGoBackAction,
-  register,
-  watch
 }: ReviewStepsProps) {
-  const isPublic = watch('isPublic')
-  console.log(isPublic)
+  const {
+    register
+  } = useFormContext()
   return <div>
     <div>
       공개 여부

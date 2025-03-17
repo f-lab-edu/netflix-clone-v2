@@ -4,7 +4,7 @@ import Image from 'next/image';
 import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useCallback, useEffect, useMemo } from 'react';
-import { useForm } from 'react-hook-form';
+import { FormProvider, useForm } from 'react-hook-form';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
 import ConditionalRender from '@/components/utils/ConditionalRender';
@@ -63,17 +63,19 @@ const ReviewWritePage: NextPageWithLayout = () => {
       height="477"
     />
     <form onSubmit={handleSubmit(onSubmitAction)}>
-      <AnimatePresence>
-        <ConditionalRender
-          condition={steps}
-          render={{
-            1: <ReviewStep1 {...formProps} onGoBackAction={gotoPrev} contentUploadDate={content?.uploadDate} />,
-            2: <ReviewStep2 {...formProps} onGoBackAction={gotoPrev} />,
-            3: <ReviewStep3 {...formProps} onGoBackAction={gotoPrev} />,
-            4: <ReviewStep4 {...formProps} onGoBackAction={gotoPrev} />,
-          }}
-        />
-      </AnimatePresence>
+      <FormProvider {...formProps} handleSubmit={handleSubmit}>
+        <AnimatePresence>
+          <ConditionalRender
+            condition={steps}
+            render={{
+              1: <ReviewStep1 onGoBackAction={gotoPrev} contentUploadDate={content?.uploadDate} />,
+              2: <ReviewStep2 onGoBackAction={gotoPrev} />,
+              3: <ReviewStep3 onGoBackAction={gotoPrev} />,
+              4: <ReviewStep4 onGoBackAction={gotoPrev} />,
+            }}
+          />
+        </AnimatePresence>
+      </FormProvider>
     </form>
   </div>
 

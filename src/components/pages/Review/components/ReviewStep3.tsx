@@ -1,19 +1,21 @@
-import type { UseFormReturn } from 'react-hook-form';
 import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 
-interface ReviewStepsProps extends Omit<UseFormReturn<DramaReviewFormData>, 'handleSubmit'> {
+interface ReviewStepsProps {
   onGoBackAction: () => void
 }
 
 export default function ReviewStep3({
   onGoBackAction,
-  register,
-  unregister,
-  getValues,
-  formState,
 }: ReviewStepsProps) {
+  const {
+    register,
+    unregister,
+    getValues,
+    formState,
+  } = useFormContext<DramaReviewFormData>()
   const rate = getValues('rate')
   const commentOptions = rate === 1 || rate === 5 ? {
     maxLength: {

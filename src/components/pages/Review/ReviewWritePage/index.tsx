@@ -6,14 +6,16 @@ import { useRouter } from 'next/router';
 import { FormProvider } from 'react-hook-form';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
+import SuspenseErrorBoundary from '@/components/utils/SuspenseErrorBoundary';
 import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
-import ReviewStep1 from './components/ReviewStep1';
-import ReviewStep2 from './components/ReviewStep2';
-import ReviewStep3 from './components/ReviewStep3';
-import ReviewStep4 from './components/ReviewStep4';
-import useReviewForm from './hooks/useReviewForm';
-import useReviewSteps from './hooks/useReviewSteps';
+import ReviewStep1 from '../components/ReviewStep1';
+import ReviewStep2 from '../components/ReviewStep2';
+import ReviewStep3 from '../components/ReviewStep3';
+import ReviewStep4 from '../components/ReviewStep4';
+import useReviewForm from '../hooks/useReviewForm';
+import useReviewSteps from '../hooks/useReviewSteps';
+import ReviewWritePageSkeleton from './Skeleton';
 
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
@@ -61,10 +63,21 @@ const ReviewWritePage: NextPageWithLayout = () => {
       </FormProvider>
     </form>
   </div>
-
 }
+
 ReviewWritePage.getLayout = (page) => {
-  return <BrowserLayout headerType='browse'><ClientOnly>{page}</ClientOnly></BrowserLayout>
+  return <BrowserLayout headerType='browse'>
+    <ClientOnly>
+      <SuspenseErrorBoundary
+        loadingFallback={<ReviewWritePageSkeleton />}
+        errorFallback={({ error }) => <div>
+          {error}
+        </div>}
+      >
+        {page}
+      </SuspenseErrorBoundary>
+    </ClientOnly>
+  </BrowserLayout>
 }
 
 export default ReviewWritePage

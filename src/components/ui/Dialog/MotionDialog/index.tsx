@@ -28,7 +28,7 @@ export default function MotionDialog({
   isFixed,
   ...props
 }: MotionDialogProps) {
-  return <motion.div
+  return <motion.dialog
     layoutDependency={true}
     {...options}
     initial={options?.initial ? options.initial(rect) : undefined}

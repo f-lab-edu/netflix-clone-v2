@@ -1,9 +1,7 @@
 import type { ContentDetailDialogProps } from './component';
 import type { MotionDialogTransitionFunc } from '@/components/ui/Dialog/MotionDialog';
-import { useCallback, useMemo, useState } from 'react';
-import useHoldBackWindow from '@/components/ui/Dialog/hooks/useHoldBackWindow';
+import { useCallback } from 'react';
 import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';
-import useRootDom from '@/provider/RootDom/hooks/useRootDom';
 import { useWindowWidth } from '@/state/windowSize';
 import ContentDetailDialog from './component';
 
@@ -12,13 +10,6 @@ const CONTENT_DETAIL_DIALOG_KEY = 'content-detail-dialog'
 export default function useContentDetailDialog() {
   const { closePortal, openPortal: openDialogPortal } = usePortal()
   const [windowWidth] = useWindowWidth()
-  const {
-    getRootDom
-  } = useRootDom()
-  const rootDom = useMemo(() => getRootDom(), [getRootDom])
-
-  const [isOpen, setIsOpen] = useState(false)
-  useHoldBackWindow(isOpen, rootDom)
 
   const disabledPosition = useCallback<MotionDialogTransitionFunc>((rect) => {
     if (!rect) return {}
@@ -40,7 +31,6 @@ export default function useContentDetailDialog() {
   }, [])
 
   const openDialog = (props: ContentDetailDialogProps) => {
-    setIsOpen(true)
     openDialogPortal(
       CONTENT_DETAIL_DIALOG_KEY,
       <ContentDetailDialog
@@ -55,9 +45,6 @@ export default function useContentDetailDialog() {
         }}
       />
     )
-      .then(() => {
-        setIsOpen(false)
-      })
   }
 
   return {

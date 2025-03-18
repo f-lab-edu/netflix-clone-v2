@@ -35,6 +35,7 @@ export default function useContentDetailDialog() {
       CONTENT_DETAIL_DIALOG_KEY,
       <ContentDetailDialog
         {...props}
+        hasBackdrop
         options={{
           initial: disabledPosition,
           animate: activePosition,

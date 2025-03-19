@@ -22,9 +22,12 @@ const useReviewSteps = () => {
       return prev
     })
   }
+  const initSteps = () => {
+    setSteps(1)
+  }
   return {
     steps,
-    setSteps,
+    initSteps,
     gotoPrev,
     gotoNext,
   }

@@ -21,9 +21,15 @@ const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
   const { contentId: contentIdStr } = useParams<{ contentId: string }>()
   const { data: content } = useGetContentById(Number(contentIdStr))
-  const { steps, gotoNext, gotoPrev } = useReviewSteps()
+  const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()
 
-  const { handleSubmit, setValue, getValues, initReviewStates, ...formProps } = useReviewForm(content?.uploadDate ?? 0)
+  const {
+    handleSubmit,
+    setValue,
+    getValues,
+    initReviewStates,
+    ...formProps
+  } = useReviewForm(content?.uploadDate ?? 0, steps, initSteps)
 
   const onSubmitAction = (data: DramaReviewFormData) => {
     if (steps === 4) {

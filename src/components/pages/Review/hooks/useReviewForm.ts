@@ -4,7 +4,6 @@ import { useParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
 import z from 'zod'
-import useReviewSteps from './useReviewSteps';
 
 const dateChecker = (a: string | number, b: string | number) => {
   return new Date(a) < new Date(b)
@@ -14,12 +13,12 @@ const formDataKey = 'write-review-state'
 
 export default function useReviewForm(
   contentUploadDate: number,
+  steps: number,
+  onInit: () => void,
   storage: Storage = localStorage,
   props?: UseFormProps<DramaReviewFormData>,
 ) {
   const { contentId: contentIdStr } = useParams<{ contentId: string }>()
-
-  const { setSteps, steps } = useReviewSteps()
 
   const loadSavedData = (): DramaReviewFormData => {
     const state = storage.getItem(formDataKey)
@@ -85,16 +84,13 @@ export default function useReviewForm(
     setValue('watchStartDate', '')
     setValue('watchState', 'watching')
     setValue('willRecommend', 'false')
-    setSteps(1)
-  }, [setSteps, setValue])
+    onInit()
+  }, [onInit, setValue])
 
   useEffect(() => {
     const contentId = getValues('contentId')
     if (!contentIdStr) return
     if (contentIdStr !== contentId) {
-      initReviewStates(contentIdStr)
-    }
-    return () => {
       initReviewStates(contentIdStr)
     }
   }, [contentIdStr, getValues, initReviewStates])

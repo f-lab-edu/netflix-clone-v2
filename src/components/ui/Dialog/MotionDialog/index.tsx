@@ -34,7 +34,13 @@ export default function MotionDialog({
     initial={options?.initial ? options.initial(rect) : undefined}
     animate={options?.animate ? options.animate(rect) : undefined}
     exit={options?.exit ? options.exit(endRect) : undefined}
-    css={{ position: isFixed ? 'fixed' : 'absolute' }}
+    css={{
+      position: isFixed ? 'fixed' : 'absolute',
+      display: 'block',
+      border: 0,
+      background: 'transparent',
+      color: 'currentcolor'
+    }}
     transition={{ duration: .5, ...options?.transition }}
     {...props}
   />

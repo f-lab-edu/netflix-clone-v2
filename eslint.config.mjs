@@ -1,5 +1,6 @@
 import js from "@eslint/js";
 import { FlatCompat } from "@eslint/eslintrc";
+import stylistic from "@stylistic/eslint-plugin";
 
 const compat = new FlatCompat({
   baseDirectory: import.meta.dirname,
@@ -15,6 +16,14 @@ const eslintConfig = [
     extends: ["next/core-web-vitals", "next/typescript"],
     plugins: ["@emotion"],
   }),
+  {
+    plugins: {
+      "@stylistic": stylistic,
+    },
+    rules: {
+      "@stylistic/eol-last": ["error", "always"],
+    },
+  },
   {
     ignores: ["**/dist", "**/eslint.config.mjs"],
   },

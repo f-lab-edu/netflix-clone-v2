@@ -1,9 +1,9 @@
-import type { ContentDetailDialogProps } from './component';
+import type { ContentDetailDialogProps } from './component/ContentDetailDialog';
 import type { MotionDialogTransitionFunc } from '@/components/ui/Dialog/MotionDialog';
 import { useCallback } from 'react';
 import { usePortal } from '@/components/ui/Dialog/provider/PortalProvider/hook';
 import { useWindowWidth } from '@/state/windowSize';
-import ContentDetailDialog from './component';
+import ContentDetailDialog from './component/ContentDetailDialog';
 
 const CONTENT_DETAIL_DIALOG_KEY = 'content-detail-dialog'
 

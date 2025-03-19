@@ -1,17 +1,18 @@
 declare type DramaReviewState = 'none' | 'watching' | 'end'
-
+declare type DramaReviewBooleanType = 'true' | 'false'
 declare interface DramaReviewFormData {
-  contentId: number
-  watchState: string
+  contentId: string
+  watchState: DramaReviewState
   watchStartDate: string
   watchEndDate: string
-  willRecommend: string
-  isPublic: string
+  willRecommend: DramaReviewBooleanType
+  isPublic: DramaReviewBooleanType
   comment: string
   rate: number
 }
 
 declare interface DramaReviewData extends DramaReviewFormData {
+  contentId: number
   willRecommend: boolean
   isPublic: boolean
 }

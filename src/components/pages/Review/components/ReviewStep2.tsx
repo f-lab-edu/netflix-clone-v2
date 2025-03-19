@@ -1,17 +1,19 @@
-import type { UseFormReturn } from 'react-hook-form';
+import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
 import StarRate from './StarRate';
 
-interface ReviewStepsProps extends Omit<UseFormReturn<DramaReviewFormData>, 'handleSubmit'> {
+interface ReviewStepsProps {
   onGoBackAction: () => void
 }
 
 export default function ReviewStep2({
   onGoBackAction,
-  register,
-  setValue,
-  watch
 }: ReviewStepsProps) {
+  const {
+    register,
+    setValue,
+    watch
+  } = useFormContext()
   const willRecommend = watch('willRecommend')
   const rate = watch('rate')
   return <div>

@@ -1,14 +1,11 @@
 import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
-import StarRate from '../atoms/StarRate';
+import HookFormStarRate from '../atoms/HookFormStarRate';
 
 export default function ReviewStep2() {
   const {
     register,
-    setValue,
-    watch
   } = useFormContext()
-  const rate = watch('rate')
   return <section aria-label='form step2'>
     <fieldset>
       <legend>추천 여부</legend>
@@ -37,10 +34,7 @@ export default function ReviewStep2() {
     </fieldset>
     <fieldset css={{ color: 'white' }}>
       <legend>별점</legend>
-      <StarRate
-        value={rate}
-        onChange={(v) => setValue('rate', v)}
-      />
+      <HookFormStarRate name="rate" />
     </fieldset>
   </section>
 }

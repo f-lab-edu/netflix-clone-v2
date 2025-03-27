@@ -21,11 +21,13 @@ import ReviewStep4 from '../../molecules/ReviewStep4';
 import ReviewForm from '../../organisms/ReviewForm';
 import { SkeletonImgCss } from '../../templates/ReviewWritePage/style';
 
+const ReviewWritePageParamRule = z.object({
+  contentId: z.string().regex(/^\d+$/)
+})
+
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { contentId: contentIdStr } = useAssertParams(z.object({
-    contentId: z.string().regex(/^\d+$/)
-  }))
+  const { contentId: contentIdStr } = useAssertParams(ReviewWritePageParamRule)
   const contentId = Number(contentIdStr)
   const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()

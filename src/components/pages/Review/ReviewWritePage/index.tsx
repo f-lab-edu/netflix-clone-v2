@@ -30,6 +30,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
     setValue,
     getValues,
     initReviewStates,
+    saveFormData,
     ...formProps
   } = useReviewForm({
     contentUploadDate: content?.uploadDate ?? 0,
@@ -45,6 +46,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
       initReviewStates()
       initSteps()
     } else {
+      saveFormData()
       gotoNext()
     }
   }

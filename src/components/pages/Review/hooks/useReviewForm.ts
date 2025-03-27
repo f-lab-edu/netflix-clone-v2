@@ -1,6 +1,6 @@
 import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import type { UseFormProps } from 'react-hook-form';
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form'
 import DramaReview from '@/lib/network/types/DramaReview';
 
@@ -23,45 +23,40 @@ export default function useReviewForm({
   storage = localStorage,
   props,
 }: useReviewFormProps) {
+  const storedValueString = storage.getItem(formDataKey)
+  const storedValue: DramaReviewFormDataType | undefined = storedValueString
+    ? JSON.parse(storedValueString)
+    : undefined
+  const formDefaultValue: DramaReviewFormDataType = useMemo(() => ({
+    contentId: Number(contentId),
+    watchState: 'none',
+    rate: 3,
+    comment: '',
+    watchEndDate: '',
+    watchStartDate: '',
+    isPublic: 'false',
+    willRecommend: 'false'
+  }), [contentId])
 
-  const loadSavedData = (): DramaReviewFormDataType => {
-    const state = storage.getItem(formDataKey)
-    return state ? JSON.parse(state) as DramaReviewFormDataType : {
-      contentId,
-      watchState: 'none',
-      rate: 3,
-      comment: '',
-      watchEndDate: '',
-      watchStartDate: '',
-      isPublic: 'false',
-      willRecommend: 'false'
-    }
-  }
-
-  const { watch, getValues, setValue, ...formData } = useForm<DramaReviewFormDataType>({
+  const form = useForm<DramaReviewFormDataType>({
     ...props,
     mode: 'onBlur',
-    defaultValues: loadSavedData(),
+    defaultValues: formDefaultValue,
+    values: storedValue,
     resolver: DramaReview.hookFormResolver(steps, String(contentUploadDate))
   })
-  const values = watch()
-  useEffect(() => {
-    storage.setItem(formDataKey, JSON.stringify(values))
-  }, [values, storage])
+  const { reset, getValues } = form
+
+  const saveFormData = () => {
+    storage.setItem(formDataKey, JSON.stringify(form.getValues()))
+  }
 
   const initReviewStates = useCallback(() => {
-    setValue('contentId', contentId)
-    setValue('comment', '')
-    setValue('isPublic', 'false')
-    setValue('rate', 3)
-    setValue('watchEndDate', '')
-    setValue('watchStartDate', '')
-    setValue('watchState', 'watching')
-    setValue('willRecommend', 'false')
+    reset(formDefaultValue)
     if (onInit) {
       onInit()
     }
-  }, [onInit, setValue, contentId])
+  }, [onInit, reset, formDefaultValue])
 
   useEffect(() => {
     const contentIdOnForm = getValues('contentId')
@@ -71,6 +66,8 @@ export default function useReviewForm({
   }, [getValues, initReviewStates, contentId])
 
   return {
-    watch, setValue, getValues, initReviewStates, ...formData
+    initReviewStates,
+    saveFormData,
+    ...form
   }
 }

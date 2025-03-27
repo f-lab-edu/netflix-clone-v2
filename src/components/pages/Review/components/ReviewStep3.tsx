@@ -17,16 +17,14 @@ export default function ReviewStep3() {
       })
     }
   }, [])
-  return <div>
-    <div>
-      <TextInput.Dark
-        label="후기"
-        {...register('comment')}
-        {...RHFValidErrorHelper(
-          formState.errors.comment?.message,
-          formState.touchedFields.comment
-        )}
-      />
-    </div>
-  </div>
+  return <section aria-label="form step3">
+    <TextInput.Dark
+      label="후기"
+      {...register('comment')}
+      {...RHFValidErrorHelper(
+        formState.errors.comment?.message,
+        formState.touchedFields.comment
+      )}
+    />
+  </section>
 }

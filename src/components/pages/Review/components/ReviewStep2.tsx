@@ -8,34 +8,39 @@ export default function ReviewStep2() {
     setValue,
     watch
   } = useFormContext()
-  const willRecommend = watch('willRecommend')
   const rate = watch('rate')
-  return <div>
-    <div>
-      추천 여부
-      {willRecommend}
-      <LabelRadio
-        value='true'
-        {...register('willRecommend', {
-          required: true
-        })}
-      >
-        추천
-      </LabelRadio>
-      <LabelRadio
-        value='false'
-        {...register('willRecommend', {
-          required: true
-        })}
-      >
-        비추천
-      </LabelRadio>
-    </div>
-    <div css={{ color: 'white' }}>
+  return <section aria-label='form step2'>
+    <fieldset>
+      <legend>추천 여부</legend>
+      <ul role="group">
+        <li>
+          <LabelRadio
+            value='true'
+            {...register('willRecommend', {
+              required: true
+            })}
+          >
+            추천
+          </LabelRadio>
+        </li>
+        <li>
+          <LabelRadio
+            value='false'
+            {...register('willRecommend', {
+              required: true
+            })}
+          >
+            비추천
+          </LabelRadio>
+        </li>
+      </ul>
+    </fieldset>
+    <fieldset css={{ color: 'white' }}>
+      <legend>별점</legend>
       <StarRate
         value={rate}
         onChange={(v) => setValue('rate', v)}
       />
-    </div>
-  </div>
+    </fieldset>
+  </section>
 }

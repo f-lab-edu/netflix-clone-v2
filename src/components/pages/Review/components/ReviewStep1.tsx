@@ -22,41 +22,44 @@ export default function ReviewStep1() {
     trigger(['watchEndDate'])
   }, [watchStartDate, trigger])
   const dateFilter = useDateChange.WithoutLocale()
-  return <div>
-    <div>
-      시청 상태
-      <div css={{
-        display: 'flex',
-        columnGap: '8px'
-      }}>
-        <LabelRadio
-          value='none'
-          {...register('watchState', {
-            required: true,
-            onChange: (e) => {
-              const changeValue = e.target.value
-              if (changeValue !== 'end') {
-                setValue('watchEndDate', '')
+  return <section aria-label="form step1">
+    <fieldset>
+      <legend>시청 상태</legend>
+      <ul role="group">
+        <li>
+          <LabelRadio
+            value='none'
+            {...register('watchState', {
+              required: true,
+              onChange: (e) => {
+                const changeValue = e.target.value
+                if (changeValue !== 'end') {
+                  setValue('watchEndDate', '')
+                }
               }
-            }
-          })}
-        >
-          미시청
-        </LabelRadio>
-        <LabelRadio
-          value='watching'
-          {...register('watchState')}
-        >
-          시청 중
-        </LabelRadio>
-        <LabelRadio
-          value='end'
-          {...register('watchState')}
-        >
-          다봤음
-        </LabelRadio>
-      </div>
-    </div>
+            })}
+          >
+            미시청
+          </LabelRadio>
+        </li>
+        <li>
+          <LabelRadio
+            value='watching'
+            {...register('watchState')}
+          >
+            시청 중
+          </LabelRadio>
+        </li>
+        <li>
+          <LabelRadio
+            value='end'
+            {...register('watchState')}
+          >
+            다봤음
+          </LabelRadio>
+        </li>
+      </ul>
+    </fieldset>
     <TextInput.Dark
       type='date'
       label="시청 시작일"
@@ -82,5 +85,5 @@ export default function ReviewStep1() {
         formState.touchedFields.watchEndDate
       )}
     />
-  </div >
+  </section >
 }

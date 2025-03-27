@@ -1,23 +1,17 @@
 import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import type { NextPageWithLayout } from '@/pages/_app';
 import type { FC } from 'react';
-import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { FormProvider } from 'react-hook-form';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
 import SuspenseErrorBoundary from '@/components/utils/SuspenseErrorBoundary';
-import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
 import useAssertParams from '@/hooks/useAssertParams';
 import useReviewForm from '../../hooks/useReviewForm';
 import { useReviewRouter } from '../../hooks/useReviewRouter';
 import useReviewSteps from '../../hooks/useReviewSteps';
 import { ReviewWritePageParamRule } from '../../lib/paramRules';
-import ReviewStep1 from '../../molecules/ReviewStep1';
-import ReviewStep2 from '../../molecules/ReviewStep2';
-import ReviewStep3 from '../../molecules/ReviewStep3';
-import ReviewStep4 from '../../molecules/ReviewStep4';
 import ReviewForm from '../../organisms/ReviewForm';
 import { SkeletonImgCss } from '../../templates/ReviewWritePage/style';
 
@@ -59,19 +53,7 @@ const ReviewWritePage: NextPageWithLayout = (params) => {
         steps={steps}
         onGoBackAction={gotoPrev}
         onSubmitAction={onSubmitAction}
-      >
-        <AnimatePresence>
-          <SwitchRender
-            condition={steps}
-            render={{
-              1: <ReviewStep1 />,
-              2: <ReviewStep2 />,
-              3: <ReviewStep3 />,
-              4: <ReviewStep4 />,
-            }}
-          />
-        </AnimatePresence>
-      </ReviewForm>
+      />
     </FormProvider>
   </div>
 }

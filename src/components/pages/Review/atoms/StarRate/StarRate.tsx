@@ -1,11 +1,7 @@
+import type { StarRateProps } from './types';
 import ConditionalRender from '@/components/utils/ConditionalRender'
 import StarEmptyIcon from '@assets/netflix/icon/starEmptyIcon.svg'
 import StarFillIcon from '@assets/netflix/icon/starFillIcon.svg'
-
-interface StarRateProps {
-  value: number
-  onChange: (_v: number) => void
-}
 
 export default function StarRate({ value, onChange }: StarRateProps) {
   return <div css={{

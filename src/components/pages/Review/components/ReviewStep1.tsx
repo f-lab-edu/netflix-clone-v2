@@ -1,3 +1,4 @@
+import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
@@ -12,7 +13,7 @@ export default function ReviewStep1() {
     setValue,
     formState,
     trigger
-  } = useFormContext<DramaReviewFormData>()
+  } = useFormContext<DramaReviewFormDataType>()
 
   const watchState = watch('watchState')
   const watchStartDate = watch('watchStartDate')

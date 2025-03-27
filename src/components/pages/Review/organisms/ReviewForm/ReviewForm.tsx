@@ -1,4 +1,4 @@
-import type { ReviewWriteSteps } from '../hooks/useReviewSteps';
+import type { ReviewWriteSteps } from '../../hooks/useReviewSteps';
 import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import type { ReactNode } from 'react';
 import { useFormContext } from 'react-hook-form'

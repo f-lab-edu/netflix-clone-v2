@@ -1,19 +1,10 @@
+import type { useReviewFormProps } from './types';
 import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
-import type { UseFormProps } from 'react-hook-form';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form'
 import DramaReview from '@/lib/network/types/DramaReview';
 
 const formDataKey = 'write-review-state'
-
-interface useReviewFormProps {
-  contentUploadDate: number,
-  steps: number,
-  contentId: number,
-  onInit?: () => void,
-  storage?: Storage,
-  props?: UseFormProps<DramaReviewFormDataType>,
-}
 
 export default function useReviewForm({
   contentUploadDate,

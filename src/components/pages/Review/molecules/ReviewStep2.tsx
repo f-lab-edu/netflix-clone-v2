@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
-import StarRate from './StarRate';
+import StarRate from '../atoms/StarRate';
 
 export default function ReviewStep2() {
   const {

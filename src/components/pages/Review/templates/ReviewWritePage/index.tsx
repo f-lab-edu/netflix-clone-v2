@@ -1,5 +1,6 @@
 import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import type { NextPageWithLayout } from '@/pages/_app';
+import type { FC } from 'react';
 import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
 import { useParams } from 'next/navigation';
@@ -10,14 +11,14 @@ import ClientOnly from '@/components/utils/ClientOnly';
 import SuspenseErrorBoundary from '@/components/utils/SuspenseErrorBoundary';
 import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
-import ReviewForm from '../components/ReviewForm';
-import ReviewStep1 from '../components/ReviewStep1';
-import ReviewStep2 from '../components/ReviewStep2';
-import ReviewStep3 from '../components/ReviewStep3';
-import ReviewStep4 from '../components/ReviewStep4';
-import useReviewForm from '../hooks/useReviewForm';
-import useReviewSteps from '../hooks/useReviewSteps';
-import ReviewWritePageSkeleton from './Skeleton';
+import useReviewForm from '../../hooks/useReviewForm';
+import useReviewSteps from '../../hooks/useReviewSteps';
+import ReviewStep1 from '../../molecules/ReviewStep1';
+import ReviewStep2 from '../../molecules/ReviewStep2';
+import ReviewStep3 from '../../molecules/ReviewStep3';
+import ReviewStep4 from '../../molecules/ReviewStep4';
+import ReviewForm from '../../organisms/ReviewForm';
+import { SkeletonImgCss } from '../../templates/ReviewWritePage/style';
 
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
@@ -74,6 +75,18 @@ const ReviewWritePage: NextPageWithLayout = () => {
     </FormProvider>
   </div>
 }
+const ReviewWritePageSkeleton: FC = () => {
+  return <div>
+    <img
+      css={SkeletonImgCss}
+      alt="skeleton"
+      width="848"
+      height="477"
+    />
+  </div>
+}
+
+ReviewWritePage.Skeleton = ReviewWritePageSkeleton
 
 ReviewWritePage.getLayout = (page) => {
   return <BrowserLayout headerType='browse'>

@@ -1,11 +1,10 @@
 import type { ZodObject, ZodRawShape } from 'zod';
-import { notFound, useParams } from 'next/navigation';
+import { notFound } from 'next/navigation';
 
-export default function useAssertParams<T extends ZodRawShape>(z: ZodObject<T>) {
-  const params = useParams()
+export default function useAssertParams<T extends ZodRawShape>(z: ZodObject<T>, params: object) {
   const result = z.safeParse(params)
   if (result.error) {
-    return notFound()
+    notFound()
   }
   return result.data
 }

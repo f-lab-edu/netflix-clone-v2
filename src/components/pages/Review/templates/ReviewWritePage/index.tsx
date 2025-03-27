@@ -25,9 +25,9 @@ const ReviewWritePageParamRule = z.object({
   contentId: z.string().regex(/^\d+$/).transform(v => Number(v))
 })
 
-const ReviewWritePage: NextPageWithLayout = () => {
+const ReviewWritePage: NextPageWithLayout = (params) => {
   const router = useRouter()
-  const { contentId } = useAssertParams(ReviewWritePageParamRule)
+  const { contentId } = useAssertParams(ReviewWritePageParamRule, params)
   const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()
 

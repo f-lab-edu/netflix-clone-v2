@@ -22,13 +22,12 @@ import ReviewForm from '../../organisms/ReviewForm';
 import { SkeletonImgCss } from '../../templates/ReviewWritePage/style';
 
 const ReviewWritePageParamRule = z.object({
-  contentId: z.string().regex(/^\d+$/)
+  contentId: z.string().regex(/^\d+$/).transform(v => Number(v))
 })
 
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { contentId: contentIdStr } = useAssertParams(ReviewWritePageParamRule)
-  const contentId = Number(contentIdStr)
+  const { contentId } = useAssertParams(ReviewWritePageParamRule)
   const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()
 
@@ -43,7 +42,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
     if (steps === useReviewSteps.LAST_STEPS) {
       // TODO: save review
       console.log('save data : ', data)
-      router.push(`/review/${contentIdStr}`)
+      router.push(`/review/${contentId}`)
       initReviewStates()
       initSteps()
     } else {

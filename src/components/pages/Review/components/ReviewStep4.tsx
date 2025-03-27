@@ -1,13 +1,7 @@
 import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
 
-interface ReviewStepsProps {
-  onGoBackAction: () => void
-}
-
-export default function ReviewStep4({
-  onGoBackAction,
-}: ReviewStepsProps) {
+export default function ReviewStep4() {
   const {
     register
   } = useFormContext()
@@ -31,10 +25,5 @@ export default function ReviewStep4({
         비공개
       </LabelRadio>
     </div>
-
-    <button onClick={onGoBackAction}>Goto Before</button>
-    <button type='submit'>
-      Save
-    </button>
   </div>
 }

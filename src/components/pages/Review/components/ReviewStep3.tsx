@@ -4,13 +4,7 @@ import { useFormContext } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 
-interface ReviewStepsProps {
-  onGoBackAction: () => void
-}
-
-export default function ReviewStep3({
-  onGoBackAction,
-}: ReviewStepsProps) {
+export default function ReviewStep3() {
   const {
     register,
     unregister,
@@ -34,9 +28,5 @@ export default function ReviewStep3({
         )}
       />
     </div>
-    <button onClick={onGoBackAction}>Goto Before</button>
-    <button type='submit'>
-      Next
-    </button>
   </div>
 }

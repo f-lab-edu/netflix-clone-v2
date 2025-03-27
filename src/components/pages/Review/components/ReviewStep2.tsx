@@ -2,13 +2,7 @@ import { useFormContext } from 'react-hook-form';
 import LabelRadio from '@/components/ui/Form/LabelRadio';
 import StarRate from './StarRate';
 
-interface ReviewStepsProps {
-  onGoBackAction: () => void
-}
-
-export default function ReviewStep2({
-  onGoBackAction,
-}: ReviewStepsProps) {
+export default function ReviewStep2() {
   const {
     register,
     setValue,
@@ -43,9 +37,5 @@ export default function ReviewStep2({
         onChange={(v) => setValue('rate', v)}
       />
     </div>
-    <button onClick={onGoBackAction}>Goto Before</button>
-    <button type='submit'>
-      Next
-    </button>
   </div>
 }

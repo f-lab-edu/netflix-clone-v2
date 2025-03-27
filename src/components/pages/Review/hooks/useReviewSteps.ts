@@ -2,7 +2,7 @@ import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { JotaiLocalStorage } from '@/state/util/Storage';
 
-type ReviewWriteSteps = 1 | 2 | 3 | 4
+export type ReviewWriteSteps = 1 | 2 | 3 | 4
 
 const defaultReviewSteps = 1
 const LAST_STEPS = 4

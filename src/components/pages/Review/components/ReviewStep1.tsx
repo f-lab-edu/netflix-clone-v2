@@ -82,8 +82,5 @@ export default function ReviewStep1() {
         formState.touchedFields.watchEndDate
       )}
     />
-    <button type='submit'>
-      Next
-    </button>
   </div >
 }

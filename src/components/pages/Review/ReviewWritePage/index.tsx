@@ -10,6 +10,7 @@ import ClientOnly from '@/components/utils/ClientOnly';
 import SuspenseErrorBoundary from '@/components/utils/SuspenseErrorBoundary';
 import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
+import ReviewForm from '../components/ReviewForm';
 import ReviewStep1 from '../components/ReviewStep1';
 import ReviewStep2 from '../components/ReviewStep2';
 import ReviewStep3 from '../components/ReviewStep3';
@@ -38,7 +39,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
     contentId: contentId
   })
 
-  const onSubmitAction = (data: DramaReviewFormDataType) => {
+  const onSubmitAction = (steps: number, data: DramaReviewFormDataType) => {
     if (steps === useReviewSteps.LAST_STEPS) {
       // TODO: save review
       console.log('save data : ', data)
@@ -57,26 +58,31 @@ const ReviewWritePage: NextPageWithLayout = () => {
       width="848"
       height="477"
     />
-    <form onSubmit={handleSubmit(onSubmitAction)}>
-      <FormProvider
-        {...formProps}
-        handleSubmit={handleSubmit}
-        setValue={setValue}
-        getValues={getValues}
+    <FormProvider
+      {...formProps}
+      handleSubmit={handleSubmit}
+      setValue={setValue}
+      getValues={getValues}
+    >
+      <ReviewForm
+        maxSteps={useReviewSteps.LAST_STEPS}
+        steps={steps}
+        onGoBackAction={gotoPrev}
+        onSubmitAction={onSubmitAction}
       >
         <AnimatePresence>
           <SwitchRender
             condition={steps}
             render={{
               1: <ReviewStep1 />,
-              2: <ReviewStep2 onGoBackAction={gotoPrev} />,
-              3: <ReviewStep3 onGoBackAction={gotoPrev} />,
-              4: <ReviewStep4 onGoBackAction={gotoPrev} />,
+              2: <ReviewStep2 />,
+              3: <ReviewStep3 />,
+              4: <ReviewStep4 />,
             }}
           />
         </AnimatePresence>
-      </FormProvider>
-    </form>
+      </ReviewForm>
+    </FormProvider>
   </div>
 }
 

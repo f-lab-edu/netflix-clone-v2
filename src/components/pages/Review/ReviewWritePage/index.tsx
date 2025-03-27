@@ -39,7 +39,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
   })
 
   const onSubmitAction = (data: DramaReviewFormDataType) => {
-    if (steps === 4) {
+    if (steps === useReviewSteps.LAST_STEPS) {
       // TODO: save review
       console.log('save data : ', data)
       router.push(`/review/${contentIdStr}`)

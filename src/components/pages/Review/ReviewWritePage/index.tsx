@@ -1,3 +1,4 @@
+import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import type { NextPageWithLayout } from '@/pages/_app';
 import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
@@ -20,7 +21,8 @@ import ReviewWritePageSkeleton from './Skeleton';
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
   const { contentId: contentIdStr } = useParams<{ contentId: string }>()
-  const { data: content } = useGetContentById(Number(contentIdStr))
+  const contentId = Number(contentIdStr)
+  const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()
 
   const {
@@ -29,14 +31,19 @@ const ReviewWritePage: NextPageWithLayout = () => {
     getValues,
     initReviewStates,
     ...formProps
-  } = useReviewForm(content?.uploadDate ?? 0, steps, initSteps)
+  } = useReviewForm({
+    contentUploadDate: content?.uploadDate ?? 0,
+    steps,
+    contentId: contentId
+  })
 
-  const onSubmitAction = (data: DramaReviewFormData) => {
+  const onSubmitAction = (data: DramaReviewFormDataType) => {
     if (steps === 4) {
       // TODO: save review
       console.log('save data : ', data)
       router.push(`/review/${contentIdStr}`)
-      initReviewStates(contentIdStr)
+      initReviewStates()
+      initSteps()
     } else {
       gotoNext()
     }

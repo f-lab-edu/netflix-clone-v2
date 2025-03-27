@@ -1,29 +1,33 @@
+import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import type { UseFormProps } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useParams } from 'next/navigation';
 import { useCallback, useEffect } from 'react';
 import { useForm } from 'react-hook-form'
-import z from 'zod'
-
-const dateChecker = (a: string | number, b: string | number) => {
-  return new Date(a) < new Date(b)
-}
+import DramaReview from '@/lib/network/types/DramaReview';
 
 const formDataKey = 'write-review-state'
 
-export default function useReviewForm(
+interface useReviewFormProps {
   contentUploadDate: number,
   steps: number,
-  onInit: () => void,
-  storage: Storage = localStorage,
-  props?: UseFormProps<DramaReviewFormData>,
-) {
-  const { contentId: contentIdStr } = useParams<{ contentId: string }>()
+  contentId: number,
+  onInit?: () => void,
+  storage?: Storage,
+  props?: UseFormProps<DramaReviewFormDataType>,
+}
 
-  const loadSavedData = (): DramaReviewFormData => {
+export default function useReviewForm({
+  contentUploadDate,
+  steps,
+  contentId,
+  onInit,
+  storage = localStorage,
+  props,
+}: useReviewFormProps) {
+
+  const loadSavedData = (): DramaReviewFormDataType => {
     const state = storage.getItem(formDataKey)
-    return state ? JSON.parse(state) as DramaReviewFormData : {
-      contentId: contentIdStr,
+    return state ? JSON.parse(state) as DramaReviewFormDataType : {
+      contentId,
       watchState: 'none',
       rate: 3,
       comment: '',
@@ -34,48 +38,18 @@ export default function useReviewForm(
     }
   }
 
-  const { watch, getValues, setValue, ...formData } = useForm<DramaReviewFormData>({
+  const { watch, getValues, setValue, ...formData } = useForm<DramaReviewFormDataType>({
     ...props,
     mode: 'onBlur',
     defaultValues: loadSavedData(),
-    resolver: zodResolver(
-      z.object({
-        contentId: z.string().regex(/^\d+$/),
-        watchState: z.enum(['none', 'watching', 'end']),
-        watchStartDate: z.string().date(),
-        watchEndDate: z.string().or(z.string().date()),
-        willRecommend: z.enum(['true', 'false']),
-        rate: z.number(),
-        comment: z.string(),
-        isPublic: z.enum(['true', 'false']),
-      })
-        .refine((data) => dateChecker(String(contentUploadDate), data.watchStartDate), {
-          message: '시청 시작일은 개봉일보다 빠를 수 없습니다.',
-          path: ['watchStartDate']
-        })
-        .refine((data) => data.watchState === 'end' ? data.watchEndDate : true, {
-          message: '다봤음 상태에서 시청 종료일을 선택해야 합니다.',
-          path: ['watchEndDate']
-        })
-        .refine((data) => data.watchState === 'end' ? dateChecker(data.watchStartDate, data.watchEndDate) : true, {
-          message: '시청 종료일은 시청 시작일보다 빠를 수 없습니다.',
-          path: ['watchEndDate']
-        })
-        .refine((data) =>
-          steps >= 3 && (data.rate === 1 || data.rate === 5) ?
-            data.comment.length >= 100 && data.comment.length <= 300 :
-            true, {
-          message: '별점이 1점 또는 5점이면 후기는 최소 100자에서 300자를 작성 해야합니다.',
-          path: ['comment'],
-        })
-    ),
+    resolver: DramaReview.hookFormResolver(steps, String(contentUploadDate))
   })
   const values = watch()
   useEffect(() => {
     storage.setItem(formDataKey, JSON.stringify(values))
   }, [values, storage])
 
-  const initReviewStates = useCallback((contentId: string) => {
+  const initReviewStates = useCallback(() => {
     setValue('contentId', contentId)
     setValue('comment', '')
     setValue('isPublic', 'false')
@@ -84,16 +58,17 @@ export default function useReviewForm(
     setValue('watchStartDate', '')
     setValue('watchState', 'watching')
     setValue('willRecommend', 'false')
-    onInit()
-  }, [onInit, setValue])
+    if (onInit) {
+      onInit()
+    }
+  }, [onInit, setValue, contentId])
 
   useEffect(() => {
-    const contentId = getValues('contentId')
-    if (!contentIdStr) return
-    if (contentIdStr !== contentId) {
-      initReviewStates(contentIdStr)
+    const contentIdOnForm = getValues('contentId')
+    if (contentIdOnForm !== contentId) {
+      initReviewStates()
     }
-  }, [contentIdStr, getValues, initReviewStates])
+  }, [getValues, initReviewStates, contentId])
 
   return {
     watch, setValue, getValues, initReviewStates, ...formData

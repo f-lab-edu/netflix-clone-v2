@@ -1,9 +1,10 @@
+import type { Step1FormDataType } from '@/lib/network/types/DramaReview';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
-import LabelRadio from '@/components/ui/Form/LabelRadio';
 import TextInput from '@/components/ui/Form/TextInput';
 import RHFValidErrorHelper from '@/components/ui/Form/utils/RHFValidErrorHelper';
 import useDateChange from '@/hooks/InputFilter/useDateChange';
+import { HookFormRadioGroup } from '../atoms/RadioGroup';
 
 export default function ReviewStep1() {
   const {
@@ -12,7 +13,7 @@ export default function ReviewStep1() {
     setValue,
     formState,
     trigger
-  } = useFormContext<DramaReviewFormData>()
+  } = useFormContext<Step1FormDataType>()
 
   const watchState = watch('watchState')
   const watchStartDate = watch('watchStartDate')
@@ -21,41 +22,25 @@ export default function ReviewStep1() {
     trigger(['watchEndDate'])
   }, [watchStartDate, trigger])
   const dateFilter = useDateChange.WithoutLocale()
-  return <div>
-    <div>
-      시청 상태
-      <div css={{
-        display: 'flex',
-        columnGap: '8px'
-      }}>
-        <LabelRadio
-          value='none'
-          {...register('watchState', {
-            required: true,
-            onChange: (e) => {
-              const changeValue = e.target.value
-              if (changeValue !== 'end') {
-                setValue('watchEndDate', '')
-              }
-            }
-          })}
-        >
-          미시청
-        </LabelRadio>
-        <LabelRadio
-          value='watching'
-          {...register('watchState')}
-        >
-          시청 중
-        </LabelRadio>
-        <LabelRadio
-          value='end'
-          {...register('watchState')}
-        >
-          다봤음
-        </LabelRadio>
-      </div>
-    </div>
+  return <section aria-label="form step1">
+    <HookFormRadioGroup
+      title='시청 상태'
+      name='watchState'
+      items={[
+        { text: '미시청', value: 'none' },
+        { text: '시청 중', value: 'watching' },
+        { text: '다봤음', value: 'end' }
+      ]}
+      formRule={{
+        required: true,
+        onChange: (e) => {
+          const changeValue = e.target.value
+          if (changeValue !== 'end') {
+            setValue('watchEndDate', '')
+          }
+        }
+      }}
+    />
     <TextInput.Dark
       type='date'
       label="시청 시작일"
@@ -81,8 +66,5 @@ export default function ReviewStep1() {
         formState.touchedFields.watchEndDate
       )}
     />
-    <button type='submit'>
-      Next
-    </button>
-  </div >
+  </section >
 }

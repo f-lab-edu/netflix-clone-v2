@@ -1,17 +1,15 @@
 import type { NextPageWithLayout } from '@/pages/_app';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
-import { useRouter } from 'next/router';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
+import useAssertParams from '@/hooks/useAssertParams';
+import { useReviewRouter } from './hooks/useReviewRouter';
+import { ReviewListPageParamRule } from './lib/paramRules';
 
-const ReviewListPage: NextPageWithLayout = () => {
-  const { contentId } = useParams<{ contentId: string }>()
-  const router = useRouter()
-  const { data: content } = useGetContentById(Number(contentId))
-  const gotoWriteReview = () => {
-    router.push(`/review/${contentId}/write`)
-  }
+const ReviewListPage: NextPageWithLayout = (params) => {
+  const { contentId } = useAssertParams(ReviewListPageParamRule, params)
+  const { data: content } = useGetContentById(contentId)
+  const { gotoWritePage } = useReviewRouter(contentId)
   return <div>
     <Image
       src={content?.thumbnail ?? ''}
@@ -20,7 +18,7 @@ const ReviewListPage: NextPageWithLayout = () => {
       height="477"
     />
     <div>
-      <button onClick={gotoWriteReview}>
+      <button onClick={gotoWritePage}>
         Add Review
       </button>
     </div>

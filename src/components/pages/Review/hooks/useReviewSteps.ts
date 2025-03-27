@@ -2,9 +2,10 @@ import { useAtom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
 import { JotaiLocalStorage } from '@/state/util/Storage';
 
-type ReviewWriteSteps = 1 | 2 | 3 | 4
+export type ReviewWriteSteps = 1 | 2 | 3 | 4
 
-export const defaultReviewSteps = 1
+const defaultReviewSteps = 1
+const LAST_STEPS = 4
 
 const reviewStateAtom = atomWithStorage('write-review-steps', defaultReviewSteps, JotaiLocalStorage<ReviewWriteSteps>())
 
@@ -18,7 +19,7 @@ const useReviewSteps = () => {
   }
   const gotoNext = () => {
     setSteps(prev => {
-      if (prev < 4) return prev + 1 as ReviewWriteSteps
+      if (prev < LAST_STEPS) return prev + 1 as ReviewWriteSteps
       return prev
     })
   }
@@ -32,5 +33,6 @@ const useReviewSteps = () => {
     gotoNext,
   }
 }
+useReviewSteps.LAST_STEPS = LAST_STEPS
 
 export default useReviewSteps

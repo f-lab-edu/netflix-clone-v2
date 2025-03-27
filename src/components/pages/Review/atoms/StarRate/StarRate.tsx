@@ -3,16 +3,16 @@ import ConditionalRender from '@/components/utils/ConditionalRender'
 import StarEmptyIcon from '@assets/netflix/icon/starEmptyIcon.svg'
 import StarFillIcon from '@assets/netflix/icon/starFillIcon.svg'
 
-export default function StarRate({ value, onChange }: StarRateProps) {
+export default function StarRate({ value, onChange, minValue = 1, maxValue = 5 }: StarRateProps) {
   return <div css={{
     display: 'flex'
   }}>
-    {Array(5).fill(0).map((v, i) => <ConditionalRender.Boolean
+    {Array(maxValue - (minValue - 1)).fill(0).map((v, i) => <ConditionalRender.Boolean
       key={`star-${i}`}
-      condition={value >= i + 1}
+      condition={value >= i + minValue}
       render={{
-        true: <StarFillIcon onClick={() => onChange(i + 1)} />,
-        false: <StarEmptyIcon onClick={() => onChange(i + 1)} />
+        true: <StarFillIcon onClick={() => onChange(i + minValue)} />,
+        false: <StarEmptyIcon onClick={() => onChange(i + minValue)} />
       }}
     />)}
   </div>

@@ -3,14 +3,15 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import type { FC } from 'react';
 import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
-import { useParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { FormProvider } from 'react-hook-form';
+import { z } from 'zod';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
 import SuspenseErrorBoundary from '@/components/utils/SuspenseErrorBoundary';
 import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
+import useAssertParams from '@/hooks/useAssertParams';
 import useReviewForm from '../../hooks/useReviewForm';
 import useReviewSteps from '../../hooks/useReviewSteps';
 import ReviewStep1 from '../../molecules/ReviewStep1';
@@ -22,7 +23,9 @@ import { SkeletonImgCss } from '../../templates/ReviewWritePage/style';
 
 const ReviewWritePage: NextPageWithLayout = () => {
   const router = useRouter()
-  const { contentId: contentIdStr } = useParams<{ contentId: string }>()
+  const { contentId: contentIdStr } = useAssertParams(z.object({
+    contentId: z.string().regex(/^\d+$/)
+  }))
   const contentId = Number(contentIdStr)
   const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()

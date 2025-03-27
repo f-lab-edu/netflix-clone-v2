@@ -3,9 +3,7 @@ import type { NextPageWithLayout } from '@/pages/_app';
 import type { FC } from 'react';
 import { AnimatePresence } from 'motion/react';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 import { FormProvider } from 'react-hook-form';
-import { z } from 'zod';
 import BrowserLayout from '@/components/layout/BrowserLayout';
 import ClientOnly from '@/components/utils/ClientOnly';
 import SuspenseErrorBoundary from '@/components/utils/SuspenseErrorBoundary';
@@ -13,7 +11,9 @@ import SwitchRender from '@/components/utils/SwitchRender';
 import useGetContentById from '@/hooks/Query/content/useGetContentById';
 import useAssertParams from '@/hooks/useAssertParams';
 import useReviewForm from '../../hooks/useReviewForm';
+import { useReviewRouter } from '../../hooks/useReviewRouter';
 import useReviewSteps from '../../hooks/useReviewSteps';
+import { ReviewWritePageParamRule } from '../../lib/paramRules';
 import ReviewStep1 from '../../molecules/ReviewStep1';
 import ReviewStep2 from '../../molecules/ReviewStep2';
 import ReviewStep3 from '../../molecules/ReviewStep3';
@@ -21,20 +21,16 @@ import ReviewStep4 from '../../molecules/ReviewStep4';
 import ReviewForm from '../../organisms/ReviewForm';
 import { SkeletonImgCss } from '../../templates/ReviewWritePage/style';
 
-const ReviewWritePageParamRule = z.object({
-  contentId: z.string().regex(/^\d+$/).transform(v => Number(v))
-})
-
 const ReviewWritePage: NextPageWithLayout = (params) => {
-  const router = useRouter()
   const { contentId } = useAssertParams(ReviewWritePageParamRule, params)
+  const { gotoListPage } = useReviewRouter(contentId)
   const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()
 
   const form = useReviewForm({
     contentUploadDate: content?.uploadDate ?? 0,
     steps,
-    contentId: contentId
+    contentId
   })
   const { initReviewStates, saveFormData } = form
 
@@ -42,7 +38,7 @@ const ReviewWritePage: NextPageWithLayout = (params) => {
     if (steps === useReviewSteps.LAST_STEPS) {
       // TODO: save review
       console.log('save data : ', data)
-      router.push(`/review/${contentId}`)
+      gotoListPage()
       initReviewStates()
       initSteps()
     } else {

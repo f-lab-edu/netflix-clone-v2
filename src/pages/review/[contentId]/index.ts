@@ -1,21 +1,11 @@
-import type { GetStaticProps } from 'next';
-import { getServerTranslations } from '@/lib/i18n/getServerTranslations'
+import type { GetServerSideProps } from 'next';
 
 export { default } from '@/components/pages/Review/ReviewListPage'
 
-export const getStaticProps: GetStaticProps = async ({
-  locale,
-}) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
-      ...await getServerTranslations(locale || 'en', ['common', 'page-browse'])
-    },
-  }
-}
-
-export const getStaticPaths = async () => {
-  return {
-    paths: [],
-    fallback: true,
+      contentId: context.params?.contentId
+    }
   }
 }

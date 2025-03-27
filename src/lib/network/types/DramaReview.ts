@@ -7,7 +7,7 @@ export default class DramaReview {
     return new Date(a) < new Date(b)
   }
 
-  static baseObj = z.object({
+  static readonly baseObj = z.object({
     contentId: z.number(),
     watchState: z.enum(['none', 'watching', 'end']),
     watchStartDate: z.string().date(),
@@ -18,14 +18,14 @@ export default class DramaReview {
     isPublic: z.boolean(),
   })
 
-  static reviewObj = this.baseObj.extend({
+  static readonly reviewObj = this.baseObj.extend({
     id: z.number(),
     createAt: z.number(),
     modifiedAt: z.number(),
     deleteAt: z.number()
   })
 
-  static formObj = this.baseObj.extend({
+  static readonly formObj = this.baseObj.extend({
     willRecommend: z.enum(['true', 'false']),
     isPublic: z.enum(['true', 'false']),
   })
@@ -55,7 +55,7 @@ export default class DramaReview {
     )
   }
 
-  static formAsBaseObj = this.formObj.transform(v => ({
+  static readonly formAsBaseObj = this.formObj.transform(v => ({
     ...v,
     willRecommend: v.willRecommend === 'true',
     isPublic: v.isPublic === 'true'

@@ -1,4 +1,4 @@
-import type { useReviewFormProps } from './types';
+import type { UseReviewFormProps } from './types';
 import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
 import { useCallback, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form'
@@ -13,7 +13,7 @@ export default function useReviewForm({
   onInit,
   storage = localStorage,
   props,
-}: useReviewFormProps) {
+}: UseReviewFormProps) {
   const storedValueString = storage.getItem(formDataKey)
   const storedValue: DramaReviewFormDataType | undefined = storedValueString
     ? JSON.parse(storedValueString)

@@ -7,27 +7,43 @@ export default class DramaReview {
     return new Date(a) < new Date(b)
   }
 
-  static readonly baseObj = z.object({
-    contentId: z.number(),
+  static readonly step1FormData = z.object({
     watchState: z.enum(['none', 'watching', 'end']),
     watchStartDate: z.string().date(),
     watchEndDate: z.string().or(z.string().date()),
-    rate: z.number(),
-    comment: z.string(),
-    willRecommend: z.boolean(),
-    isPublic: z.boolean(),
   })
 
-  static readonly reviewObj = this.baseObj.extend({
+  static readonly step2FormData = z.object({
+    willRecommend: z.enum(['true', 'false']),
+    rate: z.number(),
+  })
+
+  static readonly step3FormData = z.object({
+    comment: z.string(),
+  })
+
+  static readonly step4FormData = z.object({
+    isPublic: z.enum(['true', 'false']),
+  })
+
+  static readonly formObj = z.object({
+    contentId: z.number(),
+  })
+    .merge(this.step1FormData)
+    .merge(this.step2FormData)
+    .merge(this.step3FormData)
+    .merge(this.step4FormData)
+
+  static readonly reviewObj = this.formObj.extend({
     id: z.number(),
     createAt: z.number(),
     modifiedAt: z.number(),
     deleteAt: z.number()
   })
 
-  static readonly formObj = this.baseObj.extend({
-    willRecommend: z.enum(['true', 'false']),
-    isPublic: z.enum(['true', 'false']),
+  static readonly baseObj = this.formObj.extend({
+    willRecommend: z.boolean(),
+    isPublic: z.boolean(),
   })
 
   static hookFormResolver(steps: number, contentUploadDate: string) {
@@ -61,9 +77,14 @@ export default class DramaReview {
     isPublic: v.isPublic === 'true'
   }))
 
-  static transformAsBaseObj(obj: z.infer<typeof DramaReview.formObj>) {
+  static transFormObjAsBaseObj(obj: z.infer<typeof DramaReview.formObj>): z.infer<typeof DramaReview.baseObj> {
     return this.formAsBaseObj.parse(obj)
   }
 }
+
+export type Step1FormDataType = z.infer<typeof DramaReview.step1FormData>
+export type Step2FormDataType = z.infer<typeof DramaReview.step2FormData>
+export type Step3FormDataType = z.infer<typeof DramaReview.step3FormData>
+export type Step4FormDataType = z.infer<typeof DramaReview.step4FormData>
 export type DramaReviewType = z.infer<typeof DramaReview.reviewObj>
 export type DramaReviewFormDataType = z.infer<typeof DramaReview.formObj>

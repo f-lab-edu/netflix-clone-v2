@@ -1,4 +1,4 @@
-import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
+import type { Step3FormDataType } from '@/lib/network/types/DramaReview';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
@@ -9,7 +9,7 @@ export default function ReviewStep3() {
     register,
     unregister,
     formState,
-  } = useFormContext<DramaReviewFormDataType>()
+  } = useFormContext<Step3FormDataType>()
   useEffect(() => {
     return () => {
       unregister('comment', {

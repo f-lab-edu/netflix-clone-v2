@@ -1,4 +1,4 @@
-import type { DramaReviewFormDataType } from '@/lib/network/types/DramaReview';
+import type { Step1FormDataType } from '@/lib/network/types/DramaReview';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import TextInput from '@/components/ui/Form/TextInput';
@@ -13,7 +13,7 @@ export default function ReviewStep1() {
     setValue,
     formState,
     trigger
-  } = useFormContext<DramaReviewFormDataType>()
+  } = useFormContext<Step1FormDataType>()
 
   const watchState = watch('watchState')
   const watchStartDate = watch('watchStartDate')

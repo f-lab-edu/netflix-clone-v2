@@ -26,18 +26,12 @@ const ReviewWritePage: NextPageWithLayout = () => {
   const { data: content } = useGetContentById(contentId)
   const { steps, gotoNext, gotoPrev, initSteps } = useReviewSteps()
 
-  const {
-    handleSubmit,
-    setValue,
-    getValues,
-    initReviewStates,
-    saveFormData,
-    ...formProps
-  } = useReviewForm({
+  const form = useReviewForm({
     contentUploadDate: content?.uploadDate ?? 0,
     steps,
     contentId: contentId
   })
+  const { initReviewStates, saveFormData } = form
 
   const onSubmitAction = (steps: number, data: DramaReviewFormDataType) => {
     if (steps === useReviewSteps.LAST_STEPS) {
@@ -58,12 +52,7 @@ const ReviewWritePage: NextPageWithLayout = () => {
       width="848"
       height="477"
     />
-    <FormProvider
-      {...formProps}
-      handleSubmit={handleSubmit}
-      setValue={setValue}
-      getValues={getValues}
-    >
+    <FormProvider {...form}>
       <ReviewForm
         maxSteps={useReviewSteps.LAST_STEPS}
         steps={steps}
